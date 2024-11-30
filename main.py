@@ -19,6 +19,8 @@ BLACK = (0, 0, 0)
 running = True
 clock = pygame.time.Clock()
 
+print("bonjour")
+
 # Boucle de jeu
 while running:
 
