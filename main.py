@@ -51,7 +51,9 @@ while running:
             navire_i.tourne_droite()
         
         if keys[pygame.K_SPACE]:
-            liste_shot.append(navire_i.shoot())
+            tire_du_navire = navire_i.shoot()
+            if tire_du_navire is not None:
+                liste_shot.extend(tire_du_navire)
 
         # Mettre à jour la position des vaisseau
         navire_i.avancer()
@@ -67,8 +69,11 @@ while running:
         ennemis.sortir_ecran(screen_width, screen_height)
 
     for shot_i in liste_shot:
-        shot_i.avancer()
-        if shot_i.despawn_distance():
+        if shot_i is not None:
+            shot_i.avancer()
+            if shot_i.despawn_distance():
+                liste_shot.remove(shot_i)
+        else:
             liste_shot.remove(shot_i)
 
     # Remplir l'écran avec une couleur de fond

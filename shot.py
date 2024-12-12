@@ -11,7 +11,7 @@ class Shot:
         self.width = 20
         self.height = 20
         self.angle = angle
-        self.vitesse = 15
+        self.vitesse = 10
         self.distance_max = distance_max
         image = pygame.image.load(img)
         self.image = pygame.transform.scale(image, (self.width, self.height)).convert_alpha()
@@ -23,7 +23,7 @@ class Shot:
     
     # si la distance parcouru par le boulet est trop grande il despawn
     def despawn_distance(self):
-        return fonc_aux.calc_distance(self.x, self.y, self.position_initiale_x, self.position_initiale_y) == self.distance_max
+        return fonc_aux.calc_distance(self.x, self.y, self.position_initiale_x, self.position_initiale_y) >= self.distance_max
     
     def afficher(self, screen):
         self.rect = self.image.get_rect(center=(self.x, self.y))
