@@ -11,7 +11,7 @@ chaque îles apparaît a des moments aleatoires a des endroits aleatoires et il 
     • Rare : ports un peu plus riche et gros, upgrade un peu mieux et quelque benedictions pas ouf
         ◦ Malus 5 %
         ◦ Upgrade rare 60 %
-        ◦ Benedication basique (temporaire) 25 %
+        ◦ Benediction basique (temporaire) 25 %
         ◦ Rien 10 %
     • Mythique : des ports riches et des upgrade a la pointe de la technologie. Les benedictions sont puissante
         ◦ Upgrade mythique 60 %
