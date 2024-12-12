@@ -1,6 +1,6 @@
 import math
 import pygame
-import fonction_auxiliere as fo_au
+import fonction_auxiliere as fonc_aux
 
 class Shot:
     def __init__(self, x, y, speed, angle, distance_max):
@@ -20,6 +20,5 @@ class Shot:
     
     # si la distance parcouru par le boulet est trop grande il despawn
     def despawn_distance(self):
-        return fo_au.calc_distance(self.x, self.y, self.position_initiale_x, self.position_initiale_y) == self.distance_max
-    
+        return fonc_aux.calc_distance(self.x, self.y, self.position_initiale_x, self.position_initiale_y) == self.distance_max
     
