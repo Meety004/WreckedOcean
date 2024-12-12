@@ -1,6 +1,7 @@
 import math
 import pygame
 import random
+import shot
 
 class Navire:
     def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height):
@@ -63,3 +64,6 @@ class Navire:
         rotated_image = pygame.transform.rotate(self.image, -self.angle).convert_alpha()
         rect = rotated_image.get_rect(center=(self.x, self.y))
         screen.blit(rotated_image, rect)
+
+    def shoot(self):
+        return shot.Shot(self.x, self.y, self.angle+90, 40, "images/boulet_canon.png") # argument : x, y, angle, distance_max, image
