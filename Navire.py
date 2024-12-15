@@ -1,6 +1,7 @@
 import math
 import pygame
 import random
+import shot
 
 class Navire:
     def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height):
@@ -18,6 +19,8 @@ class Navire:
         #original_image = pygame.transform.rotate(original_image, 90).convert_alpha()
         original_image = pygame.transform.scale(original_image, (self.width, self.height)).convert_alpha()
         self.image = original_image  # Image qui sera affichée
+        self.dernier_tire = 0 # le denier tire fait par le bateau pour le chrono
+        self.cadance_tire = 1000 # en milliseconde
 
     # le bateau avance en permanence de la vitesse (donc si la vitesse vaut 0 il avance pas)
     def avancer(self):
@@ -63,3 +66,16 @@ class Navire:
         rotated_image = pygame.transform.rotate(self.image, -self.angle).convert_alpha()
         rect = rotated_image.get_rect(center=(self.x, self.y))
         screen.blit(rotated_image, rect)
+
+    def shoot(self):
+        # verifie si il a rechargé
+        if pygame.time.get_ticks() - self.dernier_tire >= self.cadance_tire:
+            self.dernier_tire = pygame.time.get_ticks()
+
+            #argument : x, y, angle, distance_max, image
+            # l'angle est ajusté en fonction de la vitesse du bateau. si il avance les boulet continue dans sa direction
+            tire_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, 150, "images/boulet_canon.png")
+            tire_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 150, "images/boulet_canon.png")
+            return [tire_droite, tire_gauche]
+        else:
+            return None
