@@ -9,6 +9,10 @@ screen_width = pygame.display.Info().current_w
 screen_height = pygame.display.Info().current_h
 screen = pygame.display.set_mode((screen_width, screen_height))
 
+# initialisation du delta time pour avoir la même vitesse sur tout les ordi
+clock = pygame.time.Clock()
+delta_time = pygame.time.Clock().tick(60) / 30 # la division par 100 sert a mettre en seconde (j'ai pas tout compris)
+
 # listes avec les ennemis et les joueurs (pour l'instant le joueur)
 liste_joueur = [Navire(7, 0.2, 5, "images/bato.png", screen_width, screen_height)] #vitesse_max, acceleration, maniabilité, image
 liste_ennemis = [IA_ennemis(7, 0.2, 5, "images/bato.png", screen_width, screen_height)]
@@ -19,7 +23,7 @@ BLACK = (0, 0, 0)
 
 # Boucle principale du jeu
 running = True
-clock = pygame.time.Clock()
+
 
 # Boucle de jeu
 while running:
@@ -45,10 +49,10 @@ while running:
             navire_i.ralentit()
 
         if keys[pygame.K_LEFT]:
-            navire_i.tourne_gauche()
+            navire_i.tourne_gauche(delta_time)
 
         if keys[pygame.K_RIGHT]:
-            navire_i.tourne_droite()
+            navire_i.tourne_droite(delta_time)
         
         if keys[pygame.K_SPACE]:
             tire_du_navire = navire_i.shoot()
@@ -56,7 +60,7 @@ while running:
                 liste_shot.extend(tire_du_navire)
 
         # Mettre à jour la position des vaisseau
-        navire_i.avancer()
+        navire_i.avancer(delta_time)
 
         # verifie qu'ils ne sortent pas de l'ecran
         navire_i.sortir_ecran(screen_width, screen_height)
@@ -65,12 +69,12 @@ while running:
     # fait les deplacement de l'ennemi
     
     for ennemis in liste_ennemis:
-        ennemis.bouger()
+        ennemis.bouger(delta_time)
         ennemis.sortir_ecran(screen_width, screen_height)
 
     for shot_i in liste_shot:
         if shot_i is not None:
-            shot_i.avancer()
+            shot_i.avancer(delta_time)
             if shot_i.despawn_distance():
                 liste_shot.remove(shot_i)
         else:
