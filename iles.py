@@ -1,5 +1,3 @@
-from random import choices, randint
-
 class Iles:
     def __init__(self):
         self.ile_rarete = ['commun', 'rare','mythique', 'légendaire']
