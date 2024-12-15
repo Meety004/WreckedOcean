@@ -17,9 +17,9 @@ class Shot:
         self.image = pygame.transform.scale(image, (self.width, self.height)).convert_alpha()
 
     # le boulet avance
-    def avancer(self, delta_time):
-        self.x += self.vitesse * math.cos(math.radians(self.angle - 90)) * delta_time
-        self.y += self.vitesse * math.sin(math.radians(self.angle - 90)) * delta_time
+    def avancer(self):
+        self.x += self.vitesse * math.cos(math.radians(self.angle - 90))
+        self.y += self.vitesse * math.sin(math.radians(self.angle - 90))
     
     # si la distance parcouru par le boulet est trop grande il despawn
     def despawn_distance(self):

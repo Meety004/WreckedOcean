@@ -23,9 +23,9 @@ class Navire:
         self.cadance_tire = 1000 # en milliseconde
 
     # le bateau avance en permanence de la vitesse (donc si la vitesse vaut 0 il avance pas)
-    def avancer(self, delta_time):
-        self.x += self.vitesse * math.cos(math.radians(self.angle - 90)) * delta_time
-        self.y += self.vitesse * math.sin(math.radians(self.angle - 90)) * delta_time
+    def avancer(self):
+        self.x += self.vitesse * math.cos(math.radians(self.angle - 90))
+        self.y += self.vitesse * math.sin(math.radians(self.angle - 90))
 
     # auglente la vitesse
     def accelerer(self):
@@ -39,15 +39,15 @@ class Navire:
         if self.vitesse < 0:
             self.vitesse = 0
 
-    def tourne_gauche(self, delta_time):
+    def tourne_gauche(self):
         if self.vitesse > 0:
-            self.angle -= self.maniabilite * delta_time * 1.2
+            self.angle -= self.maniabilite
             if self.angle < 0:
                 self.angle += 360
 
-    def tourne_droite(self, delta_time):
+    def tourne_droite(self):
         if self.vitesse > 0:
-            self.angle += self.maniabilite * delta_time * 1.2
+            self.angle += self.maniabilite
             if self.angle >= 360:
                 self.angle -= 360
 

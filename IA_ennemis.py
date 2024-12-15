@@ -18,7 +18,7 @@ class IA_ennemis(Navire):
         self.action = random.randint(0, 2) # 0 = aller tout droit, 1 = tourner a gauche, 2 = tourner a droite
         self.compte_action = 0 # compte combien de fois l'IA fait la meme action (ne peut pas la faire plus de 23 fois)
 
-    def bouger(self, delta_time):
+    def bouger(self):
         nouvelle_action = random.randint(0, 50)
         if nouvelle_action > 3:
             nouvelle_action = self.action
@@ -38,9 +38,9 @@ class IA_ennemis(Navire):
 
         # si l'action est de 0 alors le bateau ne tourne pas
         if self.action == 1:
-            super().tourne_gauche(delta_time)
+            super().tourne_gauche()
         if self.action == 2:
-            super().tourne_droite(delta_time)
+            super().tourne_droite()
         
         super().accelerer() # pour l'instant les ennemies avance tout le temps
-        super().avancer(delta_time)
+        super().avancer()
