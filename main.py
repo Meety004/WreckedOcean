@@ -11,7 +11,6 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 # initialisation du delta time pour avoir la même vitesse sur tout les ordi
 clock = pygame.time.Clock()
-fps = 120 # les fps avec lesquelles on veut que le jeux tourne
 
 # listes avec les ennemis et les joueurs (pour l'instant le joueur)
 liste_joueur = [Navire(7, 0.2, 5, "images/bato.png", screen_width, screen_height)] #vitesse_max, acceleration, maniabilité, image
@@ -27,8 +26,6 @@ running = True
 
 # Boucle de jeu
 while running:
-    clock.tick(fps)
-
 
 
     # UPDATE
