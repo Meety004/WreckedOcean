@@ -25,6 +25,7 @@ class Shot:
     def despawn_distance(self):
         return fonc_aux.calc_distance(self.x, self.y, self.position_initiale_x, self.position_initiale_y) >= self.distance_max
     
+    # affiche le boulet
     def afficher(self, screen):
         self.rect = self.image.get_rect(center=(self.x, self.y))
         screen.blit(self.image, self.rect)
