@@ -31,6 +31,8 @@ class Navire:
     def accelerer(self):
         if self.vitesse < self.vitesse_max:
             self.vitesse += self.acceleration
+        if self.vitesse > self.vitesse_max:
+            self.vitesse = self.vitesse_max
 
     # si il arrete d'avancer le bateau décelère
     def ralentit(self):
@@ -72,10 +74,15 @@ class Navire:
         if pygame.time.get_ticks() - self.dernier_tire >= self.cadance_tire:
             self.dernier_tire = pygame.time.get_ticks()
 
-            #argument : x, y, angle, distance_max, image
+            # argument : x, y, angle, distance_max, image
             # l'angle est ajusté en fonction de la vitesse du bateau. si il avance les boulet continue dans sa direction
             tire_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, 150, "images/boulet_canon.png")
             tire_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 150, "images/boulet_canon.png")
             return [tire_droite, tire_gauche]
         else:
             return None
+        
+    def position_x(self):
+        return self.x
+    def position_y(self):
+        return self.y
