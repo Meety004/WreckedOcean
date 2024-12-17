@@ -14,7 +14,7 @@ clock = pygame.time.Clock()
 
 # listes avec les ennemis et les joueurs (pour l'instant le joueur)
 liste_joueur = [Navire(7, 0.2, 5, "images/bato.png", screen_width, screen_height)] #vitesse_max, acceleration, maniabilité, image
-liste_ennemis = [IA_ennemis(7, 0.2, 5, "images/bato.png", screen_width, screen_height)]
+liste_ennemis = [IA_ennemis(5, 0.2, 5, "images/bato.png", screen_width, screen_height)]
 liste_shot = []
 
 # Définition de la couleur de fond (noir)
@@ -67,7 +67,11 @@ while running:
     # fait les deplacement de l'ennemi
     
     for ennemis in liste_ennemis:
-        ennemis.bouger()
+        for joueur in liste_joueur:
+            ennemis.bouger(joueur.position_x(), joueur.position_y())
+            tire_ennemi = ennemis.tirer(joueur.position_x(), joueur.position_y())
+            if tire_ennemi != None:
+                liste_shot.extend(tire_ennemi)
         ennemis.sortir_ecran(screen_width, screen_height)
 
     for shot_i in liste_shot:

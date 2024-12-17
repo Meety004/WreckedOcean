@@ -3,6 +3,7 @@
 import pygame
 import random
 import math
+import fonction_auxiliere
 
 # importation de la classe Navire
 from Navire import Navire
@@ -18,7 +19,21 @@ class IA_ennemis(Navire):
         self.action = random.randint(0, 2) # 0 = aller tout droit, 1 = tourner a gauche, 2 = tourner a droite
         self.compte_action = 0 # compte combien de fois l'IA fait la meme action (ne peut pas la faire plus de 23 fois)
 
-    def bouger(self):
+    def ennemi_in_range(self, ennemi_x, ennemi_y):
+        if fonction_auxiliere.calc_distance(self.x, self.y, ennemi_x, ennemi_y) <= 150:
+            return True
+        return False
+
+    def position_de_tire(self, position_cible_x, position_cible_y):
+            # calcule l'angle entre les 2 points
+            angle_de_tire = math.degrees(math.atan2(position_cible_y - self.y, position_cible_x - self.x))
+            # calcule lequel des 2 canon est le plus proche
+            if angle_de_tire - self.angle + 90 < angle_de_tire - self.angle - 90:
+                super().tourne_gauche()
+            else:
+                super().tourne_droite()
+
+    def bouger(self, ennemi_x, ennemi_y):
         nouvelle_action = random.randint(0, 50)
         if nouvelle_action > 3:
             nouvelle_action = self.action
@@ -37,10 +52,20 @@ class IA_ennemis(Navire):
         self.action = nouvelle_action
 
         # si l'action est de 0 alors le bateau ne tourne pas
-        if self.action == 1:
-            super().tourne_gauche()
-        if self.action == 2:
-            super().tourne_droite()
+        if self.ennemi_in_range(ennemi_x, ennemi_y):
+            self.position_de_tire(ennemi_x, ennemi_y)
+            self.vitesse_max = 8
+        else:
+            self.vitesse_max = 5
+            if self.action == 1:
+                super().tourne_droite()
+            if self.action == 2:
+                super().tourne_gauche()
         
         super().accelerer() # pour l'instant les ennemies avance tout le temps
         super().avancer()
+
+    def tirer(self, cible_x, cible_y):
+        if fonction_auxiliere.calc_distance(self.x, self.y, cible_x, cible_y) <= 140:
+            #if math.degrees(math.atan2(cible_y - self.y, cible_x - self.x)) == (self.angle + 90 or self.angle - 90):
+            return super().shoot()
