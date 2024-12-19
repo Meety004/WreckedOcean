@@ -42,9 +42,9 @@ class Iles:
         self.listeNav = liste_nav
 
         #Liste des récompenses de chaque type d'ile, ainsi que leurs probabilités
-        self.liste_recompenses_communes = ['1_canon', 'canon_en_bronze', 'voile_toile_de_jute', 'coque_epicea', 'coque_chene', self.random_malus(), 'rien']
+        self.liste_recompenses_communes = ['1_canon', 'canon_en_bronze', 'voile_toile_de_jute', 'coque_epicea', 'coque_chene', self.random_malus()[0], 'rien']
         self.probabilité_commun = [0.1, 0.1, 0.1, 0.1, 0.1, 0.2, 0.3]
-        self.liste_recompenses_rares = ['2_canons', 'canon_en_argent', 'canon_balistique', 'voile_latine', 'coque_bouleau', 'coque_chene_massif', self.random_malus(), 'rien', 'bene_dash', 'bene_sante']
+        self.liste_recompenses_rares = ['2_canons', 'canon_en_argent', 'canon_balistique', 'voile_latine', 'coque_bouleau', 'coque_chene_massif', self.random_malus()[0], 'rien', 'bene_dash', 'bene_sante']
         self.probabilité_rare = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.05, 0.1, 0.125, 0.125]
         self.liste_recompenses_mythiques = ['3_canons', 'canon_en_or', 'canon_tir_double', 'voile_enchantee', 'coque_bois_magique', 'bene_aura', 'bene_rage']
         self.probabilité_mythique = [0.12, 0.12, 0.12, 0.12, 0.12, 0.2, 0.2]
@@ -75,18 +75,6 @@ class Iles:
 
         self.timer = randint(600,1200)
 
-    # Méthode qui retourne un un malus alééatoire (str)
-    def random_malus(self):
-        self.malus = [
-            "Canons Rouillés",
-            "Toile Trouée",
-            "Coque Trouée"
-        ]
-        choice = choices(self.malus)
-        return choice
-
-    # Méthode qui retourne une récompense en fonction du type de l'île (str)
-    def type_recompenses(self):
         self.weights = self.dict_iles[self.type]
         if self.type == 'légendaire':
             self.liste_recompenses = self.liste_recompenses_legendaires
@@ -99,6 +87,19 @@ class Iles:
 
         self.recompenseListe = choices(self.liste_recompenses, weights=self.weights, k=1)
         self.recompense = self.recompenseListe[0]
+
+    # Méthode qui retourne un un malus alééatoire (str)
+    def random_malus(self):
+        self.malus = [
+            "Canons Rouillés",
+            "Voile Trouée",
+            "Coque Trouée"
+        ]
+        choice = choices(self.malus)
+        return choice
+
+    # Méthode qui retourne une récompense en fonction du type de l'île (str)
+    def type_recompenses(self):
         return self.recompense
 
 
@@ -111,3 +112,9 @@ class Iles:
     def decompte(self):
         self.timer -= 1
         return self.timer
+
+    def position_x(self):
+        return self.x
+    
+    def position_y(self):
+        return self.y
