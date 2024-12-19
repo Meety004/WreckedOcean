@@ -16,7 +16,6 @@ class Navire:
         self.width = 40
         self.height = 60
         original_image = pygame.image.load(image).convert_alpha()
-        #original_image = pygame.transform.rotate(original_image, 90).convert_alpha()
         original_image = pygame.transform.scale(original_image, (self.width, self.height)).convert_alpha()
         self.image = original_image  # Image qui sera affichée
         self.dernier_tire = 0 # le denier tire fait par le bateau pour le chrono

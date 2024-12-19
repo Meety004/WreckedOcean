@@ -1,5 +1,6 @@
 from fonction_auxiliere import *
 from random import *
+import pygame
 
 class Iles:
     def __init__(self, screen_width, screen_height, imageC, imageR, imageM, imageL, xPlayer, yPlayer):
@@ -7,12 +8,32 @@ class Iles:
         #Liste des raretés des iles
         self.ile_rarete = ['commun', 'rare','mythique', 'légendaire']
 
-        #On associe une image par rareté
-        self.imageC = imageC
-        self.imageR = imageR
-        self.imageM = imageM
-        self.imageL = imageL
-        self.imageDisplay = self.imageC
+        # les parametres de l'ecran
+        self.screen_width = screen_width
+        self.screen_height = screen_height
+
+        # taille de l'île
+        self.width = 35
+        self.height = 35
+
+        self.typeList = choices(self.ile_rarete, weights=[0.55, 0.30, 0.14, 0.01], k=1)
+        self.type = self.typeList[0]
+
+        if self.type == "rare":
+            imageDisplay = imageR
+
+        elif self.type == "mythique":
+            imageDisplay = imageM
+
+        elif self.type == "légendaire":
+            imageDisplay = imageL
+
+        else:
+            imageDisplay = imageC
+        
+        imageDisplay = pygame.image.load(imageDisplay).convert_alpha()
+
+        self.imageDisplay = pygame.transform.scale(imageDisplay, (self.width, self.height)).convert_alpha()
 
         self.xPlayer = xPlayer
         self.yPlayer = yPlayer
@@ -33,16 +54,18 @@ class Iles:
             'rare' : self.probabilité_rare,
             'mythique' : self.probabilité_mythique, 
             'légendaire': self.probabilité_legendaire}
+        
+        verifProx = False
 
-        #Position nulles à l'origine
-        self.x = None
-        self.y = None
+        while verifProx == False:
+            self.x = randint(35, (self.screen_width-35))
+            self.y = randint(35, (self.screen_height-35))
+            distance =  calc_distance(self.x, self.y, self.xPlayer, self.yPlayer)
 
-    #Fonction qui retourne le type d'île (str)
-    def type_ile(self):
-        self.typeList = choices(self.ile_rarete, weights=[0.55, 0.30, 0.14, 0.01], k=1)
-        self.type = self.typeList[0]
-        return self.type
+            if distance >= 10:
+                verifProx = True
+            else:
+                verifProx = False
 
 
     #Fonction qui retourne un un malus alééatoire (str)
@@ -72,35 +95,7 @@ class Iles:
         return self.recompense
 
 
-    #Fonction qui calcule la distance entre le joueur et l'île et retourne un booléen
-    def calccoords(self):
-        verifProx = False
-
-        while verifProx == False:
-            self.x = random.randint(35, (self.screen_width-35))
-            self.y = random.randint(35, (self.screen_height-35))
-            distance =  calc_distance(self.x, self.y, self.xPlayer, self.yPlayer)
-
-            if distance >= 40:
-                verifProx = True
-            else:
-                verifProx = False
-        return verifProx
-
     #Permet d'afficher l'île sur la map en fonction de sa rareté
     def afficher(self, screen):
-        self.calccoords()
-
-        if self.type == "rare":
-            self.imageDisplay = self.imageR
-
-        elif self.type == "mythique":
-            self.imageDisplay = self.imageM
-
-        elif self.type == "légendaire":
-            self.imageDisplay = self.imageL
-
-        else:
-            self.imageDisplay = self.imageC
         rect = self.imageDisplay.get_rect(center=(self.x, self.y))
-        screen.blit(imageDisplay, rect)
+        screen.blit(self.imageDisplay, rect)

@@ -23,8 +23,8 @@ liste_iles = [Iles(
     "images/ile_rare.png", 
     "images/ile_mythique.png", 
     "images/ile_legendaire.png", 
-    Navire.position_x(), 
-    Navire.position_y())]
+    liste_joueur[0].position_x(), 
+    liste_joueur[0].position_y())]
 
 # Liste de tout les tirs à l'écran
 liste_shot = []
@@ -122,7 +122,7 @@ while running:
 
     # Dessine les iles
     for ile in liste_iles:
-        ile.affiche(screen)
+        ile.afficher(screen)
 
     # Rafraîchir l'écran
     pygame.display.flip()
