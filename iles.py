@@ -104,9 +104,3 @@ class Iles:
             self.imageDisplay = self.imageC
         rect = self.imageDisplay.get_rect(center=(self.x, self.y))
         screen.blit(imageDisplay, rect)
-
-
-coucou = Iles()
-
-coucou.type_ile()
-coucou.type_recompenses()
