@@ -54,13 +54,11 @@ def setTimer():
 #On fait apparaitre des îles sous certaines conditions (timer à 0, 5 îles au total maximum)
 def apparitionIles(nbrIles, maxIles, timer):
     timer -= 1
-    print(timer)
     if timer <= 0:
         timer = setTimer()
         if nbrIles < maxIles:
             liste_iles.append(Iles(screen_width, screen_height,"images/ile_commune.png","images/ile_rare.png","images/ile_mythique.png","images/ile_legendaire.png",liste_navire))
             nbrIles += 1
-            print(nbrIles)
     return nbrIles, maxIles, timer
 
 #On appelle le timer pour la première fois
