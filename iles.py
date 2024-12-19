@@ -5,20 +5,22 @@ import pygame
 class Iles:
     def __init__(self, screen_width, screen_height, imageC, imageR, imageM, imageL, liste_nav):
 
-        #Liste des raretés des iles
+        # Liste des raretés des iles
         self.ile_rarete = ['commun', 'rare','mythique', 'légendaire']
 
-        # les parametres de l'ecran
+        # Dimensions de l'écran
         self.screen_width = screen_width
         self.screen_height = screen_height
 
-        # taille de l'île
-        self.width = 35
-        self.height = 35
+        # Taille de l'île
+        self.width = 50
+        self.height = 50
 
+        # Choix du type d'île
         self.typeList = choices(self.ile_rarete, weights=[0.50, 0.30, 0.14, 0.06], k=1)
         self.type = self.typeList[0]
 
+        # On associe une image à l'île en fonction de son type
         if self.type == "rare":
             imageDisplay = imageR
 
@@ -33,8 +35,10 @@ class Iles:
         
         imageDisplay = pygame.image.load(imageDisplay).convert_alpha()
 
+        # On modifie la taille de l'image de l'île
         self.imageDisplay = pygame.transform.scale(imageDisplay, (self.width, self.height)).convert_alpha()
 
+        # Liste avec tous les navires (joueur et ennemis)
         self.listeNav = liste_nav
 
         #Liste des récompenses de chaque type d'ile, ainsi que leurs probabilités
@@ -54,6 +58,8 @@ class Iles:
             'mythique' : self.probabilité_mythique, 
             'légendaire': self.probabilité_legendaire}
         
+
+        #On vérifie si l'île est assez éloignée des navires
         verifProx = False
 
         while verifProx == False:
@@ -67,8 +73,9 @@ class Iles:
                 else:
                     verifProx = False
 
+        self.timer = randint(600,1200)
 
-    #Fonction qui retourne un un malus alééatoire (str)
+    # Méthode qui retourne un un malus alééatoire (str)
     def random_malus(self):
         self.malus = [
             "Canons Rouillés",
@@ -78,7 +85,7 @@ class Iles:
         choice = choices(self.malus)
         return choice
 
-    #Fonction qui retourne une récompense en fonction du type de l'île (str)
+    # Méthode qui retourne une récompense en fonction du type de l'île (str)
     def type_recompenses(self):
         self.weights = self.dict_iles[self.type]
         if self.type == 'légendaire':
@@ -95,7 +102,12 @@ class Iles:
         return self.recompense
 
 
-    #Permet d'afficher l'île sur la map en fonction de sa rareté
+    # Permet d'afficher l'île sur la map en fonction de sa rareté
     def afficher(self, screen):
         rect = self.imageDisplay.get_rect(center=(self.x, self.y))
         screen.blit(self.imageDisplay, rect)
+
+    # Méthode de gestion du temps d'existence de l'île
+    def decompte(self):
+        self.timer -= 1
+        return self.timer

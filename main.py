@@ -16,14 +16,18 @@ clock = pygame.time.Clock()
 # Listes des éléments du jeu
 liste_joueur = [Navire(7, 0.2, 5, "images/bato.png", screen_width, screen_height)] #vitesse_max, acceleration, maniabilité, image
 liste_ennemis = [IA_ennemis(5, 0.2, 5, "images/bato.png", screen_width, screen_height), IA_ennemis(5, 0.2, 5, "images/bato.png", screen_width, screen_height)]
+
+# Liste avec les joueur et les ennemis (contenant donc tout les Navire a l'ecran)
 liste_navire = liste_joueur + liste_ennemis
+
+# Liste de tuples avec les coordonées des navires.
 liste_coords = []
 
 for i in range(len(liste_navire)):
     coords = ("(", liste_navire[i].position_x(), ",", liste_navire[i].position_y(), ")")
     liste_coords.append(coords)
 
-
+# Liste avec les îles
 liste_iles = [Iles(
     screen_width,
     screen_height, 
@@ -35,7 +39,12 @@ liste_iles = [Iles(
 
 # Liste de tout les tirs à l'écran
 liste_shot = []
-# Liste avec les joueur et les ennemis (contenant donc tout les Navire a l'ecran)
+
+# Variable contenant le nombre d'îles affichées
+nbrIles = 1
+
+# Nombre maximul d'îles sur la map
+maxIles = 5
 
 
 
@@ -107,6 +116,17 @@ while running:
                 liste_shot.remove(shot_i)
         else:
             liste_shot.remove(shot_i) # si il y a un None ça le detruit
+
+    # Appelle la méthode de gestion du temps des îles et les supprime au bout d'un certain temps.
+    for ile in liste_iles:
+        ile.decompte()
+        timeLeft = ile.decompte()
+        if timeLeft <= 0:
+            liste_iles.remove(ile)
+
+    
+
+
 
     # DRAW
 
