@@ -46,7 +46,25 @@ nbrIles = 1
 # Nombre maximul d'îles sur la map
 maxIles = 5
 
+# On crée un timer d'un nombre de ticks avant la prochaine apparition d'île
+def setTimer():
+    timer = randint(150, 400)
+    return timer
 
+#On fait apparaitre des îles sous certaines conditions (timer à 0, 5 îles au total maximum)
+def apparitionIles(nbrIles, maxIles, timer):
+    timer -= 1
+    print(timer)
+    if timer <= 0:
+        timer = setTimer()
+        if nbrIles < maxIles:
+            liste_iles.append(Iles(screen_width, screen_height,"images/ile_commune.png","images/ile_rare.png","images/ile_mythique.png","images/ile_legendaire.png",liste_navire))
+            nbrIles += 1
+            print(nbrIles)
+    return nbrIles, maxIles, timer
+
+#On appelle le timer pour la première fois
+timer = setTimer()
 
 # Définition de la couleur de fond (noir)
 BLACK = (0, 0, 0)
@@ -124,8 +142,8 @@ while running:
         if timeLeft <= 0:
             liste_iles.remove(ile)
 
-    
-
+    # Appelle de la fonction de compte à rebours pour apparition des îles
+    nbrIles, maxIles, timer = apparitionIles(nbrIles, maxIles, timer)
 
 
     # DRAW
