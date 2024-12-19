@@ -24,33 +24,43 @@ class Navire:
 
     # le bateau avance en permanence de la vitesse (donc si la vitesse vaut 0 il avance pas)
     def avancer(self):
-        self.x += self.vitesse * math.cos(math.radians(self.angle - 90))
-        self.y += self.vitesse * math.sin(math.radians(self.angle - 90))
+        self.x += self.vitesse * math.cos(math.radians(self.angle - 90)) # multiplie la vitesse X par le cosinus de l'angle en fonction de l'incilaison
+        self.y += self.vitesse * math.sin(math.radians(self.angle - 90)) # pareil mais avec les Y et le sinus
 
     # auglente la vitesse
     def accelerer(self):
+        # accelere tant que la vitesse max n'est pas atteinte
         if self.vitesse < self.vitesse_max:
             self.vitesse += self.acceleration
+        # si la vitesse max est atteinte il revient a la vitesse max
+        if self.vitesse > self.vitesse_max:
+            self.vitesse = self.vitesse_max
+        # je voulais faire progressivement mais pour une raison magique je peux pas utiliser de fonction dans une autre sans que ca affect les classe fille de maniere bizzar
 
     # si il arrete d'avancer le bateau décelère
     def ralentit(self):
+        # ralenti tant qu'il n'est pas a 0
         if self.vitesse > 0:
             self.vitesse -= 0.07
+        # revient a 0 si il est en dessous
         if self.vitesse < 0:
             self.vitesse = 0
 
     def tourne_gauche(self):
         if self.vitesse > 0:
             self.angle -= self.maniabilite
+            # si l'angle part en dessous de 0 il lui rajoute 360 pour qu'il reste toujours entre 0 et 360
             if self.angle < 0:
                 self.angle += 360
 
     def tourne_droite(self):
         if self.vitesse > 0:
             self.angle += self.maniabilite
+            # si l'angle est superieur a 360 ou lui eneleve 360 pour qu'il reste entre 0 et 360
             if self.angle >= 360:
                 self.angle -= 360
 
+    # pour que le bateau ne sorte pas de l'ecran et revienne de l'autre coter
     def sortir_ecran(self, largeur_ecran, longueur_ecran):
         if self.x > largeur_ecran:
             self.x = 0
@@ -72,10 +82,16 @@ class Navire:
         if pygame.time.get_ticks() - self.dernier_tire >= self.cadance_tire:
             self.dernier_tire = pygame.time.get_ticks()
 
-            #argument : x, y, angle, distance_max, image
+            # argument : x, y, angle, distance_max, image
             # l'angle est ajusté en fonction de la vitesse du bateau. si il avance les boulet continue dans sa direction
             tire_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, 150, "images/boulet_canon.png")
             tire_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 150, "images/boulet_canon.png")
             return [tire_droite, tire_gauche]
         else:
             return None
+        
+    # return la position x et y du bateau pour les autres
+    def position_x(self):
+        return self.x
+    def position_y(self):
+        return self.y
