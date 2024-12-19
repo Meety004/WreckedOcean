@@ -1,6 +1,7 @@
 import pygame
 from Navire import *
 from IA_ennemis import *
+from iles import *
 import shot as module_shot
 
 # Initialisation de Pygame

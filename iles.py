@@ -77,8 +77,8 @@ class Iles:
         verifProx = False
 
         while verifProx == False:
-            self.x = random.randint(35, (screen_width-35))
-            self.y = random.randint(35, (screen_width-35))
+            self.x = random.randint(35, (self.screen_width-35))
+            self.y = random.randint(35, (self.screen_height-35))
             distance =  calc_distance(self.x, self.y, self.xPlayer, self.yPlayer)
 
             if distance >= 40:
@@ -102,7 +102,7 @@ class Iles:
 
         else:
             self.imageDisplay = self.imageC
-        rect = imageDisplay.get_rect(center=(self.x, self.y))
+        rect = self.imageDisplay.get_rect(center=(self.x, self.y))
         screen.blit(imageDisplay, rect)
 
 
