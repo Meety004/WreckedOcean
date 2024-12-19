@@ -12,7 +12,7 @@ class Navire:
         self.y = random.randint(0, screen_height)
         self.vitesse = 0
         self.angle = 270
-        self.maniabilite = maniabilite # le temps qu'il met pour tourner. c'est ca "vitesse de tournage"
+        self.maniabilite = maniabilite # le temps qu'il met pour tourner. c'est ca "vitesse de rotation"
         self.width = 40
         self.height = 60
         original_image = pygame.image.load(image).convert_alpha()

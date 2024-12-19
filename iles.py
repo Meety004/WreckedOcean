@@ -1,4 +1,5 @@
 from fonction_auxiliere import *
+from random import *
 
 class Iles:
     def __init__(self, screen_width, screen_height, imageC, imageR, imageM, imageL, xPlayer, yPlayer):
@@ -86,7 +87,7 @@ class Iles:
                 verifProx = False
         return verifProx
 
-
+    #Permet d'afficher l'île sur la map en fonction de sa rareté
     def afficher(self, screen):
         self.calccoords()
 

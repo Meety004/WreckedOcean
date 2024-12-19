@@ -12,6 +12,16 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 # listes avec les ennemis et les joueurs (pour l'instant le joueur)
 liste_joueur = [Navire(7, 0.2, 5, "images/bato.png", screen_width, screen_height)] #vitesse_max, acceleration, maniabilité, image
 liste_ennemis = [IA_ennemis(7, 0.2, 5, "images/bato.png", screen_width, screen_height)]
+liste_iles = [Iles(
+    screen_width,
+    screen_height, 
+    "images/ile_commune.png", 
+    "images/ile_rare.png", 
+    "images/ile_mythique.png", 
+    "images/ile_legendaire.png", 
+    Navire.position_x(), 
+    Navire.position_y())]
+    
 liste_shot = []
 
 # Définition de la couleur de fond (noir)
@@ -76,6 +86,7 @@ while running:
         else:
             liste_shot.remove(shot_i)
 
+
     # Remplir l'écran avec une couleur de fond
     screen.fill(BLACK)
 
@@ -99,6 +110,10 @@ while running:
     # dessine les tires
     for shot_i in liste_shot:
         shot_i.afficher(screen)
+
+    # Dessine les iles
+    for ile in liste_iles:
+        ile.affiche(screen)
 
     # Rafraîchir l'écran
     pygame.display.flip()
