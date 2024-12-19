@@ -16,20 +16,27 @@ clock = pygame.time.Clock()
 # Listes des éléments du jeu
 liste_joueur = [Navire(7, 0.2, 5, "images/bato.png", screen_width, screen_height)] #vitesse_max, acceleration, maniabilité, image
 liste_ennemis = [IA_ennemis(5, 0.2, 5, "images/bato.png", screen_width, screen_height), IA_ennemis(5, 0.2, 5, "images/bato.png", screen_width, screen_height)]
+liste_navire = liste_joueur + liste_ennemis
+liste_coords = []
+
+for i in range(len(liste_navire)):
+    coords = ("(", liste_navire[i].position_x(), ",", liste_navire[i].position_y(), ")")
+    liste_coords.append(coords)
+
+
 liste_iles = [Iles(
     screen_width,
     screen_height, 
     "images/ile_commune.png", 
     "images/ile_rare.png", 
     "images/ile_mythique.png", 
-    "images/ile_legendaire.png", 
-    liste_joueur[0].position_x(), 
-    liste_joueur[0].position_y())]
+    "images/ile_legendaire.png",
+    liste_navire)]
 
 # Liste de tout les tirs à l'écran
 liste_shot = []
 # Liste avec les joueur et les ennemis (contenant donc tout les Navire a l'ecran)
-liste_navire = liste_joueur + liste_ennemis
+
 
 
 # Définition de la couleur de fond (noir)

@@ -3,7 +3,7 @@ from random import *
 import pygame
 
 class Iles:
-    def __init__(self, screen_width, screen_height, imageC, imageR, imageM, imageL, xPlayer, yPlayer):
+    def __init__(self, screen_width, screen_height, imageC, imageR, imageM, imageL, liste_nav):
 
         #Liste des raretés des iles
         self.ile_rarete = ['commun', 'rare','mythique', 'légendaire']
@@ -16,7 +16,7 @@ class Iles:
         self.width = 35
         self.height = 35
 
-        self.typeList = choices(self.ile_rarete, weights=[0.55, 0.30, 0.14, 0.01], k=1)
+        self.typeList = choices(self.ile_rarete, weights=[0.50, 0.30, 0.14, 0.06], k=1)
         self.type = self.typeList[0]
 
         if self.type == "rare":
@@ -35,8 +35,7 @@ class Iles:
 
         self.imageDisplay = pygame.transform.scale(imageDisplay, (self.width, self.height)).convert_alpha()
 
-        self.xPlayer = xPlayer
-        self.yPlayer = yPlayer
+        self.listeNav = liste_nav
 
         #Liste des récompenses de chaque type d'ile, ainsi que leurs probabilités
         self.liste_recompenses_communes = ['1_canon', 'canon_en_bronze', 'voile_toile_de_jute', 'coque_epicea', 'coque_chene', self.random_malus(), 'rien']
@@ -60,12 +59,13 @@ class Iles:
         while verifProx == False:
             self.x = randint(35, (self.screen_width-35))
             self.y = randint(35, (self.screen_height-35))
-            distance =  calc_distance(self.x, self.y, self.xPlayer, self.yPlayer)
+            for i in range(len(liste_nav)):
+                distance =  calc_distance(self.x, self.y, liste_nav[i].position_x(), liste_nav[i].position_y())
 
-            if distance >= 10:
-                verifProx = True
-            else:
-                verifProx = False
+                if distance >= 40:
+                    verifProx = True
+                else:
+                    verifProx = False
 
 
     #Fonction qui retourne un un malus alééatoire (str)

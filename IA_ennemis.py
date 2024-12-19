@@ -74,3 +74,9 @@ class IA_ennemis(Navire):
         # si l'ennemi est a distance meme si il est pas bien incliner ca tire
         if fonction_auxiliere.calc_distance(self.x, self.y, cible_x, cible_y) <= 140:
             return super().shoot()
+
+    def position_x(self):
+        return self.x
+    
+    def position_y(self):
+        return self.y
