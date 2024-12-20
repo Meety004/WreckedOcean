@@ -14,7 +14,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 
 # Listes des éléments du jeu
-liste_joueur = [Navire(7, 0.2, 5, "images/bato.png", screen_width, screen_height)] #vitesse_max, acceleration, maniabilité, image
+liste_joueur = [Navire(7, 0.2, 5, "images/bato_j1.png", screen_width, screen_height)] #vitesse_max, acceleration, maniabilité, image
 liste_ennemis = [IA_ennemis(5, 0.2, 5, "images/bato.png", screen_width, screen_height), IA_ennemis(5, 0.2, 5, "images/bato.png", screen_width, screen_height)]
 
 # Liste avec les joueur et les ennemis (contenant donc tout les Navire a l'ecran)
