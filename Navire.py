@@ -2,6 +2,7 @@ import math
 import pygame
 import random
 import shot
+import string
 
 class Navire:
     def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height):
@@ -20,6 +21,8 @@ class Navire:
         self.image = original_image  # Image qui sera affichée
         self.dernier_tire = 0 # le denier tire fait par le bateau pour le chrono
         self.cadance_tire = 1000 # en milliseconde
+        self.ID = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
+        self.vie = 100
 
     # le bateau avance en permanence de la vitesse (donc si la vitesse vaut 0 il avance pas)
     def avancer(self):
@@ -74,7 +77,8 @@ class Navire:
         # Appliquer la rotation à l'image d'origine sans la modifier définitivement
         rotated_image = pygame.transform.rotate(self.image, -self.angle).convert_alpha()
         rect = rotated_image.get_rect(center=(self.x, self.y))
-        screen.blit(rotated_image, rect)
+        self.rect = rect
+        screen.blit(rotated_image, self.rect)
 
     def shoot(self):
         # verifie si il a rechargé
@@ -83,14 +87,27 @@ class Navire:
 
             # argument : x, y, angle, distance_max, image
             # l'angle est ajusté en fonction de la vitesse du bateau. si il avance les boulet continue dans sa direction
-            tire_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, 150, "images/boulet_canon.png")
-            tire_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 150, "images/boulet_canon.png")
+            tire_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, 150, "images/boulet_canon.png", self.ID)
+            tire_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 150, "images/boulet_canon.png", self.ID)
             return [tire_droite, tire_gauche]
         else:
             return None
         
-    # return la position x et y du bateau pour les autres
+    def get_damaged(self, damage):
+        self.vie -= damage
+
+    # return pour return les caracteristique du bateau
     def position_x(self):
         return self.x
     def position_y(self):
         return self.y
+    def get_width(self):
+        return self.width
+    def get_height(self):
+        return self.height
+    def get_angle(self):
+        return self.angle
+    def get_ID(self):
+        return self.ID
+    def get_rect(self):
+        return self.rect

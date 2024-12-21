@@ -59,9 +59,9 @@ class IA_ennemis(Navire):
         # si il y a un ennemi a porté il suit le paterne d'inslinaison pour tirer
         if self.ennemi_in_range(ennemi_x, ennemi_y):
             self.position_de_tire(ennemi_x, ennemi_y)
-            self.vitesse_max = 8
+            self.vitesse_max += 5 # normalement 3 j'ai mis 0 pour test si c'est encore le cas chagez svp
         else: # si aucun ennemi est a portée il avance comme prevu
-            self.vitesse_max = 5
+            self.vitesse_max = 5 
             if self.action == 1:
                 super().tourne_droite()
             if self.action == 2:
