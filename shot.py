@@ -11,7 +11,7 @@ class Shot:
         self.width = 20
         self.height = 20
         self.angle = angle
-        self.vitesse = 10
+        self.vitesse = 13
         self.distance_max = distance_max
         image = pygame.image.load(img)
         self.image = pygame.transform.scale(image, (self.width, self.height)).convert_alpha()

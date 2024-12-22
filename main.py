@@ -132,8 +132,8 @@ while running:
             shot_i.avancer()
             if shot_i.despawn_distance():
                 liste_shot.remove(shot_i)
-            for navire_i in liste_navire:
-                if shot_i.collision(navire_i.position_x(), navire_i.position_y(), navire_i.get_ID()):
+            for i in range(len(liste_navire)-1, 0, -1):
+                if shot_i.collision(liste_navire[i].position_x(), liste_navire[i].position_y(), liste_navire[i].get_ID()):
                     navire_i.get_damaged(10)
                     liste_shot.remove(shot_i)
         else:

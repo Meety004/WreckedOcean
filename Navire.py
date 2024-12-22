@@ -22,7 +22,7 @@ class Navire:
         self.dernier_tire = 0 # le denier tire fait par le bateau pour le chrono
         self.cadance_tire = 1000 # en milliseconde
         self.ID = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
-        self.vie = 100
+        self.vie = 50
 
     # le bateau avance en permanence de la vitesse (donc si la vitesse vaut 0 il avance pas)
     def avancer(self):
@@ -87,8 +87,8 @@ class Navire:
 
             # argument : x, y, angle, distance_max, image
             # l'angle est ajusté en fonction de la vitesse du bateau. si il avance les boulet continue dans sa direction
-            tire_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, 150, "images/boulet_canon.png", self.ID)
-            tire_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 150, "images/boulet_canon.png", self.ID)
+            tire_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, 170, "images/boulet_canon.png", self.ID)
+            tire_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 170, "images/boulet_canon.png", self.ID)
             return [tire_droite, tire_gauche]
         else:
             return None

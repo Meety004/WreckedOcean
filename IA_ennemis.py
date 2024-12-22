@@ -23,7 +23,7 @@ class IA_ennemis(Navire):
     def ennemi_in_range(self, liste_adversaire):
         for ennemi in liste_adversaire:
             if ennemi.get_ID() != self.ID:
-                if fonction_auxiliere.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 150:
+                if fonction_auxiliere.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 120:
                     return True
         return False
 
@@ -34,10 +34,10 @@ class IA_ennemis(Navire):
                     # calcule l'angle entre les 2 points
                     angle_de_tire = math.degrees(math.atan2(liste_adversaire[i].position_y() - self.y, liste_adversaire[i].position_x() - self.x))
                     # calcule lequel des 2 canon est le plus proche pour s'orienter dans le bon sens
-                    if angle_de_tire - self.angle + 90 < angle_de_tire - self.angle - 90:
-                        super().tourne_gauche()
-                    else:
-                        super().tourne_droite()
+            if angle_de_tire - self.angle + 90 < angle_de_tire - self.angle - 90:
+                super().tourne_droite()
+            else:
+                super().tourne_gauche()
 
     def bouger(self, liste_adversaire):
         # a chaque fois que cette fonction est appelé elle a une action (tourner a droite, gauche ou tout droit)
@@ -63,7 +63,7 @@ class IA_ennemis(Navire):
         # si il y a un ennemi a porté il suit le paterne d'inslinaison pour tirer
         if self.ennemi_in_range(liste_adversaire):
             self.position_de_tire(liste_adversaire)
-            self.vitesse_max += 2
+            self.vitesse_max = 9
         else: # si aucun ennemi est a portée il avance comme prevu
             self.vitesse_max = 5 
             if self.action == 1:
