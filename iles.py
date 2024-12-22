@@ -17,7 +17,7 @@ class Iles:
         self.height = 50
 
         # Choix du type d'île
-        self.typeList = choices(self.ile_rarete, weights=[0.50, 0.30, 0.14, 0.06], k=1)
+        self.typeList = choices(self.ile_rarete, weights=[0.50, 0.36, 0.09, 0.05], k=1)
         self.type = self.typeList[0]
 
         # On associe une image à l'île en fonction de son type
@@ -65,15 +65,14 @@ class Iles:
         while verifProx == False:
             self.x = randint(35, (self.screen_width-35))
             self.y = randint(35, (self.screen_height-35))
-            for i in range(len(liste_nav)):
-                distance =  calc_distance(self.x, self.y, liste_nav[i].position_x(), liste_nav[i].position_y())
-
-                if distance >= 40:
+            for i in range(len(self.listeNav)):
+                distanceIleNav =  calc_distance(self.x, self.y, self.listeNav[i].position_x(), self.listeNav[i].position_y())
+                if distanceIleNav >= 40:
                     verifProx = True
                 else:
                     verifProx = False
 
-        self.timer = randint(600,1200)
+        self.timer = randint(400,800)
 
         self.weights = self.dict_iles[self.type]
         if self.type == 'légendaire':

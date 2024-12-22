@@ -48,7 +48,7 @@ maxIles = 5
 
 # On crée un timer d'un nombre de ticks avant la prochaine apparition d'île
 def setTimer():
-    timer = randint(150, 400)
+    timer = randint(100, 300)
     return timer
 
 #On fait apparaitre des îles sous certaines conditions (timer à 0, 5 îles au total maximum)
@@ -153,13 +153,14 @@ while running:
             liste_navire.remove(navire_i)
             
 
-    # Appelle la méthode de gestion du temps des îles et les supprime au bout d'un certain temps.
+    # Appelle la méthode de gestion du temps des  îles et les supprime au bout d'un certain temps.
     for ile in liste_iles:
         ile.decompte()
         timeLeft = ile.decompte()
         if timeLeft <= 0:
             liste_iles.remove(ile)
             nbrIles -= 1
+            
         if len(liste_joueur) > 0:
             if fonction_auxiliere.calc_distance(ile.position_x(), ile.position_y(), liste_joueur[0].position_x(), liste_joueur[0].position_y()) <=20:
                 print(ile.type_recompenses())
