@@ -20,22 +20,26 @@ class IA_ennemis(Navire):
         self.compte_action = 0 # compte combien de fois l'IA fait la meme action (ne peut pas la faire plus de 23 fois)
 
     # verifie si la cible de cette IA (le joueur pour l'instant) est a porté de cette IA
-    def ennemi_in_range(self, ennemi_x, ennemi_y):
-        if fonction_auxiliere.calc_distance(self.x, self.y, ennemi_x, ennemi_y) <= 150:
-            return True
+    def ennemi_in_range(self, liste_adversaire):
+        for ennemi in liste_adversaire:
+            if ennemi.get_ID() != self.ID:
+                if fonction_auxiliere.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 120:
+                    return True
         return False
 
     # cette fonction sert uniquement a incliner la position de tire
-    def position_de_tire(self, position_cible_x, position_cible_y):
-            # calcule l'angle entre les 2 points
-            angle_de_tire = math.degrees(math.atan2(position_cible_y - self.y, position_cible_x - self.x))
-            # calcule lequel des 2 canon est le plus proche pour s'orienter dans le bon sens
+    def position_de_tire(self, liste_adversaire):
+            for i in range(len(liste_adversaire)):
+                if liste_adversaire[i].get_ID() != self.ID:
+                    # calcule l'angle entre les 2 points
+                    angle_de_tire = math.degrees(math.atan2(liste_adversaire[i].position_y() - self.y, liste_adversaire[i].position_x() - self.x))
+                    # calcule lequel des 2 canon est le plus proche pour s'orienter dans le bon sens
             if angle_de_tire - self.angle + 90 < angle_de_tire - self.angle - 90:
-                super().tourne_gauche()
-            else:
                 super().tourne_droite()
+            else:
+                super().tourne_gauche()
 
-    def bouger(self, ennemi_x, ennemi_y):
+    def bouger(self, liste_adversaire):
         # a chaque fois que cette fonction est appelé elle a une action (tourner a droite, gauche ou tout droit)
         nouvelle_action = random.randint(0, 50) # 2 chance sur 50 de changer d'action
         if nouvelle_action > 3: # si c'est 0 elle va tout droit, si c'est 1 elle tourne a droite si c'est 2 a gauche et sinon elle refait la même action qu'avant pour eviter de changer tout le temps de trajectoire
@@ -57,11 +61,11 @@ class IA_ennemis(Navire):
         self.action = nouvelle_action
 
         # si il y a un ennemi a porté il suit le paterne d'inslinaison pour tirer
-        if self.ennemi_in_range(ennemi_x, ennemi_y):
-            self.position_de_tire(ennemi_x, ennemi_y)
-            self.vitesse_max = 8
+        if self.ennemi_in_range(liste_adversaire):
+            self.position_de_tire(liste_adversaire)
+            self.vitesse_max = 9
         else: # si aucun ennemi est a portée il avance comme prevu
-            self.vitesse_max = 5
+            self.vitesse_max = 5 
             if self.action == 1:
                 super().tourne_droite()
             if self.action == 2:
