@@ -95,6 +95,11 @@ class Navire:
         
     def get_damaged(self, damage):
         self.vie -= damage
+    
+    def is_dead(self):
+        if self.vie <= 0:
+            return True
+        return False
 
     # return pour return les caracteristique du bateau
     def position_x(self):

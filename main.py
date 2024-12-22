@@ -87,41 +87,43 @@ while running:
     keys = pygame.key.get_pressed()
 
     # Gestion des touches du premier navire (pour l'instant impossible de rajouter d'autre joueurs ils ont tous les même touches)
-    for navire_i in liste_joueur:
-        if keys[pygame.K_UP]: # fleche du haut
-            navire_i.accelerer()
-        else:
-            navire_i.ralentit()
+    if len(liste_joueur) > 0:
+        for navire_i in liste_joueur:
+            if keys[pygame.K_UP]: # fleche du haut
+                navire_i.accelerer()
+            else:
+                navire_i.ralentit()
 
-        if keys[pygame.K_LEFT]: # fleche gauche
-            navire_i.tourne_gauche()
+            if keys[pygame.K_LEFT]: # fleche gauche
+                navire_i.tourne_gauche()
 
-        if keys[pygame.K_RIGHT]: # fleche droite
-            navire_i.tourne_droite()
-        
-        if keys[pygame.K_SPACE]: # espace
-            tire_du_navire = navire_i.shoot()
-            if tire_du_navire is not None:
-                liste_shot.extend(tire_du_navire)
+            if keys[pygame.K_RIGHT]: # fleche droite
+                navire_i.tourne_droite()
+            
+            if keys[pygame.K_SPACE]: # espace
+                tire_du_navire = navire_i.shoot()
+                if tire_du_navire is not None:
+                    liste_shot.extend(tire_du_navire)
 
-        # Mettre à jour la position des navires
-        navire_i.avancer()
+            # Mettre à jour la position des navires
+            navire_i.avancer()
 
-        # verifie qu'ils ne sortent pas de l'ecran
-        navire_i.sortir_ecran(screen_width, screen_height)
+            # verifie qu'ils ne sortent pas de l'ecran
+            navire_i.sortir_ecran(screen_width, screen_height)
     
 
     # fait les deplacements de l'ennemi
     
     for ennemis in liste_ennemis:
         # a besoin de la position des joueurs pour incliner le deplacement
-        for joueur in liste_joueur:
-            ennemis.bouger(joueur.position_x(), joueur.position_y())
-
-            # gère le tire de l'ennemi. return None si le joueur n'est pas a porté de l'ennemi
-            tire_ennemi = ennemis.tirer(joueur.position_x(), joueur.position_y())
-            if tire_ennemi != None: # si ça return none alors il l'efface
-                liste_shot.extend(tire_ennemi) # la fonction de tire return une liste. il faut donc extend pour fusionner les liste et pas append
+        ennemis.bouger(liste_navire)
+        
+        for adversaire in liste_navire:
+            if adversaire.get_ID() != ennemis.get_ID():
+                # gère le tire de l'ennemi. return None si le joueur n'est pas a porté de l'ennemi
+                tire_ennemi = ennemis.tirer(adversaire.position_x(), adversaire.position_y())
+                if tire_ennemi != None: # si ça return none alors il l'efface
+                    liste_shot.extend(tire_ennemi) # la fonction de tire return une liste. il faut donc extend pour fusionner les liste et pas append
 
         ennemis.sortir_ecran(screen_width, screen_height)
 
@@ -136,6 +138,20 @@ while running:
                     liste_shot.remove(shot_i)
         else:
             liste_shot.remove(shot_i) # si il y a un None ça le detruit
+        
+    for navire_i in liste_navire:
+        if navire_i.is_dead():
+            print("navire :", navire_i.get_ID, "est mort")
+            if len(liste_joueur) > 0:
+                for i in range(len(liste_joueur)):
+                    if liste_joueur[i].get_ID() == navire_i.get_ID():
+                        liste_joueur.pop(i)
+            if len(liste_ennemis) > 0:
+                for i in range(len(liste_ennemis)):
+                    if liste_ennemis[i].get_ID() == navire_i.get_ID():
+                        liste_ennemis.pop(i)
+            liste_navire.remove(navire_i)
+            
 
     # Appelle la méthode de gestion du temps des îles et les supprime au bout d'un certain temps.
     for ile in liste_iles:
@@ -143,8 +159,9 @@ while running:
         timeLeft = ile.decompte()
         if timeLeft <= 0:
             liste_iles.remove(ile)
-        if fonction_auxiliere.calc_distance(ile.position_x(), ile.position_y(), liste_joueur[0].position_x(), liste_joueur[0].position_y()) <=20:
-            print(ile.type_recompenses())
+        if len(liste_joueur) > 0:
+            if fonction_auxiliere.calc_distance(ile.position_x(), ile.position_y(), liste_joueur[0].position_x(), liste_joueur[0].position_y()) <=20:
+                print(ile.type_recompenses())
 
     # Appelle de la fonction de compte à rebours pour apparition des îles
     nbrIles, maxIles, timer = apparitionIles(nbrIles, maxIles, timer)
@@ -184,7 +201,7 @@ while running:
         running = False
 
     # Limiter la boucle à 60 images par seconde
-    clock.tick(60) # CA MARCHE PAS !!!!!!
+    clock.tick(60) # enfaite si ca marche mais c'est bizarre
 
 # Quitter Pygame proprement
 pygame.quit()
