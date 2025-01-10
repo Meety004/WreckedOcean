@@ -3,6 +3,7 @@ from Navire import *
 from IA_ennemis import *
 from iles import *
 import shot as module_shot
+import class_button as button
 
 # Initialisation de Pygame
 pygame.init()
@@ -70,6 +71,7 @@ BLACK = (0, 0, 0)
 # Boucle principale du jeu
 running = True
 
+start_button = button.bouton(screen_width/2, screen_height/2, 100, 35, 'images/bouton.png')
 
 # Boucle de jeu
 while running:
