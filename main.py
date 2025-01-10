@@ -3,6 +3,7 @@ from Navire import *
 from IA_ennemis import *
 from iles import *
 import shot as module_shot
+import class_menu
 
 # Initialisation de Pygame
 pygame.init()
@@ -67,13 +68,17 @@ timer = setTimer()
 # Définition de la couleur de fond (noir)
 BLACK = (0, 0, 0)
 
+# ECRAN TITRE
+menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/menu.png", screen_width, screen_width)
+menu.actif(screen_width, screen_height, screen)
+
 # Boucle principale du jeu
 running = True
-
 
 # Boucle de jeu
 while running:
 
+    menu.actif(screen_width, screen_height, screen)
 
     # UPDATE
 
