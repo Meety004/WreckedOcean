@@ -18,9 +18,13 @@ class Menu:
 
     def les_boutons(self, screen_width, screen_height):
         self.liste_boutons = []
-        y = screen_height - 70*(self.nombre_boutons - 1)/2 # pour ecarter les boutons de 20 centimetre chacun si il y en a plusieur (/2 pour centrer)
+        y_start = (screen_height - (70 * self.nombre_boutons)) / 2  # Départ centré verticalement
         for i in range(self.nombre_boutons):
-            self.liste_boutons.append(bouton.Bouton(screen_width/2 - 40, y - 25, 80, 50, "images/bouton.png"))
+            y = y_start + i * 170  # Espacement uniforme de 70 pixels
+            if i == 0:
+                self.liste_boutons.append(bouton.Bouton(screen_width/2 - 200, y - 225/2, 400, 225, "images/start.png"))
+            else:
+                self.liste_boutons.append(bouton.Bouton(screen_width/2 - 200, y - 225/2, 400, 225, "images/bouton.png"))
 
     def actif(self, screen_width, screen_height, screen):
         if self.est_actif:
@@ -28,13 +32,17 @@ class Menu:
             lst_btn = self.liste_boutons
             
             while self.est_actif:
-                # Gestion des événements (quitter le jeu)
                 for event in pygame.event.get():
-                    if event.type == pygame.key.get_pressed()[pygame.K_TAB]:
+                    if event.type == pygame.QUIT:
                         pygame.quit()
+                        return
+                    
+                    if event.type == pygame.KEYDOWN and event.key == pygame.K_TAB:
+                        pygame.quit()
+                        return
 
-                for i in range(len(lst_btn)):
-                    if lst_btn[i].is_pressed():
+                for i, btn in enumerate(lst_btn):
+                    if btn.is_pressed():
                         if i == 0:
                             self.est_actif = False
 
@@ -43,6 +51,7 @@ class Menu:
                     btn.affichage(screen)
 
                 pygame.display.flip()
+
 
     def est_toujours_actif_point_d_interogation(self):
         return self.est_actif            

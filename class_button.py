@@ -3,8 +3,8 @@ import pygame
 class Bouton:
     def __init__(self, x, y, width, height, image):
         # pour mettre le bouttons au centre
-        self.x = x - width/2
-        self.y = y - height/2
+        self.x = x
+        self.y = y
         self.width = width
         self.height = height
         
