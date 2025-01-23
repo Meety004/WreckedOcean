@@ -24,6 +24,21 @@ class Navire:
         self.ID = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
         self.vie = 50
 
+        self.equipement = {
+        'canons':    "Canons Rouillés",
+        'voile':    "Voile Trouée",
+        'coque':    "Coque Trouée"
+        }
+
+        self.benedictions = []
+
+        self.malus = {
+            'canon': None,
+            'voile': None,
+            'coque': None
+        }
+
+
     # le bateau avance en permanence de la vitesse (donc si la vitesse vaut 0 il avance pas)
     def avancer(self):
         self.x += self.vitesse * math.cos(math.radians(self.angle - 90)) # multiplie la vitesse X par le cosinus de l'angle en fonction de l'incilaison
@@ -116,3 +131,6 @@ class Navire:
         return self.ID
     def get_rect(self):
         return self.rect
+
+    def equipement(self, rec):
+        pass

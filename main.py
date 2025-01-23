@@ -160,10 +160,13 @@ while running:
         if timeLeft <= 0:
             liste_iles.remove(ile)
             nbrIles -= 1
-            
-        if len(liste_joueur) > 0:
-            if fonction_auxiliere.calc_distance(ile.position_x(), ile.position_y(), liste_joueur[0].position_x(), liste_joueur[0].position_y()) <=20:
-                print(ile.type_recompenses())
+
+        for n in liste_navire:
+            if len(liste_navire) > 0:
+                if fonction_auxiliere.calc_distance(ile.position_x(), ile.position_y(), liste_navire[n].position_x(), liste_navire[n].position_y()) <=20:
+                    rec = ile.type_recompenses()
+                    n.equipement(rec)
+
 
     # Appelle de la fonction de compte à rebours pour apparition des îles
     nbrIles, maxIles, timer = apparitionIles(nbrIles, maxIles, timer)
