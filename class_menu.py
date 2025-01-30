@@ -54,4 +54,4 @@ class Menu:
 
 
     def est_toujours_actif_point_d_interogation(self):
-        return self.est_actif            
+        return self.est_actif
