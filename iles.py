@@ -17,7 +17,7 @@ class Iles:
         self.height = 50
 
         # Choix du type d'île
-        self.typeList = choices(self.ile_rarete, weights=[0.50, 0.36, 0.09, 0.05], k=1)
+        self.typeList = choices(self.ile_rarete, weights=[0.50, 0.36, 0.1, 0.04], k=1)
         self.type = self.typeList[0]
 
         # On associe une image à l'île en fonction de son type

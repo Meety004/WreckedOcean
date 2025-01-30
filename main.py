@@ -163,9 +163,9 @@ while running:
 
         for n in liste_navire:
             if len(liste_navire) > 0:
-                if fonction_auxiliere.calc_distance(ile.position_x(), ile.position_y(), liste_navire[n].position_x(), liste_navire[n].position_y()) <=20:
-                    rec = ile.type_recompenses()
-                    n.equipement(rec)
+                if fonction_auxiliere.calc_distance(ile.position_x(), ile.position_y(), n.position_x(), n.position_y()) <=30:
+                    recompense = ile.type_recompenses()
+                    n.equiper(recompense, ile.position_x(), ile.position_y(), screen)
 
 
     # Appelle de la fonction de compte à rebours pour apparition des îles

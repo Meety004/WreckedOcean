@@ -3,6 +3,7 @@ import pygame
 import random
 import shot
 import string
+import fonction_auxiliere
 
 class Navire:
     def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height):
@@ -23,6 +24,9 @@ class Navire:
         self.cadance_tire = 1000 # en milliseconde
         self.ID = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
         self.vie = 50
+
+        self.ItemsUI = pygame.image.load("images/equip_menu_item.png").convert_alpha()
+        self.ItemsUI = pygame.transform.scale(self.ItemsUI, (screen_width, screen_height)).convert_alpha()
 
         self.equipement = {
         'canons':    "Canons Rouillés",
@@ -132,5 +136,24 @@ class Navire:
     def get_rect(self):
         return self.rect
 
-    def equipement(self, rec):
-        pass
+    def equiper(self, recompense, xIle, yIle, screen):
+        liste_benedictions = [
+            'bene_dash',
+            'bene_sante',
+            'bene_aura',
+            'bene_rage',
+            'bene_godmode'
+        ]
+
+        liste_malus = [
+            "Canons Rouillés",
+            "Voile Trouée",
+            "Coque Trouée"
+        ]
+
+        if (recompense not in liste_benedictions) and (recompense not in liste_malus):
+            while fonction_auxiliere.calc_distance(self.x, self.y, xIle, yIle) <= 30:
+                screen.blit(self.ItemsUI, (0,0))
+        else:
+            print('Malus ou Benediction')
+
