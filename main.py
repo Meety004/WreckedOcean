@@ -43,7 +43,7 @@ liste_shot = []
 # Variable contenant le nombre d'îles affichées
 nbrIles = 1
 
-# Nombre maximul d'îles sur la map
+# Nombre maximal d'îles sur la map
 maxIles = 5
 
 # On crée un timer d'un nombre de ticks avant la prochaine apparition d'île
@@ -151,7 +151,8 @@ while running:
                     if liste_ennemis[i].get_ID() == navire_i.get_ID():
                         liste_ennemis.pop(i)
             liste_navire.remove(navire_i)
-            
+
+
 
     # Appelle la méthode de gestion du temps des  îles et les supprime au bout d'un certain temps.
     for ile in liste_iles:
@@ -163,9 +164,15 @@ while running:
 
         for n in liste_navire:
             if len(liste_navire) > 0:
-                if fonction_auxiliere.calc_distance(ile.position_x(), ile.position_y(), n.position_x(), n.position_y()) <=30:
-                    recompense = ile.type_recompenses()
-                    n.equiper(recompense, ile.position_x(), ile.position_y(), screen)
+                recompense = ile.type_recompenses()
+                n.equiper(recompense, ile.position_x(), ile.position_y(), screen)
+
+    #Gérer l'obtention d'un nouvel item
+    if liste_joueur[0].afficher_items == True:
+        if keys[pygame.K_a]:
+            liste_joueur[0].getItem()
+            liste_joueur[0].afficher_items = False
+
 
 
     # Appelle de la fonction de compte à rebours pour apparition des îles
@@ -194,6 +201,11 @@ while running:
     # Dessine les iles
     for ile in liste_iles:
         ile.afficher(screen)
+
+    #Affiche l'interface de choix d'item pour le joueur uniquement
+    if liste_joueur[0].afficher_items == True:
+        screen.blit(liste_joueur[0].ItemsUI, (15, 15))
+            
 
     # Rafraîchir l'écran
     pygame.display.flip()

@@ -99,7 +99,7 @@ class Iles:
 
     # Méthode qui retourne une récompense en fonction du type de l'île (str)
     def type_recompenses(self):
-        return self.recompense
+        return (self.recompense, self.type)
 
 
     # Permet d'afficher l'île sur la map en fonction de sa rareté

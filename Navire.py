@@ -25,8 +25,9 @@ class Navire:
         self.ID = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
         self.vie = 50
 
+        self.afficher_items = False  # Variable d'état pour suivre l'affichage de l'image
         self.ItemsUI = pygame.image.load("images/equip_menu_item.png").convert_alpha()
-        self.ItemsUI = pygame.transform.scale(self.ItemsUI, (screen_width, screen_height)).convert_alpha()
+        self.ItemsUI = pygame.transform.scale(self.ItemsUI, (screen_width*0.4, screen_height*0.4)).convert_alpha()
 
         self.equipement = {
         'canons':    "Canons Rouillés",
@@ -41,6 +42,8 @@ class Navire:
             'voile': None,
             'coque': None
         }
+
+        self.recompense = None
 
 
     # le bateau avance en permanence de la vitesse (donc si la vitesse vaut 0 il avance pas)
@@ -137,6 +140,7 @@ class Navire:
         return self.rect
 
     def equiper(self, recompense, xIle, yIle, screen):
+        self.recompense = recompense
         liste_benedictions = [
             'bene_dash',
             'bene_sante',
@@ -152,8 +156,15 @@ class Navire:
         ]
 
         if (recompense not in liste_benedictions) and (recompense not in liste_malus):
-            while fonction_auxiliere.calc_distance(self.x, self.y, xIle, yIle) <= 30:
-                screen.blit(self.ItemsUI, (0,0))
+            
+            if fonction_auxiliere.calc_distance(self.x, self.y, xIle, yIle) <= 75:
+                self.afficher_items = True
+            else:
+                self.afficher_items = False
         else:
-            print('Malus ou Benediction')
+            self.afficher_items = False
+            print('Malus/Bene')
+    
+    def getItem(self):
+        pass
 
