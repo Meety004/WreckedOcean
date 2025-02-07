@@ -14,56 +14,63 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 # Initialisation du delta time pour avoir la même vitesse sur tout les ordis (ca marche pas)
 clock = pygame.time.Clock()
 
-# Listes des éléments du jeu
-liste_joueur = [Navire(7, 0.2, 5, "images/bato_j1.png", screen_width, screen_height)] #vitesse_max, acceleration, maniabilité, image
-liste_ennemis = [IA_ennemis(5, 0.2, 5, "images/bato.png", screen_width, screen_height), IA_ennemis(5, 0.2, 5, "images/bato.png", screen_width, screen_height)]
+# fonction start
 
-# Liste avec les joueur et les ennemis (contenant donc tout les Navire a l'ecran)
-liste_navire = liste_joueur + liste_ennemis
+def start_game():
+        # Listes des éléments du jeu
+        liste_joueur = [Navire(7, 0.2, 5, "images/bato_j1.png", screen_width, screen_height)] #vitesse_max, acceleration, maniabilité, image
+        liste_ennemis = [IA_ennemis(5, 0.2, 5, "images/bato.png", screen_width, screen_height), IA_ennemis(5, 0.2, 5, "images/bato.png", screen_width, screen_height)]
 
-# Liste de tuples avec les coordonées des navires.
-liste_coords = []
+        # Liste avec les joueur et les ennemis (contenant donc tout les Navire a l'ecran)
+        liste_navire = liste_joueur + liste_ennemis
 
-for i in range(len(liste_navire)):
-    coords = ("(", liste_navire[i].position_x(), ",", liste_navire[i].position_y(), ")")
-    liste_coords.append(coords)
+        # Liste de tuples avec les coordonées des navires.
+        liste_coords = []
 
-# Liste avec les îles
-liste_iles = [Iles(
-    screen_width,
-    screen_height, 
-    "images/ile_commune.png", 
-    "images/ile_rare.png", 
-    "images/ile_mythique.png", 
-    "images/ile_legendaire.png",
-    liste_navire)]
+        for i in range(len(liste_navire)):
+            coords = ("(", liste_navire[i].position_x(), ",", liste_navire[i].position_y(), ")")
+            liste_coords.append(coords)
 
-# Liste de tout les tirs à l'écran
-liste_shot = []
+        # Liste avec les îles
+        liste_iles = [Iles(
+            screen_width,
+            screen_height, 
+            "images/ile_commune.png", 
+            "images/ile_rare.png", 
+            "images/ile_mythique.png", 
+            "images/ile_legendaire.png",
+            liste_navire)]
 
-# Variable contenant le nombre d'îles affichées
-nbrIles = 1
+        # Liste de tout les tirs à l'écran
+        liste_shot = []
 
-# Nombre maximul d'îles sur la map
-maxIles = 5
+        # Variable contenant le nombre d'îles affichées
+        nbrIles = 1
 
-# On crée un timer d'un nombre de ticks avant la prochaine apparition d'île
-def setTimer():
-    timer = randint(100, 300)
-    return timer
+        # Nombre maximul d'îles sur la map
+        maxIles = 5
 
-#On fait apparaitre des îles sous certaines conditions (timer à 0, 5 îles au total maximum)
-def apparitionIles(nbrIles, maxIles, timer):
-    timer -= 1
-    if timer <= 0:
+        # On crée un timer d'un nombre de ticks avant la prochaine apparition d'île
+        def setTimer():
+            timer = randint(100, 300)
+            return timer
+
+        #On fait apparaitre des îles sous certaines conditions (timer à 0, 5 îles au total maximum)
+        def apparitionIles(nbrIles, maxIles, timer):
+            timer -= 1
+            if timer <= 0:
+                timer = setTimer()
+                if nbrIles < maxIles:
+                    liste_iles.append(Iles(screen_width, screen_height,"images/ile_commune.png","images/ile_rare.png","images/ile_mythique.png","images/ile_legendaire.png",liste_navire))
+                    nbrIles += 1
+            return nbrIles, maxIles, timer
+
+        #On appelle le timer pour la première fois
         timer = setTimer()
-        if nbrIles < maxIles:
-            liste_iles.append(Iles(screen_width, screen_height,"images/ile_commune.png","images/ile_rare.png","images/ile_mythique.png","images/ile_legendaire.png",liste_navire))
-            nbrIles += 1
-    return nbrIles, maxIles, timer
 
-#On appelle le timer pour la première fois
-timer = setTimer()
+        return liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer
+
+liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer = start_game()
 
 # Définition de la couleur de fond (noir)
 BLACK = (0, 0, 0)
@@ -71,6 +78,7 @@ BLACK = (0, 0, 0)
 # ECRAN TITRE
 menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/menu.png", screen_width, screen_width)
 menu.actif(screen_width, screen_height, screen)
+
 
 # Boucle principale du jeu
 running = True
@@ -136,7 +144,7 @@ while running:
 
         ennemis.sortir_ecran(screen_width, screen_height)
 
-    for shot_i in liste_shot:
+    for shot_i in reversed(liste_shot):
         if shot_i is not None: # deuxieme verification pour voir si il n'y a pas de None dans les tire car ca casse tout
             shot_i.avancer()
             if shot_i.despawn_distance():
@@ -151,14 +159,19 @@ while running:
     for navire_i in liste_navire:
         if navire_i.is_dead():
             if len(liste_joueur) > 0:
-                for i in range(len(liste_joueur)):
+                for i in range(len(liste_joueur)-1, -1, -1):
                     if liste_joueur[i].get_ID() == navire_i.get_ID():
                         liste_joueur.pop(i)
             if len(liste_ennemis) > 0:
-                for i in range(len(liste_ennemis)):
+                for i in range(len(liste_ennemis)-1, -1, -1):
                     if liste_ennemis[i].get_ID() == navire_i.get_ID():
                         liste_ennemis.pop(i)
             liste_navire.remove(navire_i)
+    if len(liste_joueur) == 0:
+        liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer = start_game()
+        menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/menu.png", screen_width, screen_width)
+        menu.actif(screen_width, screen_height, screen)
+        continue
             
 
     # Appelle la méthode de gestion du temps des  îles et les supprime au bout d'un certain temps.
