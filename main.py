@@ -19,7 +19,10 @@ clock = pygame.time.Clock()
 def start_game():
         # Listes des éléments du jeu
         liste_joueur = [Navire(7, 0.2, 5, "images/bato_j1.png", screen_width, screen_height)] #vitesse_max, acceleration, maniabilité, image
-        liste_ennemis = [IA_ennemis(5, 0.2, 5, "images/bato.png", screen_width, screen_height), IA_ennemis(5, 0.2, 5, "images/bato.png", screen_width, screen_height)]
+        liste_ennemis = []
+        for i in range(3):
+            liste_ennemis.append(IA_ennemis(5, 0.2, 5, "images/bato.png", screen_width, screen_height))
+
 
         # Liste avec les joueur et les ennemis (contenant donc tout les Navire a l'ecran)
         liste_navire = liste_joueur + liste_ennemis
@@ -151,8 +154,9 @@ while running:
                 liste_shot.remove(shot_i)
             for i in range(len(liste_navire)-1, -1, -1):
                 if shot_i.collision(liste_navire[i].position_x(), liste_navire[i].position_y(), liste_navire[i].get_ID()):
-                    liste_navire[i].get_damaged(10)
-                    liste_shot.remove(shot_i)
+                    if shot_i in liste_shot:
+                        liste_navire[i].get_damaged(10) 
+                        liste_shot.remove(shot_i)
         else:
             liste_shot.remove(shot_i) # si il y a un None ça le detruit
         
