@@ -172,6 +172,9 @@ while running:
         if keys[pygame.K_a]:
             liste_joueur[0].getItem()
             liste_joueur[0].afficher_items = False
+            for ile in liste_iles:
+                if calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) < 75:
+                    liste_iles.remove(ile)
 
 
 
