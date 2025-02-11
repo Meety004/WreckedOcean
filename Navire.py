@@ -110,13 +110,21 @@ class Navire:
             tir_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
             liste_tirs.append(tir_gauche)
 
-            if self.equipement['canons'] == '+1 Canon' or self.equipement['canons'] == '+2 Canon':
+            if self.equipement['canons'] == '+1 Canon' or self.equipement['canons'] == '+2 Canon' or self.equipement['canons'] == '+3 Canon' or self.equipement['canons'] == '+4 Canon':
                 tir_avant = shot.Shot(self.x, self.y, self.angle + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
                 liste_tirs.append(tir_avant)
 
-                if self.equipement['canons'] == '+2 Canon':
+                if self.equipement['canons'] == '+2 Canon' or self.equipement['canons'] == '+3 Canon' or self.equipement['canons'] == '+4 Canon':
                     tir_arriere = shot.Shot(self.x, self.y, self.angle + 180 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
                     liste_tirs.append(tir_arriere)
+
+                    if self.equipement['canons'] == '+3 Canon' or self.equipement['canons'] == '+4 Canon':
+                        tir_diag1 = shot.Shot(self.x, self.y, self.angle + 45 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
+                        liste_tirs.append(tir_diag1)
+
+                        if self.equipement['canons'] == '+4 Canon':
+                            tir_diag2 = shot.Shot(self.x, self.y, self.angle - 45 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
+                            liste_tirs.append(tir_diag2)
 
             return liste_tirs
         else:
