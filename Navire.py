@@ -23,7 +23,8 @@ class Navire:
         self.dernier_tire = 0 # le denier tire fait par le bateau pour le chrono
         self.cadance_tire = 1000 # en milliseconde
         self.ID = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
-        self.vie = 50
+        self.maxVie = 50
+        self.vie = self.maxVie
 
         self.afficher_items = False  # Variable d'état pour suivre l'affichage de l'image
         self.ItemsUI = pygame.image.load("images/Interfaces/equip_menu_item.png").convert_alpha()
@@ -175,7 +176,24 @@ class Navire:
         elif self.recompense[0] in res.listeCoques:
             self.equipement['coque'] = self.recompense[0]
         print(self.equipement)
-    
-    def getItem(self):
-        pass
+        self.effetItem()
 
+    def effetItem(self):
+        if self.equipement['coque'] == self.recompense[0]:
+            if self.equipement['coque'] == "Coque épicéa":
+                self.maxVie += 10
+            elif self.equipement['coque'] == "Coque en bouleau":
+                self.maxVie += 10
+                self.vitesse_max = self.vitesse_max * 1.1
+            elif self.equipement['coque'] == "Coque en chêne massif":
+                self.maxVie += 75
+                self.vitesse_max = self.vitesse_max * 0.9
+            elif self.equipement['coque'] == "Coque chêne":
+                self.vitesse_max = self.vitesse_max * 1.05
+            elif self.equipement['coque'] == "Coque en bois magique":
+                self.maxVie += 50
+                self.vitesse_max = self.vitesse_max * 1.2
+            else:
+                self.maxVie += 60
+                self.vitesse_max = self.vitesse_max * 1.3
+        
