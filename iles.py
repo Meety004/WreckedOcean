@@ -1,4 +1,4 @@
-from fonction_auxiliere import *
+import ressources as res
 from random import *
 import pygame
 
@@ -66,7 +66,7 @@ class Iles:
             self.x = randint(35, (self.screen_width-35))
             self.y = randint(35, (self.screen_height-35))
             for i in range(len(self.listeNav)):
-                distanceIleNav =  calc_distance(self.x, self.y, self.listeNav[i].position_x(), self.listeNav[i].position_y())
+                distanceIleNav =  res.calc_distance(self.x, self.y, self.listeNav[i].position_x(), self.listeNav[i].position_y())
                 if distanceIleNav >= 40:
                     verifProx = True
                 else:

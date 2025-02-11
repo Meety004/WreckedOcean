@@ -3,7 +3,7 @@ import pygame
 import random
 import shot
 import string
-import fonction_auxiliere
+import ressources as res
 
 class Navire:
     def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height):
@@ -181,7 +181,7 @@ class Navire:
         self.recompense = recompense
         if (recompense not in self.liste_benedictions) and (recompense not in self.liste_malus):
             
-            if fonction_auxiliere.calc_distance(self.x, self.y, xIle, yIle) <= 75:
+            if res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
                 self.afficher_items = True
             else:
                 self.afficher_items = False
