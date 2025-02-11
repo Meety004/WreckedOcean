@@ -165,16 +165,21 @@ while running:
         for n in liste_navire:
             if len(liste_navire) > 0:
                 recompense = ile.type_recompenses()
-                n.equiper(recompense, ile.position_x(), ile.position_y(), screen)
+                n.equipInterface(recompense, ile.position_x(), ile.position_y())
+                if liste_joueur[0].afficher_items == True:
+
+                    if keys[pygame.K_a]:
+                        liste_joueur[0].getItem()
+                        liste_joueur[0].afficher_items = False
+
+                        if calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) < 75:
+                            liste_iles.remove(ile)
+                        liste_joueur[0].equiper()
 
     #Gérer l'obtention d'un nouvel item
-    if liste_joueur[0].afficher_items == True:
-        if keys[pygame.K_a]:
-            liste_joueur[0].getItem()
-            liste_joueur[0].afficher_items = False
-            for ile in liste_iles:
-                if calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) < 75:
-                    liste_iles.remove(ile)
+
+
+            
 
 
 

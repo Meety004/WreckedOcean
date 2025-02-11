@@ -37,13 +37,51 @@ class Navire:
 
         self.benedictions = []
 
-        self.malus = {
-            'canon': None,
-            'voile': None,
-            'coque': None
-        }
-
         self.recompense = None
+
+        self.liste_benedictions = [
+            "Bénédiction Dash", 
+            "Bénédiction Santé",
+            "Bénédiction d'aura", 
+            "Bénédiciton de rage",
+            "Bénédiction GodMode", 
+            "Bénédiction Projectile"
+        ]
+
+        self.liste_malus = [
+            "Canons Rouillés",
+            "Voile Trouée",
+            "Coque Trouée"
+        ]
+
+        self.listeCanons = [
+            "1 Canon",
+            "Canon en bronze",
+            "2 Canons", 
+            "Canon en argnet", 
+            "Canon Ballistique",
+            "3 Canons", 
+            "Canon en or", 
+            "Canon à tirs doubles",
+            "4 Canons", 
+            "Canon légendaire"
+        ]
+
+        self.listeCoques = [
+            "Coque épicéa",
+            "Coque chêne",
+            "Coque en bouleau", 
+            "Coque en chêne massif",
+            "Coque en bois magique",
+            "Coque légendaire"
+        ]
+
+        self.listeVoiles = [
+            "Voile en toile de jute",
+            "Voile Latine",
+            "Voile Enchantée", 
+            "Voile légendaire"
+        ]
 
 
     # le bateau avance en permanence de la vitesse (donc si la vitesse vaut 0 il avance pas)
@@ -139,23 +177,9 @@ class Navire:
     def get_rect(self):
         return self.rect
 
-    def equiper(self, recompense, xIle, yIle, screen):
+    def equipInterface(self, recompense, xIle, yIle):
         self.recompense = recompense
-        liste_benedictions = [
-            'bene_dash',
-            'bene_sante',
-            'bene_aura',
-            'bene_rage',
-            'bene_godmode'
-        ]
-
-        liste_malus = [
-            "Canons Rouillés",
-            "Voile Trouée",
-            "Coque Trouée"
-        ]
-
-        if (recompense not in liste_benedictions) and (recompense not in liste_malus):
+        if (recompense not in self.liste_benedictions) and (recompense not in self.liste_malus):
             
             if fonction_auxiliere.calc_distance(self.x, self.y, xIle, yIle) <= 75:
                 self.afficher_items = True
@@ -164,6 +188,9 @@ class Navire:
         else:
             self.afficher_items = False
             print('Malus/Bene')
+
+    def equiper(self):
+        print(self.recompense)
     
     def getItem(self):
         pass
