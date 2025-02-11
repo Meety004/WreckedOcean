@@ -102,9 +102,23 @@ class Navire:
 
             # argument : x, y, angle, distance_max, image
             # l'angle est ajusté en fonction de la vitesse du bateau. si il avance les boulet continue dans sa direction
-            tire_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
-            tire_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
-            return [tire_droite, tire_gauche]
+            liste_tirs = []
+
+            tir_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
+            liste_tirs.append(tir_droite)
+
+            tir_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
+            liste_tirs.append(tir_gauche)
+
+            if self.equipement['canons'] == '+1 Canon' or self.equipement['canons'] == '+2 Canon':
+                tir_avant = shot.Shot(self.x, self.y, self.angle + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
+                liste_tirs.append(tir_avant)
+
+                if self.equipement['canons'] == '+2 Canon':
+                    tir_arriere = shot.Shot(self.x, self.y, self.angle + 180 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
+                    liste_tirs.append(tir_arriere)
+
+            return liste_tirs
         else:
             return None
         

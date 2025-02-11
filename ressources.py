@@ -20,15 +20,15 @@ liste_malus = [
         ]
 
 listeCanons = [
-    "1 Canon",
+    "+1 Canon",
     "Canon en bronze",
-    "2 Canons", 
+    "+2 Canons", 
     "Canon en argnet", 
     "Canon Ballistique",
-    "3 Canons", 
+    "+3 Canons", 
     "Canon en or", 
     "Canon à tirs doubles",
-    "4 Canons", 
+    "+4 Canons", 
     "Canon légendaire"
         ]
 
@@ -47,3 +47,18 @@ listeVoiles = [
     "Voile Enchantée", 
     "Voile légendaire"
         ]
+
+CoqueCommune = ""
+CoqueRare = ""
+CoqueMythique = ""
+CoqueLegendaire = ""
+
+VoileCommune = ""
+VoileRare = ""
+VoileMythique = ""
+VoileLegendaire = ""
+
+CanonCommune = ""
+CanonRare = ""
+CanonMythique = ""
+CanonLegendaire = ""
