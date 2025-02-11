@@ -26,7 +26,7 @@ class Navire:
         self.vie = 50
 
         self.afficher_items = False  # Variable d'état pour suivre l'affichage de l'image
-        self.ItemsUI = pygame.image.load("images/equip_menu_item.png").convert_alpha()
+        self.ItemsUI = pygame.image.load("images/Interfaces/equip_menu_item.png").convert_alpha()
         self.ItemsUI = pygame.transform.scale(self.ItemsUI, (screen_width*0.4, screen_height*0.4)).convert_alpha()
 
         self.equipement = {
@@ -38,51 +38,6 @@ class Navire:
         self.benedictions = []
 
         self.recompense = None
-
-        self.liste_benedictions = [
-            "Bénédiction Dash", 
-            "Bénédiction Santé",
-            "Bénédiction d'aura", 
-            "Bénédiciton de rage",
-            "Bénédiction GodMode", 
-            "Bénédiction Projectile"
-        ]
-
-        self.liste_malus = [
-            "Canons Rouillés",
-            "Voile Trouée",
-            "Coque Trouée"
-        ]
-
-        self.listeCanons = [
-            "1 Canon",
-            "Canon en bronze",
-            "2 Canons", 
-            "Canon en argnet", 
-            "Canon Ballistique",
-            "3 Canons", 
-            "Canon en or", 
-            "Canon à tirs doubles",
-            "4 Canons", 
-            "Canon légendaire"
-        ]
-
-        self.listeCoques = [
-            "Coque épicéa",
-            "Coque chêne",
-            "Coque en bouleau", 
-            "Coque en chêne massif",
-            "Coque en bois magique",
-            "Coque légendaire"
-        ]
-
-        self.listeVoiles = [
-            "Voile en toile de jute",
-            "Voile Latine",
-            "Voile Enchantée", 
-            "Voile légendaire"
-        ]
-
 
     # le bateau avance en permanence de la vitesse (donc si la vitesse vaut 0 il avance pas)
     def avancer(self):
@@ -147,8 +102,8 @@ class Navire:
 
             # argument : x, y, angle, distance_max, image
             # l'angle est ajusté en fonction de la vitesse du bateau. si il avance les boulet continue dans sa direction
-            tire_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, 170, "images/boulet_canon.png", self.ID)
-            tire_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 170, "images/boulet_canon.png", self.ID)
+            tire_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
+            tire_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
             return [tire_droite, tire_gauche]
         else:
             return None
@@ -179,7 +134,7 @@ class Navire:
 
     def equipInterface(self, recompense, xIle, yIle):
         self.recompense = recompense
-        if (recompense not in self.liste_benedictions) and (recompense not in self.liste_malus):
+        if (recompense not in res.liste_benedictions) and (recompense not in res.liste_malus):
             
             if res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
                 self.afficher_items = True
@@ -191,6 +146,13 @@ class Navire:
 
     def equiper(self):
         print(self.recompense)
+        if self.recompense[0] in res.listeCanons:
+            self.equipement['canons'] = self.recompense[0]
+        elif self.recompense[0] in res.listeVoiles:
+            self.equipement['voile'] = self.recompense[0]
+        elif self.recompense[0] in res.listeCoques:
+            self.equipement['coque'] = self.recompense[0]
+        print(self.equipement)
     
     def getItem(self):
         pass

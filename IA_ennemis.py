@@ -23,7 +23,7 @@ class IA_ennemis(Navire):
     def ennemi_in_range(self, liste_adversaire):
         for ennemi in liste_adversaire:
             if ennemi.get_ID() != self.ID:
-                if res.fonction_auxiliere.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 120:
+                if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 120:
                     return True
         return False
 
@@ -76,7 +76,7 @@ class IA_ennemis(Navire):
 
     def tirer(self, cible_x, cible_y):
         # si l'ennemi est a distance meme si il est pas bien incliner ca tire
-        if res.fonction_auxiliere.calc_distance(self.x, self.y, cible_x, cible_y) <= 140:
+        if res.calc_distance(self.x, self.y, cible_x, cible_y) <= 140:
             return super().shoot()
 
     def position_x(self):

@@ -89,12 +89,7 @@ class Iles:
 
     # Méthode qui retourne un un malus alééatoire (str)
     def random_malus(self):
-        self.malus = [
-            "Canons Rouillés",
-            "Voile Trouée",
-            "Coque Trouée"
-        ]
-        choice = choices(self.malus)
+        choice = choices(res.liste_malus)
         return choice
 
     # Méthode qui retourne une récompense en fonction du type de l'île (str)
