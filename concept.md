@@ -73,6 +73,7 @@ Les boss :
 Les boss spawn assez rarement au court du temps. Il peuvent se defendre et ils font mal. Un boss ne peut spawn qu’une fois par partie. Pour obtenir leur pouvoir il faut les tuer. Leur equipement sont mieux que des armes legendaire
 Quand un boss apparaît, une fenetre contenant uen ‘biographie’ du pirate ainsi qu’un pixel afin de présenter le pirate, rajouter du lore
 liste des boss :
+
     • le Queen Anne’s revenge (bateau de barbe noir l’un des plus rapide) pour la voile
         ◦ +50 % de vitesse et n’est pas affecté par le vent 
 
