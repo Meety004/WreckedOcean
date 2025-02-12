@@ -48,17 +48,23 @@ listeVoiles = [
     "Voile légendaire"
         ]
 
-CoqueCommune = ""
-CoqueRare = ""
-CoqueMythique = ""
-CoqueLegendaire = ""
+listeEquipementStart = [
+    "Coque de base",
+    "Canons de base",
+    "Voile de base"
+]
 
-VoileCommune = ""
-VoileRare = ""
-VoileMythique = ""
-VoileLegendaire = ""
+CoqueCommun = "images/Icons/Coques/coque_commun.png"
+CoqueRare = "images/Icons/Coques/coque_rare.png"
+CoqueMythique = "images/Icons/Coques/coque_mythique.png"
+CoqueLegendaire = "images/Icons/Coques/coque_legendaire.png"
 
-CanonCommune = ""
-CanonRare = ""
-CanonMythique = ""
-CanonLegendaire = ""
+VoileCommun = "images/Icons/Voiles/voile_commun.png"
+VoileRare = "images/Icons/Voiles/voile_rare.png"
+VoileMythique = "images/Icons/Voiles/voile_mythique.png"
+VoileLegendaire = "images/Icons/Voiles/voile_legendaire.png"
+
+CanonCommun = "images/Icons/Canons/canon_commun.png"
+CanonRare = "images/Icons/Canons/canon_rare.png"
+CanonMythique = "images/Icons/Canons/canon_mythique.png"
+CanonLegendaire = "images/Icons/Canons/canon_legendaire.png"
