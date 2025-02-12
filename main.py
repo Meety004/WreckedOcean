@@ -12,11 +12,12 @@ screen_height = pygame.display.Info().current_h
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 # Initialisation du delta time pour avoir la même vitesse sur tout les ordis
+framerate = 50
 clock = pygame.time.Clock()
-
+dt = clock.tick(framerate)
 # Listes des éléments du jeu
-liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, screen_height)] #vitesse_max, acceleration, maniabilité, image
-liste_ennemis = [IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, screen_height), IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, screen_height)]
+liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, screen_height, dt)] #vitesse_max, acceleration, maniabilité, image
+liste_ennemis = [IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, screen_height, dt), IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, screen_height, dt)]
 
 # Liste avec les joueur et les ennemis (contenant donc tout les Navire a l'ecran)
 liste_navire = liste_joueur + liste_ennemis
@@ -55,6 +56,9 @@ def setTimer():
 #On fait apparaitre des îles sous certaines conditions (timer à 0, 5 îles au total maximum)
 def apparitionIles(nbrIles, maxIles, timer):
     timer -= 1
+    #if len(liste_iles) == 0:
+    #    liste_iles.append(Iles(screen_width, screen_height,"images/Textures/Iles/ile_commune.png","images/Textures/Iles/ile_rare.png","images/Textures/Iles/ile_mythique.png","images/Textures/Iles/ile_legendaire.png",liste_navire))
+    #    nbrIles += 1
     if timer <= 0:
         timer = setTimer()
         if nbrIles < maxIles:
@@ -174,6 +178,7 @@ while running:
 
                         if res.calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) < 75:
                             liste_iles.remove(ile)
+                            print(liste_iles)
                         liste_joueur[0].equiper()
 
     #Gérer l'obtention d'un nouvel item
@@ -226,7 +231,7 @@ while running:
         running = False
 
     # Limiter la boucle à 60 images par seconde
-    clock.tick(60) # enfaite si ca marche mais c'est bizarre
+    dt = clock.tick(framerate) # enfaite si ca marche mais c'est bizarre
 
 # Quitter Pygame proprement
 pygame.quit()

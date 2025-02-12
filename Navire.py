@@ -6,7 +6,7 @@ import string
 import ressources as res
 
 class Navire:
-    def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height):
+    def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt):
         # Contrôle du vaisseau
         self.vitesse_max = v_max
         self.acceleration = acceleration
@@ -179,9 +179,12 @@ class Navire:
         self.effetItem()
 
     def effetItem(self):
+        self.VoileMaxVitesse = 1
+        self.VoileMaxVie = 0
+        self.CoqueMaxVie = 0
+        self.CoqueMaxVitesse = 1
+
         if self.recompense[0] in res.listeCoques:
-            self.CoqueMaxVie = 0
-            self.CoqueMaxVitesse = 0
             if self.equipement['coque'] == "Coque épicéa":
                 self.CoqueMaxVie += 10
                 self.vie += 10
@@ -205,8 +208,6 @@ class Navire:
                 self.CoqueMaxVitesse = 1.3
 
         if self.recompense[0] in res.listeVoiles:
-            self.VoileMaxVitesse = 0
-            self.VoileMaxVie = 0
             if self.equipement['voile'] == "Voile en toile de jute":
                 self.VoileMaxVitesse = 1.05
             elif self.equipement['voile'] == "Voile Latine":
@@ -216,6 +217,7 @@ class Navire:
             elif self.equipement['voile'] == "Voile légendaire":
                 self.VoileMaxVitesse = 1.3
                 self.maniabilite = self.maniabilite * 1.05
-
+        
         self.maxVie = self.maxVie + self.VoileMaxVie + self.CoqueMaxVie
-        self.vitesse_max = self.vitesse_max + self.VoileMaxVitesse + self.CoqueMaxVitesse
+        self.vitesse_max = self.vitesse_max * self.VoileMaxVitesse * self.CoqueMaxVitesse
+        print(self.vitesse_max, self.maxVie)

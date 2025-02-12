@@ -28,6 +28,7 @@ class Shot:
             if (cible_x - 15) < self.x < (cible_x + 15) and (cible_y - 15) < self.y < (cible_y + 15):
                 return True
         return False
+    
     # si la distance parcouru par le boulet est trop grande il despawn    
     def despawn_distance(self):
         return res.calc_distance(self.x, self.y, self.position_initiale_x, self.position_initiale_y) >= self.distance_max

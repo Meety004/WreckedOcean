@@ -14,8 +14,8 @@ from Navire import Navire
 # a venir : evitement des bordure de la map
 
 class IA_ennemis(Navire):
-    def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height):
-        super().__init__(v_max, acceleration, maniabilite, image, screen_width, screen_height)
+    def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt):
+        super().__init__(v_max, acceleration, maniabilite, image, screen_width, screen_height, dt)
         self.action = random.randint(0, 2) # 0 = aller tout droit, 1 = tourner a gauche, 2 = tourner a droite
         self.compte_action = 0 # compte combien de fois l'IA fait la meme action (ne peut pas la faire plus de 23 fois)
 
