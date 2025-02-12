@@ -157,7 +157,7 @@ class Navire:
 
     def equipInterface(self, recompense, xIle, yIle):
         self.recompense = recompense
-        if (recompense not in res.liste_benedictions) and (recompense not in res.liste_malus):
+        if (recompense not in res.liste_benedictions) and (recompense not in res.liste_malus) and recompense != "Rien":
             
             if res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
                 self.afficher_items = True
@@ -165,7 +165,7 @@ class Navire:
                 self.afficher_items = False
         else:
             self.afficher_items = False
-            print('Malus/Bene')
+            print('Malus/Bene/rien')
 
     def equiper(self):
         print(self.recompense)
@@ -180,6 +180,7 @@ class Navire:
 
     def effetItem(self):
         if self.equipement['coque'] == self.recompense[0]:
+            print('EffectCoque')
             if self.equipement['coque'] == "Coque épicéa":
                 self.maxVie += 10
             elif self.equipement['coque'] == "Coque en bouleau":
@@ -193,7 +194,17 @@ class Navire:
             elif self.equipement['coque'] == "Coque en bois magique":
                 self.maxVie += 50
                 self.vitesse_max = self.vitesse_max * 1.2
-            else:
+            elif self.equipement['coque'] == "Coque légendaire":
                 self.maxVie += 60
                 self.vitesse_max = self.vitesse_max * 1.3
-        
+
+        if self.equipement['voile'] == self.recompense[0]:
+            if self.equipement['voile'] == "Voile en toile de jute":
+                self.vitesse_max = self.vitesse_max * 1.05
+            elif self.equipement['voile'] == "Voile Latine":
+                self.vitesse_max = self.vitesse_max * 1.1
+            elif self.equipement['voile'] == "Voile Enchantée":
+                self.vitesse_max = self.vitesse_max * 1.3
+            elif self.equipement['voile'] == "Voile légendaire":
+                self.vitesse_max = self.vitesse_max * 1.3
+                self.maniabilite = self.maniabilite * 1.05
