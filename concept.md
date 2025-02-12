@@ -50,7 +50,7 @@ Rares :
 
 	Coques:
 		Coque en bouleau (+10pv max 100→ 110 +5 % de vitesse)
-		Coque en chêne massif (+75pv max 100→ 175 -10 % de vitesse)
+		Coque en chêne massif (+75pv max 100→ 175 -25 % de vitesse)
 Mythiques :
 	Canons :
 		Canon en or (+10 % de dégâts et projectiles 10 % plus rapides)

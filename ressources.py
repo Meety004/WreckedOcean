@@ -23,7 +23,7 @@ listeCanons = [
     "+1 Canon",
     "Canon en bronze",
     "+2 Canons", 
-    "Canon en argnet", 
+    "Canon en argent", 
     "Canon Ballistique",
     "+3 Canons", 
     "Canon en or", 

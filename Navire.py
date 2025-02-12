@@ -111,19 +111,19 @@ class Navire:
             tir_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
             liste_tirs.append(tir_gauche)
 
-            if self.equipement['canons'] == '+1 Canon' or self.equipement['canons'] == '+2 Canon' or self.equipement['canons'] == '+3 Canon' or self.equipement['canons'] == '+4 Canon':
+            if self.equipement['canons'] == '+1 Canon' or self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
                 tir_avant = shot.Shot(self.x, self.y, self.angle + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
                 liste_tirs.append(tir_avant)
 
-                if self.equipement['canons'] == '+2 Canon' or self.equipement['canons'] == '+3 Canon' or self.equipement['canons'] == '+4 Canon':
+                if self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
                     tir_arriere = shot.Shot(self.x, self.y, self.angle + 180 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
                     liste_tirs.append(tir_arriere)
 
-                    if self.equipement['canons'] == '+3 Canon' or self.equipement['canons'] == '+4 Canon':
+                    if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
                         tir_diag1 = shot.Shot(self.x, self.y, self.angle + 45 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
                         liste_tirs.append(tir_diag1)
 
-                        if self.equipement['canons'] == '+4 Canon':
+                        if self.equipement['canons'] == '+4 Canons':
                             tir_diag2 = shot.Shot(self.x, self.y, self.angle - 45 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
                             liste_tirs.append(tir_diag2)
 
@@ -179,32 +179,43 @@ class Navire:
         self.effetItem()
 
     def effetItem(self):
-        if self.equipement['coque'] == self.recompense[0]:
-            print('EffectCoque')
+        if self.recompense[0] in res.listeCoques:
+            self.CoqueMaxVie = 0
+            self.CoqueMaxVitesse = 0
             if self.equipement['coque'] == "Coque épicéa":
-                self.maxVie += 10
+                self.CoqueMaxVie += 10
+                self.vie += 10
             elif self.equipement['coque'] == "Coque en bouleau":
-                self.maxVie += 10
+                self.CoqueMaxVie += 10
+                self.vie += 10
                 self.vitesse_max = self.vitesse_max * 1.1
             elif self.equipement['coque'] == "Coque en chêne massif":
-                self.maxVie += 75
-                self.vitesse_max = self.vitesse_max * 0.9
+                self.CoqueMaxVie += 75
+                self.vie += 75
+                self.CoqueMaxVitesse = 0.75
             elif self.equipement['coque'] == "Coque chêne":
-                self.vitesse_max = self.vitesse_max * 1.05
+                self.CoqueMaxVitesse = 1.05
             elif self.equipement['coque'] == "Coque en bois magique":
-                self.maxVie += 50
-                self.vitesse_max = self.vitesse_max * 1.2
+                self.CoqueMaxVie += 50
+                self.vie += 50
+                self.CoqueMaxVitesse = 1.2
             elif self.equipement['coque'] == "Coque légendaire":
-                self.maxVie += 60
-                self.vitesse_max = self.vitesse_max * 1.3
+                self.CoqueMaxVie += 60
+                self.vie += 60
+                self.CoqueMaxVitesse = 1.3
 
-        if self.equipement['voile'] == self.recompense[0]:
+        if self.recompense[0] in res.listeVoiles:
+            self.VoileMaxVitesse = 0
+            self.VoileMaxVie = 0
             if self.equipement['voile'] == "Voile en toile de jute":
-                self.vitesse_max = self.vitesse_max * 1.05
+                self.VoileMaxVitesse = 1.05
             elif self.equipement['voile'] == "Voile Latine":
-                self.vitesse_max = self.vitesse_max * 1.1
+                self.VoileMaxVitesse = 1.1
             elif self.equipement['voile'] == "Voile Enchantée":
-                self.vitesse_max = self.vitesse_max * 1.3
+                self.VoileMaxVitesse = 1.3
             elif self.equipement['voile'] == "Voile légendaire":
-                self.vitesse_max = self.vitesse_max * 1.3
+                self.VoileMaxVitesse = 1.3
                 self.maniabilite = self.maniabilite * 1.05
+
+        self.maxVie = self.maxVie + self.VoileMaxVie + self.CoqueMaxVie
+        self.vitesse_max = self.vitesse_max + self.VoileMaxVitesse + self.CoqueMaxVitesse
