@@ -191,7 +191,7 @@ class Navire:
             elif self.equipement['coque'] == "Coque en bouleau":
                 self.CoqueMaxVie += 10
                 self.vie += 10
-                self.vitesse_max = self.vitesse_max * 1.1
+                self.vitesse_max = self.vitesse_max * 1.05
             elif self.equipement['coque'] == "Coque en chêne massif":
                 self.CoqueMaxVie += 75
                 self.vie += 75

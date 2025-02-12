@@ -56,9 +56,6 @@ def setTimer():
 #On fait apparaitre des îles sous certaines conditions (timer à 0, 5 îles au total maximum)
 def apparitionIles(nbrIles, maxIles, timer):
     timer -= 1
-    #if len(liste_iles) == 0:
-    #    liste_iles.append(Iles(screen_width, screen_height,"images/Textures/Iles/ile_commune.png","images/Textures/Iles/ile_rare.png","images/Textures/Iles/ile_mythique.png","images/Textures/Iles/ile_legendaire.png",liste_navire))
-    #    nbrIles += 1
     if timer <= 0:
         timer = setTimer()
         if nbrIles < maxIles:
@@ -178,6 +175,7 @@ while running:
 
                         if res.calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) < 75:
                             liste_iles.remove(ile)
+                            nbrIles -= 1
                             print(liste_iles)
                         liste_joueur[0].equiper()
 
