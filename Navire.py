@@ -31,9 +31,9 @@ class Navire:
         self.ItemsUI = pygame.transform.scale(self.ItemsUI, (screen_width*0.4, screen_height*0.4)).convert_alpha()
 
         self.equipement = {
-        'canons':    "Canons Rouillés",
-        'voile':    "Voile Trouée",
-        'coque':    "Coque Trouée"
+        'canons':    "Canons de base",
+        'voile':    "Voile de base",
+        'coque':    "Coque de base"
         }
 
         self.benedictions = []
@@ -128,8 +128,6 @@ class Navire:
                             liste_tirs.append(tir_diag2)
 
             return liste_tirs
-        else:
-            return None
         
     def get_damaged(self, damage):
         self.vie -= damage
@@ -166,6 +164,9 @@ class Navire:
         else:
             self.afficher_items = False
             print('Malus/Bene/rien')
+            if self.recompense in res.liste_malus:
+                self.equiper()
+
 
     def equiper(self):
         print(self.recompense)
@@ -175,14 +176,24 @@ class Navire:
             self.equipement['voile'] = self.recompense[0]
         elif self.recompense[0] in res.listeCoques:
             self.equipement['coque'] = self.recompense[0]
+        elif self.recompense[0] in res.liste_malus:
+            if self.recompense[0] == res.liste_malus[0]:
+                self.equipement['canons'] = self.recompense[0]
+            elif self.recompense[0] == res.liste_malus[1]:
+                self.equipement['voile'] = self.recompense[0]
+            else:
+                self.equipement['coque'] = self.recompense[0]
+
         print(self.equipement)
         self.effetItem()
 
     def effetItem(self):
+        self.maxVie = 50
+        self.vitesse_max = 7
         self.VoileMaxVitesse = 1
+        self.CoqueMaxVitesse = 1
         self.VoileMaxVie = 0
         self.CoqueMaxVie = 0
-        self.CoqueMaxVitesse = 1
 
         if self.recompense[0] in res.listeCoques:
             if self.equipement['coque'] == "Coque épicéa":
@@ -217,7 +228,18 @@ class Navire:
             elif self.equipement['voile'] == "Voile légendaire":
                 self.VoileMaxVitesse = 1.3
                 self.maniabilite = self.maniabilite * 1.05
-        
+
+        if self.recompense[0] in res.listeCanons:
+            pass
+
+        if self.recompense[0] in res.liste_malus:
+            if self.equipement['voile'] == "Voile Trouée":
+                self.VoileMaxVitesse = 0.5
+            if self.equipement['canons'] == "Canons Rouillés":
+                pass
+            if self.equipement['coque'] == "Coque Trouée":
+                pass
+
         self.maxVie = self.maxVie + self.VoileMaxVie + self.CoqueMaxVie
         self.vitesse_max = self.vitesse_max * self.VoileMaxVitesse * self.CoqueMaxVitesse
         print(self.vitesse_max, self.maxVie)

@@ -49,9 +49,9 @@ listeVoiles = [
         ]
 
 listeEquipementStart = [
-    "Coque de base",
     "Canons de base",
-    "Voile de base"
+    "Voile de base",
+    "Coque de base"
 ]
 
 CoqueCommun = "images/Icons/Coques/coque_commun.png"
