@@ -40,6 +40,12 @@ class Navire:
 
         self.recompense = None
 
+        self.CoqueMaxVie = 0
+        self.CoqueMaxVitesse = 1
+        self.VoileMaxVie = 0
+        self.VoileMaxVitesse = 1
+
+
     # le bateau avance en permanence de la vitesse (donc si la vitesse vaut 0 il avance pas)
     def avancer(self):
         self.x += self.vitesse * math.cos(math.radians(self.angle - 90)) # multiplie la vitesse X par le cosinus de l'angle en fonction de l'incilaison
@@ -190,12 +196,10 @@ class Navire:
     def effetItem(self):
         self.maxVie = 50
         self.vitesse_max = 7
-        self.VoileMaxVitesse = 1
-        self.CoqueMaxVitesse = 1
-        self.VoileMaxVie = 0
-        self.CoqueMaxVie = 0
 
         if self.recompense[0] in res.listeCoques:
+            self.CoqueMaxVie = 0
+            self.CoqueMaxVitesse = 1
             if self.equipement['coque'] == "Coque épicéa":
                 self.CoqueMaxVie += 10
                 self.vie += 10
@@ -219,6 +223,8 @@ class Navire:
                 self.CoqueMaxVitesse = 1.3
 
         if self.recompense[0] in res.listeVoiles:
+            self.VoileMaxVitesse = 1
+            self.VoileMaxVie = 0
             if self.equipement['voile'] == "Voile en toile de jute":
                 self.VoileMaxVitesse = 1.05
             elif self.equipement['voile'] == "Voile Latine":
