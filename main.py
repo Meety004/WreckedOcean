@@ -19,6 +19,12 @@ dt = clock.tick(framerate)
 liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, screen_height, dt)] #vitesse_max, acceleration, maniabilité, image
 liste_ennemis = [IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, screen_height, dt), IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, screen_height, dt)]
 
+keyBindList =  [
+    pygame.K_UP,
+    pygame.K_LEFT,
+    pygame.K_RIGHT
+    ]
+
 def start_game():
         # Listes des éléments du jeu
         liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, screen_height, dt)] #vitesse_max, acceleration, maniabilité, image
@@ -69,7 +75,7 @@ def start_game():
             if timer <= 0:
                 timer = setTimer()
                 if nbrIles < maxIles:
-                    liste_iles.append(Iles(screen_width, screen_height,"images/Textures/Iles/ile_commune.png","images/Textures/Iles/ile_rare.png","images/Textures/Iles/ile_mythique.png","images/Textures/Iles/legendaire.png",liste_navire))
+                    liste_iles.append(Iles(screen_width, screen_height,"images/Textures/Iles/ile_commune.png","images/Textures/Iles/ile_rare.png","images/Textures/Iles/ile_mythique.png","images/Textures/Iles/ile_legendaire.png",liste_navire))
                     nbrIles += 1
             return nbrIles, maxIles, timer
 
@@ -113,16 +119,22 @@ while running:
         pause.actif(screen_width, screen_height, screen)
     # Gestion des touches du premier navire (pour l'instant impossible de rajouter d'autre joueurs ils ont tous les même touches)
     if len(liste_joueur) > 0:
+
         for navire_i in liste_joueur:
-            if keys[pygame.K_UP]: # fleche du haut
+            if navire_i.getEquipement()['coque'] == "Coque Trouée":
+                keyBindList = res.keyBindCursedList
+            else:
+                keyBindList = res.keyBindList
+
+            if keys[keyBindList[0]]: # fleche du haut
                 navire_i.accelerer()
             else:
                 navire_i.ralentit()
 
-            if keys[pygame.K_LEFT]: # fleche gauche
+            if keys[keyBindList[1]]: # fleche gauche
                 navire_i.tourne_gauche()
 
-            if keys[pygame.K_RIGHT]: # fleche droite
+            if keys[keyBindList[2]]: # fleche droite
                 navire_i.tourne_droite()
             
             if keys[pygame.K_SPACE]: # espace

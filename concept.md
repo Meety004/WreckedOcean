@@ -76,10 +76,10 @@ Quand un boss apparaît, une fenetre contenant uen ‘biographie’ du pirate ai
 liste des boss :
 
     • le Queen Anne’s revenge (bateau de barbe noir l’un des plus rapide) pour la voile
-        ◦ +50 % de vitesse et n’est pas affecté par le vent 
+        ◦ +50 % de vitesse
 
     • Le Fancy (bateau le plus lourdement armée avec 46 canon) pour les canons
-        ◦ 6 canons (2 de chaque côtés, 1 devant et un derrière) avec tir triple (un tir vers l’avant et deux tirs en diagonale)
+        ◦ 8 canons: 1 de chaque côté, 1 à l'avant et à l'arrière ainsi que 1 dans chaque diagonale
 
     • Le Flying Dutchman (bateau fantome) pour la coque
         ◦ Peut aller sous l’eau et ne prend donc pas de dégats

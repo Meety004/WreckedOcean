@@ -158,6 +158,9 @@ class Navire:
         return self.ID
     def get_rect(self):
         return self.rect
+    
+    def getEquipement(self):
+        return self.equipement
 
     def equipInterface(self, recompense, xIle, yIle):
         self.recompense = recompense
@@ -242,8 +245,6 @@ class Navire:
             if self.equipement['voile'] == "Voile Trouée":
                 self.VoileMaxVitesse = 0.5
             if self.equipement['canons'] == "Canons Rouillés":
-                pass
-            if self.equipement['coque'] == "Coque Trouée":
                 pass
 
         self.maxVie = self.maxVie + self.VoileMaxVie + self.CoqueMaxVie

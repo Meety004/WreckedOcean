@@ -1,4 +1,4 @@
-import math
+import math, pygame
 
 def calc_distance(x1, y1, x2, y2):
     # fonction pour calculer une distance
@@ -68,3 +68,15 @@ CanonCommun = "images/Icons/Canons/canon_commun.png"
 CanonRare = "images/Icons/Canons/canon_rare.png"
 CanonMythique = "images/Icons/Canons/canon_mythique.png"
 CanonLegendaire = "images/Icons/Canons/canon_legendaire.png"
+
+keyBindList =  [
+    pygame.K_UP,
+    pygame.K_LEFT,
+    pygame.K_RIGHT
+]
+
+keyBindCursedList =  [
+    pygame.K_DOWN,
+    pygame.K_RIGHT,
+    pygame.K_LEFT
+]
