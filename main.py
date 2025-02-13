@@ -21,10 +21,10 @@ liste_ennemis = [IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", scree
 
 def start_game():
         # Listes des éléments du jeu
-        liste_joueur = [Navire(7, 0.2, 5, "images/bato_j1.png", screen_width, screen_height)] #vitesse_max, acceleration, maniabilité, image
+        liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, screen_height, dt)] #vitesse_max, acceleration, maniabilité, image
         liste_ennemis = []
         for i in range(3):
-            liste_ennemis.append(IA_ennemis(5, 0.2, 5, "images/bato.png", screen_width, screen_height))
+            liste_ennemis.append(IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, screen_height, dt))
 
 
         # Liste avec les joueur et les ennemis (contenant donc tout les Navire a l'ecran)
@@ -45,16 +45,6 @@ def start_game():
         for i in range(len(liste_navire)):
             coords = ("(", liste_navire[i].position_x(), ",", liste_navire[i].position_y(), ")")
             liste_coords.append(coords)
-
-        # Liste avec les îles
-        liste_iles = [Iles(
-            screen_width,
-            screen_height, 
-            "images/ile_commune.png", 
-            "images/ile_rare.png", 
-            "images/ile_mythique.png", 
-            "images/ile_legendaire.png",
-            liste_navire)]
 
         # Liste de tout les tirs à l'écran
         liste_shot = []
@@ -79,7 +69,7 @@ def start_game():
             if timer <= 0:
                 timer = setTimer()
                 if nbrIles < maxIles:
-                    liste_iles.append(Iles(screen_width, screen_height,"images/ile_commune.png","images/ile_rare.png","images/ile_mythique.png","images/ile_legendaire.png",liste_navire))
+                    liste_iles.append(Iles(screen_width, screen_height,"images/Textures/Iles/ile_commune.png","images/Textures/Iles/ile_rare.png","images/Textures/Iles/ile_mythique.png","images/Textures/Iles/legendaire.png",liste_navire))
                     nbrIles += 1
             return nbrIles, maxIles, timer
 
@@ -252,9 +242,6 @@ while running:
 
     # Rafraîchir l'écran
     pygame.display.flip()
-    
-
-    
 
     # pour quitter le jeux
     if keys[pygame.K_TAB]: # si on appuie sur tab ca quitte le jeu
