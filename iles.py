@@ -1,4 +1,4 @@
-from fonction_auxiliere import *
+import ressources as res
 from random import *
 import pygame
 
@@ -17,7 +17,7 @@ class Iles:
         self.height = 50
 
         # Choix du type d'île
-        self.typeList = choices(self.ile_rarete, weights=[0.50, 0.36, 0.09, 0.05], k=1)
+        self.typeList = choices(self.ile_rarete, weights=[0.50, 0.36, 0.1, 0.04], k=1)
         self.type = self.typeList[0]
 
         # On associe une image à l'île en fonction de son type
@@ -42,13 +42,13 @@ class Iles:
         self.listeNav = liste_nav
 
         #Liste des récompenses de chaque type d'ile, ainsi que leurs probabilités
-        self.liste_recompenses_communes = ['1_canon', 'canon_en_bronze', 'voile_toile_de_jute', 'coque_epicea', 'coque_chene', self.random_malus()[0], 'rien']
-        self.probabilité_commun = [0.1, 0.1, 0.1, 0.1, 0.1, 0.2, 0.3]
-        self.liste_recompenses_rares = ['2_canons', 'canon_en_argent', 'canon_balistique', 'voile_latine', 'coque_bouleau', 'coque_chene_massif', self.random_malus()[0], 'rien', 'bene_dash', 'bene_sante']
+        self.liste_recompenses_communes = ['+1 Canon', 'Canon en bronze', 'Voile en toile de jute', 'Coque épicéa', 'Coque chêne', self.random_malus()[0], 'Rien']
+        self.probabilité_commun = [0.1, 0.1, 0.2, 0.1, 0.2, 0.1, 0.2]
+        self.liste_recompenses_rares = ['+2 Canons', 'Canon en argent', 'Canon Ballistique', 'Voile Latine', 'Coque en bouleau', 'Coque en chêne massif', self.random_malus()[0], 'Rien', 'Bénédiction Dash', 'Bénédiction Santé']
         self.probabilité_rare = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.05, 0.1, 0.125, 0.125]
-        self.liste_recompenses_mythiques = ['3_canons', 'canon_en_or', 'canon_tir_double', 'voile_enchantee', 'coque_bois_magique', 'bene_aura', 'bene_rage']
+        self.liste_recompenses_mythiques = ['+3 Canons', 'Canon en or', 'Canon à tirs doubles', 'Voile Enchantée', 'Coque en bois magique', "Bénédiction d'aura", 'Bénédiciton de rage']
         self.probabilité_mythique = [0.12, 0.12, 0.12, 0.12, 0.12, 0.2, 0.2]
-        self.liste_recompenses_legendaires = ['4_canons', 'canon_legendaire', 'voile_legendaire', 'coque_legendaire', 'bene_godmode', 'bene_projectile']
+        self.liste_recompenses_legendaires = ['+4 Canons', 'Canon légendaire', 'Voile légendaire', 'Coque légendaire', 'Bénédiction GodMode', 'Bénédiction Projectile']
         self.probabilité_legendaire = [0.125, 0.125, 0.125, 0.125, 0.25, 0.25]
         
         #Dictionnaire qui associe le type d'ile à ses probabilités
@@ -58,7 +58,6 @@ class Iles:
             'mythique' : self.probabilité_mythique, 
             'légendaire': self.probabilité_legendaire}
         
-
         #On vérifie si l'île est assez éloignée des navires
         verifProx = False
 
@@ -66,7 +65,7 @@ class Iles:
             self.x = randint(35, (self.screen_width-35))
             self.y = randint(35, (self.screen_height-35))
             for i in range(len(self.listeNav)):
-                distanceIleNav =  calc_distance(self.x, self.y, self.listeNav[i].position_x(), self.listeNav[i].position_y())
+                distanceIleNav =  res.calc_distance(self.x, self.y, self.listeNav[i].position_x(), self.listeNav[i].position_y())
                 if distanceIleNav >= 40:
                     verifProx = True
                 else:
@@ -89,17 +88,12 @@ class Iles:
 
     # Méthode qui retourne un un malus alééatoire (str)
     def random_malus(self):
-        self.malus = [
-            "Canons Rouillés",
-            "Voile Trouée",
-            "Coque Trouée"
-        ]
-        choice = choices(self.malus)
+        choice = choices(res.liste_malus)
         return choice
 
     # Méthode qui retourne une récompense en fonction du type de l'île (str)
     def type_recompenses(self):
-        return self.recompense
+        return (self.recompense, self.type)
 
 
     # Permet d'afficher l'île sur la map en fonction de sa rareté

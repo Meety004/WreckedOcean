@@ -46,10 +46,11 @@ Rares :
 		Canon en argent (projectile 10 % plus rapides et +5 % de dégats)
 		Canon balistiques (Les projectiles vont 2x plus loin)
 	Voiles :
-		Voile latine (+10 % de vitesse + 5 % de vitesse avec le vent. Le vent donne déjà un 		boost de vitesse si le bateau va dans le même sens. La voile ajoute un bonus de 5 % 		par rapport au boost de vent)
-	Coques :
+		Voile latine +10 % de vitesse
+
+	Coques:
 		Coque en bouleau (+10pv max 100→ 110 +5 % de vitesse)
-		Coque en chêne massif (+75pv max 100→ 175 -10 % de vitesse)
+		Coque en chêne massif (+75pv max 100→ 175 -25 % de vitesse)
 Mythiques :
 	Canons :
 		Canon en or (+10 % de dégâts et projectiles 10 % plus rapides)
@@ -64,7 +65,7 @@ Légendaires :
 		Canon légendaire (+15 % de dégats, +10 % de vitesse des projectiles
 		1 canon devant, 1 canon derrière et 2 canons de chaque côté)
 	Voile :
-		Voile légendaire (+30 % de vitesse, + 10% de vitesse avec le vent. Le vent donne 		déjà un boost de vitesse si le bateau va dans le même sens. La voile ajoute un bonus 		de 10% par rapport au boost de vent)
+		Voile légendaire (+30 % de vitesse, + 15% de maniabilité)
 	Coque :
 		Coque Légendaire (+30 % de vitesse, + 60pv max 100→> 160)
 		

@@ -11,10 +11,13 @@ screen_width = pygame.display.Info().current_w
 screen_height = pygame.display.Info().current_h
 screen = pygame.display.set_mode((screen_width, screen_height))
 
-# Initialisation du delta time pour avoir la même vitesse sur tout les ordis (ca marche pas)
+# Initialisation du delta time pour avoir la même vitesse sur tout les ordis
+framerate = 50
 clock = pygame.time.Clock()
-
-# fonction start
+dt = clock.tick(framerate)
+# Listes des éléments du jeu
+liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, screen_height, dt)] #vitesse_max, acceleration, maniabilité, image
+liste_ennemis = [IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, screen_height, dt), IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, screen_height, dt)]
 
 def start_game():
         # Listes des éléments du jeu
@@ -29,6 +32,15 @@ def start_game():
 
         # Liste de tuples avec les coordonées des navires.
         liste_coords = []
+        # Liste avec les îles
+        liste_iles = [Iles(
+            screen_width,
+            screen_height, 
+            "images/Textures/Iles/ile_commune.png", 
+            "images/Textures/Iles/ile_rare.png", 
+            "images/Textures/Iles/ile_mythique.png", 
+            "images/Textures/Iles/ile_legendaire.png",
+            liste_navire)]
 
         for i in range(len(liste_navire)):
             coords = ("(", liste_navire[i].position_x(), ",", liste_navire[i].position_y(), ")")
@@ -46,6 +58,9 @@ def start_game():
 
         # Liste de tout les tirs à l'écran
         liste_shot = []
+        
+        # Nombre maximal d'îles sur la map
+        maxIles = 5
 
         # Variable contenant le nombre d'îles affichées
         nbrIles = 1
@@ -162,6 +177,7 @@ while running:
         
     for navire_i in liste_navire:
         if navire_i.is_dead():
+            print("Navire :", navire_i.get_ID, "est mort")
             if len(liste_joueur) > 0:
                 for i in range(len(liste_joueur)-1, -1, -1):
                     if liste_joueur[i].get_ID() == navire_i.get_ID():
@@ -185,10 +201,22 @@ while running:
         if timeLeft <= 0:
             liste_iles.remove(ile)
             nbrIles -= 1
-            
-        if len(liste_joueur) > 0:
-            if fonction_auxiliere.calc_distance(ile.position_x(), ile.position_y(), liste_joueur[0].position_x(), liste_joueur[0].position_y()) <=20:
-                print(ile.type_recompenses())
+
+        for n in liste_navire:
+            if len(liste_navire) > 0:
+                recompense = ile.type_recompenses()
+                n.equipInterface(recompense, ile.position_x(), ile.position_y())
+                if liste_joueur[0].afficher_items == True:
+
+                    if keys[pygame.K_a]:
+                        liste_joueur[0].afficher_items = False
+
+                        if res.calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) < 75:
+                            liste_iles.remove(ile)
+                            nbrIles -= 1
+                            print(liste_iles)
+                        liste_joueur[0].equiper()
+
 
     # Appelle de la fonction de compte à rebours pour apparition des îles
     nbrIles, maxIles, timer = apparitionIles(nbrIles, maxIles, timer)
@@ -201,7 +229,7 @@ while running:
     screen.fill(BLACK)
 
     # affichage de l'ocean en fond
-    ocean = pygame.image.load("images/ocean background.jpg").convert_alpha()
+    ocean = pygame.image.load("images/Backgrounds/ocean background.jpg").convert_alpha()
     ocean = pygame.transform.scale(ocean, (screen_width, screen_height)).convert_alpha()
     screen.blit(ocean, (0, 0))
 
@@ -217,6 +245,11 @@ while running:
     for ile in liste_iles:
         ile.afficher(screen)
 
+    #Affiche l'interface de choix d'item pour le joueur uniquement
+    if liste_joueur[0].afficher_items == True:
+        screen.blit(liste_joueur[0].ItemsUI, (15, 15))
+            
+
     # Rafraîchir l'écran
     pygame.display.flip()
     
@@ -228,6 +261,7 @@ while running:
         running = False
 
     # Limiter la boucle à 60 images par seconde
-    clock.tick(60) # bah enft ca marche pas
+    dt = clock.tick(framerate) # enfaite si ca marche mais c'est bizarre
+
 # Quitter Pygame proprement
 pygame.quit()

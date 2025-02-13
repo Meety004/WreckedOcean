@@ -3,7 +3,7 @@
 import pygame
 import random
 import math
-import fonction_auxiliere
+import ressources as res
 
 # importation de la classe Navire
 from Navire import Navire
@@ -14,8 +14,8 @@ from Navire import Navire
 # a venir : evitement des bordure de la map
 
 class IA_ennemis(Navire):
-    def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height):
-        super().__init__(v_max, acceleration, maniabilite, image, screen_width, screen_height)
+    def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt):
+        super().__init__(v_max, acceleration, maniabilite, image, screen_width, screen_height, dt)
         self.action = random.randint(0, 2) # 0 = aller tout droit, 1 = tourner a gauche, 2 = tourner a droite
         self.compte_action = 0 # compte combien de fois l'IA fait la meme action (ne peut pas la faire plus de 23 fois)
 
@@ -23,7 +23,7 @@ class IA_ennemis(Navire):
     def ennemi_in_range(self, liste_adversaire):
         for ennemi in liste_adversaire:
             if ennemi.get_ID() != self.ID:
-                if fonction_auxiliere.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 120:
+                if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 120:
                     return True
         return False
 
@@ -76,7 +76,7 @@ class IA_ennemis(Navire):
 
     def tirer(self, cible_x, cible_y):
         # si l'ennemi est a distance meme si il est pas bien incliner ca tire
-        if fonction_auxiliere.calc_distance(self.x, self.y, cible_x, cible_y) <= 140:
+        if res.calc_distance(self.x, self.y, cible_x, cible_y) <= 140:
             return super().shoot()
 
     def position_x(self):
