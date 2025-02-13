@@ -65,7 +65,7 @@ class Navire:
     def ralentit(self):
         # ralenti tant qu'il n'est pas a 0
         if self.vitesse > 0:
-            self.vitesse -= 0.07
+            self.vitesse -= ( 0.3 - self.vitesse_max/100)
         # revient a 0 si il est en dessous
         if self.vitesse < 0:
             self.vitesse = 0

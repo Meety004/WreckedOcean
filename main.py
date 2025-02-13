@@ -12,7 +12,7 @@ screen_height = pygame.display.Info().current_h
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 # Initialisation du delta time pour avoir la même vitesse sur tout les ordis
-framerate = 50
+framerate = 60
 clock = pygame.time.Clock()
 dt = clock.tick(framerate)
 # Listes des éléments du jeu
