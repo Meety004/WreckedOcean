@@ -53,7 +53,7 @@ Rares :
 		Coque en chêne massif (+75pv max 100→ 175 -25 % de vitesse)
 Mythiques :
 	Canons :
-		Canon en or (+10 % de dégâts et projectiles 10 % plus rapides)
+		Canon en or (+10 % de dégâts et projectiles 10 % plus rapides) + cadence réduite de 10%
 		+3 canons (1 sur chaque côté et un en arrière)
 		Canon à tir double (envoie deux projectiles côte à côte)
 	Voiles :
@@ -62,7 +62,7 @@ Mythiques :
 		Coque en bois magique (+20 % de vitesse et +50pv max 100→ 150)
 Légendaires :
 	Canon :
-		Canon légendaire (+15 % de dégats, +10 % de vitesse des projectiles
+		Canon légendaire (+15 % de dégats, +10 % de vitesse des projectiles + cadence réduite de 10%
 		1 canon devant, 1 canon derrière et 2 canons de chaque côté)
 	Voile :
 		Voile légendaire (+30 % de vitesse, + 15% de maniabilité)

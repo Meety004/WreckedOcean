@@ -9,15 +9,18 @@ import class_menu
 pygame.init()
 screen_width = pygame.display.Info().current_w
 screen_height = pygame.display.Info().current_h
+playHeight = screen_height -  (1/5 * screen_height)
 screen = pygame.display.set_mode((screen_width, screen_height))
+
+
 
 # Initialisation du delta time pour avoir la même vitesse sur tout les ordis
 framerate = 60
 clock = pygame.time.Clock()
 dt = clock.tick(framerate)
 # Listes des éléments du jeu
-liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, screen_height, dt)] #vitesse_max, acceleration, maniabilité, image
-liste_ennemis = [IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, screen_height, dt), IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, screen_height, dt)]
+liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, playHeight, dt)] #vitesse_max, acceleration, maniabilité, image
+liste_ennemis = [IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt), IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt)]
 
 keyBindList =  [
     pygame.K_UP,
@@ -27,10 +30,10 @@ keyBindList =  [
 
 def start_game():
         # Listes des éléments du jeu
-        liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, screen_height, dt)] #vitesse_max, acceleration, maniabilité, image
+        liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, playHeight, dt)] #vitesse_max, acceleration, maniabilité, image
         liste_ennemis = []
         for i in range(3):
-            liste_ennemis.append(IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, screen_height, dt))
+            liste_ennemis.append(IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
 
 
         # Liste avec les joueur et les ennemis (contenant donc tout les Navire a l'ecran)
@@ -40,13 +43,14 @@ def start_game():
         liste_coords = []
         # Liste avec les îles
         liste_iles = [Iles(
-            screen_width,
-            screen_height, 
+            screen_width, 
+            playHeight,
             "images/Textures/Iles/ile_commune.png", 
             "images/Textures/Iles/ile_rare.png", 
             "images/Textures/Iles/ile_mythique.png", 
             "images/Textures/Iles/ile_legendaire.png",
-            liste_navire)]
+            liste_navire
+            )]
 
         for i in range(len(liste_navire)):
             coords = ("(", liste_navire[i].position_x(), ",", liste_navire[i].position_y(), ")")
@@ -75,7 +79,7 @@ def start_game():
             if timer <= 0:
                 timer = setTimer()
                 if nbrIles < maxIles:
-                    liste_iles.append(Iles(screen_width, screen_height,"images/Textures/Iles/ile_commune.png","images/Textures/Iles/ile_rare.png","images/Textures/Iles/ile_mythique.png","images/Textures/Iles/ile_legendaire.png",liste_navire))
+                    liste_iles.append(Iles(screen_width, playHeight,"images/Textures/Iles/ile_commune.png","images/Textures/Iles/ile_rare.png","images/Textures/Iles/ile_mythique.png","images/Textures/Iles/ile_legendaire.png",liste_navire))
                     nbrIles += 1
             return nbrIles, maxIles, timer
 
@@ -99,7 +103,6 @@ running = True
 
 # Boucle de jeu
 while running:
-
     #menu.actif(screen_width, screen_height, screen)
 
 
@@ -138,15 +141,15 @@ while running:
                 navire_i.tourne_droite()
             
             if keys[pygame.K_SPACE]: # espace
-                tire_du_navire = navire_i.shoot()
-                if tire_du_navire is not None:
-                    liste_shot.extend(tire_du_navire)
+                tir_du_navire = navire_i.shoot()
+                if tir_du_navire is not None:
+                    liste_shot.extend(tir_du_navire)
 
             # Mettre à jour la position des navires
             navire_i.avancer()
 
             # verifie qu'ils ne sortent pas de l'ecran
-            navire_i.sortir_ecran(screen_width, screen_height)
+            navire_i.sortir_ecran(screen_width, playHeight)
     
 
     # fait les deplacements de l'ennemi
@@ -158,22 +161,31 @@ while running:
         for adversaire in liste_navire:
             if adversaire.get_ID() != ennemis.get_ID():
                 # gère le tire de l'ennemi. return None si le joueur n'est pas a porté de l'ennemi
-                tire_ennemi = ennemis.tirer(adversaire.position_x(), adversaire.position_y())
-                if tire_ennemi != None: # si ça return none alors il l'efface
-                    liste_shot.extend(tire_ennemi) # la fonction de tire return une liste. il faut donc extend pour fusionner les liste et pas append
+                tir_ennemi = ennemis.tirer(adversaire.position_x(), adversaire.position_y())
+                if tir_ennemi != None: # si ça return none alors il l'efface
+                    liste_shot.extend(tir_ennemi) # la fonction de tire return une liste. il faut donc extend pour fusionner les liste et pas append
 
-        ennemis.sortir_ecran(screen_width, screen_height)
+        ennemis.sortir_ecran(screen_width, playHeight)
 
     for shot_i in reversed(liste_shot):
-        if shot_i is not None: # deuxieme verification pour voir si il n'y a pas de None dans les tire car ca casse tout
-            shot_i.avancer()
-            if shot_i.despawn_distance():
+        if shot_i[0] is not None: # deuxieme verification pour voir si il n'y a pas de None dans les tire car ca casse tout
+            shot_i[0].avancer()
+            if shot_i[0].despawn_distance():
                 liste_shot.remove(shot_i)
             for i in range(len(liste_navire)-1, -1, -1):
-                if shot_i.collision(liste_navire[i].position_x(), liste_navire[i].position_y(), liste_navire[i].get_ID()):
-                    if shot_i in liste_shot:
-                        liste_navire[i].get_damaged(10) 
-                        liste_shot.remove(shot_i)
+                if shot_i[0].collision(liste_navire[i].position_x(), liste_navire[i].position_y(), liste_navire[i].get_ID()):
+                    damage = 15
+                    if shot_i[1] == "Canon en bronze":
+                        damage = 18
+                    elif shot_i[1] == "Canon en argent":
+                        damage = 20
+                    elif shot_i[1] == "Canon en or":
+                        damage = 25
+                    elif shot_i[1] == "Canon légendaire":
+                        damage = 35
+                    liste_navire[i].get_damaged(damage)
+                    print(damage)
+                    liste_shot.remove(shot_i)
         else:
             liste_shot.remove(shot_i) # si il y a un None ça le detruit
         
@@ -228,11 +240,11 @@ while running:
 
 
     #Remplir l'écran avec une couleur de fond
-    screen.fill(BLACK)
+    screen.fill((170, 170, 170))
 
     # affichage de l'ocean en fond
     ocean = pygame.image.load("images/Backgrounds/ocean background.jpg").convert_alpha()
-    ocean = pygame.transform.scale(ocean, (screen_width, screen_height)).convert_alpha()
+    ocean = pygame.transform.scale(ocean, (screen_width, (playHeight + (1/34 * screen_height)))).convert_alpha()
     screen.blit(ocean, (0, 0))
 
     # Dessine les navires
@@ -241,7 +253,7 @@ while running:
 
     # dessine les tires
     for shot_i in liste_shot:
-        shot_i.afficher(screen)
+        shot_i[0].afficher(screen)
 
     # Dessine les iles
     for ile in liste_iles:
