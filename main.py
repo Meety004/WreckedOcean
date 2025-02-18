@@ -226,11 +226,10 @@ while running:
                 if liste_joueur[0].afficher_items == True:
 
                     if keys[pygame.K_a]:
-                        liste_joueur[0].afficher_items = False
-
                         if res.calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) < 75:
                             liste_iles.remove(ile)
                             nbrIles -= 1
+                        liste_joueur[0].afficher_items = False
                         liste_joueur[0].equiper()
 
 

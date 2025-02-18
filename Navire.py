@@ -33,7 +33,7 @@ class Navire:
         self.ItemsUI = pygame.transform.scale(self.ItemsUI, (screen_width*0.4, pygame.display.Info().current_h*0.4)).convert_alpha()
 
         self.equipement = {
-        'canons':    "Canon à tirs doubles",
+        'canons':    "Canon de base",
         'voile':    "Voile de base",
         'coque':    "Coque de base"
         }
@@ -181,7 +181,7 @@ class Navire:
 
     def equipInterface(self, recompense, xIle, yIle):
         self.recompense = recompense
-        if (recompense not in res.liste_benedictions) and (recompense not in res.liste_malus) and recompense != "Rien":
+        if (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus) and self.recompense[0] != "Rien":
             
             if res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
                 self.afficher_items = True
@@ -189,12 +189,12 @@ class Navire:
                 self.afficher_items = False
         else:
             self.afficher_items = False
-            print('Malus/Bene/rien')
-            if self.recompense in res.liste_malus:
+            if self.recompense[0] in res.liste_malus:
                 self.equiper()
 
 
     def equiper(self):
+        print(self.recompense)
         if self.recompense[0] in res.listeCanons:
             self.equipement['canons'] = self.recompense[0]
         elif self.recompense[0] in res.listeVoiles:
@@ -208,6 +208,7 @@ class Navire:
                 self.equipement['voile'] = self.recompense[0]
             else:
                 self.equipement['coque'] = self.recompense[0]
+        print(self.equipement)
         self.effetItem()
 
     def effetItem(self):
