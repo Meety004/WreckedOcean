@@ -181,7 +181,7 @@ class Navire:
 
     def equipInterface(self, recompense, xIle, yIle):
         self.recompense = recompense
-        if (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus) and self.recompense[0] != "Rien":
+        if (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus):
             
             if res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
                 self.afficher_items = True
