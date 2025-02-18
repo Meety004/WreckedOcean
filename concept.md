@@ -55,7 +55,7 @@ Mythiques :
 	Canons :
 		Canon en or (+10 % de dégâts et projectiles 10 % plus rapides) + cadence réduite de 10%
 		+3 canons (1 sur chaque côté et un en arrière)
-		Canon à tir double (envoie deux projectiles côte à côte)
+		Canon à tir double (envoie deux projectiles l'un après l'autre)
 	Voiles :
 		Voile enchantée (+30 % de vitesse)
 	Coques :
@@ -65,7 +65,7 @@ Légendaires :
 		Canon légendaire (+15 % de dégats, +10 % de vitesse des projectiles + cadence réduite de 10%
 		1 canon devant, 1 canon derrière et 2 canons de chaque côté)
 	Voile :
-		Voile légendaire (+30 % de vitesse, + 15% de maniabilité)
+		Voile légendaire (+30 % de vitesse, + 5% de maniabilité)
 	Coque :
 		Coque Légendaire (+30 % de vitesse, + 60pv max 100→> 160) + renvoie 50% des dégats pris à l'attaquant
 		
