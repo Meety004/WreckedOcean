@@ -59,7 +59,7 @@ Mythiques :
 	Voiles :
 		Voile enchantée (+30 % de vitesse)
 	Coques :
-		Coque en bois magique (+20 % de vitesse et +50pv max 100→ 150)
+		Coque en bois magique (+20 % de vitesse et +50pv max 100→ 150) + 20% de chance de pas prendre de dégats
 Légendaires :
 	Canon :
 		Canon légendaire (+15 % de dégats, +10 % de vitesse des projectiles + cadence réduite de 10%
@@ -67,7 +67,7 @@ Légendaires :
 	Voile :
 		Voile légendaire (+30 % de vitesse, + 15% de maniabilité)
 	Coque :
-		Coque Légendaire (+30 % de vitesse, + 60pv max 100→> 160)
+		Coque Légendaire (+30 % de vitesse, + 60pv max 100→> 160) + renvoie 50% des dégats pris à l'attaquant
 		
 
 Les boss :

@@ -5,6 +5,8 @@ import shot
 import string
 import ressources as res
 
+tirDouble = pygame.USEREVENT + 1
+
 class Navire:
     def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt):
         # Contrôle du vaisseau
@@ -31,7 +33,7 @@ class Navire:
         self.ItemsUI = pygame.transform.scale(self.ItemsUI, (screen_width*0.4, pygame.display.Info().current_h*0.4)).convert_alpha()
 
         self.equipement = {
-        'canons':    "Canons de base",
+        'canons':    "Canon à tirs doubles",
         'voile':    "Voile de base",
         'coque':    "Coque de base"
         }
@@ -111,32 +113,47 @@ class Navire:
             # l'angle est ajusté en fonction de la vitesse du bateau. si il avance les boulet continue dans sa direction
             liste_tirs = []
 
-            tir_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
+            tir_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
             liste_tirs.append((tir_droite, self.equipement['canons']))
 
-            tir_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
+            tir_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
             liste_tirs.append((tir_gauche, self.equipement['canons']))
 
             if self.equipement['canons'] == '+1 Canon' or self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                tir_avant = shot.Shot(self.x, self.y, self.angle + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
+                tir_avant = shot.Shot(self.x, self.y, self.angle + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
                 liste_tirs.append((tir_avant, self.equipement['canons']))
 
                 if self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                    tir_arriere = shot.Shot(self.x, self.y, self.angle + 180 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
+                    tir_arriere = shot.Shot(self.x, self.y, self.angle + 180 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
                     liste_tirs.append((tir_arriere, self.equipement['canons']))
 
                     if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                        tir_diag1 = shot.Shot(self.x, self.y, self.angle + 45 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
+                        tir_diag1 = shot.Shot(self.x, self.y, self.angle + 45 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
                         liste_tirs.append((tir_diag1, self.equipement['canons']))
 
                         if self.equipement['canons'] == '+4 Canons':
-                            tir_diag2 = shot.Shot(self.x, self.y, self.angle - 45 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID)
+                            tir_diag2 = shot.Shot(self.x, self.y, self.angle - 45 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
                             liste_tirs.append((tir_diag2, self.equipement['canons']))
+
+            if self.equipement['canons'] == "Canon à tirs doubles":     
+                pygame.time.set_timer(tirDouble, 50, loops=1)
 
             return liste_tirs
         
+    def GererEventTir(self, event, liste_tirs):
+        if event.type == tirDouble:
+            tir_droiteD = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
+            liste_tirs.append((tir_droiteD, self.equipement['canons']))
+
+            tir_gaucheD = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
+            liste_tirs.append((tir_gaucheD, self.equipement['canons']))
+
+        
     def get_damaged(self, damage):
-        self.vie -= damage
+        if self.equipement['coque'] == "Coque en bois magique":
+            r = random.randint(1,5)
+            if r != 1:
+                self.vie -= damage
     
     def is_dead(self):
         if self.vie <= 0:
@@ -178,7 +195,6 @@ class Navire:
 
 
     def equiper(self):
-        print(self.recompense)
         if self.recompense[0] in res.listeCanons:
             self.equipement['canons'] = self.recompense[0]
         elif self.recompense[0] in res.listeVoiles:
@@ -192,13 +208,12 @@ class Navire:
                 self.equipement['voile'] = self.recompense[0]
             else:
                 self.equipement['coque'] = self.recompense[0]
-
-        print(self.equipement)
         self.effetItem()
 
     def effetItem(self):
         self.maxVie = 50
         self.vitesse_max = 7
+        self.maniabilite = 5
 
         if self.recompense[0] in res.listeCoques:
             self.CoqueMaxVie = 0
@@ -209,7 +224,7 @@ class Navire:
             elif self.equipement['coque'] == "Coque en bouleau":
                 self.CoqueMaxVie += 10
                 self.vie += 10
-                self.vitesse_max = self.vitesse_max * 1.05
+                self.CoqueMaxVitesse = 1.05
             elif self.equipement['coque'] == "Coque en chêne massif":
                 self.CoqueMaxVie += 75
                 self.vie += 75
@@ -234,6 +249,7 @@ class Navire:
                 self.VoileMaxVitesse = 1.1
             elif self.equipement['voile'] == "Voile Enchantée":
                 self.VoileMaxVitesse = 1.3
+                self.maniabilite = self.maniabilite * 1.02
             elif self.equipement['voile'] == "Voile légendaire":
                 self.VoileMaxVitesse = 1.3
                 self.maniabilite = self.maniabilite * 1.05
@@ -245,9 +261,6 @@ class Navire:
         if self.recompense[0] in res.liste_malus:
             if self.equipement['voile'] == "Voile Trouée":
                 self.VoileMaxVitesse = 0.5
-            if self.equipement['canons'] == "Canons Rouillés":
-                pass
 
         self.maxVie = self.maxVie + self.VoileMaxVie + self.CoqueMaxVie
         self.vitesse_max = self.vitesse_max * self.VoileMaxVitesse * self.CoqueMaxVitesse
-        print(self.vitesse_max, self.maxVie)

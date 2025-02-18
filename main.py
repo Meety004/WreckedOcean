@@ -108,11 +108,13 @@ while running:
 
     # UPDATE
 
-
+ 
     # Gestion des événements (quitter le jeu)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        for i in liste_navire:
+            i.GererEventTir(event, liste_shot)
 
     # Récupérer l'état des touches
     keys = pygame.key.get_pressed()
@@ -160,15 +162,15 @@ while running:
         
         for adversaire in liste_navire:
             if adversaire.get_ID() != ennemis.get_ID():
-                # gère le tire de l'ennemi. return None si le joueur n'est pas a porté de l'ennemi
+                # gère le tir de l'ennemi. return None si le joueur n'est pas a porté de l'ennemi
                 tir_ennemi = ennemis.tirer(adversaire.position_x(), adversaire.position_y())
                 if tir_ennemi != None: # si ça return none alors il l'efface
-                    liste_shot.extend(tir_ennemi) # la fonction de tire return une liste. il faut donc extend pour fusionner les liste et pas append
+                    liste_shot.extend(tir_ennemi) # la fonction de tir return une liste. il faut donc extend pour fusionner les liste et pas append
 
         ennemis.sortir_ecran(screen_width, playHeight)
 
     for shot_i in reversed(liste_shot):
-        if shot_i[0] is not None: # deuxieme verification pour voir si il n'y a pas de None dans les tire car ca casse tout
+        if shot_i[0] is not None: # deuxieme verification pour voir si il n'y a pas de None dans les tir car ca casse tout
             shot_i[0].avancer()
             if shot_i[0].despawn_distance():
                 liste_shot.remove(shot_i)
@@ -183,8 +185,9 @@ while running:
                         damage = 25
                     elif shot_i[1] == "Canon légendaire":
                         damage = 35
+                    if shot_i[0].getIDTireur() == liste_navire[i].get_ID():
+                        liste_navire[i].get_damaged(0.5 * damage)
                     liste_navire[i].get_damaged(damage)
-                    print(damage)
                     liste_shot.remove(shot_i)
         else:
             liste_shot.remove(shot_i) # si il y a un None ça le detruit
@@ -228,7 +231,6 @@ while running:
                         if res.calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) < 75:
                             liste_iles.remove(ile)
                             nbrIles -= 1
-                            print(liste_iles)
                         liste_joueur[0].equiper()
 
 
@@ -251,7 +253,7 @@ while running:
     for navire_i in liste_navire:
         navire_i.afficher(screen)
 
-    # dessine les tires
+    # dessine les tirs
     for shot_i in liste_shot:
         shot_i[0].afficher(screen)
 
