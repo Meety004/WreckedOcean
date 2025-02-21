@@ -69,6 +69,10 @@ CanonRare = "images/Icons/Canons/canon_rare.png"
 CanonMythique = "images/Icons/Canons/canon_mythique.png"
 CanonLegendaire = "images/Icons/Canons/canon_legendaire.png"
 
+VoileMalus = ""
+CanonMalus = ""
+CoqueMalus = ""
+
 keyBindList =  [
     pygame.K_UP,
     pygame.K_LEFT,

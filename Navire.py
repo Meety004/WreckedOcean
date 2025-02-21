@@ -47,6 +47,14 @@ class Navire:
         self.VoileMaxVie = 0
         self.VoileMaxVitesse = 1
 
+        self.iconCoque = res.CoqueCommun
+        self.iconVoile = res.VoileCommun
+        self.iconCanon = res.CanonCommun
+
+        self.AncienneiconCoque = None
+        self.AncienneiconVoile = None
+        self.AncienneiconCanon = None
+
 
     # le bateau avance en permanence de la vitesse (donc si la vitesse vaut 0 il avance pas)
     def avancer(self):
@@ -265,3 +273,57 @@ class Navire:
 
         self.maxVie = self.maxVie + self.VoileMaxVie + self.CoqueMaxVie
         self.vitesse_max = self.vitesse_max * self.VoileMaxVitesse * self.CoqueMaxVitesse
+        self.updateIcons()
+
+    def updateIcons(self):
+        if self.recompense[1] == "commun":
+            if self.recompense[0] in res.listeCanons:
+                self.AncienneiconCanon = self.iconCanon
+                self.iconCanon = res.CanonCommun
+            elif  self.recompense[0] in res.listeVoiles:
+                self.AncienneiconVoile = self.iconVoile
+                self.iconVoile = res.VoileCommun
+            elif  self.recompense[0] in res.listeCoques:
+                self.AncienneiconCoque = self.iconCoque
+                self.iconCoque = res.CoqueCommun
+            elif self.recompense[0] in res.liste_malus:
+                if self.equipement['voile'] == "Voile Trouée":
+                    self.AncienneiconVoile = self.iconVoile
+                    self.iconVoile = res.VoileMalus
+                if self.equipement['canons'] == "Canons Rouillés":
+                    self.AncienneiconCanon = self.iconCanon
+                    self.iconCanon = res.CanonMalus
+                if self.equipement['coque'] == "Coque Trouée":
+                    self.AncienneiconCoque = self.iconCoque
+                    self.iconCoque = res.CoqueMalus
+        elif self.recompense[1] == "rare":
+            if self.recompense[0] in res.listeCanons:
+                self.AncienneiconCanon = self.iconCanon
+                self.iconCanon = res.CanonRare
+            elif  self.recompense[0] in res.listeVoiles:
+                self.AncienneiconVoile = self.iconVoile
+                self.iconVoile = res.VoileRare
+            elif  self.recompense[0] in res.listeCoques:
+                self.AncienneiconCoque = self.iconCoque
+                self.iconCoque = res.CoqueRare
+        elif self.recompense[1] == "mythique":
+            if self.recompense[0] in res.listeCanons:
+                self.AncienneiconCanon = self.iconCanon
+                self.iconCanon = res.CanonMythique
+            elif  self.recompense[0] in res.listeVoiles:
+                self.AncienneiconVoile = self.iconVoile
+                self.iconVoile = res.VoileMythique
+            elif  self.recompense[0] in res.listeCoques:
+                self.AncienneiconCoque = self.iconCoque
+                self.iconCoque = res.CoqueMythique
+        elif self.recompense[1] == "légendaire":
+            if self.recompense[0] in res.listeCanons:
+                self.AncienneiconCanon = self.iconCanon
+                self.iconCanon = res.CanonLegendaire
+            elif  self.recompense[0] in res.listeVoiles:
+                self.AncienneiconVoile = self.iconVoile
+                self.iconVoile = res.VoileLegendaire
+            elif  self.recompense[0] in res.listeCoques:
+                self.AncienneiconCoque = self.iconCoque
+                self.iconCoque = res.CoqueLegendaire
+
