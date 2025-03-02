@@ -12,6 +12,7 @@ Vous pourrez retrouver des îles apparaître. Il existe quatre sortes d'îles di
 - Ile Rare: 36%
 - Ile Mythique: 10%
 - Ile Légendaire: 4%
+
 En vous approchant de ces îles vous aurez différentes issues:
 - L'île contient de l'équipement commun, rare, mythique ou légendaire -> une interface d'équipement s'ouvre.
 - L'île contient de l'équipement 'malus' -> aucune interface ne s'ouvre et l'île disparait.
@@ -32,4 +33,31 @@ Pour utiliser les bénédictions, utilisez simplement la touche que vous avez at
 Entre chaque utilisation de bénédiction, il y a un cooldown de 30 secondes durant lesquelles vous ne pouvez utiliser aucune bénédiction.
 
 ## __**Les ennemis**__
-Vous rencontrezrez des ennemis durant votre partie. Ces ennemis sont comme vous: ils s'équipent et essayent de régner sur la mer. C'est pourquoi ils vous attaqueront. 
+Vous rencontrerez des ennemis durant votre partie. Ces ennemis sont comme vous: ils s'équipent et essayent de régner sur la mer. C'est pourquoi ils vous attaqueront. Au fur et à mesure de la partie, les ennemis que vont rencontrerez seront plus forts, pourrotn utiliser plus de bénédiction et auront un meilleur équipement. Les bateaux ennemis ne s'attaqueront pas entre eux. Leur objectif est de contrer le joueur.
+
+## __**Les boss**__
+Vous pourrez rencontrer, de temps à autre un boss. Ces boss sont les ennemis les plus forts du jeu. Chacun d'eux à une pièce d'équipement particulière, avec des capacités et des pouvoirs incroyables. En vainquant un boss, vous pourrez récupérer son équipement.
+Voici la liste des différents boss présents dans le jeu.
+- Le Queen Anne’s Revenge - Capacité: 50% de vitesse supplémentaire (Voile)
+- The Flying Dutschman - Capacité: Peut aller temporairement sous l'eau, évitant ainsi les tirs ennemis (Coque)
+- Le Fancy - Capacité: 8 Canons (Canon)
+Il est possible d'avoir qu'un seul équipement de boss dans son inventaire, choisissez bien.
+
+##__**Contrôles**__
+Voici les touches de contrôle de jeu:
+Avancer: `Flèche Haut`
+Gauche: `Flèche Gauche`
+Droite: `Flèche Droite`
+Tirer: `Espace`
+Equiper: `A`
+Pause: `Echap`
+Choisir bénédicition 1: `1`
+Choisir bénédicition 2: `2`
+
+### Attention, lorsque vous avez la Coque Trouée (équipement malus), vos touches de déplacement seront inversées et deviendront les suivantes:
+Avancer: `Flèche Bas`
+Gauche: `Flèche Droite`
+Droite: `Flèche Gauche`
+
+##__**Liste des équipement**__
+salut 
