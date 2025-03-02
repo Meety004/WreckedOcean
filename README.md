@@ -45,26 +45,39 @@ Il est possible d'avoir qu'un seul équipement de boss dans son inventaire, choi
 
 ## __**Contrôles**__
 Voici les touches de contrôle de jeu:
-Avancer: `Flèche Haut`
-
-Gauche: `Flèche Gauche`
-
-Droite: `Flèche Droite`
-
-Tirer: `Espace`
-
-Equiper: `A`
-
-Pause: `Echap`
-
-Choisir bénédicition 1: `1`
-
-Choisir bénédicition 2: `2`
+- Avancer: `Flèche Haut`
+- Gauche: `Flèche Gauche`
+- Droite: `Flèche Droite`
+- Tirer: `Espace`
+- Equiper: `A`
+- Pause: `Echap`
+- Quitter le jeu: `Tab`
+- Choisir bénédicition 1: `1`
+- Choisir bénédicition 2: `2`
 
 ### Attention, lorsque vous avez la Coque Trouée (équipement malus), vos touches de déplacement seront inversées et deviendront les suivantes:
-Avancer: `Flèche Bas`
-Gauche: `Flèche Droite`
-Droite: `Flèche Gauche`
+- Avancer: `Flèche Bas`
+- Gauche: `Flèche Droite`
+- Droite: `Flèche Gauche`
 
 ## __**Liste des équipement**__
-salut 
+$ compte au total **29 pièces d'équipements**. 
+Voici la liste de tous ces équiements par rareté, avec leur probabilités respectives.
+
+- Equipement de base, obtensible seulement à l'apparition du joueur.
+    - Coque de base
+    - Canon de base
+    - Voile de base
+- Commun
+    - Coques:
+        - Coque chêne - 20%
+        - Coque épicéa - 10%
+        - Coque Trouée (Malus) - 6,66%
+    - Canons:
+        - +1 Canon - 10%
+        - Canon en bronze - 20%
+        - Canon Rouillé (Malus) - 6,66%
+    - Voiles:
+        - Voile en toile de jute - 20%
+        - Voile Trouée (Malus) - 6,66%
+        

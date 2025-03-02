@@ -55,6 +55,9 @@ class Navire:
         self.AncienneiconVoile = None
         self.AncienneiconCanon = None
 
+        self.DisplayIconNew = None
+        self.DisplayIconPast = None
+
 
     # le bateau avance en permanence de la vitesse (donc si la vitesse vaut 0 il avance pas)
     def avancer(self):
@@ -193,12 +196,14 @@ class Navire:
             
             if res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
                 self.afficher_items = True
+                self.updateIcons()
             else:
                 self.afficher_items = False
         else:
             self.afficher_items = False
             if self.recompense[0] in res.liste_malus and res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
                 self.equiper()
+                self.updateIcons()
 
 
     def equiper(self):
@@ -220,11 +225,14 @@ class Navire:
         self.effetItem()
 
     def effetItem(self):
+        self.updateIcons()
         self.maxVie = 50
         self.vitesse_max = 7
         self.maniabilite = 5
 
         if self.recompense[0] in res.listeCoques:
+            self.DisplayIconPast = self.AncienneiconCoque
+            self.DisplayIconNew = self.iconCoque
             self.CoqueMaxVie = 0
             self.CoqueMaxVitesse = 1
             if self.equipement['coque'] == "Coque épicéa":
@@ -250,6 +258,8 @@ class Navire:
                 self.CoqueMaxVitesse = 1.3
 
         if self.recompense[0] in res.listeVoiles:
+            self.DisplayIconPast = self.AncienneiconVoile
+            self.DisplayIconNew = self.iconVoile
             self.VoileMaxVitesse = 1
             self.VoileMaxVie = 0
             if self.equipement['voile'] == "Voile en toile de jute":
@@ -264,6 +274,8 @@ class Navire:
                 self.maniabilite = self.maniabilite * 1.05
 
         if self.recompense[0] in res.listeCanons:
+            self.DisplayIconPast = self.AncienneiconCanon
+            self.DisplayIconNew = self.iconCanon
             if (self.equipement['canons'] == "Canon en or") or (self.equipement['canons'] == "Canon légendaire"):
                 self.cadance_tir = 900
 
@@ -273,7 +285,7 @@ class Navire:
 
         self.maxVie = self.maxVie + self.VoileMaxVie + self.CoqueMaxVie
         self.vitesse_max = self.vitesse_max * self.VoileMaxVitesse * self.CoqueMaxVitesse
-        self.updateIcons()
+
 
     def updateIcons(self):
         if self.recompense[1] == "commun":
