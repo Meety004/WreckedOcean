@@ -43,15 +43,22 @@ Voici la liste des différents boss présents dans le jeu.
 - Le Fancy - Capacité: 8 Canons (Canon)
 Il est possible d'avoir qu'un seul équipement de boss dans son inventaire, choisissez bien.
 
-##__**Contrôles**__
+## __**Contrôles**__
 Voici les touches de contrôle de jeu:
 Avancer: `Flèche Haut`
+
 Gauche: `Flèche Gauche`
+
 Droite: `Flèche Droite`
+
 Tirer: `Espace`
+
 Equiper: `A`
+
 Pause: `Echap`
+
 Choisir bénédicition 1: `1`
+
 Choisir bénédicition 2: `2`
 
 ### Attention, lorsque vous avez la Coque Trouée (équipement malus), vos touches de déplacement seront inversées et deviendront les suivantes:
@@ -59,5 +66,5 @@ Avancer: `Flèche Bas`
 Gauche: `Flèche Droite`
 Droite: `Flèche Gauche`
 
-##__**Liste des équipement**__
+## __**Liste des équipement**__
 salut 
