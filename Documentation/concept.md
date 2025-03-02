@@ -98,11 +98,6 @@ Le Hollandais Volant (The Flying Dutchman) : Le Hollandais Volant n’a jamais v
 Anecdote : Le roi d’angleterre l’aurait apercu en 1881 alors qu’il naviguait en afrique du sud. D’autre marin temoigent l’avoir apercu. Ce phenomen pourait surement etre en realité le phenomen de Fata Morgana qui sont des mirages marin.
 
 
-Bonus si on a le temps:
-Les miniboss
-Quelques miniboss qui drop des items mythiques.
-
-
 Conditions de fin : 
 - Game à l'infini jusqu'à ce que l'on meurt
 - Quand tous les ennemis (boss & ia joueurs) sont MORTS -> Win

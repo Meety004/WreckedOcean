@@ -1,0 +1,2 @@
+_**Introduction**_
+Le jeu $ est un jeu qui se joue en solo. Vous y incarnerez un pirate cherchant à devenir le meilleur et le plus riche de tous. Pour cela, vous devrez chercher de l'équipement sur des îkes, vous combattrez des ennemis armez et
