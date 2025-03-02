@@ -197,7 +197,7 @@ class Navire:
                 self.afficher_items = False
         else:
             self.afficher_items = False
-            if self.recompense[0] in res.liste_malus:
+            if self.recompense[0] in res.liste_malus and res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
                 self.equiper()
 
 
