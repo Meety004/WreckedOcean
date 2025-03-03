@@ -131,7 +131,7 @@ Voici la liste de tous ces bénédicitons triées par rareté, avec leur probabi
 **Wrecked Ocean** est un jeu réalisé à l'occasion du concours Trophée NSI, dans la catégorie Terminale.
 Notre professeur, M. MARIE-JEANNE nous a accompagné pendant toute la durée de ce projet, nous apportant solutions et idées nouvelles.
 Voici la liste des élèves ayant participé au projet **Wrecked Ocean**.
-BELLEC-ESCALERA Elliot - Réalisation, Développement
-CADEAU--FLAUJAT Gabriel - Textures, Réalisation, Développement
-KELEMEN Thomas - Développement
-GABRIEL Tom - Réalisation vidéo
+- BELLEC-ESCALERA Elliot - Réalisation, Développement
+- CADEAU--FLAUJAT Gabriel - Textures, Réalisation, Développement
+- KELEMEN Thomas - Développement
+- GABRIEL Tom - Réalisation vidéo
