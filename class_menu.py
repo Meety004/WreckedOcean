@@ -14,7 +14,7 @@ class Menu:
         #self.rect = self.image.get_rect(center=(width/2, height/2))
 
     def affichage(self, screen):
-        screen.blit(self.image, (0,0))
+        screen.blit(self.image, (-30,0))
 
     def les_boutons(self, screen_width, screen_height):
         self.liste_boutons = []

@@ -84,3 +84,26 @@ keyBindCursedList =  [
     pygame.K_RIGHT,
     pygame.K_LEFT
 ]
+
+dictItemsBuff = {
+    '+1 Canon': "Ajoute un canon à l'avant",
+    'Canon en bronze': "Dégâts +20%",
+    '+2 Canons': "Ajoute un canon à l'avant et à l'arrière",
+    'Canon en argent': "Dégâts +33% \nVitesse projectile +5%",
+    'Canon Ballistique': "Les projectiles vont deux fois plus loin",
+    '+3 Canons': "Ajoute un canon à l'avant, à l'arrière et dans la diagonale avant-droite",
+    'Canon en or': "Dégâts +66% \nVitesse projectile +10% \nCadence +10%",
+    'Canon à tirs doubles': "Tire un deuxième projectile à chaque tir",
+    '+4 Canons': "Ajoute un canon à l'avant, à l'arrière et deux en diagonale devant",
+    'Canon Légendaire': "Dégâts +133% \nVitesse projectile +15% \nCadence +10%",
+    'Coque épicéa': "PV Max +10",
+    'Coque chêne': "Vitesse Max +10%",
+    'Coque en bouleau': "PV Max +10\nVitesse Max +5%",
+    'Coque en chêne massif': "PV Max +75",
+    'Coque en bois magique': "PV Max +50\nVitesse Max +20%",
+    'Coque légendaire': "PV Max +60\nVitesse Max +30%",
+    'Voile en toile de jute': "Vitesse Max +5%",
+    'Voile Latine': "Vitesse Max +10%",
+    'Voile Enchantée': "Vitesse Max +25% \nManiabilité +2%",
+    'Voile légendaire': "Vitesse Max +30% \nManiabilité +5%"
+}

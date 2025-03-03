@@ -98,7 +98,7 @@ Voici la liste de tous ces équiements triés par rareté, avec leur probabilit�
         - Coque en bois magique (12%) - Ajoute 50 à la santé maximale du joueur  et augmente la vitesse maximale de 20%
     - Canons:
         - +3 Canons (12%) - Ajoute un canon à l'avant, à l'arrière et dans la diagonale avant droite du bateau
-        - Canon en or (12%) - Ajoute 66% de dégats et 10% de vitesse au projectiles et réduit la cadence de tir de 10%
+        - Canon en or (12%) - Ajoute 66% de dégats et 10% de vitesse au projectiles et augmente la cadence de tir de 10%
         - Canon à tirs doubles (12%) - Tire un deuxième projectile après chaque tir
     - Voiles:
         - Voile enchantée (12%) - Augmente le vitesse maximale de 25% et augmente la maniabilité de 2%
@@ -108,7 +108,7 @@ Voici la liste de tous ces équiements triés par rareté, avec leur probabilit�
         - Coque légendaire (12,5%) - Ajoute 60 à la santé maximale du joueur  et augmente la vitesse maximale de 30%
     - Canons:
         - +4 Canons (12,5%) - Ajoute un canon à l'avant, à l'arrière et dans les deux diagonales à l'avant du bateau
-        - Canon légendaire (12,5%) - Ajoute 133% de dégats et 15% de vitesse au projectiles et réduit la cadence de tir de 10%
+        - Canon légendaire (12,5%) - Ajoute 133% de dégats et 15% de vitesse au projectiles et augmente la cadence de tir de 10%
     - Voiles:
         - Voile légendaire (12,5%) - Augmente le vitesse maximale de 30% et augmente la maniabilité de 5%
 
