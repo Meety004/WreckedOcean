@@ -20,9 +20,9 @@ En vous approchant de ces îles vous aurez différentes issues:
 
 ## __**L'équipement**__
 Il existe trois types d'équipements différents:
--Les canons
--Les voiles
--Les coques
+- Les canons
+- Les voiles
+- Les coques
 Lorsque l'interface d'équipement s'ouvre lorsque vous êtes à proximité d'une île, vous pourrez apercevoir dans une première ligne votre équipement actuel du type correspondant à celui se trouvant sur l'île (canons, coque, voile) ainsi que sa rareté et une description des effets. Vous pourrez aussi trouver dans la deuxième ligne la rareté et le type de l'équipement de l'île sur laquelle vous vous trouvez ainsi qu'une description des effets.
 Si vous souhaitez équiper l'objet, cliquez sur la touche 'A', qui fermera la fenêtre et vous équipera de l'objet. Au contraire, si vous ne souhaitez pas prendre l'objet, continuez votre chemin. L'équipement s'y trouvant pourrait intéresser un ennemi ou disparaitra.
 
