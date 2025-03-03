@@ -1,10 +1,10 @@
-# $
+# **Wrecked Ocean**
 
 ### __Atention, ce projet en est cours de développment. Toutes les fonctionnalités listées ne sont pas encore implémentées.__
 
 ## __**Introduction**__
-Le jeu $ est un jeu qui se joue en solo. Vous y incarnerez un pirate cherchant à devenir le meilleur et le plus riche de tous. Pour cela, vous devrez chercher de l'équipement puissant sur des îles, affronterez des ennemis puissants et combattrez des boss pour récupérer leurs équipements légendaires !
-$ est un jeu de réactivité, de stratégie et d'action. Vous pouvez collecter près de 30 équipements différents ainsi que de nombreuses bénédictions.
+Le jeu **Wrecked Ocean** est un jeu qui se joue en solo. Vous y incarnerez un pirate cherchant à devenir le meilleur et le plus riche de tous. Pour cela, vous devrez chercher de l'équipement puissant sur des îles, affronterez des ennemis puissants et combattrez des boss pour récupérer leurs équipements légendaires !
+**Wrecked Ocean** est un jeu de réactivité, de stratégie et d'action. Vous pouvez collecter près de 30 équipements différents ainsi que de nombreuses bénédictions.
 
 ## __**Les îles**__
 Vous pourrez retrouver des îles apparaître. Il existe quatre sortes d'îles différentes. Les îles **communes**, les îles **rares**, les îles **mythiques** ainsi que les îles **légendaires**. Chacune de ces îles a une probabilité d'apparition différente.
@@ -61,7 +61,7 @@ Voici les touches de contrôle de jeu:
 - Droite: `Flèche Gauche`
 
 ## __**Liste des équipement**__
-$ compte au total **29 pièces d'équipements**. 
+**Wrecked Ocean** compte au total **29 pièces d'équipements**. 
 Voici la liste de tous ces équiements triés par rareté, avec leur probabilités respectives ainsi que leurs effets.
 
 - Equipement de base, obtensible seulement à l'apparition du joueur.
@@ -114,7 +114,7 @@ Voici la liste de tous ces équiements triés par rareté, avec leur probabilit�
 
         
 ## __**Liste des bénédictions**__
-$ compte au total **8 bénédictions**. 
+**Wrecked Ocean** compte au total **8 bénédictions**. 
 Voici la liste de tous ces bénédicitons triées par rareté, avec leur probabilités respectives ainsi que leurs effets.
 
 - Rare
@@ -128,9 +128,9 @@ Voici la liste de tous ces bénédicitons triées par rareté, avec leur probabi
     - Bénédiction Projectile (25%) - Permet au joueur d'envoyer une horde de projectile autour de lui
 
 ## __**Crédits**__
-$ est un jeu réalisé à l'occasion du concours Trophée NSI, dans la catégorie Terminale.
+**Wrecked Ocean** est un jeu réalisé à l'occasion du concours Trophée NSI, dans la catégorie Terminale.
 Notre professeur, M. MARIE-JEANNE nous a accompagné pendant toute la durée de ce projet, nous apportant solutions et idées nouvelles.
-Voici la liste des élèves ayant participé au projet $.
+Voici la liste des élèves ayant participé au projet **Wrecked Ocean**.
 BELLEC-ESCALERA Elliot - Réalisation, Développement
 CADEAU--FLAUJAT Gabriel - Textures, Réalisation, Développement
 KELEMEN Thomas - Développement
