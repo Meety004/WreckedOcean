@@ -7,7 +7,7 @@ Le jeu **Wrecked Ocean** est un jeu qui se joue en solo. Vous y incarnerez un pi
 **Wrecked Ocean** est un jeu de réactivité, de stratégie et d'action. Vous pouvez collecter près de 30 équipements différents ainsi que de nombreuses bénédictions.
 
 ## __**Les îles**__
-Vous pourrez retrouver des îles apparaître. Il existe quatre sortes d'îles différentes. Les îles **communes**, les îles **rares**, les îles **mythiques** ainsi que les îles **légendaires**. Chacune de ces îles a une probabilité d'apparition différente.
+Vous pourrez voir des îles apparaître. Il existe quatre sortes d'îles différentes. Les îles **communes**, les îles **rares**, les îles **mythiques** ainsi que les îles **légendaires**. Chacune de ces îles a une probabilité d'apparition différente.
 - Ile Commune: 50%
 - Ile Rare: 36%
 - Ile Mythique: 10%
@@ -23,6 +23,7 @@ Il existe trois types d'équipements différents:
 - Les canons
 - Les voiles
 - Les coques
+
 Lorsque l'interface d'équipement s'ouvre lorsque vous êtes à proximité d'une île, vous pourrez apercevoir dans une première ligne votre équipement actuel du type correspondant à celui se trouvant sur l'île (canons, coque, voile) ainsi que sa rareté et une description des effets. Vous pourrez aussi trouver dans la deuxième ligne la rareté et le type de l'équipement de l'île sur laquelle vous vous trouvez ainsi qu'une description des effets.
 Si vous souhaitez équiper l'objet, cliquez sur la touche 'A', qui fermera la fenêtre et vous équipera de l'objet. Au contraire, si vous ne souhaitez pas prendre l'objet, continuez votre chemin. L'équipement s'y trouvant pourrait intéresser un ennemi ou disparaitra.
 
@@ -95,7 +96,7 @@ Voici la liste de tous ces équiements triés par rareté, avec leur probabilit�
 
 - Mythique
     - Coques:
-        - Coque en bois magique (12%) - Ajoute 50 à la santé maximale du joueur  et augmente la vitesse maximale de 20%
+        - Coque en bois magique (12%) - Ajoute 50 à la santé maximale du joueur  et augmente la vitesse maximale de 20% et à une chance de 20% de ne pas se prendre les dégâts
     - Canons:
         - +3 Canons (12%) - Ajoute un canon à l'avant, à l'arrière et dans la diagonale avant droite du bateau
         - Canon en or (12%) - Ajoute 66% de dégats et 10% de vitesse au projectiles et augmente la cadence de tir de 10%

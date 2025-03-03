@@ -185,8 +185,6 @@ while running:
                         damage = 25
                     elif shot_i[1] == "Canon légendaire":
                         damage = 35
-                    if shot_i[0].getIDTireur() == liste_navire[i].get_ID():
-                        liste_navire[i].get_damaged(0.5 * damage)
                     liste_navire[i].get_damaged(damage)
                     liste_shot.remove(shot_i)
         else:

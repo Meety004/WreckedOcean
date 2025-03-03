@@ -100,7 +100,7 @@ dictItemsBuff = {
     'Coque chêne': "Vitesse Max +10%",
     'Coque en bouleau': "PV Max +10\nVitesse Max +5%",
     'Coque en chêne massif': "PV Max +75",
-    'Coque en bois magique': "PV Max +50\nVitesse Max +20%",
+    'Coque en bois magique': "PV Max +50\nVitesse Max +20%\n20% de chance d'esquiver les projectiles",
     'Coque légendaire': "PV Max +60\nVitesse Max +30%",
     'Voile en toile de jute': "Vitesse Max +5%",
     'Voile Latine': "Vitesse Max +10%",
