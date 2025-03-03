@@ -118,4 +118,20 @@ $ compte au total **8 bénédictions**.
 Voici la liste de tous ces bénédicitons triées par rareté, avec leur probabilités respectives ainsi que leurs effets.
 
 - Rare
-    - Bénédiction Dash (12,5%) - 
+    - Bénédiction Dash (12,5%) - Permet de joueur de se propulser vers l'avant
+    - Bénédiction Santé (12,5%) - Permet au joueur de restaurer 30 points de vie
+- Mythique
+    - Bénédiction d'Aura (20%) - Permet au joueur de faire des dégâts autour de lui
+    - Bénédiction de Rage (20%) - Permet au joueur d'être beaucoup plus rapide et d'augmenter de 100% les dégâts de ses projectiles, mais le limite à 20 points de vie
+- Légendaire
+    - Bénédiction Godmode (25%) - Permet au joueur de ne prendre aucun dégât
+    - Bénédiction Projectile (25%) - Permet au joueur d'envoyer une horde de projectile autour de lui
+
+## __**Crédits**__
+$ est un jeu réalisé à l'occasion du concours Trophée NSI, dans la catégorie Terminale.
+Notre professeur, M. MARIE-JEANNE nous a accompagné pendant toute la durée de ce projet, nous apportant solutions et idées nouvelles.
+Voici la liste des élèves ayant participé au projet $.
+BELLEC-ESCALERA Elliot - Réalisation, Développement
+CADEAU--FLAUJAT Gabriel - Textures, Réalisation, Développement
+KELEMEN Thomas - Développement
+GABRIEL Tom - Réalisation vidéo
