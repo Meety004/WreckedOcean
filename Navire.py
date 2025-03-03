@@ -207,7 +207,6 @@ class Navire:
 
 
     def equiper(self):
-        print(self.recompense)
         if self.recompense[0] in res.listeCanons:
             self.equipement['canons'] = self.recompense[0]
         elif self.recompense[0] in res.listeVoiles:
@@ -219,9 +218,8 @@ class Navire:
                 self.equipement['canons'] = self.recompense[0]
             elif self.recompense[0] == res.liste_malus[1]:
                 self.equipement['voile'] = self.recompense[0]
-            else:
+            elif self.recompense[0] == res.liste_malus[2]:
                 self.equipement['coque'] = self.recompense[0]
-        print(self.equipement)
         self.effetItem()
 
     def effetItem(self):
