@@ -267,7 +267,7 @@ class Navire:
             elif self.equipement['voile'] == "Voile Latine":
                 self.VoileMaxVitesse = 1.1
             elif self.equipement['voile'] == "Voile Enchantée":
-                self.VoileMaxVitesse = 1.3
+                self.VoileMaxVitesse = 1.25
                 self.maniabilite = self.maniabilite * 1.02
             elif self.equipement['voile'] == "Voile légendaire":
                 self.VoileMaxVitesse = 1.3

@@ -62,22 +62,60 @@ Voici les touches de contrôle de jeu:
 
 ## __**Liste des équipement**__
 $ compte au total **29 pièces d'équipements**. 
-Voici la liste de tous ces équiements par rareté, avec leur probabilités respectives.
+Voici la liste de tous ces équiements triés par rareté, avec leur probabilités respectives ainsi que leurs effets.
 
 - Equipement de base, obtensible seulement à l'apparition du joueur.
     - Coque de base
     - Canon de base
     - Voile de base
+
 - Commun
     - Coques:
-        - Coque chêne - 20%
-        - Coque épicéa - 10%
-        - Coque Trouée (Malus) - 6,66%
+        - Coque chêne (20%) - Augmente la vitesse maximale de 5%
+        - Coque épicéa (10%) - Ajoute 10 à la santé maximale du joueur
+        - Coque Trouée (6,66%) - Malus - Inverse les commandes de déplacement
     - Canons:
-        - +1 Canon - 10%
-        - Canon en bronze - 20%
-        - Canon Rouillé (Malus) - 6,66%
+        - +1 Canon (10%) - Ajoute un canon à l'avant
+        - Canon en bronze (20%) - Ajoute 20% de dégâts aux projectiles
+        - Canon Rouillé (6,66%) - Malus - Rend le projectiles 5% plus lents
     - Voiles:
-        - Voile en toile de jute - 20%
-        - Voile Trouée (Malus) - 6,66%
+        - Voile en toile de jute (20%) - Augmente la vitesse maximale de 5%
+        - Voile Trouée (6,66%) - Malus - Diminue la vitesse maximale du joueur de 50%
+
+- Rare
+    - Coques:
+        - Coque en bouleau (10%) - Ajoute 10 à la santé maximale du joueur et augmente la vitesse maximale de 5%
+        - Coque en chêne massif (10%) - Ajoute 75 à la santé maximale du joueur
+    - Canons:
+        - +2 Canons (10%) - Ajoute un canon à l'avant et à l'arrière
+        - Canon en argent (17,5%) - Ajoute 33% de dégats  et 5% de vitesse aux projectiles
+        - Canon Ballistique (10%) - Multiplie la distance maximale des projectiles par 2
+    - Voiles:
+        - Voile Latine (17,5%) - Augmente la vitesse maximale de 10%
+
+- Mythique
+    - Coques:
+        - Coque en bois magique (12%) - Ajoute 50 à la santé maximale du joueur  et augmente la vitesse maximale de 20%
+    - Canons:
+        - +3 Canons (12%) - Ajoute un canon à l'avant, à l'arrière et dans la diagonale avant droite du bateau
+        - Canon en or (12%) - Ajoute 66% de dégats et 10% de vitesse au projectiles et réduit la cadence de tir de 10%
+        - Canon à tirs doubles (12%) - Tire un deuxième projectile après chaque tir
+    - Voiles:
+        - Voile enchantée (12%) - Augmente le vitesse maximale de 25% et augmente la maniabilité de 2%
+
+- Légendaire
+    - Coques:
+        - Coque légendaire (12,5%) - Ajoute 60 à la santé maximale du joueur  et augmente la vitesse maximale de 30%
+    - Canons:
+        - +4 Canons (12,5%) - Ajoute un canon à l'avant, à l'arrière et dans les deux diagonales à l'avant du bateau
+        - Canon légendaire (12,5%) - Ajoute 133% de dégats et 15% de vitesse au projectiles et réduit la cadence de tir de 10%
+    - Voiles:
+        - Voile légendaire (12,5%) - Augmente le vitesse maximale de 30% et augmente la maniabilité de 5%
+
         
+## __**Liste des bénédictions**__
+$ compte au total **8 bénédictions**. 
+Voici la liste de tous ces bénédicitons triées par rareté, avec leur probabilités respectives ainsi que leurs effets.
+
+- Rare
+    - Bénédiction Dash (12,5%) - 
