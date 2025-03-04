@@ -51,34 +51,36 @@ Rares :
 	Coques:
 		Coque en bouleau (+10pv max 100→ 110 +5 % de vitesse)
 		Coque en chêne massif (+75pv max 100→ 175 -25 % de vitesse)
+		
 Mythiques :
 	Canons :
-		Canon en or (+10 % de dégâts et projectiles 10 % plus rapides)
+		Canon en or (+10 % de dégâts et projectiles 10 % plus rapides) + cadence réduite de 5%
 		+3 canons (1 sur chaque côté et un en arrière)
-		Canon à tir double (envoie deux projectiles côte à côte)
+		Canon à tir double (envoie deux projectiles l'un après l'autre)
 	Voiles :
 		Voile enchantée (+30 % de vitesse)
 	Coques :
-		Coque en bois magique (+20 % de vitesse et +50pv max 100→ 150)
+		Coque en bois magique (+20 % de vitesse et +50pv max 100→ 150) + 20% de chance de pas prendre de dégats
 Légendaires :
 	Canon :
-		Canon légendaire (+15 % de dégats, +10 % de vitesse des projectiles
+		Canon légendaire (+15 % de dégats, +10 % de vitesse des projectiles + cadence réduite de 10%
 		1 canon devant, 1 canon derrière et 2 canons de chaque côté)
 	Voile :
-		Voile légendaire (+30 % de vitesse, + 15% de maniabilité)
+		Voile légendaire (+30 % de vitesse, + 5% de maniabilité)
 	Coque :
-		Coque Légendaire (+30 % de vitesse, + 60pv max 100→> 160)
+		Coque Légendaire (+30 % de vitesse, + 60pv max 100→> 160) + renvoie 50% des dégats pris à l'attaquant
 		
 
 Les boss :
 Les boss spawn assez rarement au court du temps. Il peuvent se defendre et ils font mal. Un boss ne peut spawn qu’une fois par partie. Pour obtenir leur pouvoir il faut les tuer. Leur equipement sont mieux que des armes legendaire
 Quand un boss apparaît, une fenetre contenant uen ‘biographie’ du pirate ainsi qu’un pixel afin de présenter le pirate, rajouter du lore
 liste des boss :
+
     • le Queen Anne’s revenge (bateau de barbe noir l’un des plus rapide) pour la voile
-        ◦ +50 % de vitesse et n’est pas affecté par le vent 
+        ◦ +50 % de vitesse
 
     • Le Fancy (bateau le plus lourdement armée avec 46 canon) pour les canons
-        ◦ 6 canons (2 de chaque côtés, 1 devant et un derrière) avec tir triple (un tir vers l’avant et deux tirs en diagonale)
+        ◦ 8 canons: 1 de chaque côté, 1 à l'avant et à l'arrière ainsi que 1 dans chaque diagonale
 
     • Le Flying Dutchman (bateau fantome) pour la coque
         ◦ Peut aller sous l’eau et ne prend donc pas de dégats
@@ -95,11 +97,6 @@ Anecdote : Il fera l’attaque consideré comme la plus lucratifs de l’histoir
 
 Le Hollandais Volant (The Flying Dutchman) : Le Hollandais Volant n’a jamais vraiment existé. C’est en realité une légende des marins (particulierment les marins Hollandais, Allemand et Anglais). Ce serait un navire fantome qui apparaitrait au cap de bonne esperance (en Afrique du Sud). Selon les legendes, le capitaines Van der Decken aurait signé un pacte avec le diable (ou bannis par les dieu pour son arrogance) et serait condamné a érrer dans la mer sans jamais se poser aux ports ou a terres. Il apparaît en mer en sortant de nul part entouré d’une lueur fantomatique. Son equipage entier serait des fantomes et qui croise son chemin serait maudit. Il aurait la particularité de flotter au dessus de l’eau et d’avancer quelqu’en soit le vent.
 Anecdote : Le roi d’angleterre l’aurait apercu en 1881 alors qu’il naviguait en afrique du sud. D’autre marin temoigent l’avoir apercu. Ce phenomen pourait surement etre en realité le phenomen de Fata Morgana qui sont des mirages marin.
-
-
-Bonus si on a le temps:
-Les miniboss
-Quelques miniboss qui drop des items mythiques.
 
 
 Conditions de fin : 
