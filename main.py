@@ -12,7 +12,7 @@ screen_height = pygame.display.Info().current_h
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 # Initialisation du delta time pour avoir la même vitesse sur tout les ordis
-framerate = 50
+framerate = 60
 clock = pygame.time.Clock()
 dt = clock.tick(framerate)
 # Listes des éléments du jeu
@@ -179,6 +179,7 @@ while running:
                         if res.calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) < 75:
                             liste_iles.remove(ile)
                             print(liste_iles)
+                            nbrIles -= 1    
                         liste_joueur[0].equiper()
 
     #Gérer l'obtention d'un nouvel item
