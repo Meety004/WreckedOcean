@@ -186,6 +186,10 @@ class Navire:
         return self.ID
     def get_rect(self):
         return self.rect
+    def get_vie(self):
+        return self.vie
+    def get_max_vie(self):
+        return self.maxVie
     
     def getEquipement(self):
         return self.equipement
@@ -284,6 +288,8 @@ class Navire:
 
         self.maxVie = self.maxVie + self.VoileMaxVie + self.CoqueMaxVie
         self.vitesse_max = self.vitesse_max * self.VoileMaxVitesse * self.CoqueMaxVitesse
+        if self.vie > self.maxVie:
+                self.vie = self.maxVie
 
 
     def updateIcons(self):

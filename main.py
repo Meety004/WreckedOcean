@@ -235,7 +235,9 @@ while running:
     nbrIles, maxIles, timer = apparitionIles(nbrIles, maxIles, timer)
 
 
+
     # DRAW
+
 
 
     #Remplir l'écran avec une couleur de fond
@@ -262,9 +264,16 @@ while running:
     if liste_joueur[0].afficher_items == True:
         screen.blit(liste_joueur[0].ItemsUI, (15, 15))
             
+    # affiche la bare de vie du joueur
+    largeur = 150 * ((liste_joueur[0].get_vie()*150 / liste_joueur[0].get_max_vie())/150)
+    print(largeur, liste_joueur[0].get_vie(), liste_joueur[0].get_max_vie())
+    bare_de_vie = pygame.Rect(screen_width/2 - 75, screen_height - 100, largeur, 20)
+    pygame.draw.rect(screen, (255, 0, 0), bare_de_vie)
 
     # Rafraîchir l'écran
     pygame.display.flip()
+
+
 
     # pour quitter le jeux
     if keys[pygame.K_TAB]: # si on appuie sur tab ca quitte le jeu
