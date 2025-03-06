@@ -220,6 +220,7 @@ class Navire:
                 self.equipement['voile'] = self.recompense[0]
             elif self.recompense[0] == res.liste_malus[2]:
                 self.equipement['coque'] = self.recompense[0]
+        print(self.equipement, self.recompense[0])
         self.effetItem()
 
     def effetItem(self):

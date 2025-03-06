@@ -220,7 +220,7 @@ while running:
             if len(liste_navire) > 0:
                 recompense = ile.type_recompenses()
                 n.equipInterface(recompense, ile.position_x(), ile.position_y())
-                if liste_joueur[0].afficher_items == True:
+                if n.afficher_items == True:
 
                     if keys[pygame.K_a]:
                         if res.calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) < 75:
