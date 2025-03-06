@@ -165,6 +165,8 @@ class Navire:
             r = random.randint(1,5)
             if r != 1:
                 self.vie -= damage
+        else:
+            self.vie -= damage
     
     def is_dead(self):
         if self.vie <= 0:
@@ -220,7 +222,6 @@ class Navire:
                 self.equipement['voile'] = self.recompense[0]
             elif self.recompense[0] == res.liste_malus[2]:
                 self.equipement['coque'] = self.recompense[0]
-        print(self.equipement, self.recompense[0])
         self.effetItem()
 
     def effetItem(self):
