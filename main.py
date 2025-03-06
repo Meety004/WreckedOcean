@@ -18,9 +18,6 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 framerate = 60
 clock = pygame.time.Clock()
 dt = clock.tick(framerate)
-# Listes des éléments du jeu
-liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, playHeight, dt)] #vitesse_max, acceleration, maniabilité, image
-liste_ennemis = [IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt), IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt)]
 
 keyBindList =  [
     pygame.K_UP,
