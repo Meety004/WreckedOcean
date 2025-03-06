@@ -10,7 +10,7 @@ class Menu:
         self.est_actif = True
         
         self.image = pygame.image.load(image).convert_alpha()
-        #self.image = pygame.transform.scale(image, (self.width, self.height)).convert_alpha()
+        self.image = pygame.transform.scale(self.image, (self.width, self.height)).convert_alpha()
         #self.rect = self.image.get_rect(center=(width/2, height/2))
 
     def affichage(self, screen):
