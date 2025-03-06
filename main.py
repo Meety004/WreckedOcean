@@ -18,9 +18,6 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 framerate = 60
 clock = pygame.time.Clock()
 dt = clock.tick(framerate)
-# Listes des éléments du jeu
-liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, playHeight, dt)] #vitesse_max, acceleration, maniabilité, image
-liste_ennemis = [IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt), IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt)]
 
 keyBindList =  [
     pygame.K_UP,
@@ -224,7 +221,7 @@ while running:
             if len(liste_navire) > 0:
                 recompense = ile.type_recompenses()
                 n.equipInterface(recompense, ile.position_x(), ile.position_y())
-                if liste_joueur[0].afficher_items == True:
+                if n.afficher_items == True:
 
                     if keys[pygame.K_a]:
                         if res.calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) < 75:
