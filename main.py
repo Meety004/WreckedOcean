@@ -207,7 +207,7 @@ while running:
                         liste_ennemis.pop(i)
             liste_navire.remove(navire_i)
     if len(liste_joueur) == 0:
-        liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer = start_game()
+        liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats = start_game()
         menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
         menu.actif(screen_width, screen_height, screen)
         continue
