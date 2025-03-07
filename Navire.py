@@ -25,7 +25,7 @@ class Navire:
         self.dernier_tire = 0 # le denier tire fait par le bateau pour le chrono
         self.cadance_tire = 1000 # en milliseconde
         self.ID = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
-        self.maxVie = 100
+        self.maxVie = 50
         self.vie = self.maxVie
 
         self.afficher_items = False  # Variable d'état pour suivre l'affichage de l'image

@@ -266,9 +266,11 @@ while running:
             
     # affiche la bare de vie du joueur
     largeur = 150 * ((liste_joueur[0].get_vie()*150 / liste_joueur[0].get_max_vie())/150)
-    print(largeur, liste_joueur[0].get_vie(), liste_joueur[0].get_max_vie())
+    police = pygame.font.Font(None, 36)
+    texte = police.render(str(liste_joueur[0].get_vie()), True, (255, 0, 0))
     bare_de_vie = pygame.Rect(screen_width/2 - 75, screen_height - 100, largeur, 20)
     pygame.draw.rect(screen, (255, 0, 0), bare_de_vie)
+    screen.blit(texte, (screen_width/2 - 20, screen_height- 70))
 
     # Rafraîchir l'écran
     pygame.display.flip()
