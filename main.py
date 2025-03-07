@@ -182,10 +182,10 @@ while running:
                         damage = 25
                     elif shot_i[1] == "Canon légendaire":
                         damage = 35
-                    if shot_i[0].getIDTireur() == liste_navire[i].get_ID():
-                        liste_navire[i].get_damaged(0.5 * damage)
-                    liste_navire[i].get_damaged(damage)
-                    if shot_i[0] in liste_shot:
+                    if not shot_i[0].getIDTireur() == liste_navire[i].get_ID():
+                        #liste_navire[i].get_damaged(0.5 * damage)
+                        liste_navire[i].get_damaged(damage)
+                    if shot_i in liste_shot:
                         liste_shot.remove(shot_i)
         else:
             liste_shot.remove(shot_i) # si il y a un None ça le detruit
