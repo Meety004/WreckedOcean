@@ -93,7 +93,7 @@ liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot,
 BLACK = (0, 0, 0)
 
 # ECRAN TITRE
-menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_width)
+menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
 menu.actif(screen_width, screen_height, screen)
 
 
@@ -119,7 +119,7 @@ while running:
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_ESCAPE]:
-        pause = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_width)
+        pause = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
         pause.actif(screen_width, screen_height, screen)
     # Gestion des touches du premier navire (pour l'instant impossible de rajouter d'autre joueurs ils ont tous les même touches)
     if len(liste_joueur) > 0:
@@ -208,7 +208,7 @@ while running:
             liste_navire.remove(navire_i)
     if len(liste_joueur) == 0:
         liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats = start_game()
-        menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_width)
+        menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
         menu.actif(screen_width, screen_height, screen)
         continue
             
