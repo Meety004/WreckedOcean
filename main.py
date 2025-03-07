@@ -207,7 +207,7 @@ while running:
                         liste_ennemis.pop(i)
             liste_navire.remove(navire_i)
     if len(liste_joueur) == 0:
-        liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats = start_game()
+        liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer = start_game()
         menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
         menu.actif(screen_width, screen_height, screen)
         continue
@@ -229,10 +229,16 @@ while running:
 
                     if keys[pygame.K_a]:
                         if res.calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) < 75:
-                            liste_iles.remove(ile)
-                            nbrIles -= 1
+                            if ile in liste_iles:
+                                liste_iles.remove(ile)
+                                nbrIles -= 1
                         liste_joueur[0].afficher_items = False
                         liste_joueur[0].equiper()
+                elif res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
+                    verifIleMalus = n.verifIleMalus
+                    if verifIleMalus == True:
+                        liste_iles.remove(ile)
+                        verifIleMalus = False
 
 
     # Appelle de la fonction de compte à rebours pour apparition des îles

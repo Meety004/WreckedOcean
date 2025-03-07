@@ -27,6 +27,7 @@ class Navire:
         self.ID = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
         self.maxVie = 50
         self.vie = self.maxVie
+        self.verifIleMalus = False
 
         self.afficher_items = False  # Variable d'état pour suivre l'affichage de l'image
         self.ItemsUI = pygame.image.load("images/Interfaces/equip_menu_item.png").convert_alpha()
@@ -209,6 +210,7 @@ class Navire:
             if self.recompense[0] in res.liste_malus and res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
                 self.equiper()
                 self.updateIcons()
+                self.verifIleMalus = True
 
 
     def equiper(self):
@@ -225,7 +227,7 @@ class Navire:
                 self.equipement['voile'] = self.recompense[0]
             elif self.recompense[0] == res.liste_malus[2]:
                 self.equipement['coque'] = self.recompense[0]
-        print(self.equipement, self.recompense[0])
+        print(self.equipement)
         self.effetItem()
 
     def effetItem(self):
