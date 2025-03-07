@@ -12,7 +12,7 @@ screen_height = pygame.display.Info().current_h
 playHeight = screen_height -  (1/5 * screen_height)
 screen = pygame.display.set_mode((screen_width, screen_height))
 
-
+police = pygame.font.Font(None, 36) # gere la police lors de l'affichage de texte a l'ecran
 
 # Initialisation du delta time pour avoir la même vitesse sur tout les ordis
 framerate = 60
@@ -32,6 +32,8 @@ def start_game():
         for i in range(3):
             liste_ennemis.append(IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
 
+        # dans linterface utilisateur
+        liste_texte_degats = []
 
         # Liste avec les joueur et les ennemis (contenant donc tout les Navire a l'ecran)
         liste_navire = liste_joueur + liste_ennemis
@@ -83,9 +85,9 @@ def start_game():
         #On appelle le timer pour la première fois
         timer = setTimer()
 
-        return liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer
+        return liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats
 
-liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer = start_game()
+liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats = start_game()
 
 # Définition de la couleur de fond (noir)
 BLACK = (0, 0, 0)
@@ -183,8 +185,10 @@ while running:
                     elif shot_i[1] == "Canon légendaire":
                         damage = 35
                     if not shot_i[0].getIDTireur() == liste_navire[i].get_ID():
-                        #liste_navire[i].get_damaged(0.5 * damage)
                         liste_navire[i].get_damaged(damage)
+                        cible_du_tir = i
+                        liste_texte_degats.append([police.render(str(damage), True, (255, 0, 0)), 0])
+                    
                     if shot_i in liste_shot:
                         liste_shot.remove(shot_i)
         else:
@@ -203,7 +207,7 @@ while running:
                         liste_ennemis.pop(i)
             liste_navire.remove(navire_i)
     if len(liste_joueur) == 0:
-        liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer = start_game()
+        liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats = start_game()
         menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_width)
         menu.actif(screen_width, screen_height, screen)
         continue
@@ -266,15 +270,20 @@ while running:
             
     # affiche la bare de vie du joueur
     largeur = 150 * ((liste_joueur[0].get_vie()*150 / liste_joueur[0].get_max_vie())/150)
-    police = pygame.font.Font(None, 36)
     texte = police.render(str(liste_joueur[0].get_vie()), True, (255, 0, 0))
     bare_de_vie = pygame.Rect(screen_width/2 - 75, screen_height - 100, largeur, 20)
     pygame.draw.rect(screen, (255, 0, 0), bare_de_vie)
     screen.blit(texte, (screen_width/2 - 20, screen_height- 70))
 
+    # affichage des degats lorsque le joueur est touché
+    if len(liste_texte_degats) != 0:
+        for i in range(len(liste_texte_degats)-1, -1, -1) :
+            screen.blit(liste_texte_degats[i][0], (liste_navire[cible_du_tir].position_x(), liste_navire[cible_du_tir].position_y()))
+            liste_texte_degats[i][1] += 1
+            if liste_texte_degats[i][1] >= 30:
+                liste_texte_degats.pop(i)
     # Rafraîchir l'écran
     pygame.display.flip()
-
 
 
     # pour quitter le jeux
