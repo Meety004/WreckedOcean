@@ -227,7 +227,7 @@ while running:
                         if res.calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) < 75:
                             if ile in liste_iles:
                                 liste_iles.remove(ile)
-                            nbrIles -= 1
+                                nbrIles -= 1
                         liste_joueur[0].afficher_items = False
                         liste_joueur[0].equiper()
                 elif res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
