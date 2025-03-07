@@ -161,11 +161,10 @@ class Navire:
 
         
     def get_damaged(self, damage):
+        r = 5
         if self.equipement['coque'] == "Coque en bois magique":
             r = random.randint(1,5)
-            if r != 1:
-                self.vie -= damage
-        else:
+        if r != 1:
             self.vie -= damage
     
     def is_dead(self):
