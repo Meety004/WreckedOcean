@@ -9,10 +9,12 @@ class Menu:
         self.height = height
         self.est_actif = True
         
+
         self.image = pygame.image.load(image).convert_alpha()
+        self.image = pygame.transform.scale(self.image, (width, height))
 
     def affichage(self, screen):
-        screen.blit(self.image, (-30,0))
+        screen.blit(self.image, (0,0))
 
     def les_boutons(self, screen_width, screen_height):
         self.liste_boutons = []

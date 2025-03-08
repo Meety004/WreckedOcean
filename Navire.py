@@ -27,6 +27,7 @@ class Navire:
         self.ID = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
         self.maxVie = 100
         self.vie = self.maxVie
+        self.verifIleMalus = False
 
         self.afficher_items = False  # Variable d'état pour suivre l'affichage de l'image
         self.ItemsUI = pygame.image.load("images/Interfaces/equip_menu_item.png").convert_alpha()
@@ -131,11 +132,11 @@ class Navire:
             liste_tirs.append((tir_gauche, self.equipement['canons']))
 
             if self.equipement['canons'] == '+1 Canon' or self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                tir_avant = shot.Shot(self.x, self.y, self.angle + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
+                tir_avant = shot.Shot(self.x, self.y, self.angle, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
                 liste_tirs.append((tir_avant, self.equipement['canons']))
 
                 if self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                    tir_arriere = shot.Shot(self.x, self.y, self.angle + 180 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
+                    tir_arriere = shot.Shot(self.x, self.y, self.angle + 180, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
                     liste_tirs.append((tir_arriere, self.equipement['canons']))
 
                     if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
@@ -161,10 +162,11 @@ class Navire:
 
         
     def get_damaged(self, damage):
+        r = 5
         if self.equipement['coque'] == "Coque en bois magique":
             r = random.randint(1,5)
-            if r != 1:
-                self.vie -= damage
+        if r != 1:
+            self.vie -= damage
     
     def is_dead(self):
         if self.vie <= 0:
@@ -204,6 +206,7 @@ class Navire:
             if self.recompense[0] in res.liste_malus and res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
                 self.equiper()
                 self.updateIcons()
+                self.verifIleMalus = True
 
 
     def equiper(self):
@@ -220,6 +223,7 @@ class Navire:
                 self.equipement['voile'] = self.recompense[0]
             elif self.recompense[0] == res.liste_malus[2]:
                 self.equipement['coque'] = self.recompense[0]
+        print(self.equipement)
         self.effetItem()
 
     def effetItem(self):

@@ -18,9 +18,6 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 framerate = 60
 clock = pygame.time.Clock()
 dt = clock.tick(framerate)
-# Listes des éléments du jeu
-liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, playHeight, dt)] #vitesse_max, acceleration, maniabilité, image
-liste_ennemis = [IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt), IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt)]
 
 keyBindList =  [
     pygame.K_UP,
@@ -94,7 +91,7 @@ liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot,
 BLACK = (0, 0, 0)
 
 # ECRAN TITRE
-menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_width)
+menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
 menu.actif(screen_width, screen_height, screen)
 
 
@@ -120,7 +117,7 @@ while running:
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_ESCAPE]:
-        pause = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_width)
+        pause = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
         pause.actif(screen_width, screen_height, screen)
     # Gestion des touches du premier navire (pour l'instant impossible de rajouter d'autre joueurs ils ont tous les même touches)
     if len(liste_joueur) > 0:
@@ -186,7 +183,8 @@ while running:
                     elif shot_i[1] == "Canon légendaire":
                         damage = 35
                     liste_navire[i].get_damaged(damage)
-                    liste_shot.remove(shot_i)
+                    if shot_i[0] in liste_shot:
+                        liste_shot.remove(shot_i)
         else:
             liste_shot.remove(shot_i) # si il y a un None ça le detruit
         
@@ -204,7 +202,7 @@ while running:
             liste_navire.remove(navire_i)
     if len(liste_joueur) == 0:
         liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer = start_game()
-        menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_width)
+        menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
         menu.actif(screen_width, screen_height, screen)
         continue
             
@@ -221,14 +219,20 @@ while running:
             if len(liste_navire) > 0:
                 recompense = ile.type_recompenses()
                 n.equipInterface(recompense, ile.position_x(), ile.position_y())
-                if liste_joueur[0].afficher_items == True:
+                if n.afficher_items == True:
 
                     if keys[pygame.K_a]:
                         if res.calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) < 75:
-                            liste_iles.remove(ile)
-                            nbrIles -= 1
+                            if ile in liste_iles:
+                                liste_iles.remove(ile)
+                                nbrIles -= 1
                         liste_joueur[0].afficher_items = False
                         liste_joueur[0].equiper()
+                elif res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
+                    verifIleMalus = n.verifIleMalus
+                    if verifIleMalus == True:
+                        liste_iles.remove(ile)
+                        verifIleMalus = False
 
 
     # Appelle de la fonction de compte à rebours pour apparition des îles
