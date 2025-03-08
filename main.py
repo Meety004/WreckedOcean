@@ -264,7 +264,15 @@ while running:
 
     #Affiche l'interface de choix d'item pour le joueur uniquement
     if liste_joueur[0].afficher_items == True:
-        screen.blit(liste_joueur[0].ItemsUI, (15, 15))
+        screen.blit(liste_joueur[0].getItemUI(), (0.78/100*screen_width, 1.39/100*screen_height))
+        PastIcon = liste_joueur[0].getPastDisplay()
+        NewIcon = liste_joueur[0].getNewDisplay()
+
+        PastIcon = pygame.transform.scale(PastIcon, (1.67/100*screen_width, 2.96/100*screen_height))
+        NewIcon = pygame.transform.scale(NewIcon, (1.67/100*screen_width, 2.96/100*screen_height))
+
+        screen.blit(PastIcon, (0.2*screen_width, 0.2*screen_height))
+        screen.blit(NewIcon, (0.2*screen_width, 0.3*screen_height))
             
 
     # Rafraîchir l'écran

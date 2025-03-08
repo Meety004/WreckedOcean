@@ -52,9 +52,9 @@ class Navire:
         self.iconVoile = res.VoileCommun
         self.iconCanon = res.CanonCommun
 
-        self.AncienneiconCoque = None
-        self.AncienneiconVoile = None
-        self.AncienneiconCanon = None
+        self.AncienneiconCoque = res.CoqueMalus
+        self.AncienneiconVoile = res.VoileMalus
+        self.AncienneiconCanon = res.CanonMalus
 
         self.DisplayIconNew = None
         self.DisplayIconPast = None
@@ -191,6 +191,15 @@ class Navire:
     
     def getEquipement(self):
         return self.equipement
+    
+    def getPastDisplay(self):
+        return self.DisplayIconPast
+     
+    def getNewDisplay(self):
+        return self.DisplayIconNew
+    
+    def getItemUI(self):
+        return self.ItemsUI
 
     def equipInterface(self, recompense, xIle, yIle):
         self.recompense = recompense
@@ -227,7 +236,6 @@ class Navire:
         self.effetItem()
 
     def effetItem(self):
-        self.updateIcons()
         self.maxVie = 50
         self.vitesse_max = 7
         self.maniabilite = 5
@@ -290,6 +298,7 @@ class Navire:
 
 
     def updateIcons(self):
+        print("called")
         if self.recompense[1] == "commun":
             if self.recompense[0] in res.listeCanons:
                 self.AncienneiconCanon = self.iconCanon
@@ -341,3 +350,5 @@ class Navire:
                 self.AncienneiconCoque = self.iconCoque
                 self.iconCoque = res.CoqueLegendaire
 
+        print(self.AncienneiconCanon, self.AncienneiconVoile, self.AncienneiconVoile)
+        print(self.DisplayIconPast, self.DisplayIconNew)
