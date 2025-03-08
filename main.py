@@ -11,8 +11,13 @@ screen_width = pygame.display.Info().current_w
 screen_height = pygame.display.Info().current_h
 playHeight = screen_height -  (1/5 * screen_height)
 screen = pygame.display.set_mode((screen_width, screen_height))
+print(screen_width, screen_height)
 
 police = pygame.font.Font(None, 36) # gere la police lors de l'affichage de texte a l'ecran
+
+# la bouteille sous la barre de vie
+design_barre_de_vie = pygame.transform.scale(pygame.image.load("images/Interfaces/barre_de_vie.png").convert_alpha(), (screen_width*0.09, screen_height*0.265))
+design_barre_de_vie = pygame.transform.rotate(design_barre_de_vie, 90)
 
 # Initialisation du delta time pour avoir la même vitesse sur tout les ordis
 framerate = 60
@@ -275,11 +280,18 @@ while running:
         screen.blit(liste_joueur[0].ItemsUI, (15, 15))
             
     # affiche la bare de vie du joueur
-    largeur = 150 * ((liste_joueur[0].get_vie()*150 / liste_joueur[0].get_max_vie())/150)
+    
+        # la bouteille
+    rect_barre_de_vie = design_barre_de_vie.get_rect(center=(screen_width/2, 7 * screen_height/8))
+    screen.blit(design_barre_de_vie, rect_barre_de_vie)
+    
+        # la bare de vie
+    largeur = (screen_width*0.1) * ((liste_joueur[0].get_vie()*(screen_width*0.1) / liste_joueur[0].get_max_vie())/(screen_width*0.1))
     texte = police.render(str(liste_joueur[0].get_vie()), True, (255, 0, 0))
-    bare_de_vie = pygame.Rect(screen_width/2 - 75, screen_height - 100, largeur, 20)
+    bare_de_vie = pygame.Rect(screen_width*0.44, screen_height * 0.86, largeur, screen_width*0.02) # affiche a 44% de la largeur et 86% de la hauteur de l'ecran, la largeur est de 0.02% la taille de la hauteur de l'ecran
     pygame.draw.rect(screen, (255, 0, 0), bare_de_vie)
-    screen.blit(texte, (screen_width/2 - 20, screen_height- 70))
+        # le texte pour avoir le nombre de vie exacte
+    screen.blit(texte, (screen_width*0.48, screen_height*0.9))
 
     # affichage des degats lorsque le joueur est touché
     if len(liste_texte_degats) != 0:
@@ -288,6 +300,7 @@ while running:
             liste_texte_degats[i][1] += 1
             if liste_texte_degats[i][1] >= 30:
                 liste_texte_degats.pop(i)
+    
     # Rafraîchir l'écran
     pygame.display.flip()
 
