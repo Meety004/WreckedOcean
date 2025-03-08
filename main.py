@@ -296,10 +296,11 @@ while running:
     # affichage des degats lorsque le joueur est touché
     if len(liste_texte_degats) != 0:
         for i in range(len(liste_texte_degats)-1, -1, -1) :
-            screen.blit(liste_texte_degats[i][0], (liste_navire[cible_du_tir].position_x(), liste_navire[cible_du_tir].position_y()))
-            liste_texte_degats[i][1] += 1
-            if liste_texte_degats[i][1] >= 30:
-                liste_texte_degats.pop(i)
+            if cible_du_tir < len(liste_navire):
+                screen.blit(liste_texte_degats[i][0], (liste_navire[cible_du_tir].position_x(), liste_navire[cible_du_tir].position_y()))
+                liste_texte_degats[i][1] += 1
+                if liste_texte_degats[i][1] >= 30:
+                    liste_texte_degats.pop(i)
     
     # Rafraîchir l'écran
     pygame.display.flip()
