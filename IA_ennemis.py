@@ -15,7 +15,7 @@ class IA_ennemis_basiques(Navire):
         self.compte_action = 0 # compte combien de fois l'IA fait la même action (ne peut pas la faire plus de 23 fois)
         self.verif_ile = (False, 0)
 
-    # vérifie si la cible de cette IA (le joueur pour l'instant) est à portée de cette IA
+    # vérifie si la cible de cette IA est à portée de cette IA
     def ennemi_in_range(self, liste_adversaire):
         for ennemi in liste_adversaire:
             if ennemi.get_ID() != self.ID:
@@ -41,7 +41,7 @@ class IA_ennemis_basiques(Navire):
             else:
                 super().tourne_gauche()
 
-    def bouger(self, liste_adversaire, liste_iles):
+    def bouger(self, liste_adversaire, liste_iles, inutile):
         self.verif_ile = self.ile_in_range(liste_iles)
         if self.verif_ile[0]:
             truc = self.y - liste_iles[self.verif_ile[1]].position_y()
@@ -94,6 +94,48 @@ class IA_ennemis_basiques(Navire):
         super().accelerer() # Les ennemis basiques avancent tout le temps
         super().avancer()
 
+    def tirer(self, cible_x, cible_y):
+        # si l'ennemi est à distance même s'il n'est pas bien incliné ça tire
+        if res.calc_distance(self.x, self.y, cible_x, cible_y) <= 140:
+            return super().shoot()
+
+    def position_x(self):
+        return self.x
+    
+    def position_y(self):
+        return self.y
+
+class IA_ennemis_chasseurs(Navire):
+    def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt):
+        super().__init__(v_max, acceleration, maniabilite, image, screen_width, screen_height, dt, 2)
+    
+    # vérifie si le joueur est à portée de cette IA
+    def joueur_in_range(self, liste_joueur):
+        if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 120:
+            return True
+        return False
+
+    def bouger(self, inutile1, inutile2, liste_joueur):
+        truc = self.y - liste_joueur[0].position_y()
+        if truc < 0 :
+            truc = -truc
+        var_intermediaire = (truc)/(res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()))
+        angle_ile = math.degrees(math.acos(var_intermediaire)) - self.angle
+        if self.x < liste_joueur[0].position_x() :
+            if angle_ile > 5 :
+                super().tourne_droite()
+            elif angle_ile < -5:
+                super().tourne_gauche()
+        else:
+            angle_ile+=180
+            if angle_ile > 5 :
+                super().tourne_droite()
+            elif angle_ile < -5:
+                super().tourne_gauche()
+
+        super().accelerer() # Les chasseurs avancent tout le temps
+        super().avancer()
+    
     def tirer(self, cible_x, cible_y):
         # si l'ennemi est à distance même s'il n'est pas bien incliné ça tire
         if res.calc_distance(self.x, self.y, cible_x, cible_y) <= 140:

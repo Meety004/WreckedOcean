@@ -33,12 +33,19 @@ class Navire:
         self.afficher_items = False  # Variable d'état pour suivre l'affichage de l'image
         self.ItemsUI = pygame.image.load("images/Interfaces/equip_menu_item.png").convert_alpha()
         self.ItemsUI = pygame.transform.scale(self.ItemsUI, (screen_width*0.4, pygame.display.Info().current_h*0.4)).convert_alpha()
-
-        self.equipement = {
-        'canons':    "Canon de base",
-        'voile':    "Voile de base",
-        'coque':    "Coque de base"
-        }
+        
+        if self.type == 2:
+            self.equipement = {
+            'canons':    "+2 Canons",
+            'voile':    "Voile Latine",
+            'coque':    "Coque épicéa"
+            }
+        else:
+            self.equipement = {
+            'canons':    "Canons de base",
+            'voile':    "Voile de base",
+            'coque':    "Coque de base"
+            }
 
         self.benedictions = []
 

@@ -29,8 +29,9 @@ def start_game():
         # Listes des éléments du jeu
         liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, playHeight, dt, 0)] #vitesse_max, acceleration, maniabilité, image
         liste_ennemis = []
-        for i in range(3):
+        for i in range(2):
             liste_ennemis.append(IA_ennemis_basiques(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+        liste_ennemis.append(IA_ennemis_chasseurs(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
 
 
         # Liste avec les joueur et les ennemis (contenant donc tout les Navire a l'ecran)
@@ -155,7 +156,7 @@ while running:
     
     for ennemis in liste_ennemis:
         # a besoin de la position des joueurs pour incliner le deplacement
-        ennemis.bouger(liste_navire, liste_iles)
+        ennemis.bouger(liste_navire, liste_iles, liste_joueur)
         
         for adversaire in liste_navire:
             if adversaire.get_ID() != ennemis.get_ID():
