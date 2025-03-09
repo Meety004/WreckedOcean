@@ -48,13 +48,13 @@ class Navire:
         self.VoileMaxVie = 0
         self.VoileMaxVitesse = 1
 
-        self.iconCoque = res.CoqueCommun
-        self.iconVoile = res.VoileCommun
-        self.iconCanon = res.CanonCommun
+        self.iconCoque = None
+        self.iconVoile = None
+        self.iconCanon = None
 
-        self.AncienneiconCoque = res.CoqueMalus
-        self.AncienneiconVoile = res.VoileMalus
-        self.AncienneiconCanon = res.CanonMalus
+        self.AncienneiconCoque = res.CoqueCommun
+        self.AncienneiconVoile = res.VoileCommun
+        self.AncienneiconCanon = res.CanonCommun
 
         self.DisplayIconNew = None
         self.DisplayIconPast = None
@@ -206,16 +206,50 @@ class Navire:
         if (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus):
             
             if res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
+                self.updateDisplayIcon()
                 self.afficher_items = True
-                self.updateIcons()
+
             else:
                 self.afficher_items = False
         else:
             self.afficher_items = False
             if self.recompense[0] in res.liste_malus and res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
                 self.equiper()
-                self.updateIcons()
                 self.verifIleMalus = True
+
+        
+    def updateDisplayIcon(self):
+        if self.recompense[0] in res.listeCanons:
+            self.DisplayIconPast = self.AncienneiconCanon
+            if self.recompense[1] == "commun":
+                self.DisplayIconNew = res.CanonCommun
+            elif self.recompense[1] == "rare":
+                self.DisplayIconNew = res.CanonRare
+            elif self.recompense[1] == "mythique":
+                self.DisplayIconNew = res.CanonMythique
+            elif self.recompense[1] == "légendaire":
+                self.DisplayIconNew = res.CanonLegendaire
+        elif self.recompense[0] in res.listeCoques:
+            self.DisplayIconPast = self.AncienneiconCoque
+            if self.recompense[1] == "commun":
+                self.DisplayIconNew = res.CoqueCommun
+            elif self.recompense[1] == "rare":
+                self.DisplayIconNew = res.CoqueRare
+            elif self.recompense[1] == "mythique":
+                self.DisplayIconNew = res.CoqueMythique
+            elif self.recompense[1] == "légendaire":
+                self.DisplayIconNew = res.CoqueLegendaire
+        elif self.recompense[0] in res.listeVoiles:
+            self.DisplayIconPast = self.AncienneiconVoile
+            if self.recompense[1] == "commun":
+                self.DisplayIconNew = res.VoileCommun
+            elif self.recompense[1] == "rare":
+                self.DisplayIconNew = res.VoileRare
+            elif self.recompense[1] == "mythique":
+                self.DisplayIconNew = res.VoileMythique
+            elif self.recompense[1] == "légendaire":
+                self.DisplayIconNew = res.VoileLegendaire
+
 
 
     def equiper(self):
@@ -241,8 +275,7 @@ class Navire:
         self.maniabilite = 5
 
         if self.recompense[0] in res.listeCoques:
-            self.DisplayIconPast = self.AncienneiconCoque
-            self.DisplayIconNew = self.iconCoque
+            self.iconCoque = self.DisplayIconNew
             self.CoqueMaxVie = 0
             self.CoqueMaxVitesse = 1
             if self.equipement['coque'] == "Coque épicéa":
@@ -268,8 +301,7 @@ class Navire:
                 self.CoqueMaxVitesse = 1.3
 
         if self.recompense[0] in res.listeVoiles:
-            self.DisplayIconPast = self.AncienneiconVoile
-            self.DisplayIconNew = self.iconVoile
+            self.iconVoile = self.DisplayIconNew
             self.VoileMaxVitesse = 1
             self.VoileMaxVie = 0
             if self.equipement['voile'] == "Voile en toile de jute":
@@ -284,8 +316,7 @@ class Navire:
                 self.maniabilite = self.maniabilite * 1.05
 
         if self.recompense[0] in res.listeCanons:
-            self.DisplayIconPast = self.AncienneiconCanon
-            self.DisplayIconNew = self.iconCanon
+            self.iconCanon = self.DisplayIconNew
             if (self.equipement['canons'] == "Canon en or") or (self.equipement['canons'] == "Canon légendaire"):
                 self.cadance_tir = 900
 
@@ -295,60 +326,3 @@ class Navire:
 
         self.maxVie = self.maxVie + self.VoileMaxVie + self.CoqueMaxVie
         self.vitesse_max = self.vitesse_max * self.VoileMaxVitesse * self.CoqueMaxVitesse
-
-
-    def updateIcons(self):
-        print("called")
-        if self.recompense[1] == "commun":
-            if self.recompense[0] in res.listeCanons:
-                self.AncienneiconCanon = self.iconCanon
-                self.iconCanon = res.CanonCommun
-            elif  self.recompense[0] in res.listeVoiles:
-                self.AncienneiconVoile = self.iconVoile
-                self.iconVoile = res.VoileCommun
-            elif  self.recompense[0] in res.listeCoques:
-                self.AncienneiconCoque = self.iconCoque
-                self.iconCoque = res.CoqueCommun
-            elif self.recompense[0] in res.liste_malus:
-                if self.equipement['voile'] == "Voile Trouée":
-                    self.AncienneiconVoile = self.iconVoile
-                    self.iconVoile = res.VoileMalus
-                if self.equipement['canons'] == "Canons Rouillés":
-                    self.AncienneiconCanon = self.iconCanon
-                    self.iconCanon = res.CanonMalus
-                if self.equipement['coque'] == "Coque Trouée":
-                    self.AncienneiconCoque = self.iconCoque
-                    self.iconCoque = res.CoqueMalus
-        elif self.recompense[1] == "rare":
-            if self.recompense[0] in res.listeCanons:
-                self.AncienneiconCanon = self.iconCanon
-                self.iconCanon = res.CanonRare
-            elif  self.recompense[0] in res.listeVoiles:
-                self.AncienneiconVoile = self.iconVoile
-                self.iconVoile = res.VoileRare
-            elif  self.recompense[0] in res.listeCoques:
-                self.AncienneiconCoque = self.iconCoque
-                self.iconCoque = res.CoqueRare
-        elif self.recompense[1] == "mythique":
-            if self.recompense[0] in res.listeCanons:
-                self.AncienneiconCanon = self.iconCanon
-                self.iconCanon = res.CanonMythique
-            elif  self.recompense[0] in res.listeVoiles:
-                self.AncienneiconVoile = self.iconVoile
-                self.iconVoile = res.VoileMythique
-            elif  self.recompense[0] in res.listeCoques:
-                self.AncienneiconCoque = self.iconCoque
-                self.iconCoque = res.CoqueMythique
-        elif self.recompense[1] == "légendaire":
-            if self.recompense[0] in res.listeCanons:
-                self.AncienneiconCanon = self.iconCanon
-                self.iconCanon = res.CanonLegendaire
-            elif  self.recompense[0] in res.listeVoiles:
-                self.AncienneiconVoile = self.iconVoile
-                self.iconVoile = res.VoileLegendaire
-            elif  self.recompense[0] in res.listeCoques:
-                self.AncienneiconCoque = self.iconCoque
-                self.iconCoque = res.CoqueLegendaire
-
-        print(self.AncienneiconCanon, self.AncienneiconVoile, self.AncienneiconVoile)
-        print(self.DisplayIconPast, self.DisplayIconNew)

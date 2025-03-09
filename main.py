@@ -268,11 +268,14 @@ while running:
         PastIcon = liste_joueur[0].getPastDisplay()
         NewIcon = liste_joueur[0].getNewDisplay()
 
-        PastIcon = pygame.transform.scale(PastIcon, (1.67/100*screen_width, 2.96/100*screen_height))
-        NewIcon = pygame.transform.scale(NewIcon, (1.67/100*screen_width, 2.96/100*screen_height))
+        PastIcon = pygame.image.load(PastIcon).convert_alpha()
+        NewIcon = pygame.image.load(NewIcon).convert_alpha()
 
-        #screen.blit(PastIcon, (0.2*screen_width, 0.2*screen_height))
-        #screen.blit(NewIcon, (0.2*screen_width, 0.3*screen_height))
+        PastIcon = pygame.transform.scale(PastIcon, (3.34/100*screen_width, 5.92/100*screen_height))
+        NewIcon = pygame.transform.scale(NewIcon, (3.34/100*screen_width, 5.92/100*screen_height))
+
+        screen.blit(PastIcon, (0.085*screen_width, 0.1*screen_height))
+        screen.blit(NewIcon, (0.085*screen_width, 0.25*screen_height))
             
 
     # Rafraîchir l'écran
