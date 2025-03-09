@@ -34,7 +34,7 @@ class Navire:
         self.ItemsUI = pygame.transform.scale(self.ItemsUI, (screen_width*0.4, pygame.display.Info().current_h*0.4)).convert_alpha()
 
         self.equipement = {
-        'canons':    "+3 Canons",
+        'canons':   "Canon de base",
         'voile':    "Voile de base",
         'coque':    "Coque de base"
         }

@@ -183,7 +183,7 @@ while running:
                     elif shot_i[1] == "Canon légendaire":
                         damage = 35
                     liste_navire[i].get_damaged(damage)
-                    if shot_i[0] in liste_shot:
+                    if shot_i in liste_shot:
                         liste_shot.remove(shot_i)
         else:
             liste_shot.remove(shot_i) # si il y a un None ça le detruit
