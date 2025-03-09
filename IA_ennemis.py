@@ -25,7 +25,7 @@ class IA_ennemis_basiques(Navire):
     
     def ile_in_range(self, liste_iles):
         for ile in range(len(liste_iles)):
-            if res.calc_distance(self.x, self.y, liste_iles[ile].position_x(), liste_iles[ile].position_y()) <= 120:
+            if res.calc_distance(self.x, self.y, liste_iles[ile].position_x(), liste_iles[ile].position_y()) <= 300:
                 return (True, ile)
         return (False, 0)
 
@@ -44,11 +44,22 @@ class IA_ennemis_basiques(Navire):
     def bouger(self, liste_adversaire, liste_iles):
         self.verif_ile = self.ile_in_range(liste_iles)
         if self.verif_ile[0]:
-            angle = math.degrees(math.atan2(liste_iles[self.verif_ile[1]].position_y() - self.y, liste_iles[self.verif_ile[1]].position_x() - self.x))
-            if angle > 5 and angle < 180 :
-                super().tourne_gauche
-            elif angle > -180 and angle < -5:
-                super().tourne_droite
+            truc = self.y - liste_iles[self.verif_ile[1]].position_y()
+            if truc < 0 :
+                truc = -truc
+            var_intermediaire = (truc)/(res.calc_distance(self.x, self.y, liste_iles[self.verif_ile[1]].position_x(), liste_iles[self.verif_ile[1]].position_y()))
+            angle_ile = math.degrees(math.acos(var_intermediaire)) - self.angle
+            if self.x < liste_iles[self.verif_ile[1]].position_x() :
+                if angle_ile > 5 :
+                    super().tourne_droite()
+                elif angle_ile < -5:
+                    super().tourne_gauche()
+            else:
+                angle_ile+=180
+                if angle_ile > 5 :
+                    super().tourne_droite()
+                elif angle_ile < -5:
+                    super().tourne_gauche()
         else:
             nouvelle_action = random.randint(0, 50) # 2 chances sur 50 de changer d'action
             if nouvelle_action > 3: # si c'est 0 elle va tout droit, si c'est 1 elle tourne à droite si c'est 2 à gauche et sinon elle refait la même action qu'avant pour eviter de changer tout le temps de trajectoire
