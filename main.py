@@ -30,7 +30,7 @@ def start_game():
         liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, playHeight, dt)] #vitesse_max, acceleration, maniabilité, image
         liste_ennemis = []
         for i in range(3):
-            liste_ennemis.append(IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+            liste_ennemis.append(IA_ennemis_basiques(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
 
 
         # Liste avec les joueur et les ennemis (contenant donc tout les Navire a l'ecran)
