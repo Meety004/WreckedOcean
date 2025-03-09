@@ -45,6 +45,8 @@ class Menu:
                     if btn.is_pressed():
                         if i == 0:
                             self.est_actif = False
+                        if i == 1:
+                            pygame.quit()
 
                 self.affichage(screen)
                 for btn in lst_btn:
