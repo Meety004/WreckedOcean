@@ -8,7 +8,7 @@ import ressources as res
 tirDouble = pygame.USEREVENT + 1
 
 class Navire:
-    def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt):
+    def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt, type):
         # Contrôle du vaisseau
         self.vitesse_max = v_max
         self.acceleration = acceleration
@@ -28,6 +28,7 @@ class Navire:
         self.maxVie = 100
         self.vie = self.maxVie
         self.verifIleMalus = False
+        self.type = type
 
         self.afficher_items = False  # Variable d'état pour suivre l'affichage de l'image
         self.ItemsUI = pygame.image.load("images/Interfaces/equip_menu_item.png").convert_alpha()
@@ -65,7 +66,7 @@ class Navire:
         self.x += self.vitesse * math.cos(math.radians(self.angle - 90)) # multiplie la vitesse X par le cosinus de l'angle en fonction de l'incilaison
         self.y += self.vitesse * math.sin(math.radians(self.angle - 90)) # pareil mais avec les Y et le sinus
 
-    # auglente la vitesse
+    # augmente la vitesse
     def accelerer(self):
         # accelere tant que la vitesse max n'est pas atteinte
         if self.vitesse < self.vitesse_max:
@@ -223,7 +224,7 @@ class Navire:
                 self.equipement['voile'] = self.recompense[0]
             elif self.recompense[0] == res.liste_malus[2]:
                 self.equipement['coque'] = self.recompense[0]
-        print(self.equipement)
+        print(self.equipement, self.type)
         self.effetItem()
 
     def effetItem(self):
