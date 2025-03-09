@@ -201,7 +201,6 @@ while running:
         
     for navire_i in liste_navire:
         if navire_i.is_dead():
-            print("Navire :", navire_i.get_ID, "est mort")
             if len(liste_joueur) > 0:
                 for i in range(len(liste_joueur)-1, -1, -1):
                     if liste_joueur[i].get_ID() == navire_i.get_ID():
@@ -297,9 +296,9 @@ while running:
     if len(liste_texte_degats) != 0:
         for i in range(len(liste_texte_degats)-1, -1, -1) :
             if cible_du_tir < len(liste_navire):
-                screen.blit(liste_texte_degats[i][0], (liste_navire[cible_du_tir].position_x(), liste_navire[cible_du_tir].position_y()))
+                screen.blit(liste_texte_degats[i][0], (liste_navire[cible_du_tir].position_x() + 10, liste_navire[cible_du_tir].position_y() - 35))
                 liste_texte_degats[i][1] += 1
-                if liste_texte_degats[i][1] >= 30:
+                if liste_texte_degats[i][1] >= 60:
                     liste_texte_degats.pop(i)
     
     # Rafraîchir l'écran
