@@ -222,13 +222,13 @@ while running:
                 if n.afficher_items == True:
 
                     if keys[pygame.K_a]:
-                        if res.calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) < 75:
+                        if res.calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) < 100:
                             if ile in liste_iles:
                                 liste_iles.remove(ile)
                                 nbrIles -= 1
                         liste_joueur[0].afficher_items = False
                         liste_joueur[0].equiper()
-                elif res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
+                elif res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 100:
                     verifIleMalus = n.verifIleMalus
                     if verifIleMalus == True:
                         liste_iles.remove(ile)
@@ -271,11 +271,11 @@ while running:
         PastIcon = pygame.image.load(PastIcon).convert_alpha()
         NewIcon = pygame.image.load(NewIcon).convert_alpha()
 
-        PastIcon = pygame.transform.scale(PastIcon, (3.34/100*screen_width, 5.92/100*screen_height))
-        NewIcon = pygame.transform.scale(NewIcon, (3.34/100*screen_width, 5.92/100*screen_height))
+        PastIcon = pygame.transform.scale(PastIcon, (6.68/100*screen_width, 11.84/100*screen_height))
+        NewIcon = pygame.transform.scale(NewIcon, (6.68/100*screen_width, 11.84/100*screen_height))
 
         screen.blit(PastIcon, (0.085*screen_width, 0.1*screen_height))
-        screen.blit(NewIcon, (0.085*screen_width, 0.25*screen_height))
+        screen.blit(NewIcon, (0.085*screen_width, 0.22*screen_height))
             
 
     # Rafraîchir l'écran

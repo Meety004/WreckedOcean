@@ -205,7 +205,7 @@ class Navire:
         self.recompense = recompense
         if (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus):
             
-            if res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
+            if res.calc_distance(self.x, self.y, xIle, yIle) <= 100:
                 self.updateDisplayIcon()
                 self.afficher_items = True
 
@@ -213,7 +213,7 @@ class Navire:
                 self.afficher_items = False
         else:
             self.afficher_items = False
-            if self.recompense[0] in res.liste_malus and res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
+            if self.recompense[0] in res.liste_malus and res.calc_distance(self.x, self.y, xIle, yIle) <= 100:
                 self.equiper()
                 self.verifIleMalus = True
 
@@ -249,6 +249,7 @@ class Navire:
                 self.DisplayIconNew = res.VoileMythique
             elif self.recompense[1] == "légendaire":
                 self.DisplayIconNew = res.VoileLegendaire
+
 
 
 
