@@ -24,6 +24,8 @@ framerate = 60
 clock = pygame.time.Clock()
 dt = clock.tick(framerate)
 
+pause = None
+
 keyBindList =  [
     pygame.K_UP,
     pygame.K_LEFT,
@@ -97,13 +99,12 @@ liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot,
 # Définition de la couleur de fond (noir)
 BLACK = (0, 0, 0)
 
-# ECRAN TITRE
-menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
-menu.actif(screen_width, screen_height, screen)
-
-
 # Boucle principale du jeu
 running = True
+
+# ECRAN TITRE
+menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
+running = menu.actif(screen_width, screen_height, screen)
 
 # Boucle de jeu
 while running:
@@ -123,9 +124,6 @@ while running:
     # Récupérer l'état des touches
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_ESCAPE]:
-        pause = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
-        pause.actif(screen_width, screen_height, screen)
     # Gestion des touches du premier navire (pour l'instant impossible de rajouter d'autre joueurs ils ont tous les même touches)
     if len(liste_joueur) > 0:
 
@@ -213,7 +211,7 @@ while running:
     if len(liste_joueur) == 0:
         liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats = start_game()
         menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
-        menu.actif(screen_width, screen_height, screen)
+        running = menu.actif(screen_width, screen_height, screen)
         continue
             
 
@@ -309,8 +307,12 @@ while running:
     if keys[pygame.K_TAB]: # si on appuie sur tab ca quitte le jeu
         running = False
 
+    if keys[pygame.K_ESCAPE]:
+        menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
+        running = menu.actif(screen_width, screen_height, screen)
+
     # Limiter la boucle à 60 images par seconde
-    dt = clock.tick(framerate) # enfaite si ca marche mais c'est bizarre
+    dt = clock.tick(framerate) # enfaite non ca marche pas
 
 # Quitter Pygame proprement
 pygame.quit()

@@ -12,6 +12,7 @@ class Menu:
         self.image = pygame.image.load(image).convert_alpha()
         self.image = pygame.transform.scale(self.image, (self.width, self.height)).convert_alpha()
         #self.rect = self.image.get_rect(center=(width/2, height/2))
+        self.quitter_jeu = False
 
     def affichage(self, screen):
         screen.blit(self.image, (0,0))
@@ -40,17 +41,20 @@ class Menu:
                     if event.type == pygame.KEYDOWN and event.key == pygame.K_TAB:
                         pygame.quit()
                         return
-
-                for i, btn in enumerate(lst_btn):
-                    if btn.is_pressed():
-                        if i == 0:
-                            self.est_actif = False
-
+                    
                 self.affichage(screen)
                 for btn in lst_btn:
                     btn.affichage(screen)
 
                 pygame.display.flip()
+
+                for i, btn in enumerate(lst_btn):
+                    if btn.is_pressed():
+                        if i == 0:
+                            self.est_actif = False
+                            return True
+                        if i == 1:
+                            return False
 
 
     def est_toujours_actif_point_d_interogation(self):
