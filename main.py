@@ -11,13 +11,20 @@ screen_width = pygame.display.Info().current_w
 screen_height = pygame.display.Info().current_h
 playHeight = screen_height -  (1/5 * screen_height)
 screen = pygame.display.set_mode((screen_width, screen_height))
+print(screen_width, screen_height)
 
+police = pygame.font.Font(None, 36) # gere la police lors de l'affichage de texte a l'ecran
 
+# la bouteille sous la barre de vie
+design_barre_de_vie = pygame.transform.scale(pygame.image.load("images/Interfaces/barre_de_vie.png").convert_alpha(), (screen_width*0.09, screen_height*0.265))
+design_barre_de_vie = pygame.transform.rotate(design_barre_de_vie, 90)
 
 # Initialisation du delta time pour avoir la même vitesse sur tout les ordis
 framerate = 60
 clock = pygame.time.Clock()
 dt = clock.tick(framerate)
+
+pause = None
 
 keyBindList =  [
     pygame.K_UP,
@@ -32,6 +39,8 @@ def start_game():
         for i in range(3):
             liste_ennemis.append(IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
 
+        # dans linterface utilisateur
+        liste_texte_degats = []
 
         # Liste avec les joueur et les ennemis (contenant donc tout les Navire a l'ecran)
         liste_navire = liste_joueur + liste_ennemis
@@ -83,20 +92,19 @@ def start_game():
         #On appelle le timer pour la première fois
         timer = setTimer()
 
-        return liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer
+        return liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats
 
-liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer = start_game()
+liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats = start_game()
 
 # Définition de la couleur de fond (noir)
 BLACK = (0, 0, 0)
 
-# ECRAN TITRE
-menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
-menu.actif(screen_width, screen_height, screen)
-
-
 # Boucle principale du jeu
 running = True
+
+# ECRAN TITRE
+menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
+running = menu.actif(screen_width, screen_height, screen)
 
 # Boucle de jeu
 while running:
@@ -116,9 +124,6 @@ while running:
     # Récupérer l'état des touches
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_ESCAPE]:
-        pause = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
-        pause.actif(screen_width, screen_height, screen)
     # Gestion des touches du premier navire (pour l'instant impossible de rajouter d'autre joueurs ils ont tous les même touches)
     if len(liste_joueur) > 0:
 
@@ -182,15 +187,18 @@ while running:
                         damage = 25
                     elif shot_i[1] == "Canon légendaire":
                         damage = 35
-                    liste_navire[i].get_damaged(damage)
-                    if shot_i[0] in liste_shot:
+                    if not shot_i[0].getIDTireur() == liste_navire[i].get_ID():
+                        liste_navire[i].get_damaged(damage)
+                        cible_du_tir = i
+                        liste_texte_degats.append([police.render(str(damage), True, (255, 0, 0)), 0])
+                    
+                    if shot_i in liste_shot:
                         liste_shot.remove(shot_i)
         else:
             liste_shot.remove(shot_i) # si il y a un None ça le detruit
         
     for navire_i in liste_navire:
         if navire_i.is_dead():
-            print("Navire :", navire_i.get_ID, "est mort")
             if len(liste_joueur) > 0:
                 for i in range(len(liste_joueur)-1, -1, -1):
                     if liste_joueur[i].get_ID() == navire_i.get_ID():
@@ -201,9 +209,9 @@ while running:
                         liste_ennemis.pop(i)
             liste_navire.remove(navire_i)
     if len(liste_joueur) == 0:
-        liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer = start_game()
+        liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats = start_game()
         menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
-        menu.actif(screen_width, screen_height, screen)
+        running = menu.actif(screen_width, screen_height, screen)
         continue
             
 
@@ -239,7 +247,9 @@ while running:
     nbrIles, maxIles, timer = apparitionIles(nbrIles, maxIles, timer)
 
 
+
     # DRAW
+
 
 
     #Remplir l'écran avec une couleur de fond
@@ -266,16 +276,43 @@ while running:
     if liste_joueur[0].afficher_items == True:
         screen.blit(liste_joueur[0].ItemsUI, (15, 15))
             
+    # affiche la bare de vie du joueur
+    
+        # la bouteille
+    rect_barre_de_vie = design_barre_de_vie.get_rect(center=(screen_width/2, 7 * screen_height/8))
+    screen.blit(design_barre_de_vie, rect_barre_de_vie)
+    
+        # la bare de vie
+    largeur = (screen_width*0.1) * ((liste_joueur[0].get_vie()*(screen_width*0.1) / liste_joueur[0].get_max_vie())/(screen_width*0.1))
+    texte = police.render(str(liste_joueur[0].get_vie()), True, (255, 0, 0))
+    bare_de_vie = pygame.Rect(screen_width*0.44, screen_height * 0.86, largeur, screen_width*0.02) # affiche a 44% de la largeur et 86% de la hauteur de l'ecran, la largeur est de 0.02% la taille de la hauteur de l'ecran
+    pygame.draw.rect(screen, (255, 0, 0), bare_de_vie)
+        # le texte pour avoir le nombre de vie exacte
+    screen.blit(texte, (screen_width*0.48, screen_height*0.9))
 
+    # affichage des degats lorsque le joueur est touché
+    if len(liste_texte_degats) != 0:
+        for i in range(len(liste_texte_degats)-1, -1, -1) :
+            if cible_du_tir < len(liste_navire):
+                screen.blit(liste_texte_degats[i][0], (liste_navire[cible_du_tir].position_x() + 10, liste_navire[cible_du_tir].position_y() - 35))
+                liste_texte_degats[i][1] += 1
+                if liste_texte_degats[i][1] >= 60:
+                    liste_texte_degats.pop(i)
+    
     # Rafraîchir l'écran
     pygame.display.flip()
+
 
     # pour quitter le jeux
     if keys[pygame.K_TAB]: # si on appuie sur tab ca quitte le jeu
         running = False
 
+    if keys[pygame.K_ESCAPE]:
+        menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
+        running = menu.actif(screen_width, screen_height, screen)
+
     # Limiter la boucle à 60 images par seconde
-    dt = clock.tick(framerate) # enfaite si ca marche mais c'est bizarre
+    dt = clock.tick(framerate) # enfaite non ca marche pas
 
 # Quitter Pygame proprement
 pygame.quit()

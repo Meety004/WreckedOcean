@@ -25,7 +25,7 @@ class Navire:
         self.dernier_tire = 0 # le denier tire fait par le bateau pour le chrono
         self.cadance_tire = 1000 # en milliseconde
         self.ID = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
-        self.maxVie = 100
+        self.maxVie = 50
         self.vie = self.maxVie
         self.verifIleMalus = False
 
@@ -131,7 +131,7 @@ class Navire:
             tir_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
             liste_tirs.append((tir_gauche, self.equipement['canons']))
 
-            if self.equipement['canons'] == '+1 Canon' or self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
+            if self.equipement['canons'] == '+1 Canon' or self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+4 Canons':
                 tir_avant = shot.Shot(self.x, self.y, self.angle, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
                 liste_tirs.append((tir_avant, self.equipement['canons']))
 
@@ -140,11 +140,11 @@ class Navire:
                     liste_tirs.append((tir_arriere, self.equipement['canons']))
 
                     if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                        tir_diag1 = shot.Shot(self.x, self.y, self.angle + 45 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
+                        tir_diag1 = shot.Shot(self.x, self.y, self.angle + 45, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
                         liste_tirs.append((tir_diag1, self.equipement['canons']))
 
-                        if self.equipement['canons'] == '+4 Canons':
-                            tir_diag2 = shot.Shot(self.x, self.y, self.angle - 45 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
+                        if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
+                            tir_diag2 = shot.Shot(self.x, self.y, self.angle - 45, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
                             liste_tirs.append((tir_diag2, self.equipement['canons']))
 
             if self.equipement['canons'] == "Canon à tirs doubles":     
@@ -188,6 +188,10 @@ class Navire:
         return self.ID
     def get_rect(self):
         return self.rect
+    def get_vie(self):
+        return self.vie
+    def get_max_vie(self):
+        return self.maxVie
     
     def getEquipement(self):
         return self.equipement
@@ -287,6 +291,8 @@ class Navire:
 
         self.maxVie = self.maxVie + self.VoileMaxVie + self.CoqueMaxVie
         self.vitesse_max = self.vitesse_max * self.VoileMaxVitesse * self.CoqueMaxVitesse
+        if self.vie > self.maxVie:
+                self.vie = self.maxVie
 
 
     def updateIcons(self):
