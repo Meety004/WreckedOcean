@@ -3,7 +3,7 @@ import pygame
 import ressources as res
 
 class Shot:
-    def __init__(self, x, y, angle, distance_max, img, tireur, canons):
+    def __init__(self, x, y, angle, distance_max, img, tireur, canons, inraged):
         self.x = x
         self.y = y
         self.position_initiale_x = x
@@ -31,6 +31,8 @@ class Shot:
         elif self.canons == "Canons Rouillés":
             self.vitesse = self.vitesse * 0.95
 
+        self.inraged = inraged
+
     # le boulet avance
     def avancer(self):
         self.x += self.vitesse * math.cos(math.radians(self.angle - 90))
@@ -55,3 +57,6 @@ class Shot:
 
     def getIDTireur(self):
         return self.ID_tireur
+
+    def is_inraged(self):
+        return self.inraged

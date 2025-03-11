@@ -149,12 +149,19 @@ while running:
                 if tir_du_navire is not None:
                     liste_shot.extend(tir_du_navire)
 
+            if keys[pygame.K_s]:
+                navire_i.use_benediction_1()
+
+
             # Mettre à jour la position des navires
             navire_i.avancer()
 
             # verifie qu'ils ne sortent pas de l'ecran
             navire_i.sortir_ecran(screen_width, playHeight)
     
+    for navire in liste_navire: # verifie la rage et l'aura des navires
+        navire.still_inraged()
+        navire.aura_activated(liste_ennemis)
 
     # fait les deplacements de l'ennemi
     
@@ -189,6 +196,8 @@ while running:
                         damage = 35
                     if not shot_i[0].getIDTireur() == liste_navire[i].get_ID():
                         liste_navire[i].get_damaged(damage)
+                        if shot_i[0].is_inraged():
+                            liste_navire[i].get_damaged(damage)
                         cible_du_tir = i
                         liste_texte_degats.append([police.render(str(damage), True, (255, 0, 0)), 0])
                     
@@ -272,10 +281,15 @@ while running:
     for ile in liste_iles:
         ile.afficher(screen)
 
+    # dessine l'aura
+    for navire_i in liste_navire:
+        if navire_i.aura_active():
+            pygame.draw.circle(screen, (255, 215, 0), (int(navire_i.position_x()), int(navire_i.position_y())), 100, 4)
+
     #Affiche l'interface de choix d'item pour le joueur uniquement
     if liste_joueur[0].afficher_items == True:
         screen.blit(liste_joueur[0].ItemsUI, (15, 15))
-            
+        
     # affiche la bare de vie du joueur
     
         # la bouteille

@@ -4,6 +4,31 @@ def calc_distance(x1, y1, x2, y2):
     # fonction pour calculer une distance
     return math.sqrt((x2-x1)**2 + (y2-y1)**2)
 
+class Timer:
+    def __init__(self, duree_secondes):
+        self.duree_secondes = duree_secondes
+        self.temps_initial = pygame.time.get_ticks() / 1000  # Convertir en secondes
+
+    def elapse(self):
+        self.temps_actuel = pygame.time.get_ticks() / 1000  # Convertir en secondes
+
+    def timer_ended(self):
+        self.elapse()
+        if self.temps_actuel - self.temps_initial >= self.duree_secondes:
+            return True
+        else:
+            return False
+
+    def reset(self):
+        self.temps_initial = pygame.time.get_ticks() / 1000  # Convertir en secondes
+
+    def timer_ended_special(self, duree):
+        self.elapse()
+        if self.temps_actuel - self.temps_initial >= duree:
+            return True
+        else:
+            return False
+
 liste_benedictions = [
     "Bénédiction Dash", 
     "Bénédiction Santé",
@@ -11,13 +36,13 @@ liste_benedictions = [
     "Bénédiciton de rage",
     "Bénédiction GodMode", 
     "Bénédiction Projectile"
-        ]
+]
 
 liste_malus = [
     "Canons Rouillés",
     "Voile Trouée",
     "Coque Trouée"
-        ]
+]
 
 listeCanons = [
     "+1 Canon",
@@ -30,7 +55,7 @@ listeCanons = [
     "Canon à tirs doubles",
     "+4 Canons", 
     "Canon légendaire"
-        ]
+]
 
 listeCoques = [
     "Coque épicéa",
@@ -39,14 +64,14 @@ listeCoques = [
     "Coque en chêne massif",
     "Coque en bois magique",
     "Coque légendaire"
-        ]
+]
 
 listeVoiles = [
     "Voile en toile de jute",
     "Voile Latine",
     "Voile Enchantée", 
     "Voile légendaire"
-        ]
+]
 
 listeEquipementStart = [
     "Canons de base",
