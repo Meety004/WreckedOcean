@@ -286,7 +286,8 @@ while running:
     # dessine l'aura
     for navire_i in liste_navire:
         if navire_i.aura_active():
-            pygame.draw.circle(screen, (255, 215, 0), (int(navire_i.position_x()), int(navire_i.position_y())), 100, 4)
+            pygame.draw.circle(screen, (238, 11, 11), (int(navire_i.position_x()), int(navire_i.position_y())), 150, 4)
+            pygame.draw.circle(screen, (207, 8, 8), (int(navire_i.position_x()), int(navire_i.position_y())), 100, 4)
 
     #Affiche l'interface de choix d'item pour le joueur uniquement
     if liste_joueur[0].afficher_items == True:

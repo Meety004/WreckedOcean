@@ -34,12 +34,12 @@ class Navire:
         self.ItemsUI = pygame.transform.scale(self.ItemsUI, (screen_width*0.4, pygame.display.Info().current_h*0.4)).convert_alpha()
 
         self.equipement = {
-        'canons':    "+3 Canons",
+        'canons':    "gros caca tout moche",
         'voile':    "Voile de base",
         'coque':    "Coque de base"
         }
 
-        self.benedictions = ["Bénédiction de rage"]
+        self.benedictions = ["Bénédiction d'aura"]
 
         self.recompense = None
 
@@ -60,6 +60,10 @@ class Navire:
         self.DisplayIconPast = None
 
         self.timer_benediction = res.Timer(0)  # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
+        self.timer_dash = 15
+        self.timer_sante = 20
+        self.timer_aura = 30
+        self.timer_rage = 30
 
         self.inraged = False
         self.rage_timer = None
@@ -153,11 +157,11 @@ class Navire:
                 liste_tirs.append((tir_arriere, self.equipement['canons']))
 
             if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                tir_diag1 = shot.Shot(self.x, self.y, self.angle + 45, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                tir_diag1 = shot.Shot(self.x, self.y, self.angle + 30, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
                 liste_tirs.append((tir_diag1, self.equipement['canons']))
 
             if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                tir_diag2 = shot.Shot(self.x, self.y, self.angle - 45, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                tir_diag2 = shot.Shot(self.x, self.y, self.angle - 30, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
                 liste_tirs.append((tir_diag2, self.equipement['canons']))
 
             if self.equipement['canons'] == "Canon à tirs doubles":     
@@ -308,26 +312,26 @@ class Navire:
                 self.vie = self.maxVie
 
     def use_benediction_1(self):
-        if self.timer_benediction.timer_ended_special(15) or self.timer_benediction.timer_ended():
+        if self.timer_benediction.timer_ended_special(self.timer_dash) or self.timer_benediction.timer_ended():
             if self.benedictions[0] == "Bénédiction Dash": # te fait dasher de 200
                 self.x += 250 * math.cos(math.radians(self.angle - 90))
                 self.y += 250 * math.sin(math.radians(self.angle - 90))
                 self.timer_benediction = res.Timer(30)
         
-        if self.timer_benediction.timer_ended_special(20) or self.timer_benediction.timer_ended():
+        if self.timer_benediction.timer_ended_special(self.timer_sante) or self.timer_benediction.timer_ended():
             if self.benedictions[0] == "Bénédiction Santé": # te rend 50% de ta vie max
                 self.vie += self.maxVie*0.5
                 if self.vie > self.maxVie:
                     self.vie = self.maxVie
                 self.timer_benediction = res.Timer(30)
         
-        if self.timer_benediction.timer_ended_special(30) or self.timer_benediction.timer_ended():
+        if self.timer_benediction.timer_ended_special(self.timer_aura) or self.timer_benediction.timer_ended():
             if self.benedictions[0] == "Bénédiction d'aura":
                 self.aura_timer = res.Timer(10)
                 self.has_aura = True
                 self.timer_benediction = res.Timer(30)
 
-        if self.timer_benediction.timer_ended_special(30) or self.timer_benediction.timer_ended():
+        if self.timer_benediction.timer_ended_special(self.timer_rage) or self.timer_benediction.timer_ended():
             if self.benedictions[0] == "Bénédiction de rage":
                 self.rage_timer = res.Timer(10)
                 self.inraged = True
@@ -351,9 +355,12 @@ class Navire:
     def aura_activated(self, liste_ennemis):
         if self.has_aura:
             for ennemi in liste_ennemis:
-                if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 100:
-                    if self.aura_damage_timer.timer_ended():
-                        ennemi.get_damaged(5)
+                if self.aura_damage_timer.timer_ended():
+                    if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 150:
+                        ennemi.get_damaged(1)
+                        if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 100:
+                            ennemi.get_damaged(4)
+                        print(ennemi.get_vie())
                         self.aura_damage_timer.reset()
             if self.aura_timer.timer_ended():
                 self.has_aura = False
