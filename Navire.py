@@ -1,3 +1,5 @@
+# IMPORTS
+
 import math
 import pygame
 import random
@@ -5,96 +7,113 @@ import shot
 import string
 import ressources as res
 
+# On crée un évènement pour le tir double
 tirDouble = pygame.USEREVENT + 1
 
 class Navire:
     def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt):
-        # Contrôle du vaisseau
+
+        # Propriétés du vaisseau
         self.vitesse_max = v_max
         self.acceleration = acceleration
         self.x = random.randint(0, screen_width)
         self.y = random.uniform(0, screen_height)
         self.vitesse = 0
         self.angle = 270
-        self.maniabilite = maniabilite # le temps qu'il met pour tourner. c'est ca "vitesse de rotation"
+        self.maniabilite = maniabilite # Vitesse de rotation du bateau
         self.width = 40
         self.height = 60
+
+        #On charge et adapte la taille des images des bateaux
         original_image = pygame.image.load(image).convert_alpha()
         original_image = pygame.transform.scale(original_image, (self.width, self.height)).convert_alpha()
         self.image = original_image  # Image qui sera affichée
-        self.dernier_tire = 0 # le denier tire fait par le bateau pour le chrono
-        self.cadance_tire = 1000 # en milliseconde
+        self.dernier_tire = 0 # Le denier tir fait par le bateau
+        self.cadance_tire = 1000 # Durée minimale entre deux tirs
         self.ID = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
         self.maxVie = 100
         self.vie = self.maxVie
+
+        #On vérifie si l'île contient un malus
         self.verifIleMalus = False
 
         self.afficher_items = False  # Variable d'état pour suivre l'affichage de l'image
+
+        #On charge l'image de l'interface de choix d'item
         self.ItemsUI = pygame.image.load("images/Interfaces/equip_menu_item.png").convert_alpha()
         self.ItemsUI = pygame.transform.scale(self.ItemsUI, (screen_width*0.4, pygame.display.Info().current_h*0.4)).convert_alpha()
 
+        #On crée un dictionnaire qui contient l'équipement du bateau
         self.equipement = {
         'canons':   "Canon de base",
         'voile':    "Voile de base",
         'coque':    "Coque de base"
         }
 
+        #On crée une liste qui contient les bénédictions du bateau
         self.benedictions = []
 
+        #Stocke la récompense de l'île
         self.recompense = None
 
+        #Variables qui contiennent les modificateurs de vie et de vitesse des coques et des voiles
         self.CoqueMaxVie = 0
         self.CoqueMaxVitesse = 1
         self.VoileMaxVie = 0
         self.VoileMaxVitesse = 1
 
+        #Variables qui contiennent les chemins des icones pour chaque type d'équipement
         self.iconCoque = res.CoqueCommun
         self.iconVoile = res.VoileCommun
         self.iconCanon = res.CanonCommun
 
+        #Variables qui contiennent les chemins des icones s'affichant sur l'interface de choix d'item
         self.DisplayIconNew = None
         self.DisplayIconPast = None
 
 
-    # le bateau avance en permanence de la vitesse (donc si la vitesse vaut 0 il avance pas)
+    # Le bateau avance en fonction de la vitesse, immobile si la vitesse est nulle
     def avancer(self):
-        self.x += self.vitesse * math.cos(math.radians(self.angle - 90)) # multiplie la vitesse X par le cosinus de l'angle en fonction de l'incilaison
-        self.y += self.vitesse * math.sin(math.radians(self.angle - 90)) # pareil mais avec les Y et le sinus
+        self.x += self.vitesse * math.cos(math.radians(self.angle - 90))
+        self.y += self.vitesse * math.sin(math.radians(self.angle - 90))
 
-    # auglente la vitesse
+    # Augmente la vitessse
     def accelerer(self):
-        # accelere tant que la vitesse max n'est pas atteinte
+
+        # Accelere tant que la vitesse max n'est pas atteinte
         if self.vitesse < self.vitesse_max:
             self.vitesse += self.acceleration
-        # si la vitesse max est atteinte il revient a la vitesse max
+            
+        # Si la vitesse max est atteinte il revient à la vitesse max
         if self.vitesse > self.vitesse_max:
             self.vitesse = self.vitesse_max
-        # je voulais faire progressivement mais pour une raison magique je peux pas utiliser de fonction dans une autre sans que ca affect les classe fille de maniere bizzar
 
-    # si il arrete d'avancer le bateau décelère
+    #Si il arrete d'avancer le bateau décelère
     def ralentit(self):
-        # ralenti tant qu'il n'est pas a 0
+
+        # Ralentit tant que la vitesse n'est pas nulle
         if self.vitesse > 0:
             self.vitesse -= ( 0.3 - self.vitesse_max/100)
-        # revient a 0 si il est en dessous
+
+        # Revient à 0 si la vitesse est négative
         if self.vitesse < 0:
             self.vitesse = 0
 
     def tourne_gauche(self):
         if self.vitesse > 0:
             self.angle -= self.maniabilite
-            # si l'angle part en dessous de 0 il lui rajoute 360 pour qu'il reste toujours entre 0 et 360
+            # Si l'angle est inférieur à 0, on lui rajoute 360 pour qu'il reste toujours entre 0 et 360
             if self.angle < 0:
                 self.angle += 360
 
     def tourne_droite(self):
         if self.vitesse > 0:
             self.angle += self.maniabilite
-            # si l'angle est superieur a 360 ou lui eneleve 360 pour qu'il reste entre 0 et 360
+            # Si l'angle est superieur à 360, on lui enlève 360 pour qu'il reste toujours entre 0 et 360
             if self.angle >= 360:
                 self.angle -= 360
 
-    # pour que le bateau ne sorte pas de l'ecran et revienne de l'autre coter
+    # Pour que le bateau ne sorte pas de l'ecran et revienne de l'autre côté
     def sortir_ecran(self, largeur_ecran, longueur_ecran):
         if self.x > largeur_ecran:
             self.x = 0
@@ -113,12 +132,11 @@ class Navire:
         screen.blit(rotated_image, self.rect)
 
     def shoot(self):
-        # verifie si il a rechargé
+        # Vérifie si le tir à rechargé
         if pygame.time.get_ticks() - self.dernier_tire >= self.cadance_tire:
             self.dernier_tire = pygame.time.get_ticks()
 
-            # argument : x, y, angle, distance_max, image
-            # l'angle est ajusté en fonction de la vitesse du bateau. si il avance les boulet continue dans sa direction
+            # 
             liste_tirs = []
 
             tir_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
