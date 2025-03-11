@@ -200,7 +200,9 @@ while running:
                             liste_navire[i].get_damaged(damage)
                         cible_du_tir = i
                         liste_texte_degats.append([police.render(str(damage), True, (255, 0, 0)), 0])
-                    
+                        if shot_i[0].is_inraged():
+                            liste_texte_degats.append([police.render(str(damage * 2), True, (255, 0, 0)), 0])
+
                     if shot_i in liste_shot:
                         liste_shot.remove(shot_i)
         else:

@@ -34,12 +34,12 @@ class Navire:
         self.ItemsUI = pygame.transform.scale(self.ItemsUI, (screen_width*0.4, pygame.display.Info().current_h*0.4)).convert_alpha()
 
         self.equipement = {
-        'canons':    "Canon de base",
+        'canons':    "+3 Canons",
         'voile':    "Voile de base",
         'coque':    "Coque de base"
         }
 
-        self.benedictions = ["Bénédiction Dash"]
+        self.benedictions = ["Bénédiction de rage"]
 
         self.recompense = None
 
@@ -59,12 +59,11 @@ class Navire:
         self.DisplayIconNew = None
         self.DisplayIconPast = None
 
-        self.timer_benediction = res.Timer(0)
+        self.timer_benediction = res.Timer(0)  # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
 
         self.inraged = False
         self.rage_timer = None
         self.life_before_rage = 0
-        self.max_speed_before_rage = 0
 
         self.has_aura = False
         self.aura_timer = None
@@ -72,8 +71,12 @@ class Navire:
 
     # le bateau avance en permanence de la vitesse (donc si la vitesse vaut 0 il avance pas)
     def avancer(self):
-        self.x += self.vitesse * math.cos(math.radians(self.angle - 90)) # multiplie la vitesse X par le cosinus de l'angle en fonction de l'incilaison
-        self.y += self.vitesse * math.sin(math.radians(self.angle - 90)) # pareil mais avec les Y et le sinus
+        if self.inraged:
+            self.x += self.vitesse * 1.5 * math.cos(math.radians(self.angle - 90)) # multiplie la vitesse X par le cosinus de l'angle en fonction de l'incilaison
+            self.y += self.vitesse * 1.5 * math.sin(math.radians(self.angle - 90)) # pareil mais avec les Y et le sinus
+        else:
+            self.x += self.vitesse * math.cos(math.radians(self.angle - 90)) # multiplie la vitesse X par le cosinus de l'angle en fonction de l'incilaison
+            self.y += self.vitesse * math.sin(math.radians(self.angle - 90)) # pareil mais avec les Y et le sinus
 
     # auglente la vitesse
     def accelerer(self):
@@ -145,17 +148,17 @@ class Navire:
                 tir_avant = shot.Shot(self.x, self.y, self.angle, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
                 liste_tirs.append((tir_avant, self.equipement['canons']))
 
-                if self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                    tir_arriere = shot.Shot(self.x, self.y, self.angle + 180, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
-                    liste_tirs.append((tir_arriere, self.equipement['canons']))
+            if self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
+                tir_arriere = shot.Shot(self.x, self.y, self.angle + 180, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                liste_tirs.append((tir_arriere, self.equipement['canons']))
 
-                    if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                        tir_diag1 = shot.Shot(self.x, self.y, self.angle + 45, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
-                        liste_tirs.append((tir_diag1, self.equipement['canons']))
+            if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
+                tir_diag1 = shot.Shot(self.x, self.y, self.angle + 45, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                liste_tirs.append((tir_diag1, self.equipement['canons']))
 
-                        if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                            tir_diag2 = shot.Shot(self.x, self.y, self.angle - 45, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
-                            liste_tirs.append((tir_diag2, self.equipement['canons']))
+            if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
+                tir_diag2 = shot.Shot(self.x, self.y, self.angle - 45, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                liste_tirs.append((tir_diag2, self.equipement['canons']))
 
             if self.equipement['canons'] == "Canon à tirs doubles":     
                 pygame.time.set_timer(tirDouble, 50, loops=1)
@@ -305,33 +308,31 @@ class Navire:
                 self.vie = self.maxVie
 
     def use_benediction_1(self):
-        if self.timer_benediction.timer_ended_special(15):
+        if self.timer_benediction.timer_ended_special(15) or self.timer_benediction.timer_ended():
             if self.benedictions[0] == "Bénédiction Dash": # te fait dasher de 200
                 self.x += 250 * math.cos(math.radians(self.angle - 90))
                 self.y += 250 * math.sin(math.radians(self.angle - 90))
                 self.timer_benediction = res.Timer(30)
         
-        if self.timer_benediction.timer_ended_special(20):
+        if self.timer_benediction.timer_ended_special(20) or self.timer_benediction.timer_ended():
             if self.benedictions[0] == "Bénédiction Santé": # te rend 50% de ta vie max
                 self.vie += self.maxVie*0.5
                 if self.vie > self.maxVie:
                     self.vie = self.maxVie
                 self.timer_benediction = res.Timer(30)
         
-        if self.timer_benediction.timer_ended_special(30):
+        if self.timer_benediction.timer_ended_special(30) or self.timer_benediction.timer_ended():
             if self.benedictions[0] == "Bénédiction d'aura":
                 self.aura_timer = res.Timer(10)
                 self.has_aura = True
                 self.timer_benediction = res.Timer(30)
 
-        if self.timer_benediction.timer_ended_special(30):
+        if self.timer_benediction.timer_ended_special(30) or self.timer_benediction.timer_ended():
             if self.benedictions[0] == "Bénédiction de rage":
                 self.rage_timer = res.Timer(10)
                 self.inraged = True
-                self.life_before_rage = self.vie
-                self.max_speed_before_rage = self.vitesse_max
+                self.life_before_rage = self.vie/self.maxVie
                 self.vie = 20
-                self.vitesse_max = self.vitesse_max * 2
                 self.timer_benediction = res.Timer(30)
             
         if self.benedictions[0] == "Bénédiction GodMode":
@@ -344,10 +345,7 @@ class Navire:
         if self.inraged:
             if self.rage_timer != None and self.rage_timer.timer_ended():
                 self.inraged = False
-                self.vitesse_max = self.max_speed_before_rage
-                if self.vitesse > self.vitesse_max:
-                    self.vitesse = self.vitesse_max
-                self.vie = self.life_before_rage
+                self.vie = int(math.floor(self.maxVie * self.life_before_rage))
                 self.rage_timer = None
     
     def aura_activated(self, liste_ennemis):
