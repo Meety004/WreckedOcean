@@ -8,7 +8,7 @@ import ressources as res
 tirDouble = pygame.USEREVENT + 1
 
 class Navire:
-    def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt):
+    def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt, type):
         # Contrôle du vaisseau
         self.vitesse_max = v_max
         self.acceleration = acceleration
@@ -28,16 +28,24 @@ class Navire:
         self.maxVie = 50
         self.vie = self.maxVie
         self.verifIleMalus = False
+        self.type = type
 
         self.afficher_items = False  # Variable d'état pour suivre l'affichage de l'image
         self.ItemsUI = pygame.image.load("images/Interfaces/equip_menu_item.png").convert_alpha()
         self.ItemsUI = pygame.transform.scale(self.ItemsUI, (screen_width*0.4, pygame.display.Info().current_h*0.4)).convert_alpha()
-
-        self.equipement = {
-        'canons':    "Canon de base",
-        'voile':    "Voile de base",
-        'coque':    "Coque de base"
-        }
+        
+        if self.type == 2:
+            self.equipement = {
+            'canons':    "+2 Canons",
+            'voile':    "Voile Latine",
+            'coque':    "Coque épicéa"
+            }
+        else:
+            self.equipement = {
+            'canons':    "Canons de base",
+            'voile':    "Voile de base",
+            'coque':    "Coque de base"
+            }
 
         self.benedictions = []
 
@@ -65,7 +73,7 @@ class Navire:
         self.x += self.vitesse * math.cos(math.radians(self.angle - 90)) # multiplie la vitesse X par le cosinus de l'angle en fonction de l'incilaison
         self.y += self.vitesse * math.sin(math.radians(self.angle - 90)) # pareil mais avec les Y et le sinus
 
-    # auglente la vitesse
+    # augmente la vitesse
     def accelerer(self):
         # accelere tant que la vitesse max n'est pas atteinte
         if self.vitesse < self.vitesse_max:
@@ -227,7 +235,7 @@ class Navire:
                 self.equipement['voile'] = self.recompense[0]
             elif self.recompense[0] == res.liste_malus[2]:
                 self.equipement['coque'] = self.recompense[0]
-        print(self.equipement)
+        print(self.equipement, self.type)
         self.effetItem()
 
     def effetItem(self):

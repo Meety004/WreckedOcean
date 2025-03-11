@@ -8,74 +8,96 @@ import ressources as res
 # importation de la classe Navire
 from Navire import Navire
 
-# comportement de l'IA
-# actuel : avance sans jamais s'arreter et essaye de garder une direction coherente (ne vas jamais tt le temps tout droit et ne tourne pas en rond)
-# fonctionnement : l'IA a une action de base. il a 2 chance sur 50 de changer d'action. si l'action est la meme 23 fois de suite il doit changer (permet de ne pas faire un trop gros tour)
-# a venir : evitement des bordure de la map
-
-class IA_ennemis(Navire):
+class IA_ennemis_basiques(Navire):
     def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt):
-        super().__init__(v_max, acceleration, maniabilite, image, screen_width, screen_height, dt)
+        super().__init__(v_max, acceleration, maniabilite, image, screen_width, screen_height, dt, 1)
         self.action = random.randint(0, 2) # 0 = aller tout droit, 1 = tourner a gauche, 2 = tourner a droite
-        self.compte_action = 0 # compte combien de fois l'IA fait la meme action (ne peut pas la faire plus de 23 fois)
+        self.compte_action = 0 # compte combien de fois l'IA fait la même action (ne peut pas la faire plus de 23 fois)
+        self.verif_ile = (False, 0) # infos sur une île à portée
 
-    # verifie si la cible de cette IA (le joueur pour l'instant) est a porté de cette IA
+    # vérifie si la cible de cette IA est à portée de cette IA
     def ennemi_in_range(self, liste_adversaire):
         for ennemi in liste_adversaire:
             if ennemi.get_ID() != self.ID:
                 if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 120:
                     return True
         return False
+    
+    # vérifie si une île est à portée
+    def ile_in_range(self, liste_iles):
+        for ile in range(len(liste_iles)):
+            if res.calc_distance(self.x, self.y, liste_iles[ile].position_x(), liste_iles[ile].position_y()) <= 300:
+                return (True, ile)
+        return (False, 0)
 
-    # cette fonction sert uniquement a incliner la position de tire
-    def position_de_tire(self, liste_adversaire):
+    # cette fonction sert uniquement a incliner la position de tir
+    def position_de_tir(self, liste_adversaire):
             for i in range(len(liste_adversaire)):
                 if liste_adversaire[i].get_ID() != self.ID:
                     # calcule l'angle entre les 2 points
-                    angle_de_tire = math.degrees(math.atan2(liste_adversaire[i].position_y() - self.y, liste_adversaire[i].position_x() - self.x))
-                    # calcule lequel des 2 canon est le plus proche pour s'orienter dans le bon sens
-            if angle_de_tire - self.angle + 90 < angle_de_tire - self.angle - 90:
+                    angle_de_tir = math.degrees(math.atan2(liste_adversaire[i].position_y() - self.y, liste_adversaire[i].position_x() - self.x))
+            # calcule lequel des 2 canons est le plus proche pour s'orienter dans le bon sens
+            if angle_de_tir - self.angle + 90 < angle_de_tir - self.angle - 90:
                 super().tourne_droite()
             else:
                 super().tourne_gauche()
 
-    def bouger(self, liste_adversaire):
-        # a chaque fois que cette fonction est appelé elle a une action (tourner a droite, gauche ou tout droit)
-        nouvelle_action = random.randint(0, 50) # 2 chance sur 50 de changer d'action
-        if nouvelle_action > 3: # si c'est 0 elle va tout droit, si c'est 1 elle tourne a droite si c'est 2 a gauche et sinon elle refait la même action qu'avant pour eviter de changer tout le temps de trajectoire
-            nouvelle_action = self.action
-        
-        if self.compte_action >= 23: # verifie si ca fait plus de 23 fois qu'elle fait la même chose pour changer un peu (23 car tourner 23 fois represente un 180 et c'est inutile d'aller au dela)
-            while nouvelle_action == self.action: # tant que c'est la même action ca change
-                nouvelle_action = random.randint(0, 50)
-                if nouvelle_action > 3:
-                    nouvelle_action = self.action
-
-        # self.action est l'action qu'elle va faire et c'est definitif (dans cet appel de la fonction)
-
-        if nouvelle_action == self.action: # si il refait la meme action ajoute 1 au compte
-            self.compte_action += 1
+    # Gère les déplacements de l'IA
+    def bouger(self, liste_adversaire, liste_iles, inutile):
+        self.verif_ile = self.ile_in_range(liste_iles)
+        if self.verif_ile[0]: # si une île est à portée, se dirige vers l'île, sinon, se déplace aléatoirement
+            calcul_intermediaire = self.y - liste_iles[self.verif_ile[1]].position_y() # différence de la valeur y entre l'IA et l'île
+            if calcul_intermediaire < 0 :
+                calcul_intermediaire = -calcul_intermediaire
+            var_intermediaire = (calcul_intermediaire)/(res.calc_distance(self.x, self.y, liste_iles[self.verif_ile[1]].position_x(), liste_iles[self.verif_ile[1]].position_y())) # rapport entre la différence de la valeur y entre l'IA et l'île et la distance entre l'IA et l'île
+            angle_ile = math.degrees(math.acos(var_intermediaire)) - self.angle
+            if self.x < liste_iles[self.verif_ile[1]].position_x() :
+                if angle_ile > 5 :
+                    super().tourne_droite()
+                elif angle_ile < -5:
+                    super().tourne_gauche()
+            else:
+                angle_ile+=180
+                if angle_ile > 5 :
+                    super().tourne_droite()
+                elif angle_ile < -5:
+                    super().tourne_gauche()
         else:
-            self.compte_action = 0
-        
-        self.action = nouvelle_action
+            nouvelle_action = random.randint(0, 50) # 2 chances sur 50 de changer d'action
+            if nouvelle_action > 3: # si c'est 0 elle va tout droit, si c'est 1 elle tourne à droite si c'est 2 à gauche et sinon elle refait la même action qu'avant pour eviter de changer tout le temps de trajectoire
+                nouvelle_action = self.action
+            
+            if self.compte_action >= 23: # verifie si ça fait plus de 23 fois qu'elle fait la même chose pour changer un peu (23 car tourner 23 fois représente un 180 et c'est inutile d'aller au delà)
+                while nouvelle_action == self.action: # tant que c'est la même action ca change
+                    nouvelle_action = random.randint(0, 50)
+                    if nouvelle_action > 3:
+                        nouvelle_action = self.action
 
-        # si il y a un ennemi a porté il suit le paterne d'inslinaison pour tirer
-        if self.ennemi_in_range(liste_adversaire):
-            self.position_de_tire(liste_adversaire)
-            self.vitesse_max = 9
-        else: # si aucun ennemi est a portée il avance comme prevu
-            self.vitesse_max = 5 
-            if self.action == 1:
-                super().tourne_droite()
-            if self.action == 2:
-                super().tourne_gauche()
+            # self.action est l'action qu'elle va faire et c'est définitif (dans cet appel de la fonction)
+
+            if nouvelle_action == self.action: # s'il refait la même action ajoute 1 au compte
+                self.compte_action += 1
+            else:
+                self.compte_action = 0
+            
+            self.action = nouvelle_action
+
+            # s'il y a un ennemi à portée il suit le paterne d'inclinaison pour tirer
+            if self.ennemi_in_range(liste_adversaire):
+                self.position_de_tir(liste_adversaire)
+                self.vitesse_max = 9
+            else: # si aucun ennemi est à portée il avance comme prévu
+                self.vitesse_max = 5 
+                if self.action == 1:
+                    super().tourne_droite()
+                if self.action == 2:
+                    super().tourne_gauche()
         
-        super().accelerer() # pour l'instant les ennemies avance tout le temps
+        super().accelerer() # Les ennemis basiques avancent tout le temps
         super().avancer()
 
-    def tirer(self, cible_x, cible_y):
-        # si l'ennemi est a distance meme si il est pas bien incliner ca tire
+    def tirer(self, cible_x, cible_y, inutile):
+        # si l'ennemi est à distance même s'il n'est pas bien incliné ça tire
         if res.calc_distance(self.x, self.y, cible_x, cible_y) <= 140:
             return super().shoot()
 
@@ -84,3 +106,49 @@ class IA_ennemis(Navire):
     
     def position_y(self):
         return self.y
+
+class IA_ennemis_chasseurs(Navire):
+    def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt):
+        super().__init__(v_max, acceleration, maniabilite, image, screen_width, screen_height, dt, 2)
+    
+    # vérifie si le joueur est à portée de cette IA
+    def joueur_in_range(self, liste_joueur):
+        if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 120:
+            return True
+        return False
+
+    # Gère les déplacements de l'IA
+    def bouger(self, inutile1, inutile2, liste_joueur):
+        calcul_intermediaire = self.y - liste_joueur[0].position_y()
+        if calcul_intermediaire < 0 :
+            calcul_intermediaire = -calcul_intermediaire
+        var_intermediaire = (calcul_intermediaire)/(res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y())) # rapport entre la différence de la valeur y entre l'IA et le joueur et la distance entre l'IA et le joueur
+        angle_ile = math.degrees(math.acos(var_intermediaire)) - self.angle
+        if self.x < liste_joueur[0].position_x() :
+            if angle_ile > 5 :
+                super().tourne_droite()
+            elif angle_ile < -5:
+                super().tourne_gauche()
+        else:
+            angle_ile+=180
+            if angle_ile > 5 :
+                super().tourne_droite()
+            elif angle_ile < -5:
+                super().tourne_gauche()
+
+        super().accelerer() # Les chasseurs avancent tout le temps
+        super().avancer()
+    
+    def tirer(self, inutilex, inutiley, liste_joueur):
+        # si l'ennemi est à distance même s'il n'est pas bien incliné ça tire
+        if self.joueur_in_range(liste_joueur):
+            return super().shoot()
+
+    def position_x(self):
+        return self.x
+    
+    def position_y(self):
+        return self.y
+
+class IA_ennemis_stage_2(Navire):
+    pass
