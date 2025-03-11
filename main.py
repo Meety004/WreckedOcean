@@ -268,7 +268,11 @@ while running:
         PastIcon = liste_joueur[0].getPastDisplay()
         NewIcon = liste_joueur[0].getNewDisplay()
 
-        print(PastIcon, NewIcon)
+        PastIcon = pygame.image.load(PastIcon).convert_alpha()
+        NewIcon = pygame.image.load(NewIcon).convert_alpha()
+
+        PastIcon = pygame.transform.scale(PastIcon, (6.68/100*screen_width, 11.84/100*screen_height))
+        NewIcon = pygame.transform.scale(NewIcon, (6.68/100*screen_width, 11.84/100*screen_height))
 
         screen.blit(PastIcon, (0.085*screen_width, 0.1*screen_height))
         screen.blit(NewIcon, (0.085*screen_width, 0.22*screen_height))
