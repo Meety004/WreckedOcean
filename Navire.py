@@ -48,13 +48,9 @@ class Navire:
         self.VoileMaxVie = 0
         self.VoileMaxVitesse = 1
 
-        self.iconCoque = None
-        self.iconVoile = None
-        self.iconCanon = None
-
-        self.AncienneiconCoque = res.CoqueCommun
-        self.AncienneiconVoile = res.VoileCommun
-        self.AncienneiconCanon = res.CanonCommun
+        self.iconCoque = res.CoqueCommun
+        self.iconVoile = res.VoileCommun
+        self.iconCanon = res.CanonCommun
 
         self.DisplayIconNew = None
         self.DisplayIconPast = None
@@ -203,9 +199,14 @@ class Navire:
 
     def equipInterface(self, recompense, xIle, yIle):
         self.recompense = recompense
+
+        #Si la récompense est un objet
         if (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus):
             
+            #On vérifie sa distance à l'île
             if res.calc_distance(self.x, self.y, xIle, yIle) <= 100:
+
+                #On change l'icône qui s'affiche et on affiche l'interface
                 self.updateDisplayIcon()
                 self.afficher_items = True
 
@@ -219,8 +220,9 @@ class Navire:
 
         
     def updateDisplayIcon(self):
+        print(f"Début Update {self.DisplayIconPast}, {self.DisplayIconNew}, {self.recompense}")
         if self.recompense[0] in res.listeCanons:
-            self.DisplayIconPast = self.AncienneiconCanon
+            self.DisplayIconPast = self.iconCanon
             if self.recompense[1] == "commun":
                 self.DisplayIconNew = res.CanonCommun
             elif self.recompense[1] == "rare":
@@ -230,7 +232,7 @@ class Navire:
             elif self.recompense[1] == "légendaire":
                 self.DisplayIconNew = res.CanonLegendaire
         elif self.recompense[0] in res.listeCoques:
-            self.DisplayIconPast = self.AncienneiconCoque
+            self.DisplayIconPast = self.iconCoque
             if self.recompense[1] == "commun":
                 self.DisplayIconNew = res.CoqueCommun
             elif self.recompense[1] == "rare":
@@ -240,7 +242,7 @@ class Navire:
             elif self.recompense[1] == "légendaire":
                 self.DisplayIconNew = res.CoqueLegendaire
         elif self.recompense[0] in res.listeVoiles:
-            self.DisplayIconPast = self.AncienneiconVoile
+            self.DisplayIconPast = self.iconVoile
             if self.recompense[1] == "commun":
                 self.DisplayIconNew = res.VoileCommun
             elif self.recompense[1] == "rare":
@@ -249,6 +251,7 @@ class Navire:
                 self.DisplayIconNew = res.VoileMythique
             elif self.recompense[1] == "légendaire":
                 self.DisplayIconNew = res.VoileLegendaire
+        print(f"Fin Update {self.DisplayIconPast}, {self.DisplayIconNew}, {self.recompense}")
 
 
 

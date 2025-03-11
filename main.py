@@ -268,6 +268,8 @@ while running:
         PastIcon = liste_joueur[0].getPastDisplay()
         NewIcon = liste_joueur[0].getNewDisplay()
 
+        print(PastIcon, NewIcon)
+
         PastIcon = pygame.image.load(PastIcon).convert_alpha()
         NewIcon = pygame.image.load(NewIcon).convert_alpha()
 
