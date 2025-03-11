@@ -159,9 +159,10 @@ while running:
             # verifie qu'ils ne sortent pas de l'ecran
             navire_i.sortir_ecran(screen_width, playHeight)
     
-    for navire in liste_navire: # verifie la rage et l'aura des navires
+    for navire in liste_navire: # verifie la rage, l'aura et le godmode des navires
         navire.still_inraged()
         navire.aura_activated(liste_ennemis)
+        navire.in_godmode()
 
     # fait les deplacements de l'ennemi
     
@@ -286,8 +287,13 @@ while running:
     # dessine l'aura
     for navire_i in liste_navire:
         if navire_i.aura_active():
-            pygame.draw.circle(screen, (238, 11, 11), (int(navire_i.position_x()), int(navire_i.position_y())), 150, 4)
-            pygame.draw.circle(screen, (207, 8, 8), (int(navire_i.position_x()), int(navire_i.position_y())), 100, 4)
+            pygame.draw.circle(screen, (207, 8, 8), (int(navire_i.position_x()), int(navire_i.position_y())), 150, 4)
+    # dessine le god mode
+    for navire_i in liste_navire:
+        if navire_i.godmode_active():
+            pygame.draw.circle(screen, (255, 215, 0), (int(navire_i.position_x()), int(navire_i.position_y())), 50, 4)
+            pygame.draw.circle(screen, (255, 215, 0), (int(navire_i.position_x()), int(navire_i.position_y())), 40, 3)
+            pygame.draw.circle(screen, (255, 215, 0), (int(navire_i.position_x()), int(navire_i.position_y())), 30, 2)
 
     #Affiche l'interface de choix d'item pour le joueur uniquement
     if liste_joueur[0].afficher_items == True:
@@ -311,7 +317,8 @@ while running:
     if len(liste_texte_degats) != 0:
         for i in range(len(liste_texte_degats)-1, -1, -1) :
             if cible_du_tir < len(liste_navire):
-                screen.blit(liste_texte_degats[i][0], (liste_navire[cible_du_tir].position_x() + 10, liste_navire[cible_du_tir].position_y() - 35))
+                if not liste_navire[cible_du_tir].godmode_active():
+                    screen.blit(liste_texte_degats[i][0], (liste_navire[cible_du_tir].position_x() + 10, liste_navire[cible_du_tir].position_y() - 35))
                 liste_texte_degats[i][1] += 1
                 if liste_texte_degats[i][1] >= 60:
                     liste_texte_degats.pop(i)

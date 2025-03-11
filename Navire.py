@@ -39,7 +39,7 @@ class Navire:
         'coque':    "Coque de base"
         }
 
-        self.benedictions = ["Bénédiction d'aura"]
+        self.benedictions = ["Bénédiction GodMode"]
 
         self.recompense = None
 
@@ -64,6 +64,7 @@ class Navire:
         self.timer_sante = 20
         self.timer_aura = 30
         self.timer_rage = 30
+        self.timer_godmode = 40
 
         self.inraged = False
         self.rage_timer = None
@@ -72,6 +73,9 @@ class Navire:
         self.has_aura = False
         self.aura_timer = None
         self.aura_damage_timer = res.Timer(1)
+
+        self.godmode = False
+        self.godmode_timer = None
 
     # le bateau avance en permanence de la vitesse (donc si la vitesse vaut 0 il avance pas)
     def avancer(self):
@@ -182,7 +186,7 @@ class Navire:
         r = 5
         if self.equipement['coque'] == "Coque en bois magique":
             r = random.randint(1,5)
-        if r != 1:
+        if r != 1 and not self.godmode:
             self.vie -= damage
     
     def is_dead(self):
@@ -316,20 +320,20 @@ class Navire:
             if self.benedictions[0] == "Bénédiction Dash": # te fait dasher de 200
                 self.x += 250 * math.cos(math.radians(self.angle - 90))
                 self.y += 250 * math.sin(math.radians(self.angle - 90))
-                self.timer_benediction = res.Timer(30)
+                self.timer_benediction = res.Timer(50)
         
         if self.timer_benediction.timer_ended_special(self.timer_sante) or self.timer_benediction.timer_ended():
             if self.benedictions[0] == "Bénédiction Santé": # te rend 50% de ta vie max
                 self.vie += self.maxVie*0.5
                 if self.vie > self.maxVie:
                     self.vie = self.maxVie
-                self.timer_benediction = res.Timer(30)
+                self.timer_benediction = res.Timer(50)
         
         if self.timer_benediction.timer_ended_special(self.timer_aura) or self.timer_benediction.timer_ended():
             if self.benedictions[0] == "Bénédiction d'aura":
                 self.aura_timer = res.Timer(10)
                 self.has_aura = True
-                self.timer_benediction = res.Timer(30)
+                self.timer_benediction = res.Timer(50)
 
         if self.timer_benediction.timer_ended_special(self.timer_rage) or self.timer_benediction.timer_ended():
             if self.benedictions[0] == "Bénédiction de rage":
@@ -337,10 +341,14 @@ class Navire:
                 self.inraged = True
                 self.life_before_rage = self.vie/self.maxVie
                 self.vie = 20
-                self.timer_benediction = res.Timer(30)
+                self.timer_benediction = res.Timer(50)
+                self.gif_rage = True
             
-        if self.benedictions[0] == "Bénédiction GodMode":
-            pass # a faire plus tard. permet au joueur de ne prendre aucun dégat pendant 10 secondes
+        if self.timer_benediction.timer_ended_special(self.timer_godmode) or self.timer_benediction.timer_ended():
+            if self.benedictions[0] == "Bénédiction GodMode":
+                self.godmode = True
+                self.godmode_timer = res.Timer(10)
+                self.timer_benediction = res.Timer(50)
 
         if self.benedictions[0] == "Bénédiction Projectile":
             pass # a faire plus tard. tire une salve de projectile tout autour du joueur
@@ -352,14 +360,32 @@ class Navire:
                 self.vie = int(math.floor(self.maxVie * self.life_before_rage))
                 self.rage_timer = None
     
+    def in_godmode(self):
+        if self.godmode:
+            if self.godmode_timer.timer_ended():
+                self.godmode = False
+                self.godmode_timer = None
+    
+    def godmode_active(self):
+        return self.godmode
+    
+    def stop_animation_rage(self):
+        self.gif_rage = False
+    
     def aura_activated(self, liste_ennemis):
         if self.has_aura:
             for ennemi in liste_ennemis:
                 if self.aura_damage_timer.timer_ended():
                     if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 150:
                         ennemi.get_damaged(1)
-                        if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 100:
-                            ennemi.get_damaged(4)
+                        if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 120:
+                            ennemi.get_damaged(1)
+                            if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 90:
+                                ennemi.get_damaged(1)
+                                if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 60:
+                                    ennemi.get_damaged(1)
+                                    if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 30:
+                                        ennemi.get_damaged(1)
                         print(ennemi.get_vie())
                         self.aura_damage_timer.reset()
             if self.aura_timer.timer_ended():
