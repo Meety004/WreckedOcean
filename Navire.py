@@ -135,17 +135,17 @@ class Navire:
                 tir_avant = shot.Shot(self.x, self.y, self.angle, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
                 liste_tirs.append((tir_avant, self.equipement['canons']))
 
-                if self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                    tir_arriere = shot.Shot(self.x, self.y, self.angle + 180, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
-                    liste_tirs.append((tir_arriere, self.equipement['canons']))
+            if self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
+                tir_arriere = shot.Shot(self.x, self.y, self.angle + 180, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
+                liste_tirs.append((tir_arriere, self.equipement['canons']))
 
-                    if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                        tir_diag1 = shot.Shot(self.x, self.y, self.angle + 45, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
-                        liste_tirs.append((tir_diag1, self.equipement['canons']))
+            if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
+                tir_diag1 = shot.Shot(self.x, self.y, self.angle + 45, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
+                liste_tirs.append((tir_diag1, self.equipement['canons']))
 
-                        if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                            tir_diag2 = shot.Shot(self.x, self.y, self.angle - 45, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
-                            liste_tirs.append((tir_diag2, self.equipement['canons']))
+            if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
+                tir_diag2 = shot.Shot(self.x, self.y, self.angle - 45, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'])
+                liste_tirs.append((tir_diag2, self.equipement['canons']))
 
             if self.equipement['canons'] == "Canon à tirs doubles":     
                 pygame.time.set_timer(tirDouble, 50, loops=1)
