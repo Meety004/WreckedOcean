@@ -166,7 +166,7 @@ while running:
         for adversaire in liste_navire:
             if adversaire.get_ID() != ennemis.get_ID():
                 # gère le tir de l'ennemi. return None si le joueur n'est pas a porté de l'ennemi
-                tir_ennemi = ennemis.tirer(adversaire.position_x(), adversaire.position_y())
+                tir_ennemi = ennemis.tirer(adversaire.position_x(), adversaire.position_y(), liste_joueur)
                 if tir_ennemi != None: # si ça return none alors il l'efface
                     liste_shot.extend(tir_ennemi) # la fonction de tir return une liste. il faut donc extend pour fusionner les liste et pas append
 
