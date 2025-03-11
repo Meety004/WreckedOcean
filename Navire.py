@@ -197,6 +197,13 @@ class Navire:
     def getItemUI(self):
         return self.ItemsUI
 
+    def loadIcons(self):
+        self.DisplayIconPast = pygame.image.load(self.DisplayIconPast).convert_alpha()
+        self.DisplayIconPast = pygame.transform.scale(self.DisplayIconPast, (6.68/100*self.width, 11.84/100*self.height))
+
+        self.DisplayIconNew = pygame.image.load(self.DisplayIconNew).convert_alpha()
+        self.DisplayIconNew = pygame.transform.scale(self.DisplayIconNew, (6.68/100*self.width, 11.84/100*self.height))
+
     def equipInterface(self, recompense, xIle, yIle):
         self.recompense = recompense
 
@@ -252,6 +259,7 @@ class Navire:
             elif self.recompense[1] == "légendaire":
                 self.DisplayIconNew = res.VoileLegendaire
         print(f"Fin Update {self.DisplayIconPast}, {self.DisplayIconNew}, {self.recompense}")
+        self.loadIcons()
 
 
 
