@@ -57,13 +57,10 @@ def start_game():
         liste_shot = []
         
         # Nombre maximal d'îles sur la map
-        maxIles = 5
+        maxIles = 7
 
         # Variable contenant le nombre d'îles affichées
         nbrIles = 1
-
-        # Nombre maximul d'îles sur la map
-        maxIles = 5
 
         # On crée un timer d'un nombre de ticks avant la prochaine apparition d'île
         def setTimer():
@@ -222,13 +219,13 @@ while running:
                 if n.afficher_items == True:
 
                     if keys[pygame.K_a]:
-                        if res.calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) < 100:
+                        if res.calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) <= 75:
                             if ile in liste_iles:
                                 liste_iles.remove(ile)
                                 nbrIles -= 1
                         liste_joueur[0].afficher_items = False
                         liste_joueur[0].equiper()
-                elif res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 100:
+                elif res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) <= 75:
                     verifIleMalus = n.verifIleMalus
                     if verifIleMalus == True:
                         liste_iles.remove(ile)
@@ -268,14 +265,9 @@ while running:
         PastIcon = liste_joueur[0].getPastDisplay()
         NewIcon = liste_joueur[0].getNewDisplay()
 
-        PastIcon = pygame.image.load(PastIcon).convert_alpha()
-        NewIcon = pygame.image.load(NewIcon).convert_alpha()
 
-        PastIcon = pygame.transform.scale(PastIcon, (6.68/100*screen_width, 11.84/100*screen_height))
-        NewIcon = pygame.transform.scale(NewIcon, (6.68/100*screen_width, 11.84/100*screen_height))
-
-        screen.blit(PastIcon, (0.085*screen_width, 0.1*screen_height))
-        screen.blit(NewIcon, (0.085*screen_width, 0.22*screen_height))
+        screen.blit(PastIcon, (0.071 * screen_width, 0.077 * screen_height))
+        screen.blit(NewIcon, (0.071 * screen_width, 0.215 * screen_height))
             
 
     # Rafraîchir l'écran

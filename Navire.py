@@ -24,6 +24,9 @@ class Navire:
         self.width = 40
         self.height = 60
 
+        self.screen_width = screen_width
+        self.screen_height = screen_height
+
         #On charge et adapte la taille des images des bateaux
         original_image = pygame.image.load(image).convert_alpha()
         original_image = pygame.transform.scale(original_image, (self.width, self.height)).convert_alpha()
@@ -70,6 +73,8 @@ class Navire:
         #Variables qui contiennent les chemins des icones s'affichant sur l'interface de choix d'item
         self.DisplayIconNew = None
         self.DisplayIconPast = None
+
+        self.image_loaded = False
 
 
     # Le bateau avance en fonction de la vitesse, immobile si la vitesse est nulle
@@ -214,6 +219,16 @@ class Navire:
     
     def getItemUI(self):
         return self.ItemsUI
+    
+    def LoadImage(self):
+        if not isinstance(self.DisplayIconPast, pygame.Surface):
+            self.DisplayIconPast = pygame.image.load(self.DisplayIconPast).convert_alpha()
+            self.DisplayIconPast = pygame.transform.scale(self.DisplayIconPast, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        if not isinstance(self.DisplayIconNew, pygame.Surface):
+            self.DisplayIconNew = pygame.image.load(self.DisplayIconNew).convert_alpha()
+            self.DisplayIconNew = pygame.transform.scale(self.DisplayIconNew, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
 
     def equipInterface(self, recompense, xIle, yIle):
         self.recompense = recompense
@@ -222,22 +237,27 @@ class Navire:
         if (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus):
             
             #On vérifie sa distance à l'île
-            if res.calc_distance(self.x, self.y, xIle, yIle) <= 100:
+            if res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
 
-                #On change l'icône qui s'affiche et on affiche l'interface
-                self.updateDisplayIcon()
+                if not self.image_loaded:
+                    #On change l'icône qui s'affiche et on affiche l'interface
+                    self.updateDisplayIcon()
+                    self.LoadImage()
+                    self.image_loaded = True
+
                 self.afficher_items = True
 
             else:
                 self.afficher_items = False
+                self.image_loaded = False
         else:
             self.afficher_items = False
-            if self.recompense[0] in res.liste_malus and res.calc_distance(self.x, self.y, xIle, yIle) <= 100:
+            if self.recompense[0] in res.liste_malus and res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
                 self.equiper()
                 self.verifIleMalus = True
 
         
-    def updateDisplayIcon(self):
+    def updateDisplayIcon(self): 
         print(f"Début Update {self.DisplayIconPast}, {self.DisplayIconNew}, {self.recompense}")
         if self.recompense[0] in res.listeCanons:
             self.DisplayIconPast = self.iconCanon
