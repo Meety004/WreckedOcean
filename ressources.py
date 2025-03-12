@@ -76,6 +76,13 @@ VoileMalus = "images/Icons/Voiles/voile_trouee.png"
 CanonMalus = "images/Icons/Canons/canon_rouille.png"
 CoqueMalus = "images/Icons/Coques/coque_trouee.png"
 
+BeneAura = "images/Icons/Benedictions/bene_aura.png"
+BeneDash = "images/Icons/Benedictions/bene_dash.png"
+BeneGodMode = "images/Icons/Benedictions/bene_godmode.png"
+BeneProjectile = "images/Icons/Benedictions/bene_projectile.png"
+BeneRage = "images/Icons/Benedictions/bene_rage.png"
+BeneSante = "images/Icons/Benedictions/bene_sante.png"
+
 keyBindList =  [
     pygame.K_UP,
     pygame.K_LEFT,
