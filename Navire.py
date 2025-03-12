@@ -39,7 +39,7 @@ class Navire:
         'coque':    "Coque de base"
         }
 
-        self.benedictions = ["Bénédiction Projectile", "Bénédiction Projectile"]
+        self.benedictions = ["Bénédiction de rage", "Bénédiction d'aura"]
 
         self.recompense = None
 
@@ -447,6 +447,9 @@ class Navire:
             if self.timer_giga_tir_duree.timer_ended():
                 self.giga_tir = False
                 self.giga_tir_double = False
+
+    def is_giga_tir(self):
+        return self.giga_tir
     
     def is_inrage(self):
         return self.inraged

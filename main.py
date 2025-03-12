@@ -24,6 +24,12 @@ framerate = 60
 clock = pygame.time.Clock()
 dt = clock.tick(framerate)
 
+# chargment de l'image avec un giga tir
+giga_tir_image = pygame.transform.scale(pygame.image.load("images/interfaces/giga_tir.png"), (70, 70)).convert_alpha()
+rage_image = pygame.transform.scale(pygame.image.load("images/interfaces/rage.png"), (70, 70)).convert_alpha()
+aura_image = pygame.transform.scale(pygame.image.load("images/interfaces/aura.png"), (70, 70)).convert_alpha()
+god_mode_image = pygame.transform.scale(pygame.image.load("images/interfaces/god_mode.png"), (140, 140)).convert_alpha()
+
 pause = None
 
 keyBindList =  [
@@ -277,17 +283,17 @@ while running:
     ocean = pygame.transform.scale(ocean, (screen_width, (playHeight + (1/34 * screen_height)))).convert_alpha()
     screen.blit(ocean, (0, 0))
 
-    # dessine le god mode
-    for navire_i in liste_navire:
-        if navire_i.godmode_active():
-            for i in range(24, 50, 2): 
-                pygame.draw.circle(screen, (255, 215, 0), (int(navire_i.position_x()), int(navire_i.position_y())), i, 2)
-
     # Dessine les navires
     for navire_i in liste_navire:
+        if navire_i.godmode_active():
+            screen.blit(god_mode_image, god_mode_image.get_rect(center=(navire_i.position_x(), navire_i.position_y())))
+        if navire_i.is_giga_tir():
+            screen.blit(giga_tir_image, giga_tir_image.get_rect(center=(navire_i.position_x(), navire_i.position_y() - 35)))
+        if navire_i.aura_active():
+            screen.blit(aura_image, aura_image.get_rect(center=(navire_i.position_x(), navire_i.position_y() + 35)))
         if navire_i.is_inrage():
-            for i in range(5, 30):
-                pygame.draw.circle(screen, (207, 8, 8), (int(navire_i.position_x()), int(navire_i.position_y())), i, 1)
+            screen.blit(rage_image, rage_image.get_rect(center=(navire_i.position_x(), navire_i.position_y() + 35)))
+        
         navire_i.afficher(screen)
 
     # dessine les tirs
