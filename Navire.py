@@ -300,6 +300,17 @@ class Navire:
 
                 # Si l'interface n'est pas affichée, ou si on s'approche d'une nouvelle île
                 if not self.afficher_items or self.ile_actuelle is None:
+
+                    if self.ile_actuelle != ile:
+                        self.afficher_items = False
+                        self.image_loaded = False
+                        self.text_loaded = False
+                        self.TitleTextPast = None
+                        self.DescriptionTextPast = None
+                        self.TitleTextNew = None
+                        self.DescriptionTextNew = None
+                        self.ile_actuelle = ile
+                        
                     self.updateDisplayIcon()
                     self.LoadImage()
                     self.LoadText()
