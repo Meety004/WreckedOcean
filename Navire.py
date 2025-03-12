@@ -39,7 +39,7 @@ class Navire:
         'coque':    "Coque de base"
         }
 
-        self.benedictions = ["Bénédiction d'aura", "Bénédiction d'aura"]
+        self.benedictions = ["Bénédiction Projectile", "Bénédiction Projectile"]
 
         self.recompense = None
 
@@ -78,6 +78,9 @@ class Navire:
 
         self.godmode = False
         self.godmode_timer = None
+
+        self.giga_tir = False
+        self.giga_tir_double = False
 
     # le bateau avance en permanence de la vitesse (donc si la vitesse vaut 0 il avance pas)
     def avancer(self):
@@ -154,24 +157,31 @@ class Navire:
             tir_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
             liste_tirs.append((tir_gauche, self.equipement['canons']))
 
-            if self.equipement['canons'] == '+1 Canon' or self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+4 Canons':
+            if self.equipement['canons'] == '+1 Canon' or self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+4 Canons' or ("Bénédiction Projectile" in self.benedictions and self.giga_tir):
                 tir_avant = shot.Shot(self.x, self.y, self.angle, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
                 liste_tirs.append((tir_avant, self.equipement['canons']))
 
-            if self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
+            if self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons' or ("Bénédiction Projectile" in self.benedictions and self.giga_tir):
                 tir_arriere = shot.Shot(self.x, self.y, self.angle + 180, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
                 liste_tirs.append((tir_arriere, self.equipement['canons']))
 
-            if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                tir_diag1 = shot.Shot(self.x, self.y, self.angle + 30, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+            if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons' or ("Bénédiction Projectile" in self.benedictions and self.giga_tir):
+                tir_diag1 = shot.Shot(self.x, self.y, self.angle + 45, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
                 liste_tirs.append((tir_diag1, self.equipement['canons']))
 
-            if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                tir_diag2 = shot.Shot(self.x, self.y, self.angle - 30, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+            if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons' or ("Bénédiction Projectile" in self.benedictions and self.giga_tir):
+                tir_diag2 = shot.Shot(self.x, self.y, self.angle - 45, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
                 liste_tirs.append((tir_diag2, self.equipement['canons']))
 
-            if self.equipement['canons'] == "Canon à tirs doubles":     
-                pygame.time.set_timer(tirDouble, 50, loops=1)
+            if "Bénédiction Projectile" in self.benedictions and self.giga_tir:
+                tir_diag3 = shot.Shot(self.x, self.y, self.angle + 225, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                liste_tirs.append((tir_diag3, self.equipement['canons']))
+                tir_diag4 = shot.Shot(self.x, self.y, self.angle - 225, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                liste_tirs.append((tir_diag4, self.equipement['canons']))
+                self.giga_tir = False
+
+            if self.equipement['canons'] == "Canon à tirs doubles" or ("Bénédiction Projectile" in self.benedictions and self.giga_tir_double): 
+                pygame.time.set_timer(tirDouble, 70, loops=1)
 
             return liste_tirs
         
@@ -183,6 +193,20 @@ class Navire:
             tir_gaucheD = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
             liste_tirs.append((tir_gaucheD, self.equipement['canons']))
 
+            if ("Bénédiction Projectile" in self.benedictions and self.giga_tir_double):
+                tire_avantD = shot.Shot(self.x, self.y, self.angle, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                liste_tirs.append((tire_avantD, self.equipement['canons']))
+                tire_arriereD = shot.Shot(self.x, self.y, self.angle + 180, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                liste_tirs.append((tire_arriereD, self.equipement['canons']))
+                tir_diag1D = shot.Shot(self.x, self.y, self.angle + 45, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                liste_tirs.append((tir_diag1D, self.equipement['canons']))
+                tir_diag2D = shot.Shot(self.x, self.y, self.angle - 45, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                liste_tirs.append((tir_diag2D, self.equipement['canons']))
+                tir_diag3D = shot.Shot(self.x, self.y, self.angle + 225, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                liste_tirs.append((tir_diag3D, self.equipement['canons']))
+                tir_diag4D = shot.Shot(self.x, self.y, self.angle - 225, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                liste_tirs.append((tir_diag4D, self.equipement['canons']))
+                self.giga_tir_double = False
         
     def get_damaged(self, damage):
         r = 5
@@ -355,7 +379,7 @@ class Navire:
                     self.timer_benediction_2 = res.Timer(50)
 
             if self.benedictions[1] == "Bénédiction Projectile":
-                pass # a faire plus tard. tire une salve de projectile tout autour du joueur
+                self.giga_tir = True
 
     # benediction 1 est comme benediction 2 mais en plus puissant
     def use_benediction_1(self):
@@ -396,7 +420,8 @@ class Navire:
                     self.timer_benediction_1 = res.Timer(50)
             
             if self.benedictions[0] == "Bénédiction Projectile":
-                pass # a faire plus tard. tire une salve de projectile tout autour du joueur
+                self.giga_tir = True
+                self.giga_tir_double = True
 
     def still_inraged(self):
         if self.inraged:
