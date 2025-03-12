@@ -66,6 +66,7 @@ class Navire:
         self.timer_aura = 30
         self.timer_rage = 30
         self.timer_godmode = 40
+        self.timer_giga_tir = 50
 
         self.inraged = False
         self.rage_timer = None
@@ -81,6 +82,8 @@ class Navire:
 
         self.giga_tir = False
         self.giga_tir_double = False
+        self.timer_giga_tir_duree = res.Timer(1)
+
 
     # le bateau avance en permanence de la vitesse (donc si la vitesse vaut 0 il avance pas)
     def avancer(self):
@@ -150,12 +153,13 @@ class Navire:
             # argument : x, y, angle, distance_max, image
             # l'angle est ajusté en fonction de la vitesse du bateau. si il avance les boulet continue dans sa direction
             liste_tirs = []
+            
+            if not self.giga_tir:
+                tir_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                liste_tirs.append((tir_droite, self.equipement['canons']))
 
-            tir_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
-            liste_tirs.append((tir_droite, self.equipement['canons']))
-
-            tir_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
-            liste_tirs.append((tir_gauche, self.equipement['canons']))
+                tir_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                liste_tirs.append((tir_gauche, self.equipement['canons']))
 
             if self.equipement['canons'] == '+1 Canon' or self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+4 Canons' or ("Bénédiction Projectile" in self.benedictions and self.giga_tir):
                 tir_avant = shot.Shot(self.x, self.y, self.angle, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
@@ -178,7 +182,10 @@ class Navire:
                 liste_tirs.append((tir_diag3, self.equipement['canons']))
                 tir_diag4 = shot.Shot(self.x, self.y, self.angle - 225, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
                 liste_tirs.append((tir_diag4, self.equipement['canons']))
-                self.giga_tir = False
+                tir_droite = shot.Shot(self.x, self.y, self.angle + 90, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                liste_tirs.append((tir_droite, self.equipement['canons']))
+                tir_gauche = shot.Shot(self.x, self.y, self.angle - 90, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                liste_tirs.append((tir_gauche, self.equipement['canons']))
 
             if self.equipement['canons'] == "Canon à tirs doubles" or ("Bénédiction Projectile" in self.benedictions and self.giga_tir_double): 
                 pygame.time.set_timer(tirDouble, 70, loops=1)
@@ -206,7 +213,6 @@ class Navire:
                 liste_tirs.append((tir_diag3D, self.equipement['canons']))
                 tir_diag4D = shot.Shot(self.x, self.y, self.angle - 225, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
                 liste_tirs.append((tir_diag4D, self.equipement['canons']))
-                self.giga_tir_double = False
         
     def get_damaged(self, damage):
         r = 5
@@ -341,46 +347,6 @@ class Navire:
         if self.vie > self.maxVie:
                 self.vie = self.maxVie
 
-    def use_benediction_2(self):
-        if len(self.benedictions) > 1:
-            if self.timer_benediction_2.timer_ended_special(self.timer_dash) or self.timer_benediction_2.timer_ended():
-                if self.benedictions[1] == "Bénédiction Dash": # te fait dasher de 200
-                    self.x += 250 * math.cos(math.radians(self.angle - 90))
-                    self.y += 250 * math.sin(math.radians(self.angle - 90))
-                    self.timer_benediction_2 = res.Timer(50)
-            
-            if self.timer_benediction_2.timer_ended_special(self.timer_sante) or self.timer_benediction_2.timer_ended():
-                if self.benedictions[1] == "Bénédiction Santé": # te rend 50% de ta vie max
-                    self.vie += math.floor(self.maxVie*0.25)
-                    if self.vie > self.maxVie:
-                        self.vie = self.maxVie
-                    self.timer_benediction_2 = res.Timer(50)
-            
-            if self.timer_benediction_2.timer_ended_special(self.timer_aura) or self.timer_benediction_2.timer_ended():
-                if self.benedictions[1] == "Bénédiction d'aura":
-                    self.aura_timer = res.Timer(10)
-                    self.has_aura = True
-                    self.timer_benediction_2 = res.Timer(50)
-                    self.aura_degat = 1
-
-            if self.timer_benediction_2.timer_ended_special(self.timer_rage) or self.timer_benediction_2.timer_ended():
-                if self.benedictions[1] == "Bénédiction de rage":
-                    self.rage_timer = res.Timer(10)
-                    self.inraged = True
-                    self.life_before_rage = self.vie/self.maxVie
-                    self.vie = 20
-                    self.timer_benediction_2 = res.Timer(50)
-                    self.gif_rage = True
-                
-            if self.timer_benediction_2.timer_ended_special(self.timer_godmode) or self.timer_benediction_2.timer_ended():
-                if self.benedictions[1] == "Bénédiction GodMode":
-                    self.godmode = True
-                    self.godmode_timer = res.Timer(10)
-                    self.timer_benediction_2 = res.Timer(50)
-
-            if self.benedictions[1] == "Bénédiction Projectile":
-                self.giga_tir = True
-
     # benediction 1 est comme benediction 2 mais en plus puissant
     def use_benediction_1(self):
         if len(self.benedictions) > 0:
@@ -419,9 +385,55 @@ class Navire:
                     self.godmode_timer = res.Timer(20)
                     self.timer_benediction_1 = res.Timer(50)
             
-            if self.benedictions[0] == "Bénédiction Projectile":
-                self.giga_tir = True
-                self.giga_tir_double = True
+            if self.timer_benediction_1.timer_ended_special(self.timer_giga_tir) or self.timer_benediction_1.timer_ended():
+                if self.benedictions[0] == "Bénédiction Projectile":
+                    self.giga_tir = True
+                    self.giga_tir_double = True
+                    self.timer_giga_tir_duree = res.Timer(8)
+                    self.timer_benediction_1 = res.Timer(50)
+
+    def use_benediction_2(self):
+        if len(self.benedictions) > 1:
+            if self.timer_benediction_2.timer_ended_special(self.timer_dash) or self.timer_benediction_2.timer_ended():
+                if self.benedictions[1] == "Bénédiction Dash": # te fait dasher de 200
+                    self.x += 250 * math.cos(math.radians(self.angle - 90))
+                    self.y += 250 * math.sin(math.radians(self.angle - 90))
+                    self.timer_benediction_2 = res.Timer(50)
+            
+            if self.timer_benediction_2.timer_ended_special(self.timer_sante) or self.timer_benediction_2.timer_ended():
+                if self.benedictions[1] == "Bénédiction Santé": # te rend 50% de ta vie max
+                    self.vie += math.floor(self.maxVie*0.25)
+                    if self.vie > self.maxVie:
+                        self.vie = self.maxVie
+                    self.timer_benediction_2 = res.Timer(50)
+            
+            if self.timer_benediction_2.timer_ended_special(self.timer_aura) or self.timer_benediction_2.timer_ended():
+                if self.benedictions[1] == "Bénédiction d'aura":
+                    self.aura_timer = res.Timer(10)
+                    self.has_aura = True
+                    self.timer_benediction_2 = res.Timer(50)
+                    self.aura_degat = 1
+
+            if self.timer_benediction_2.timer_ended_special(self.timer_rage) or self.timer_benediction_2.timer_ended():
+                if self.benedictions[1] == "Bénédiction de rage":
+                    self.rage_timer = res.Timer(10)
+                    self.inraged = True
+                    self.life_before_rage = self.vie/self.maxVie
+                    self.vie = 20
+                    self.timer_benediction_2 = res.Timer(50)
+                    self.gif_rage = True
+                
+            if self.timer_benediction_2.timer_ended_special(self.timer_godmode) or self.timer_benediction_2.timer_ended():
+                if self.benedictions[1] == "Bénédiction GodMode":
+                    self.godmode = True
+                    self.godmode_timer = res.Timer(10)
+                    self.timer_benediction_2 = res.Timer(50)
+
+            if self.timer_benediction_2.timer_ended_special(self.timer_giga_tir) or self.timer_benediction_2.timer_ended():
+                if self.benedictions[1] == "Bénédiction Projectile":    
+                    self.giga_tir = True
+                    self.timer_giga_tir_duree = res.Timer(5)
+                    self.timer_benediction_2 = res.Timer(50)
 
     def still_inraged(self):
         if self.inraged:
@@ -429,6 +441,12 @@ class Navire:
                 self.inraged = False
                 self.vie = int(math.floor(self.maxVie * self.life_before_rage))
                 self.rage_timer = None
+
+    def still_giga_tir(self):
+        if self.giga_tir:
+            if self.timer_giga_tir_duree.timer_ended():
+                self.giga_tir = False
+                self.giga_tir_double = False
     
     def is_inrage(self):
         return self.inraged

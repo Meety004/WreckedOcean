@@ -166,6 +166,7 @@ while running:
         navire.still_inraged()
         navire.aura_activated(liste_ennemis)
         navire.in_godmode()
+        navire.still_giga_tir()
 
     # fait les deplacements de l'ennemi
     
