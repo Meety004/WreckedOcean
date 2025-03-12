@@ -252,10 +252,12 @@ class Navire:
     
     def LoadImage(self):
         if not isinstance(self.DisplayIconPast, pygame.Surface):
+            print(self.DisplayIconPast)
             self.DisplayIconPast = pygame.image.load(self.DisplayIconPast).convert_alpha()
             self.DisplayIconPast = pygame.transform.scale(self.DisplayIconPast, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
 
         if not isinstance(self.DisplayIconNew, pygame.Surface):
+            print(self.DisplayIconNew)
             self.DisplayIconNew = pygame.image.load(self.DisplayIconNew).convert_alpha()
             self.DisplayIconNew = pygame.transform.scale(self.DisplayIconNew, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
 
@@ -366,6 +368,16 @@ class Navire:
                 self.DisplayIconNew = res.VoileMythique
             elif self.recompense[1] == "légendaire":
                 self.DisplayIconNew = res.VoileLegendaire
+        elif self.recompense[0] in res.liste_malus:
+            if self.recompense[0] == res.liste_malus[0]:
+                self.DisplayIconPast = self.iconCanon
+                self.DisplayIconNew = res.CanonCommun
+            elif self.recompense[0] == res.liste_malus[1]:
+                self.DisplayIconPast = self.iconVoile
+                self.DisplayIconNew = res.VoileCommun
+            elif self.recompense[0] == res.liste_malus[2]:
+                self.DisplayIconPast = self.iconCoque
+                self.DisplayIconNew = res.CoqueCommun
         print(f"Fin Update {self.DisplayIconPast}, {self.DisplayIconNew}, {self.recompense}")
 
 
@@ -374,25 +386,15 @@ class Navire:
 
     def equiper(self):
         # Mettre à jour l'équipement en fonction de la récompense
-        if self.recompense[0] in res.listeCanons:
+        if self.recompense[0] in res.listeCanons or self.recompense[0] == res.liste_malus[0]:
             self.equipement['canons'] = self.recompense[0]
-        elif self.recompense[0] in res.listeVoiles:
+        elif self.recompense[0] in res.listeVoiles or self.recompense[0] == res.liste_malus[1]:
             self.equipement['voile'] = self.recompense[0]
-        elif self.recompense[0] in res.listeCoques:
+        elif self.recompense[0] in res.listeCoques or self.recompense[0] == res.liste_malus[2]:
             self.equipement['coque'] = self.recompense[0]
-        elif self.recompense[0] in res.liste_malus:
-            if self.recompense[0] == res.liste_malus[0]:
-                self.equipement['canons'] = self.recompense[0]
-            elif self.recompense[0] == res.liste_malus[1]:
-                self.equipement['voile'] = self.recompense[0]
-            elif self.recompense[0] == res.liste_malus[2]:
-                self.equipement['coque'] = self.recompense[0]
-
         print(self.equipement)
         self.effetItem()
-
-        # Mettre à jour l'icône passée (DisplayIconPast) après avoir équipé un nouvel objet
-        self.updateDisplayIcon()  # Mise à jour de l'icône passée
+        self.updateDisplayIcon()
 
 
     def effetItem(self):
