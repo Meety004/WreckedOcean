@@ -89,6 +89,10 @@ class Navire:
 
         self.text_loaded = False
 
+        self.type= None
+
+
+
 
 
     # Le bateau avance en fonction de la vitesse, immobile si la vitesse est nulle
@@ -241,10 +245,10 @@ class Navire:
         return self.DescriptionTextPast
     
     def getTitleTextNew(self):
-        return self.TitleTextPast
+        return self.TitleTextNew
     
     def getDescriptionTextNew(self):
-        return self.DescriptionTextPast
+        return self.DescriptionTextNew
     
     def LoadImage(self):
         if not isinstance(self.DisplayIconPast, pygame.Surface):
@@ -257,13 +261,16 @@ class Navire:
 
     def LoadText(self):
         if not isinstance(self.TitleTextPast, pygame.Surface):
-            self.TitleTextPast = self.TitleFont.render(self.recompense[0], True, (0, 0, 0))  # Noir
+            self.TitleTextPast = self.TitleFont.render(self.equipement[self.type], True, (0, 0, 0))  # Noir
         if not isinstance(self.DescriptionTextPast, pygame.Surface):
-            self.DescriptionTextPast = self.DescriptionFont.render(res.dictItemsBuff[self.recompense[0]], True, (0, 0, 0))
+            equip = self.equipement[self.type]
+            self.DescriptionTextPast = self.DescriptionFont.render(res.dictItemsBuff[equip], True, (0, 0, 0))
+
         if not isinstance(self.TitleTextNew, pygame.Surface):
             self.TitleTextNew = self.TitleFont.render(self.recompense[0], True, (0, 0, 0))  # Noir
         if not isinstance(self.DescriptionTextNew, pygame.Surface):
-            self.DescriptionTextNew = self.DescriptionFont.render(res.dictItemsBuff[self.recompense[0]], True, (0, 0, 0))
+            equip = self.recompense[0]
+            self.DescriptionTextNew = self.DescriptionFont.render(res.dictItemsBuff[equip], True, (0, 0, 0))
 
     def verifIleExiste(self, liste_iles):
         if (self.ile_actuelle is not None) and (self.ile_actuelle not in liste_iles):
@@ -276,6 +283,14 @@ class Navire:
 
     def equipInterface(self, recompense, xIle, yIle, ile):
         self.recompense = recompense
+        if self.recompense[0] in res.listeCanons:
+            self.type = "canons"
+        elif self.recompense[0] in res.listeVoiles:
+            self.type = "voile"
+        elif self.recompense[0] in res.listeCoques:
+            self.type = "coque"
+        elif self.recompense[0] in res.liste_malus:
+            self.type = "malus"
 
         # Si la récompense est un objet
         if (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus):

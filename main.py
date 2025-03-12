@@ -20,13 +20,8 @@ clock = pygame.time.Clock()
 dt = clock.tick(framerate)
 
 TypeFontPast = pygame.font.Font(res.fontPixel, 32)
-TypeSurface = TypeFontPast.render("Votre équipement actuel", True, (0, 0, 0))  # Noir
-
-TitleFontPast = pygame.font.Font(res.fontPixel, 32)
-TitleSurface = TitleFontPast.render("Nom", True, (0, 0, 0))  # Noir
-
-DescriptionFontPast = pygame.font.Font(res.fontPixel, 24)
-DescriptionSurface = DescriptionFontPast.render("Description !", True, (0, 0, 0))  # Noir
+TypeSurfacePast = TypeFontPast.render("Votre équipement actuel:", True, (0, 0, 0))
+TypeSurfaceNew = TypeFontPast.render("Ce que vous avez trouvé:", True, (0, 0, 0))
 
 
 keyBindList =  [
@@ -286,13 +281,13 @@ while running:
         NewTextDescription = liste_joueur[0].getDescriptionTextNew()
 
 
-        screen.blit(TypeSurface, (0.158*screen_width, 0.070*screen_height))
+        screen.blit(TypeSurfacePast, (0.158*screen_width, 0.070*screen_height))
         screen.blit(PastTextTitle, (0.158*screen_width, 0.1*screen_height))
         screen.blit(PastTextDescription, (0.158*screen_width, 0.135*screen_height))
 
-        screen.blit(TypeSurface, (0.158*screen_width, 0.220*screen_height))
-        screen.blit(PastTextTitle, (0.158*screen_width, 0.25*screen_height))
-        screen.blit(PastTextDescription, (0.158*screen_width, 0.285*screen_height))
+        screen.blit(TypeSurfaceNew, (0.158*screen_width, 0.220*screen_height))
+        screen.blit(NewTextTitle, (0.158*screen_width, 0.25*screen_height))
+        screen.blit(NewTextDescription, (0.158*screen_width, 0.285*screen_height))
             
 
     # Rafraîchir l'écran

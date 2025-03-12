@@ -20,6 +20,7 @@ liste_malus = [
         ]
 
 listeCanons = [
+    "Canon de base",
     "+1 Canon",
     "Canon en bronze",
     "+2 Canons", 
@@ -33,6 +34,7 @@ listeCanons = [
         ]
 
 listeCoques = [
+    "Coque de base",
     "Coque épicéa",
     "Coque chêne",
     "Coque en bouleau", 
@@ -42,6 +44,7 @@ listeCoques = [
         ]
 
 listeVoiles = [
+    "Voile de base",
     "Voile en toile de jute",
     "Voile Latine",
     "Voile Enchantée", 
@@ -86,26 +89,29 @@ keyBindCursedList =  [
 ]
 
 dictItemsBuff = {
+    'Canon de base': "Dégâts 15",
+    'Voile de base': "Vitesse Max 7",
+    'Coque de base': "PV Max 50",
     '+1 Canon': "Ajoute un canon à l'avant",
     'Canon en bronze': "Dégâts +20%",
     '+2 Canons': "Ajoute un canon à l'avant et à l'arrière",
-    'Canon en argent': "Dégâts +33% \nVitesse projectile +5%",
+    'Canon en argent': "Dégâts +33% | Vitesse projectile +5%",
     'Canon Ballistique': "Les projectiles vont deux fois plus loin",
     '+3 Canons': "Ajoute un canon à l'avant, à l'arrière et dans la diagonale avant-droite",
-    'Canon en or': "Dégâts +66% \nVitesse projectile +10% \nCadence +10%",
+    'Canon en or': "Dégâts +66% | Vitesse projectile +10% | Cadence +10%",
     'Canon à tirs doubles': "Tire un deuxième projectile à chaque tir",
     '+4 Canons': "Ajoute un canon à l'avant, à l'arrière et deux en diagonale devant",
-    'Canon Légendaire': "Dégâts +133% \nVitesse projectile +15% \nCadence +10%",
+    'Canon Légendaire': "Dégâts +133% | Vitesse projectile +15% | Cadence +10%",
     'Coque épicéa': "PV Max +10",
     'Coque chêne': "Vitesse Max +10%",
-    'Coque en bouleau': "PV Max +10\nVitesse Max +5%",
+    'Coque en bouleau': "PV Max +10 | Vitesse Max +5%",
     'Coque en chêne massif': "PV Max +75",
-    'Coque en bois magique': "PV Max +50\nVitesse Max +20%\n20% de chance d'esquiver les projectiles",
-    'Coque légendaire': "PV Max +60\nVitesse Max +30%",
+    'Coque en bois magique': "PV Max +50 | Vitesse Max +20% | 20% de chance d'esquiver les projectiles",
+    'Coque légendaire': "PV Max +60 | Vitesse Max +30%",
     'Voile en toile de jute': "Vitesse Max +5%",
     'Voile Latine': "Vitesse Max +10%",
-    'Voile Enchantée': "Vitesse Max +25% \nManiabilité +2%",
-    'Voile légendaire': "Vitesse Max +30% \nManiabilité +5%"
+    'Voile Enchantée': "Vitesse Max +25% | Maniabilité +2%",
+    'Voile légendaire': "Vitesse Max +30% | Maniabilité +5%"
 }
 
 fontPixel = "Fonts/pixel-font.otf"
