@@ -289,8 +289,6 @@ class Navire:
             self.type = "voile"
         elif self.recompense[0] in res.listeCoques:
             self.type = "coque"
-        elif self.recompense[0] in res.liste_malus:
-            self.type = "malus"
 
         # Si la récompense est un objet
         if (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus):
@@ -310,7 +308,7 @@ class Navire:
                         self.TitleTextNew = None
                         self.DescriptionTextNew = None
                         self.ile_actuelle = ile
-                        
+
                     self.updateDisplayIcon()
                     self.LoadImage()
                     self.LoadText()

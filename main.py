@@ -281,13 +281,13 @@ while running:
         NewTextDescription = liste_joueur[0].getDescriptionTextNew()
 
 
-        screen.blit(TypeSurfacePast, (0.158*screen_width, 0.070*screen_height))
-        screen.blit(PastTextTitle, (0.158*screen_width, 0.1*screen_height))
-        screen.blit(PastTextDescription, (0.158*screen_width, 0.135*screen_height))
+        screen.blit(TypeSurfacePast, (0.158*screen_width, 0.068*screen_height))
+        screen.blit(PastTextTitle, (0.158*screen_width, 0.098*screen_height))
+        screen.blit(PastTextDescription, (0.158*screen_width, 0.133*screen_height))
 
-        screen.blit(TypeSurfaceNew, (0.158*screen_width, 0.220*screen_height))
-        screen.blit(NewTextTitle, (0.158*screen_width, 0.25*screen_height))
-        screen.blit(NewTextDescription, (0.158*screen_width, 0.285*screen_height))
+        screen.blit(TypeSurfaceNew, (0.158*screen_width, 0.200*screen_height))
+        screen.blit(NewTextTitle, (0.158*screen_width, 0.23*screen_height))
+        screen.blit(NewTextDescription, (0.158*screen_width, 0.265*screen_height))
             
 
     # Rafraîchir l'écran
