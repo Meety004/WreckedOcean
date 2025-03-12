@@ -215,7 +215,8 @@ while running:
         for n in liste_navire:
             if len(liste_navire) > 0:
                 recompense = ile.type_recompenses()
-                n.equipInterface(recompense, ile.position_x(), ile.position_y())
+                n.equipInterface(recompense, ile.position_x(), ile.position_y(), ile)
+                n.verifIleExiste(liste_iles)
                 if n.afficher_items == True:
 
                     if keys[pygame.K_a]:

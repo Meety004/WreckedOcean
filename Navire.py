@@ -76,6 +76,9 @@ class Navire:
 
         self.image_loaded = False
 
+        self.ile_actuelle = None  # Stocke l'île qui a ouvert l'interface
+
+
 
     # Le bateau avance en fonction de la vitesse, immobile si la vitesse est nulle
     def avancer(self):
@@ -229,32 +232,38 @@ class Navire:
             self.DisplayIconNew = pygame.image.load(self.DisplayIconNew).convert_alpha()
             self.DisplayIconNew = pygame.transform.scale(self.DisplayIconNew, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
 
+    def verifIleExiste(self, liste_iles):
+        if (self.ile_actuelle is not None) and (self.ile_actuelle not in liste_iles):
+            self.afficher_items = False
+            self.image_loaded = False
+            self.ile_actuelle = None
 
-    def equipInterface(self, recompense, xIle, yIle):
+
+
+    def equipInterface(self, recompense, xIle, yIle, ile):
         self.recompense = recompense
 
-        #Si la récompense est un objet
+        # Si la récompense est un objet
         if (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus):
-            
-            #On vérifie sa distance à l'île
+
+            # On vérifie sa distance à l'île
             if res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
 
-                if not self.image_loaded:
-                    #On change l'icône qui s'affiche et on affiche l'interface
+                # Si l'interface n'est pas affichée, ou si on s'approche d'une nouvelle île
+                if not self.afficher_items or self.ile_actuelle is None:
                     self.updateDisplayIcon()
                     self.LoadImage()
                     self.image_loaded = True
+                    self.ile_actuelle = ile  # On mémorise l'île qui a ouvert l'interface
 
                 self.afficher_items = True
 
-            else:
+            # Si le joueur s'éloigne de l'île qui a affiché l'interface, on ferme
+            elif self.ile_actuelle == ile:
                 self.afficher_items = False
                 self.image_loaded = False
-        else:
-            self.afficher_items = False
-            if self.recompense[0] in res.liste_malus and res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
-                self.equiper()
-                self.verifIleMalus = True
+                self.ile_actuelle = None  # On oublie l'île actuelle
+
 
         
     def updateDisplayIcon(self): 
