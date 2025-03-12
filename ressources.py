@@ -107,3 +107,5 @@ dictItemsBuff = {
     'Voile Enchantée': "Vitesse Max +25% \nManiabilité +2%",
     'Voile légendaire': "Vitesse Max +30% \nManiabilité +5%"
 }
+
+fontPixel = "Fonts/pixel-font.otf"

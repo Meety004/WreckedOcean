@@ -78,6 +78,17 @@ class Navire:
 
         self.ile_actuelle = None  # Stocke l'île qui a ouvert l'interface
 
+        self.TitleTextPast = None
+        self.DescriptionTextPast = None
+
+        self.TitleTextNew = None
+        self.DescriptionTextNew = None
+
+        self.TitleFont = pygame.font.Font(res.fontPixel, 32)
+        self.DescriptionFont = pygame.font.Font(res.fontPixel, 24)
+
+        self.text_loaded = False
+
 
 
     # Le bateau avance en fonction de la vitesse, immobile si la vitesse est nulle
@@ -223,6 +234,18 @@ class Navire:
     def getItemUI(self):
         return self.ItemsUI
     
+    def getTitleTextPast(self):
+        return self.TitleTextPast
+    
+    def getDescriptionTextPast(self):
+        return self.DescriptionTextPast
+    
+    def getTitleTextNew(self):
+        return self.TitleTextPast
+    
+    def getDescriptionTextNew(self):
+        return self.DescriptionTextPast
+    
     def LoadImage(self):
         if not isinstance(self.DisplayIconPast, pygame.Surface):
             self.DisplayIconPast = pygame.image.load(self.DisplayIconPast).convert_alpha()
@@ -232,10 +255,21 @@ class Navire:
             self.DisplayIconNew = pygame.image.load(self.DisplayIconNew).convert_alpha()
             self.DisplayIconNew = pygame.transform.scale(self.DisplayIconNew, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
 
+    def LoadText(self):
+        if not isinstance(self.TitleTextPast, pygame.Surface):
+            self.TitleTextPast = self.TitleFont.render(self.recompense[0], True, (0, 0, 0))  # Noir
+        if not isinstance(self.DescriptionTextPast, pygame.Surface):
+            self.DescriptionTextPast = self.DescriptionFont.render(res.dictItemsBuff[self.recompense[0]], True, (0, 0, 0))
+        if not isinstance(self.TitleTextNew, pygame.Surface):
+            self.TitleTextNew = self.TitleFont.render(self.recompense[0], True, (0, 0, 0))  # Noir
+        if not isinstance(self.DescriptionTextNew, pygame.Surface):
+            self.DescriptionTextNew = self.DescriptionFont.render(res.dictItemsBuff[self.recompense[0]], True, (0, 0, 0))
+
     def verifIleExiste(self, liste_iles):
         if (self.ile_actuelle is not None) and (self.ile_actuelle not in liste_iles):
             self.afficher_items = False
             self.image_loaded = False
+            self.text_loaded = False
             self.ile_actuelle = None
 
 
@@ -253,7 +287,9 @@ class Navire:
                 if not self.afficher_items or self.ile_actuelle is None:
                     self.updateDisplayIcon()
                     self.LoadImage()
+                    self.LoadText()
                     self.image_loaded = True
+                    self.text_loaded = True
                     self.ile_actuelle = ile  # On mémorise l'île qui a ouvert l'interface
 
                 self.afficher_items = True
@@ -262,6 +298,7 @@ class Navire:
             elif self.ile_actuelle == ile:
                 self.afficher_items = False
                 self.image_loaded = False
+                self.text_loaded = False
                 self.ile_actuelle = None  # On oublie l'île actuelle
 
 

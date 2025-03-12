@@ -71,7 +71,7 @@ class Iles:
                 else:
                     verifProx = False
 
-        self.timer = randint(400,900)
+        self.timer = randint(600,1200)
 
         self.weights = self.dict_iles[self.type]
         if self.type == 'légendaire':
