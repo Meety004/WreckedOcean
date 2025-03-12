@@ -39,7 +39,7 @@ class Navire:
         'coque':    "Coque de base"
         }
 
-        self.benedictions = ["Bénédiction GodMode"]
+        self.benedictions = ["Bénédiction d'aura", "Bénédiction d'aura"]
 
         self.recompense = None
 
@@ -59,7 +59,8 @@ class Navire:
         self.DisplayIconNew = None
         self.DisplayIconPast = None
 
-        self.timer_benediction = res.Timer(0)  # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
+        self.timer_benediction_1 = res.Timer(0)  # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
+        self.timer_benediction_2 = res.Timer(0) # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
         self.timer_dash = 15
         self.timer_sante = 20
         self.timer_aura = 30
@@ -73,6 +74,7 @@ class Navire:
         self.has_aura = False
         self.aura_timer = None
         self.aura_damage_timer = res.Timer(1)
+        self.aura_degat = 1
 
         self.godmode = False
         self.godmode_timer = None
@@ -315,43 +317,86 @@ class Navire:
         if self.vie > self.maxVie:
                 self.vie = self.maxVie
 
-    def use_benediction_1(self):
-        if self.timer_benediction.timer_ended_special(self.timer_dash) or self.timer_benediction.timer_ended():
-            if self.benedictions[0] == "Bénédiction Dash": # te fait dasher de 200
-                self.x += 250 * math.cos(math.radians(self.angle - 90))
-                self.y += 250 * math.sin(math.radians(self.angle - 90))
-                self.timer_benediction = res.Timer(50)
-        
-        if self.timer_benediction.timer_ended_special(self.timer_sante) or self.timer_benediction.timer_ended():
-            if self.benedictions[0] == "Bénédiction Santé": # te rend 50% de ta vie max
-                self.vie += self.maxVie*0.5
-                if self.vie > self.maxVie:
-                    self.vie = self.maxVie
-                self.timer_benediction = res.Timer(50)
-        
-        if self.timer_benediction.timer_ended_special(self.timer_aura) or self.timer_benediction.timer_ended():
-            if self.benedictions[0] == "Bénédiction d'aura":
-                self.aura_timer = res.Timer(10)
-                self.has_aura = True
-                self.timer_benediction = res.Timer(50)
-
-        if self.timer_benediction.timer_ended_special(self.timer_rage) or self.timer_benediction.timer_ended():
-            if self.benedictions[0] == "Bénédiction de rage":
-                self.rage_timer = res.Timer(10)
-                self.inraged = True
-                self.life_before_rage = self.vie/self.maxVie
-                self.vie = 20
-                self.timer_benediction = res.Timer(50)
-                self.gif_rage = True
+    def use_benediction_2(self):
+        if len(self.benedictions) > 1:
+            if self.timer_benediction_2.timer_ended_special(self.timer_dash) or self.timer_benediction_2.timer_ended():
+                if self.benedictions[1] == "Bénédiction Dash": # te fait dasher de 200
+                    self.x += 250 * math.cos(math.radians(self.angle - 90))
+                    self.y += 250 * math.sin(math.radians(self.angle - 90))
+                    self.timer_benediction_2 = res.Timer(50)
             
-        if self.timer_benediction.timer_ended_special(self.timer_godmode) or self.timer_benediction.timer_ended():
-            if self.benedictions[0] == "Bénédiction GodMode":
-                self.godmode = True
-                self.godmode_timer = res.Timer(10)
-                self.timer_benediction = res.Timer(50)
+            if self.timer_benediction_2.timer_ended_special(self.timer_sante) or self.timer_benediction_2.timer_ended():
+                if self.benedictions[1] == "Bénédiction Santé": # te rend 50% de ta vie max
+                    self.vie += math.floor(self.maxVie*0.25)
+                    if self.vie > self.maxVie:
+                        self.vie = self.maxVie
+                    self.timer_benediction_2 = res.Timer(50)
+            
+            if self.timer_benediction_2.timer_ended_special(self.timer_aura) or self.timer_benediction_2.timer_ended():
+                if self.benedictions[1] == "Bénédiction d'aura":
+                    self.aura_timer = res.Timer(10)
+                    self.has_aura = True
+                    self.timer_benediction_2 = res.Timer(50)
+                    self.aura_degat = 1
 
-        if self.benedictions[0] == "Bénédiction Projectile":
-            pass # a faire plus tard. tire une salve de projectile tout autour du joueur
+            if self.timer_benediction_2.timer_ended_special(self.timer_rage) or self.timer_benediction_2.timer_ended():
+                if self.benedictions[1] == "Bénédiction de rage":
+                    self.rage_timer = res.Timer(10)
+                    self.inraged = True
+                    self.life_before_rage = self.vie/self.maxVie
+                    self.vie = 20
+                    self.timer_benediction_2 = res.Timer(50)
+                    self.gif_rage = True
+                
+            if self.timer_benediction_2.timer_ended_special(self.timer_godmode) or self.timer_benediction_2.timer_ended():
+                if self.benedictions[1] == "Bénédiction GodMode":
+                    self.godmode = True
+                    self.godmode_timer = res.Timer(10)
+                    self.timer_benediction_2 = res.Timer(50)
+
+            if self.benedictions[1] == "Bénédiction Projectile":
+                pass # a faire plus tard. tire une salve de projectile tout autour du joueur
+
+    # benediction 1 est comme benediction 2 mais en plus puissant
+    def use_benediction_1(self):
+        if len(self.benedictions) > 0:
+            if self.timer_benediction_1.timer_ended_special(self.timer_dash) or self.timer_benediction_1.timer_ended():
+                if self.benedictions[0] == "Bénédiction Dash": # te fait dasher de 200
+                    self.x += 350 * math.cos(math.radians(self.angle - 90))
+                    self.y += 350 * math.sin(math.radians(self.angle - 90))
+                    self.timer_benediction_1 = res.Timer(50)
+            
+            if self.timer_benediction_1.timer_ended_special(self.timer_sante) or self.timer_benediction_1.timer_ended():
+                if self.benedictions[0] == "Bénédiction Santé": # te rend 50% de ta vie max
+                    self.vie += math.floor(self.maxVie*0.5)
+                    if self.vie > self.maxVie:
+                        self.vie = self.maxVie
+                    self.timer_benediction_1 = res.Timer(50)
+            
+            if self.timer_benediction_1.timer_ended_special(self.timer_aura) or self.timer_benediction_1.timer_ended():
+                if self.benedictions[0] == "Bénédiction d'aura":
+                    self.aura_timer = res.Timer(10)
+                    self.has_aura = True
+                    self.timer_benediction_1 = res.Timer(50)
+                    self.aura_degat = 2
+
+            if self.timer_benediction_1.timer_ended_special(self.timer_rage) or self.timer_benediction_1.timer_ended():
+                if self.benedictions[0] == "Bénédiction de rage":
+                    self.rage_timer = res.Timer(15)
+                    self.inraged = True
+                    self.life_before_rage = self.vie/self.maxVie
+                    self.vie = 30
+                    self.timer_benediction_1 = res.Timer(50)
+                    self.gif_rage = True
+                
+            if self.timer_benediction_1.timer_ended_special(self.timer_godmode) or self.timer_benediction_1.timer_ended():
+                if self.benedictions[0] == "Bénédiction GodMode":
+                    self.godmode = True
+                    self.godmode_timer = res.Timer(20)
+                    self.timer_benediction_1 = res.Timer(50)
+            
+            if self.benedictions[0] == "Bénédiction Projectile":
+                pass # a faire plus tard. tire une salve de projectile tout autour du joueur
 
     def still_inraged(self):
         if self.inraged:
@@ -359,6 +404,9 @@ class Navire:
                 self.inraged = False
                 self.vie = int(math.floor(self.maxVie * self.life_before_rage))
                 self.rage_timer = None
+    
+    def is_inrage(self):
+        return self.inraged
     
     def in_godmode(self):
         if self.godmode:
@@ -377,15 +425,15 @@ class Navire:
             for ennemi in liste_ennemis:
                 if self.aura_damage_timer.timer_ended():
                     if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 150:
-                        ennemi.get_damaged(1)
+                        ennemi.get_damaged(self.aura_degat)
                         if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 120:
-                            ennemi.get_damaged(1)
+                            ennemi.get_damaged(self.aura_degat)
                             if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 90:
-                                ennemi.get_damaged(1)
+                                ennemi.get_damaged(self.aura_degat)
                                 if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 60:
-                                    ennemi.get_damaged(1)
+                                    ennemi.get_damaged(self.aura_degat)
                                     if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 30:
-                                        ennemi.get_damaged(1)
+                                        ennemi.get_damaged(self.aura_degat)
                         print(ennemi.get_vie())
                         self.aura_damage_timer.reset()
             if self.aura_timer.timer_ended():

@@ -151,6 +151,9 @@ while running:
 
             if keys[pygame.K_s]:
                 navire_i.use_benediction_1()
+            
+            if keys[pygame.K_d]:
+                navire_i.use_benediction_2()
 
 
             # Mettre à jour la position des navires
@@ -198,11 +201,12 @@ while running:
                     if not shot_i[0].getIDTireur() == liste_navire[i].get_ID():
                         liste_navire[i].get_damaged(damage)
                         if shot_i[0].is_inraged():
-                            liste_navire[i].get_damaged(damage)
+                            liste_navire[i].get_damaged(math.floor((damage+1)/2))
                         cible_du_tir = i
-                        liste_texte_degats.append([police.render(str(damage), True, (255, 0, 0)), 0])
+                        if not shot_i[0].is_inraged():
+                            liste_texte_degats.append([police.render(str(damage), True, (255, 0, 0)), 0])
                         if shot_i[0].is_inraged():
-                            liste_texte_degats.append([police.render(str(damage * 2), True, (255, 0, 0)), 0])
+                            liste_texte_degats.append([police.render(str(math.floor((damage+1)*1.5)), True, (255, 0, 0)), 0])
 
                     if shot_i in liste_shot:
                         liste_shot.remove(shot_i)
@@ -272,8 +276,17 @@ while running:
     ocean = pygame.transform.scale(ocean, (screen_width, (playHeight + (1/34 * screen_height)))).convert_alpha()
     screen.blit(ocean, (0, 0))
 
+    # dessine le god mode
+    for navire_i in liste_navire:
+        if navire_i.godmode_active():
+            for i in range(24, 50, 2): 
+                pygame.draw.circle(screen, (255, 215, 0), (int(navire_i.position_x()), int(navire_i.position_y())), i, 2)
+
     # Dessine les navires
     for navire_i in liste_navire:
+        if navire_i.is_inrage():
+            for i in range(5, 30):
+                pygame.draw.circle(screen, (207, 8, 8), (int(navire_i.position_x()), int(navire_i.position_y())), i, 1)
         navire_i.afficher(screen)
 
     # dessine les tirs
@@ -287,13 +300,7 @@ while running:
     # dessine l'aura
     for navire_i in liste_navire:
         if navire_i.aura_active():
-            pygame.draw.circle(screen, (207, 8, 8), (int(navire_i.position_x()), int(navire_i.position_y())), 150, 4)
-    # dessine le god mode
-    for navire_i in liste_navire:
-        if navire_i.godmode_active():
-            pygame.draw.circle(screen, (255, 215, 0), (int(navire_i.position_x()), int(navire_i.position_y())), 50, 4)
-            pygame.draw.circle(screen, (255, 215, 0), (int(navire_i.position_x()), int(navire_i.position_y())), 40, 3)
-            pygame.draw.circle(screen, (255, 215, 0), (int(navire_i.position_x()), int(navire_i.position_y())), 30, 2)
+            pygame.draw.circle(screen, (0, 255, 255), (int(navire_i.position_x()), int(navire_i.position_y())), 150, 4)
 
     #Affiche l'interface de choix d'item pour le joueur uniquement
     if liste_joueur[0].afficher_items == True:
