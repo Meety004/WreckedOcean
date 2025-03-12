@@ -29,7 +29,7 @@ class Shot:
         elif self.canons == "Canon légendaire":
             self.vitesse = self.vitesse * 1.15
         elif self.canons == "Canons Rouillés":
-            self.vitesse = self.vitesse * 0.95
+            self.vitesse = self.vitesse * 0.85
 
     # le boulet avance
     def avancer(self):

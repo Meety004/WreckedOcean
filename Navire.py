@@ -325,6 +325,13 @@ class Navire:
                 self.text_loaded = False
                 self.ile_actuelle = None  # On oublie l'île actuelle
 
+        else:
+            self.afficher_items = False
+            if self.recompense[0] in res.liste_malus and res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
+                self.equiper()
+                self.updateDisplayIcon()
+                self.verifIleMalus = True
+
 
         
     def updateDisplayIcon(self): 
@@ -364,7 +371,9 @@ class Navire:
 
 
 
+
     def equiper(self):
+        # Mettre à jour l'équipement en fonction de la récompense
         if self.recompense[0] in res.listeCanons:
             self.equipement['canons'] = self.recompense[0]
         elif self.recompense[0] in res.listeVoiles:
@@ -378,8 +387,13 @@ class Navire:
                 self.equipement['voile'] = self.recompense[0]
             elif self.recompense[0] == res.liste_malus[2]:
                 self.equipement['coque'] = self.recompense[0]
+
         print(self.equipement)
         self.effetItem()
+
+        # Mettre à jour l'icône passée (DisplayIconPast) après avoir équipé un nouvel objet
+        self.updateDisplayIcon()  # Mise à jour de l'icône passée
+
 
     def effetItem(self):
         self.maxVie = 50

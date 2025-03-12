@@ -78,7 +78,7 @@ Voici la liste de tous ces équiements triés par rareté, avec leur probabilit�
     - Canons:
         - +1 Canon (10%) - Ajoute un canon à l'avant
         - Canon en bronze (20%) - Ajoute 20% de dégâts aux projectiles
-        - Canon Rouillé (6,66%) - Malus - Rend le projectiles 5% plus lents
+        - Canons Rouillés (6,66%) - Malus - Rend les projectiles 15% plus lents
     - Voiles:
         - Voile en toile de jute (20%) - Augmente la vitesse maximale de 5%
         - Voile Trouée (6,66%) - Malus - Diminue la vitesse maximale du joueur de 50%
