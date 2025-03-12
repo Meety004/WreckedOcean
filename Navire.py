@@ -370,13 +370,10 @@ class Navire:
                 self.DisplayIconNew = res.VoileLegendaire
         elif self.recompense[0] in res.liste_malus:
             if self.recompense[0] == res.liste_malus[0]:
-                self.DisplayIconPast = self.iconCanon
                 self.DisplayIconNew = res.CanonCommun
             elif self.recompense[0] == res.liste_malus[1]:
-                self.DisplayIconPast = self.iconVoile
                 self.DisplayIconNew = res.VoileCommun
             elif self.recompense[0] == res.liste_malus[2]:
-                self.DisplayIconPast = self.iconCoque
                 self.DisplayIconNew = res.CoqueCommun
         print(f"Fin Update {self.DisplayIconPast}, {self.DisplayIconNew}, {self.recompense}")
 
