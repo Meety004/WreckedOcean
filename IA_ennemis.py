@@ -149,16 +149,39 @@ class IA_ennemis_stage_2(Navire):
         else:
             return (False, False)
         
-    
-    #cette fonction sert uniquement a incliner la position de tir
-    def position_de_tir(self, liste_joueur):
-            # calcule l'angle entre les 2 points
-            angle_de_tir = math.degrees(math.atan2(liste_joueur[0].position_y() - self.y, liste_joueur[0].position_x() - self.x))
-            # calcule lequel des 2 canons est le plus proche pour s'orienter dans le bon sens
-            if angle_de_tir - self.angle + 90 < angle_de_tir - self.angle - 90:
-                super().tourne_droite()
+    # vérifie si une île est à portée
+    def ile_in_range(self, liste_iles):
+        for ile in range(len(liste_iles)):
+            if res.calc_distance(self.x, self.y, liste_iles[ile].position_x(), liste_iles[ile].position_y()) <= 300:
+                return (True, ile)
+        return (False, 0)
+        
+    def bouger(self, inutile, liste_iles, liste_joueur):
+        if self.joueur_in_range(liste_joueur)[0]:
+            if self.joueur_in_range(liste_joueur)[1] and self.equipement['canons'] not in ('+2 Canons', '+4 Canons'):
+                operateur = 60
             else:
-                super().tourne_gauche()
+                operateur = 0
+            
+            calcul_intermediaire = self.y - liste_joueur[0].position_y()
+            if calcul_intermediaire < 0 :
+                calcul_intermediaire = -calcul_intermediaire
+            var_intermediaire = (calcul_intermediaire)/(res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y())) # rapport entre la différence de la valeur y entre l'IA et le joueur et la distance entre l'IA et le joueur
+            angle_ile = math.degrees(math.acos(var_intermediaire)) - self.angle + operateur
+            if self.x < liste_joueur[0].position_x() :
+                if angle_ile > 5 :
+                    super().tourne_droite()
+                elif angle_ile < -5:
+                    super().tourne_gauche()
+            else:
+                angle_ile+=180
+                if angle_ile > 5 :
+                    super().tourne_droite()
+                elif angle_ile < -5:
+                    super().tourne_gauche()
+        
+        elif self.ile_in_range(liste_iles)[0] and res.comparaison_valeur_equipement_ile(liste_iles[self.ile_in_range(liste_iles)[1]], self.equipement):
+            pass
 
     def position_x(self):
         return self.x
