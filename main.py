@@ -40,10 +40,11 @@ keyBindList =  [
 
 def start_game():
         # Listes des éléments du jeu
-        liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, playHeight, dt)] #vitesse_max, acceleration, maniabilité, image
+        liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, playHeight, dt, 0)] #vitesse_max, acceleration, maniabilité, image
         liste_ennemis = []
-        for i in range(3):
-            liste_ennemis.append(IA_ennemis(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+        for i in range(2):
+            liste_ennemis.append(IA_ennemis_basiques(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+        liste_ennemis.append(IA_ennemis_chasseurs(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
 
         # dans linterface utilisateur
         liste_texte_degats = []
@@ -178,12 +179,12 @@ while running:
     
     for ennemis in liste_ennemis:
         # a besoin de la position des joueurs pour incliner le deplacement
-        ennemis.bouger(liste_navire)
+        ennemis.bouger(liste_navire, liste_iles, liste_joueur)
         
         for adversaire in liste_navire:
             if adversaire.get_ID() != ennemis.get_ID():
                 # gère le tir de l'ennemi. return None si le joueur n'est pas a porté de l'ennemi
-                tir_ennemi = ennemis.tirer(adversaire.position_x(), adversaire.position_y())
+                tir_ennemi = ennemis.tirer(adversaire.position_x(), adversaire.position_y(), liste_joueur)
                 if tir_ennemi != None: # si ça return none alors il l'efface
                     liste_shot.extend(tir_ennemi) # la fonction de tir return une liste. il faut donc extend pour fusionner les liste et pas append
 
@@ -252,13 +253,13 @@ while running:
                 n.equipInterface(recompense, ile.position_x(), ile.position_y())
                 if n.afficher_items == True:
 
-                    if keys[pygame.K_a]:
-                        if res.calc_distance(liste_joueur[0].position_x(), liste_joueur[0].position_y(), ile.position_x(), ile.position_y()) < 75:
+                    if keys[pygame.K_a] or n.type == 1:
+                        if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                             if ile in liste_iles:
                                 liste_iles.remove(ile)
                                 nbrIles -= 1
-                        liste_joueur[0].afficher_items = False
-                        liste_joueur[0].equiper()
+                        n.afficher_items = False
+                        n.equiper()
                 elif res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                     verifIleMalus = n.verifIleMalus
                     if verifIleMalus == True:
