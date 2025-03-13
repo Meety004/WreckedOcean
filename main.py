@@ -282,12 +282,12 @@ while running:
 
 
         screen.blit(TypeSurfacePast, (0.158*screen_width, 0.068*screen_height))
-        screen.blit(PastTextTitle, (0.158*screen_width, 0.098*screen_height))
-        screen.blit(PastTextDescription, (0.158*screen_width, 0.13*screen_height))
+        screen.blit(PastTextTitle, (0.158*screen_width, 0.102*screen_height))
+        screen.blit(PastTextDescription, (0.159*screen_width, 0.137*screen_height))
 
         screen.blit(TypeSurfaceNew, (0.158*screen_width, 0.200*screen_height))
-        screen.blit(NewTextTitle, (0.158*screen_width, 0.23*screen_height))
-        screen.blit(NewTextDescription, (0.158*screen_width, 0.265*screen_height))
+        screen.blit(NewTextTitle, (0.158*screen_width, 0.234*screen_height))
+        screen.blit(NewTextDescription, (0.159*screen_width, 0.272*screen_height))
             
 
     # Rafraîchir l'écran
