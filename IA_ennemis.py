@@ -181,7 +181,32 @@ class IA_ennemis_stage_2(Navire):
                     super().tourne_gauche()
         
         elif self.ile_in_range(liste_iles)[0] and res.comparaison_valeur_equipement_ile(liste_iles[self.ile_in_range(liste_iles)[1]], self.equipement):
-            pass
+            self.verif_ile = self.ile_in_range(liste_iles)
+            if self.verif_ile[0]: # si une île est à portée, se dirige vers l'île, sinon, se déplace aléatoirement
+                calcul_intermediaire = self.y - liste_iles[self.verif_ile[1]].position_y() # différence de la valeur y entre l'IA et l'île
+                if calcul_intermediaire < 0 :
+                    calcul_intermediaire = -calcul_intermediaire
+                var_intermediaire = (calcul_intermediaire)/(res.calc_distance(self.x, self.y, liste_iles[self.verif_ile[1]].position_x(), liste_iles[self.verif_ile[1]].position_y())) # rapport entre la différence de la valeur y entre l'IA et l'île et la distance entre l'IA et l'île
+                angle_ile = math.degrees(math.acos(var_intermediaire)) - self.angle
+                if self.x < liste_iles[self.verif_ile[1]].position_x() :
+                    if angle_ile > 5 :
+                        super().tourne_droite()
+                    elif angle_ile < -5:
+                        super().tourne_gauche()
+                else:
+                    angle_ile+=180
+                    if angle_ile > 5 :
+                        super().tourne_droite()
+                    elif angle_ile < -5:
+                        super().tourne_gauche()
+        
+        super().accelerer() # Les chasseurs avancent tout le temps
+        super().avancer()
+
+    def tirer(self, inutilex, inutiley, liste_joueur):
+        # si l'ennemi est à distance même s'il n'est pas bien incliné ça tire
+        if self.joueur_in_range(liste_joueur)[1]:
+            return super().shoot()
 
     def position_x(self):
         return self.x

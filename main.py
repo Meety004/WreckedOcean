@@ -37,8 +37,8 @@ def start_game():
         liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, playHeight, dt, 0)] #vitesse_max, acceleration, maniabilité, image
         liste_ennemis = []
         for i in range(2):
-            liste_ennemis.append(IA_ennemis_basiques(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
-        liste_ennemis.append(IA_ennemis_chasseurs(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+            liste_ennemis.append(IA_ennemis_stage_2(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+        #liste_ennemis.append(IA_ennemis_chasseurs(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
 
         # dans linterface utilisateur
         liste_texte_degats = []
@@ -230,7 +230,7 @@ while running:
                 n.equipInterface(recompense, ile.position_x(), ile.position_y())
                 if n.afficher_items == True:
 
-                    if keys[pygame.K_a] or n.type == 1:
+                    if keys[pygame.K_a] or n.type in (1, 3):
                         if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                             if ile in liste_iles:
                                 liste_iles.remove(ile)

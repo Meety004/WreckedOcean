@@ -83,13 +83,13 @@ def valeur_equipement(objet):
     else:
         return -1
 
-def comparaison_valeur_equiment_ile(ile, equipement):
+def comparaison_valeur_equipement_ile(ile, equipement):
     val_equip = (valeur_equipement(equipement['canons'])+valeur_equipement(equipement['voile'])+valeur_equipement(equipement['coque']))/3
-    if ile.type() == 'commun':
+    if ile.type == 'commun':
         val_ile = 1
-    elif ile.type() == 'rare':
+    elif ile.type == 'rare':
         val_ile = 2
-    elif ile.type() == 'mythique':
+    elif ile.type == 'mythique':
         val_ile = 3
     else:
         val_ile = 4
