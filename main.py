@@ -25,10 +25,10 @@ clock = pygame.time.Clock()
 dt = clock.tick(framerate)
 
 # chargment de l'image avec un giga tir
-giga_tir_image = pygame.transform.scale(pygame.image.load("images/interfaces/giga_tir.png"), (70, 70)).convert_alpha()
-rage_image = pygame.transform.scale(pygame.image.load("images/interfaces/rage.png"), (70, 70)).convert_alpha()
-aura_image = pygame.transform.scale(pygame.image.load("images/interfaces/aura.png"), (70, 70)).convert_alpha()
-god_mode_image = pygame.transform.scale(pygame.image.load("images/interfaces/god_mode.png"), (140, 140)).convert_alpha()
+giga_tir_image = pygame.transform.scale(pygame.image.load("images/icons/BenedictionsPlay/giga_tir.png"), (70, 70)).convert_alpha()
+rage_image = pygame.transform.scale(pygame.image.load("images/icons/BenedictionsPlay/rage.png"), (70, 70)).convert_alpha()
+aura_image = pygame.transform.scale(pygame.image.load("images/icons/BenedictionsPlay/aura.png"), (70, 70)).convert_alpha()
+god_mode_image = pygame.transform.scale(pygame.image.load("images/icons/BenedictionsPlay/god_mode.png"), (140, 140)).convert_alpha()
 
 pause = None
 
