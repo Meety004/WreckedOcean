@@ -30,18 +30,6 @@ class IA_ennemis_basiques(Navire):
                 return (True, ile)
         return (False, 0)
 
-    # cette fonction sert uniquement a incliner la position de tir
-    def position_de_tir(self, liste_adversaire):
-            for i in range(len(liste_adversaire)):
-                if liste_adversaire[i].get_ID() != self.ID:
-                    # calcule l'angle entre les 2 points
-                    angle_de_tir = math.degrees(math.atan2(liste_adversaire[i].position_y() - self.y, liste_adversaire[i].position_x() - self.x))
-            # calcule lequel des 2 canons est le plus proche pour s'orienter dans le bon sens
-            if angle_de_tir - self.angle + 90 < angle_de_tir - self.angle - 90:
-                super().tourne_droite()
-            else:
-                super().tourne_gauche()
-
     # Gère les déplacements de l'IA
     def bouger(self, liste_adversaire, liste_iles, inutile):
         self.verif_ile = self.ile_in_range(liste_iles)
@@ -82,9 +70,7 @@ class IA_ennemis_basiques(Navire):
             
             self.action = nouvelle_action
 
-            # s'il y a un ennemi à portée il suit le paterne d'inclinaison pour tirer
             if self.ennemi_in_range(liste_adversaire):
-                self.position_de_tir(liste_adversaire)
                 self.vitesse_max = 9
             else: # si aucun ennemi est à portée il avance comme prévu
                 self.vitesse_max = 5 
@@ -151,4 +137,31 @@ class IA_ennemis_chasseurs(Navire):
         return self.y
 
 class IA_ennemis_stage_2(Navire):
-    pass
+    def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt):
+        super().__init__(v_max, acceleration, maniabilite, image, screen_width, screen_height, dt, 3)
+
+    # vérifie si le joueur est à portée de cette IA
+    def joueur_in_range(self, liste_joueur):
+        if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 500:
+            return (True, True)
+        elif res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 120:
+            return (True, False)
+        else:
+            return (False, False)
+        
+    
+    #cette fonction sert uniquement a incliner la position de tir
+    def position_de_tir(self, liste_joueur):
+            # calcule l'angle entre les 2 points
+            angle_de_tir = math.degrees(math.atan2(liste_joueur[0].position_y() - self.y, liste_joueur[0].position_x() - self.x))
+            # calcule lequel des 2 canons est le plus proche pour s'orienter dans le bon sens
+            if angle_de_tir - self.angle + 90 < angle_de_tir - self.angle - 90:
+                super().tourne_droite()
+            else:
+                super().tourne_gauche()
+
+    def position_x(self):
+        return self.x
+    
+    def position_y(self):
+        return self.y
