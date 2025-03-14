@@ -139,6 +139,7 @@ class IA_ennemis_chasseurs(Navire):
 class IA_ennemis_stage_2(Navire):
     def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt):
         super().__init__(v_max, acceleration, maniabilite, image, screen_width, screen_height, dt, 3)
+        self.action = random.randint(0, 2)
 
     # vérifie si le joueur est à portée de cette IA
     def joueur_in_range(self, liste_joueur):
@@ -204,6 +205,15 @@ class IA_ennemis_stage_2(Navire):
                         super().tourne_droite()
                     elif angle_ile < -5:
                         super().tourne_gauche()
+
+        else:
+            change = random.randint(0, 20)
+            if change == 0:
+                self.action = random.randint(0, 3)
+            if self.action == 0 :
+                super().tourne_droite()
+            elif self.action == 1:
+                super().tourne_gauche()
         
         super().accelerer() # Les chasseurs avancent tout le temps
         super().avancer()
