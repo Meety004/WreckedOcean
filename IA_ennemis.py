@@ -142,7 +142,7 @@ class IA_ennemis_stage_2(Navire):
 
     # vérifie si le joueur est à portée de cette IA
     def joueur_in_range(self, liste_joueur):
-        if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 500:
+        if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 250:
             return (True, True)
         elif res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 120:
             return (True, False)
@@ -158,16 +158,21 @@ class IA_ennemis_stage_2(Navire):
         
     def bouger(self, inutile, liste_iles, liste_joueur):
         if self.joueur_in_range(liste_joueur)[0]:
-            if self.joueur_in_range(liste_joueur)[1] and self.equipement['canons'] not in ('+2 Canons', '+4 Canons'):
-                operateur = 60
+            if self.equipement['canons'] not in ('+2 Canons', '+4 Canons'):
+                if self.x < liste_joueur[0].position_x():
+                    operateur = 60
+                elif self.x > liste_joueur[0].position_x():
+                    operateur = -60
+                else:
+                    operateur = 180
             else:
                 operateur = 0
             
-            calcul_intermediaire = self.y - liste_joueur[0].position_y()
+            calcul_intermediaire = self.y - liste_joueur[0].position_y() - operateur
             if calcul_intermediaire < 0 :
                 calcul_intermediaire = -calcul_intermediaire
-            var_intermediaire = (calcul_intermediaire)/(res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y())) # rapport entre la différence de la valeur y entre l'IA et le joueur et la distance entre l'IA et le joueur
-            angle_ile = math.degrees(math.acos(var_intermediaire)) - self.angle + operateur
+            var_intermediaire = (calcul_intermediaire)/(res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y() + operateur)) # rapport entre la différence de la valeur y entre l'IA et le joueur et la distance entre l'IA et le joueur
+            angle_ile = math.degrees(math.acos(var_intermediaire)) - self.angle
             if self.x < liste_joueur[0].position_x() :
                 if angle_ile > 5 :
                     super().tourne_droite()
@@ -205,7 +210,7 @@ class IA_ennemis_stage_2(Navire):
 
     def tirer(self, inutilex, inutiley, liste_joueur):
         # si l'ennemi est à distance même s'il n'est pas bien incliné ça tire
-        if self.joueur_in_range(liste_joueur)[1]:
+        if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) < 80 :
             return super().shoot()
 
     def position_x(self):
