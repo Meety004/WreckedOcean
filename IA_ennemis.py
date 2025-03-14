@@ -30,18 +30,6 @@ class IA_ennemis_basiques(Navire):
                 return (True, ile)
         return (False, 0)
 
-    # cette fonction sert uniquement a incliner la position de tir
-    def position_de_tir(self, liste_adversaire):
-            for i in range(len(liste_adversaire)):
-                if liste_adversaire[i].get_ID() != self.ID:
-                    # calcule l'angle entre les 2 points
-                    angle_de_tir = math.degrees(math.atan2(liste_adversaire[i].position_y() - self.y, liste_adversaire[i].position_x() - self.x))
-            # calcule lequel des 2 canons est le plus proche pour s'orienter dans le bon sens
-            if angle_de_tir - self.angle + 90 < angle_de_tir - self.angle - 90:
-                super().tourne_droite()
-            else:
-                super().tourne_gauche()
-
     # Gère les déplacements de l'IA
     def bouger(self, liste_adversaire, liste_iles, inutile):
         self.verif_ile = self.ile_in_range(liste_iles)
@@ -82,9 +70,7 @@ class IA_ennemis_basiques(Navire):
             
             self.action = nouvelle_action
 
-            # s'il y a un ennemi à portée il suit le paterne d'inclinaison pour tirer
             if self.ennemi_in_range(liste_adversaire):
-                self.position_de_tir(liste_adversaire)
                 self.vitesse_max = 9
             else: # si aucun ennemi est à portée il avance comme prévu
                 self.vitesse_max = 5 
@@ -151,4 +137,94 @@ class IA_ennemis_chasseurs(Navire):
         return self.y
 
 class IA_ennemis_stage_2(Navire):
-    pass
+    def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt):
+        super().__init__(v_max, acceleration, maniabilite, image, screen_width, screen_height, dt, 3)
+        self.action = random.randint(0, 2)
+
+    # vérifie si le joueur est à portée de cette IA
+    def joueur_in_range(self, liste_joueur):
+        if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 250:
+            return (True, True)
+        elif res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 120:
+            return (True, False)
+        else:
+            return (False, False)
+        
+    # vérifie si une île est à portée
+    def ile_in_range(self, liste_iles):
+        for ile in range(len(liste_iles)):
+            if res.calc_distance(self.x, self.y, liste_iles[ile].position_x(), liste_iles[ile].position_y()) <= 300:
+                return (True, ile)
+        return (False, 0)
+        
+    def bouger(self, inutile, liste_iles, liste_joueur):
+        if self.joueur_in_range(liste_joueur)[0]:
+            if self.equipement['canons'] not in ('+2 Canons', '+4 Canons'):
+                if self.x < liste_joueur[0].position_x():
+                    operateur = 60
+                elif self.x > liste_joueur[0].position_x():
+                    operateur = -60
+                else:
+                    operateur = 180
+            else:
+                operateur = 0
+            
+            calcul_intermediaire = self.y - liste_joueur[0].position_y() - operateur
+            if calcul_intermediaire < 0 :
+                calcul_intermediaire = -calcul_intermediaire
+            var_intermediaire = (calcul_intermediaire)/(res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y() + operateur)) # rapport entre la différence de la valeur y entre l'IA et le joueur et la distance entre l'IA et le joueur
+            angle_ile = math.degrees(math.acos(var_intermediaire)) - self.angle
+            if self.x < liste_joueur[0].position_x() :
+                if angle_ile > 5 :
+                    super().tourne_droite()
+                elif angle_ile < -5:
+                    super().tourne_gauche()
+            else:
+                angle_ile+=180
+                if angle_ile > 5 :
+                    super().tourne_droite()
+                elif angle_ile < -5:
+                    super().tourne_gauche()
+        
+        elif self.ile_in_range(liste_iles)[0] and res.comparaison_valeur_equipement_ile(liste_iles[self.ile_in_range(liste_iles)[1]], self.equipement):
+            self.verif_ile = self.ile_in_range(liste_iles)
+            if self.verif_ile[0]: # si une île est à portée, se dirige vers l'île, sinon, se déplace aléatoirement
+                calcul_intermediaire = self.y - liste_iles[self.verif_ile[1]].position_y() # différence de la valeur y entre l'IA et l'île
+                if calcul_intermediaire < 0 :
+                    calcul_intermediaire = -calcul_intermediaire
+                var_intermediaire = (calcul_intermediaire)/(res.calc_distance(self.x, self.y, liste_iles[self.verif_ile[1]].position_x(), liste_iles[self.verif_ile[1]].position_y())) # rapport entre la différence de la valeur y entre l'IA et l'île et la distance entre l'IA et l'île
+                angle_ile = math.degrees(math.acos(var_intermediaire)) - self.angle
+                if self.x < liste_iles[self.verif_ile[1]].position_x() :
+                    if angle_ile > 5 :
+                        super().tourne_droite()
+                    elif angle_ile < -5:
+                        super().tourne_gauche()
+                else:
+                    angle_ile+=180
+                    if angle_ile > 5 :
+                        super().tourne_droite()
+                    elif angle_ile < -5:
+                        super().tourne_gauche()
+
+        else:
+            change = random.randint(0, 20)
+            if change == 0:
+                self.action = random.randint(0, 3)
+            if self.action == 0 :
+                super().tourne_droite()
+            elif self.action == 1:
+                super().tourne_gauche()
+        
+        super().accelerer() # Les chasseurs avancent tout le temps
+        super().avancer()
+
+    def tirer(self, inutilex, inutiley, liste_joueur):
+        # si l'ennemi est à distance même s'il n'est pas bien incliné ça tire
+        if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) < 80 :
+            return super().shoot()
+
+    def position_x(self):
+        return self.x
+    
+    def position_y(self):
+        return self.y

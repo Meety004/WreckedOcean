@@ -42,9 +42,7 @@ def start_game():
         # Listes des éléments du jeu
         liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, playHeight, dt, 0)] #vitesse_max, acceleration, maniabilité, image
         liste_ennemis = []
-        for i in range(2):
-            liste_ennemis.append(IA_ennemis_basiques(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
-        liste_ennemis.append(IA_ennemis_chasseurs(5, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+        niveau = 0
 
         # dans linterface utilisateur
         liste_texte_degats = []
@@ -99,9 +97,9 @@ def start_game():
         #On appelle le timer pour la première fois
         timer = setTimer()
 
-        return liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats
+        return liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats, niveau
 
-liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats = start_game()
+liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats, niveau = start_game()
 
 # Définition de la couleur de fond (noir)
 BLACK = (0, 0, 0)
@@ -131,7 +129,34 @@ while running:
     # Récupérer l'état des touches
     keys = pygame.key.get_pressed()
 
-    # Gestion des touches du premier navire (pour l'instant impossible de rajouter d'autre joueurs ils ont tous les même touches)
+    #différentes wave d'ennemis
+    if len(liste_ennemis) == 0:
+        if niveau%5 == 0 and niveau != 0:
+            for i in range(niveau // 5):
+                liste_ennemis.append(IA_ennemis_stage_2(7, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+            for i in range((niveau // 10) + 1):
+                liste_ennemis.append(IA_ennemis_chasseurs(7, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+            for i in range(niveau // 3):
+                liste_ennemis.append(IA_ennemis_basiques(7, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+        elif niveau%3 == 0 and niveau != 0:
+            var_intermediaire = niveau // 3
+            if var_intermediaire > 5:
+                var_intermediaire = 5
+            for i in range(var_intermediaire):
+                liste_ennemis.append(IA_ennemis_chasseurs(7, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+            for i in range(var_intermediaire//2):
+                liste_ennemis.append(IA_ennemis_basiques(7, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+        else:
+            if niveau > 10:
+                niveau = 10
+            for i in range(niveau):
+                liste_ennemis.append(IA_ennemis_basiques(7, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+        for i in range(len(liste_ennemis)):
+            liste_navire.append(liste_ennemis[i])
+        
+        niveau += 1
+
+    # Gestion des touches du premier navire (pour l'instant impossible de rajouter d'autre joueurs ils ont tous les mêmes touches)
     if len(liste_joueur) > 0:
 
         for navire_i in liste_joueur:
@@ -233,7 +258,7 @@ while running:
                         liste_ennemis.pop(i)
             liste_navire.remove(navire_i)
     if len(liste_joueur) == 0:
-        liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats = start_game()
+        liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats, niveau = start_game()
         menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
         running = menu.actif(screen_width, screen_height, screen)
         continue
@@ -253,7 +278,7 @@ while running:
                 n.equipInterface(recompense, ile.position_x(), ile.position_y())
                 if n.afficher_items == True:
 
-                    if keys[pygame.K_a] or n.type == 1:
+                    if keys[pygame.K_a] or n.type in (1, 3):
                         if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                             if ile in liste_iles:
                                 liste_iles.remove(ile)
@@ -351,7 +376,7 @@ while running:
         running = menu.actif(screen_width, screen_height, screen)
 
     # Limiter la boucle à 60 images par seconde
-    dt = clock.tick(framerate) # enfaite non ca marche pas
+    dt = clock.tick(framerate) # en fait non ca marche pas
 
 # Quitter Pygame proprement
 pygame.quit()

@@ -29,6 +29,101 @@ class Timer:
         else:
             return False
 
+def valeur_equipement(objet):
+    if objet in listeCanons:
+        i = 0
+        while i<2:
+            if objet == listeCanons[i]:
+                return 1
+            i+=1
+        while i<5:
+            if objet == listeCanons[i]:
+                return 2
+            i+=1
+        while i<8:
+            if objet == listeCanons[i]:
+                return 3
+            i+=1
+        while i<10:
+            if objet == listeCanons[i]:
+                return 4
+            i+=1
+
+    elif objet in listeCoques:
+        i = 0
+        while i<2:
+            if objet == listeCoques[i]:
+                return 1
+            i+=1
+        while i<4:
+            if objet == listeCoques[i]:
+                return 2
+            i+=1
+        while i<5:
+            if objet == listeCoques[i]:
+                return 3
+            i+=1
+        while i<6:
+            if objet == listeCoques[i]:
+                return 4
+            i+=1
+
+    elif objet in listeVoiles:
+        i = 0
+        while i<1:
+            if objet == listeVoiles[i]:
+                return 1
+            i+=1
+        while i<2:
+            if objet == listeVoiles[i]:
+                return 2
+            i+=1
+        while i<3:
+            if objet == listeVoiles[i]:
+                return 3
+            i+=1
+        while i<4:
+            if objet == listeVoiles[i]:
+                return 4
+            i+=1
+
+    elif objet in liste_benedictions:
+        i = 0
+        while i<2:
+            if objet == liste_benedictions[i]:
+                return 2
+            i+=1
+        while i<4:
+            if objet == liste_benedictions[i]:
+                return 3
+            i+=1
+        while i<6:
+            if objet == liste_benedictions[i]:
+                return 4
+            i+=1
+
+    elif objet in listeEquipementStart:
+        return 0
+    
+    else:
+        return -1
+
+def comparaison_valeur_equipement_ile(ile, equipement):
+    val_equip = (valeur_equipement(equipement['canons'])+valeur_equipement(equipement['voile'])+valeur_equipement(equipement['coque']))/3
+    if ile.type == 'commun':
+        val_ile = 1
+    elif ile.type == 'rare':
+        val_ile = 2
+    elif ile.type == 'mythique':
+        val_ile = 3
+    else:
+        val_ile = 4
+    
+    if val_equip<val_ile:
+        return True
+    else:
+        return False
+
 liste_benedictions = [
     "Bénédiction Dash", 
     "Bénédiction Santé",
