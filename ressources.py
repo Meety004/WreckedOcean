@@ -46,8 +46,8 @@ listeCoques = [
 listeVoiles = [
     "Voile de base",
     "Voile en toile de jute",
-    "Voile Latine",
-    "Voile Enchantée", 
+    "Voile latine",
+    "Voile enchantée", 
     "Voile légendaire"
         ]
 

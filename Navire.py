@@ -324,7 +324,6 @@ class Navire:
     def verifIleExiste(self, liste_iles):
         if (self.ile_actuelle is not None) and (self.ile_actuelle not in liste_iles):
             self.afficher_items = False
-            self.image_loaded = False
             self.text_loaded = False
             self.ile_actuelle = None
 
@@ -339,12 +338,9 @@ class Navire:
         elif self.recompense[0] in res.listeCoques:
             self.type = "coque"
 
-        # Si la récompense est un objet
-        if (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus):
 
-            # On vérifie sa distance à l'île
-            if res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
-
+        if res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
+            if (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus):
                 # Si l'interface n'est pas affichée, ou si on s'approche d'une nouvelle île
                 if not self.afficher_items or self.ile_actuelle is None:
 
@@ -356,7 +352,7 @@ class Navire:
                         self.TitleTextNew = None
                         self.DescriptionTextNew = None
                         self.ile_actuelle = ile
-
+                    
                     self.updateDisplayIcon()
                     self.LoadText()
                     self.text_loaded = True
@@ -364,19 +360,18 @@ class Navire:
 
                 self.afficher_items = True
 
-            # Si le joueur s'éloigne de l'île qui a affiché l'interface, on ferme
-            elif self.ile_actuelle == ile:
-                self.afficher_items = False
-                self.text_loaded = False
-                self.ile_actuelle = None  # On oublie l'île actuelle
-
-        else:
-            self.afficher_items = False
-            if self.recompense[0] in res.liste_malus and res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
+            elif self.recompense[0] in res.liste_malus:
                 self.equiper()
                 self.updateDisplayIcon()
                 self.verifIleMalus = True
+            else:
+                print('bénédiction')
 
+        elif (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus) and self.ile_actuelle == ile:
+                self.afficher_items = False
+                self.text_loaded = False
+                self.ile_actuelle = None  # On oublie l'île actuelle
+            
 
         
     def updateDisplayIcon(self): 
@@ -418,6 +413,8 @@ class Navire:
                 self.DisplayIconNew = self.VoileMalus
             elif self.recompense[0] == res.liste_malus[2]:
                 self.DisplayIconNew = self.CoqueMalus
+        else:
+            print('problème')
         print(f"Fin Update {self.DisplayIconPast}, {self.DisplayIconNew}, {self.recompense}")
 
 
