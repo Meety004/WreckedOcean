@@ -92,7 +92,7 @@ class Navire:
         self.TitleTextNew = None
         self.DescriptionTextNew = None
 
-        self.TitleFont = pygame.font.Font(res.fontPixel, 32)
+        self.TitleFont = pygame.font.Font(res.fontPixel, 28)
         self.DescriptionFont = pygame.font.Font(res.fontPixel, 20)
 
         self.text_loaded = False
