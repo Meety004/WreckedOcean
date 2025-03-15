@@ -67,14 +67,22 @@ class Navire:
 
         #Variables qui contiennent les chemins des icones pour chaque type d'équipement
         self.iconCoque = res.CoqueCommun
+        self.iconCoque = pygame.image.load(self.iconCoque).convert_alpha()
+        self.iconCoque = pygame.transform.scale(self.iconCoque, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
         self.iconVoile = res.VoileCommun
+        self.iconVoile = pygame.image.load(self.iconVoile).convert_alpha()
+        self.iconVoile = pygame.transform.scale(self.iconVoile, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
         self.iconCanon = res.CanonCommun
+        self.iconCanon = pygame.image.load(self.iconCanon).convert_alpha()
+        self.iconCanon = pygame.transform.scale(self.iconCanon, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
 
         #Variables qui contiennent les chemins des icones s'affichant sur l'interface de choix d'item
         self.DisplayIconNew = None
         self.DisplayIconPast = None
 
-        self.image_loaded = False
 
         self.ile_actuelle = None  # Stocke l'île qui a ouvert l'interface
 
@@ -89,10 +97,59 @@ class Navire:
 
         self.text_loaded = False
 
-        self.type= None
+        self.type = None
+
+        self.loadImages()
 
 
 
+
+
+    def loadImages(self):
+        self.CanonMalus = pygame.image.load(res.CanonMalus).convert_alpha()
+        self.CanonMalus = pygame.transform.scale(self.CanonMalus, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.VoileMalus = pygame.image.load(res.VoileMalus).convert_alpha()
+        self.VoileMalus = pygame.transform.scale(self.VoileMalus, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.CoqueMalus = pygame.image.load(res.CoqueMalus).convert_alpha()
+        self.CoqueMalus = pygame.transform.scale(self.CoqueMalus, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.CanonCommun = pygame.image.load(res.CanonCommun).convert_alpha()
+        self.CanonCommun = pygame.transform.scale(self.CanonCommun, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.CanonRare = pygame.image.load(res.CanonRare).convert_alpha()
+        self.CanonRare = pygame.transform.scale(self.CanonRare, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.CanonMythique = pygame.image.load(res.CanonMythique).convert_alpha()
+        self.CanonMythique = pygame.transform.scale(self.CanonMythique, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.CanonLegendaire = pygame.image.load(res.CanonLegendaire).convert_alpha()
+        self.CanonLegendaire = pygame.transform.scale(self.CanonLegendaire, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.VoileCommun = pygame.image.load(res.VoileCommun).convert_alpha()
+        self.VoileCommun = pygame.transform.scale(self.VoileCommun, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.VoileRare = pygame.image.load(res.VoileRare).convert_alpha()
+        self.VoileRare = pygame.transform.scale(self.VoileRare, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.VoileMythique = pygame.image.load(res.VoileMythique).convert_alpha()
+        self.VoileMythique = pygame.transform.scale(self.VoileMythique, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.VoileLegendaire = pygame.image.load(res.VoileLegendaire).convert_alpha()
+        self.VoileLegendaire = pygame.transform.scale(self.VoileLegendaire, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.CoqueCommun = pygame.image.load(res.CoqueCommun).convert_alpha()
+        self.CoqueCommun = pygame.transform.scale(self.CoqueCommun, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.CoqueRare = pygame.image.load(res.CoqueRare).convert_alpha()
+        self.CoqueRare = pygame.transform.scale(self.CoqueRare, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.CoqueMythique = pygame.image.load(res.CoqueMythique).convert_alpha()
+        self.CoqueMythique = pygame.transform.scale(self.CoqueMythique, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.CoqueLegendaire = pygame.image.load(res.CoqueLegendaire).convert_alpha()
+        self.CoqueLegendaire = pygame.transform.scale(self.CoqueLegendaire, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
 
 
     # Le bateau avance en fonction de la vitesse, immobile si la vitesse est nulle
@@ -250,16 +307,6 @@ class Navire:
     def getDescriptionTextNew(self):
         return self.DescriptionTextNew
     
-    def LoadImage(self):
-        if not isinstance(self.DisplayIconPast, pygame.Surface):
-            print(self.DisplayIconPast)
-            self.DisplayIconPast = pygame.image.load(self.DisplayIconPast).convert_alpha()
-            self.DisplayIconPast = pygame.transform.scale(self.DisplayIconPast, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
-
-        if not isinstance(self.DisplayIconNew, pygame.Surface):
-            print(self.DisplayIconNew)
-            self.DisplayIconNew = pygame.image.load(self.DisplayIconNew).convert_alpha()
-            self.DisplayIconNew = pygame.transform.scale(self.DisplayIconNew, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
 
     def LoadText(self):
         if not isinstance(self.TitleTextPast, pygame.Surface):
@@ -303,7 +350,6 @@ class Navire:
 
                     if self.ile_actuelle != ile:
                         self.afficher_items = False
-                        self.image_loaded = False
                         self.text_loaded = False
                         self.TitleTextPast = None
                         self.DescriptionTextPast = None
@@ -312,9 +358,7 @@ class Navire:
                         self.ile_actuelle = ile
 
                     self.updateDisplayIcon()
-                    self.LoadImage()
                     self.LoadText()
-                    self.image_loaded = True
                     self.text_loaded = True
                     self.ile_actuelle = ile  # On mémorise l'île qui a ouvert l'interface
 
@@ -323,7 +367,6 @@ class Navire:
             # Si le joueur s'éloigne de l'île qui a affiché l'interface, on ferme
             elif self.ile_actuelle == ile:
                 self.afficher_items = False
-                self.image_loaded = False
                 self.text_loaded = False
                 self.ile_actuelle = None  # On oublie l'île actuelle
 
@@ -341,40 +384,40 @@ class Navire:
         if self.recompense[0] in res.listeCanons:
             self.DisplayIconPast = self.iconCanon
             if self.recompense[1] == "commun":
-                self.DisplayIconNew = res.CanonCommun
+                self.DisplayIconNew = self.CanonCommun
             elif self.recompense[1] == "rare":
-                self.DisplayIconNew = res.CanonRare
+                self.DisplayIconNew = self.CanonRare
             elif self.recompense[1] == "mythique":
-                self.DisplayIconNew = res.CanonMythique
+                self.DisplayIconNew = self.CanonMythique
             elif self.recompense[1] == "légendaire":
-                self.DisplayIconNew = res.CanonLegendaire
+                self.DisplayIconNew = self.CanonLegendaire
         elif self.recompense[0] in res.listeCoques:
             self.DisplayIconPast = self.iconCoque
             if self.recompense[1] == "commun":
-                self.DisplayIconNew = res.CoqueCommun
+                self.DisplayIconNew = self.CoqueCommun
             elif self.recompense[1] == "rare":
-                self.DisplayIconNew = res.CoqueRare
+                self.DisplayIconNew = self.CoqueRare
             elif self.recompense[1] == "mythique":
-                self.DisplayIconNew = res.CoqueMythique
+                self.DisplayIconNew = self.CoqueMythique
             elif self.recompense[1] == "légendaire":
-                self.DisplayIconNew = res.CoqueLegendaire
+                self.DisplayIconNew = self.CoqueLegendaire
         elif self.recompense[0] in res.listeVoiles:
             self.DisplayIconPast = self.iconVoile
             if self.recompense[1] == "commun":
-                self.DisplayIconNew = res.VoileCommun
+                self.DisplayIconNew = self.VoileCommun
             elif self.recompense[1] == "rare":
-                self.DisplayIconNew = res.VoileRare
+                self.DisplayIconNew = self.VoileRare
             elif self.recompense[1] == "mythique":
-                self.DisplayIconNew = res.VoileMythique
+                self.DisplayIconNew = self.VoileMythique
             elif self.recompense[1] == "légendaire":
-                self.DisplayIconNew = res.VoileLegendaire
+                self.DisplayIconNew = self.VoileLegendaire
         elif self.recompense[0] in res.liste_malus:
             if self.recompense[0] == res.liste_malus[0]:
-                self.DisplayIconNew = res.CanonCommun
+                self.DisplayIconNew = self.CanonMalus
             elif self.recompense[0] == res.liste_malus[1]:
-                self.DisplayIconNew = res.VoileCommun
+                self.DisplayIconNew = self.VoileMalus
             elif self.recompense[0] == res.liste_malus[2]:
-                self.DisplayIconNew = res.CoqueCommun
+                self.DisplayIconNew = self.CoqueMalus
         print(f"Fin Update {self.DisplayIconPast}, {self.DisplayIconNew}, {self.recompense}")
 
 
@@ -391,7 +434,6 @@ class Navire:
             self.equipement['coque'] = self.recompense[0]
         print(self.equipement)
         self.effetItem()
-        self.updateDisplayIcon()
 
 
     def effetItem(self):
