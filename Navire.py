@@ -486,7 +486,12 @@ class Navire:
 
         if self.recompense[0] in res.liste_malus:
             if self.equipement['voile'] == "Voile Trouée":
+                self.iconVoile = self.DisplayIconNew
                 self.VoileMaxVitesse = 0.5
+            elif self.equipement['canons'] == "Canons Rouillés":
+                self.iconCanon = self.DisplayIconNew
+            elif self.equipement["coque"] == "Coque Trouée":
+                self.iconCoque = self.DisplayIconNew
 
         self.maxVie = self.maxVie + self.VoileMaxVie + self.CoqueMaxVie
         self.vitesse_max = self.vitesse_max * self.VoileMaxVitesse * self.CoqueMaxVitesse
