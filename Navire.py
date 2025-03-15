@@ -1,3 +1,12 @@
+# BUG ACTUEL:
+# Lorsque que le bateau a équipé un item de chaque type, (ex voile puis canon, puis coque)
+# et qu'il approche une il qui ne contient pas le type du dernier item équipé
+# l'icone du dernier item équipé reste affiché sur l'interface de choix d'item
+# donc soit iconCoque soit iconVoile soit iconCanon prend une mauvaise valeur une fois que tous les 3 ont été changés.
+
+
+
+
 # IMPORTS
 
 import math
@@ -104,7 +113,7 @@ class Navire:
 
 
 
-
+    #On charge toutes les icones pour éviter des ralentissements pendant le jeu
     def loadImages(self):
         self.CanonMalus = pygame.image.load(res.CanonMalus).convert_alpha()
         self.CanonMalus = pygame.transform.scale(self.CanonMalus, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
@@ -361,11 +370,13 @@ class Navire:
                 self.afficher_items = True
 
             elif self.recompense[0] in res.liste_malus:
-                self.equiper()
                 self.updateDisplayIcon()
+                self.equiper()
                 self.verifIleMalus = True
-            else:
+            elif self.recompense[0] in res.liste_benedictions:
                 print('bénédiction')
+            else:
+                print('problème nom')
 
         elif (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus) and self.ile_actuelle == ile:
                 self.afficher_items = False
