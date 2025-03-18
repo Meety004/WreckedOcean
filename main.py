@@ -15,9 +15,13 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 
 # Initialisation du delta time pour avoir la même vitesse sur tout les ordis
-framerate = 120
+framerate = 60
 clock = pygame.time.Clock()
 dt = clock.tick(framerate)
+
+# Background
+ocean = pygame.image.load("images/Backgrounds/ocean background.jpg").convert_alpha()
+ocean = pygame.transform.scale(ocean, (screen_width, (playHeight + (1/34 * screen_height)))).convert_alpha()
 
 TypeFontPast = pygame.font.Font(res.fontPixel, 32)
 TypeSurfacePast = TypeFontPast.render("Votre équipement actuel:", True, (0, 0, 0))
@@ -250,8 +254,6 @@ while running:
     screen.fill((170, 170, 170))
 
     # affichage de l'ocean en fond
-    ocean = pygame.image.load("images/Backgrounds/ocean background.jpg").convert_alpha()
-    ocean = pygame.transform.scale(ocean, (screen_width, (playHeight + (1/34 * screen_height)))).convert_alpha()
     screen.blit(ocean, (0, 0))
 
     # Dessine les navires
