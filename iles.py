@@ -13,8 +13,8 @@ class Iles:
         self.screen_height = screen_height
 
         # Taille de l'île
-        self.width = 50
-        self.height = 50
+        self.width = 5.20/100*screen_width
+        self.height = 11.56/100*screen_height
 
         # Choix du type d'île
         self.typeList = choices(self.ile_rarete, weights=[0.50, 0.36, 0.1, 0.04], k=1)
@@ -43,10 +43,10 @@ class Iles:
 
         #Liste des récompenses de chaque type d'ile, ainsi que leurs probabilités
         self.liste_recompenses_communes = ['+1 Canon', 'Canon en bronze', 'Voile en toile de jute', 'Coque épicéa', 'Coque chêne', self.random_malus()[0]]
-        self.probabilité_commun = [0.1, 0.2, 0.2, 0.1, 0.2, 0.2]
-        self.liste_recompenses_rares = ['+2 Canons', 'Canon en argent', 'Canon Ballistique', 'Voile Latine', 'Coque en bouleau', 'Coque en chêne massif', 'Bénédiction Dash', 'Bénédiction Santé']
+        self.probabilité_commun = [0.2, 0.2, 0.2, 0.1, 0.2, 0.1]
+        self.liste_recompenses_rares = ['+2 Canons', 'Canon en argent', 'Canon ballistique', 'Voile latine', 'Coque en bouleau', 'Coque en chêne massif', 'Bénédiction Dash', 'Bénédiction Santé']
         self.probabilité_rare = [0.1, 0.175, 0.1, 0.175, 0.1, 0.1, 0.125, 0.125]
-        self.liste_recompenses_mythiques = ['+3 Canons', 'Canon en or', 'Canon à tirs doubles', 'Voile Enchantée', 'Coque en bois magique', "Bénédiction d'aura", 'Bénédiciton de rage']
+        self.liste_recompenses_mythiques = ['+3 Canons', 'Canon en or', 'Canon à tirs doubles', 'Voile enchantée', 'Coque en bois magique', "Bénédiction d'aura", 'Bénédiciton de rage']
         self.probabilité_mythique = [0.12, 0.12, 0.12, 0.12, 0.12, 0.2, 0.2]
         self.liste_recompenses_legendaires = ['+4 Canons', 'Canon légendaire', 'Voile légendaire', 'Coque légendaire', 'Bénédiction GodMode', 'Bénédiction Projectile']
         self.probabilité_legendaire = [0.125, 0.125, 0.125, 0.125, 0.25, 0.25]
@@ -62,8 +62,8 @@ class Iles:
         verifProx = False
 
         while verifProx == False:
-            self.x = randint(35, (self.screen_width-35))
-            self.y = uniform(35, (self.screen_height-35))
+            self.x = randint(100, (self.screen_width-100))
+            self.y = uniform(100, (self.screen_height-100))
             for i in range(len(self.listeNav)):
                 distanceIleNav =  res.calc_distance(self.x, self.y, self.listeNav[i].position_x(), self.listeNav[i].position_y())
                 if distanceIleNav >= 40:
@@ -71,7 +71,7 @@ class Iles:
                 else:
                     verifProx = False
 
-        self.timer = randint(400,900)
+        self.timer = randint(1000,2000)
 
         self.weights = self.dict_iles[self.type]
         if self.type == 'légendaire':
