@@ -419,8 +419,8 @@ class Navire:
                 self.DisplayIconNew = self.VoileMalus
             elif self.recompense[0] == res.liste_malus[2]:
                 self.DisplayIconNew = self.CoqueMalus
-        else:
-            print('problème')
+        elif self.recompense[0] not in res.listeCanons and self.recompense[0] not in res.listeCoques and self.recompense[0] not in res.listeVoiles and self.recompense[0] not in res.liste_malus:
+            print('problème de liste res')
         print(f"Fin Update {self.DisplayIconPast}, {self.DisplayIconNew}, {self.recompense}")
 
 
@@ -488,7 +488,7 @@ class Navire:
         if self.recompense[0] in res.listeCanons:
             self.iconCanon = self.DisplayIconNew
             if (self.equipement['canons'] == "Canon en or") or (self.equipement['canons'] == "Canon légendaire"):
-                self.cadance_tir = 900
+                self.cadance_tir = 800
 
         if self.recompense[0] in res.liste_malus:
             if self.equipement['voile'] == "Voile Trouée":
