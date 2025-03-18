@@ -24,6 +24,10 @@ framerate = 60
 clock = pygame.time.Clock()
 dt = clock.tick(framerate)
 
+#bg
+ocean = pygame.image.load("images/Backgrounds/ocean background.jpg").convert_alpha()
+ocean = pygame.transform.scale(ocean, (screen_width, (playHeight + (1/34 * screen_height)))).convert_alpha()
+
 # chargment de l'image avec un giga tir
 giga_tir_image = pygame.transform.scale(pygame.image.load("images/icons/BenedictionsPlay/giga_tir.png"), (70, 70)).convert_alpha()
 rage_image = pygame.transform.scale(pygame.image.load("images/icons/BenedictionsPlay/rage.png"), (70, 70)).convert_alpha()
@@ -305,8 +309,6 @@ while running:
     screen.fill((170, 170, 170))
 
     # affichage de l'ocean en fond
-    ocean = pygame.image.load("images/Backgrounds/ocean background.jpg").convert_alpha()
-    ocean = pygame.transform.scale(ocean, (screen_width, (playHeight + (1/34 * screen_height)))).convert_alpha()
     screen.blit(ocean, (0, 0))
 
     # Dessine les navires
