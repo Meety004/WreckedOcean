@@ -192,7 +192,6 @@ while running:
         
     for navire_i in liste_navire:
         if navire_i.is_dead():
-            print("Navire :", navire_i.get_ID, "est mort")
             if len(liste_joueur) > 0:
                 for i in range(len(liste_joueur)-1, -1, -1):
                     if liste_joueur[i].get_ID() == navire_i.get_ID():
