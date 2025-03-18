@@ -15,7 +15,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 
 # Initialisation du delta time pour avoir la même vitesse sur tout les ordis
-framerate = 60
+framerate = 120
 clock = pygame.time.Clock()
 dt = clock.tick(framerate)
 
@@ -234,8 +234,9 @@ while running:
                 elif res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) <= 75:
                     verifIleMalus = n.verifIleMalus
                     if verifIleMalus == True:
-                        liste_iles.remove(ile)
-                        verifIleMalus = False
+                        if ile in liste_iles:
+                            liste_iles.remove(ile)
+                            verifIleMalus = False
 
 
     # Appelle de la fonction de compte à rebours pour apparition des îles

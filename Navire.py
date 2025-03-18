@@ -373,10 +373,6 @@ class Navire:
                 self.updateDisplayIcon()
                 self.equiper()
                 self.verifIleMalus = True
-            elif self.recompense[0] in res.liste_benedictions:
-                print('bénédiction')
-            else:
-                print('problème nom')
 
         elif (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus) and self.ile_actuelle == ile:
                 self.afficher_items = False
@@ -386,7 +382,6 @@ class Navire:
 
         
     def updateDisplayIcon(self): 
-        print(f"Début Update {self.DisplayIconPast}, {self.DisplayIconNew}, {self.recompense}")
         if self.recompense[0] in res.listeCanons:
             self.DisplayIconPast = self.iconCanon
             if self.recompense[1] == "commun":

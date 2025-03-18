@@ -25,7 +25,7 @@ listeCanons = [
     "Canon en bronze",
     "+2 Canons", 
     "Canon en argent", 
-    "Canon Ballistique",
+    "Canon ballistique",
     "+3 Canons", 
     "Canon en or", 
     "Canon à tirs doubles",
