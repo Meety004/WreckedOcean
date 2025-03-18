@@ -71,9 +71,9 @@ class IA_ennemis_basiques(Navire):
             self.action = nouvelle_action
 
             if self.ennemi_in_range(liste_adversaire):
-                self.vitesse_max = 9
+                self.vitesse_max = 5
             else: # si aucun ennemi est à portée il avance comme prévu
-                self.vitesse_max = 5 
+                self.vitesse_max = 4
                 if self.action == 1:
                     super().tourne_droite()
                 if self.action == 2:

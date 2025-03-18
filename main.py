@@ -44,7 +44,7 @@ keyBindList =  [
 
 def start_game():
         # Listes des éléments du jeu
-        liste_joueur = [Navire(7, 0.2, 5, "images/Textures/Bateaux/bato_j1.png", screen_width, playHeight, dt, 0)] #vitesse_max, acceleration, maniabilité, image
+        liste_joueur = [Navire(4, 0.1, 4, "images/Textures/Bateaux/bato_j1.png", screen_width, playHeight, dt, 0)] #vitesse_max, acceleration, maniabilité, image
         liste_ennemis = []
         niveau = 0
 
@@ -137,24 +137,24 @@ while running:
     if len(liste_ennemis) == 0:
         if niveau%5 == 0 and niveau != 0:
             for i in range(niveau // 5):
-                liste_ennemis.append(IA_ennemis_stage_2(7, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+                liste_ennemis.append(IA_ennemis_stage_2(4, 0.1, 4, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
             for i in range((niveau // 10) + 1):
-                liste_ennemis.append(IA_ennemis_chasseurs(7, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+                liste_ennemis.append(IA_ennemis_chasseurs(4, 0.1, 4, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
             for i in range(niveau // 3):
-                liste_ennemis.append(IA_ennemis_basiques(7, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+                liste_ennemis.append(IA_ennemis_basiques(4, 0.1, 4, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
         elif niveau%3 == 0 and niveau != 0:
             var_intermediaire = niveau // 3
             if var_intermediaire > 5:
                 var_intermediaire = 5
             for i in range(var_intermediaire):
-                liste_ennemis.append(IA_ennemis_chasseurs(7, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+                liste_ennemis.append(IA_ennemis_chasseurs(4, 0.1, 4, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
             for i in range(var_intermediaire//2):
-                liste_ennemis.append(IA_ennemis_basiques(7, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+                liste_ennemis.append(IA_ennemis_basiques(4, 0.1, 4, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
         else:
             if niveau > 10:
                 niveau = 10
             for i in range(niveau):
-                liste_ennemis.append(IA_ennemis_basiques(7, 0.2, 5, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
+                liste_ennemis.append(IA_ennemis_basiques(4, 0.1, 4, "images/Textures/Bateaux/bato.png", screen_width, playHeight, dt))
         for i in range(len(liste_ennemis)):
             liste_navire.append(liste_ennemis[i])
         

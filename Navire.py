@@ -22,8 +22,8 @@ class Navire:
         original_image = pygame.image.load(image).convert_alpha()
         original_image = pygame.transform.scale(original_image, (self.width, self.height)).convert_alpha()
         self.image = original_image  # Image qui sera affichée
-        self.dernier_tire = 0 # le denier tire fait par le bateau pour le chrono
-        self.cadance_tire = 1000 # en milliseconde
+        self.dernier_tir = 0 # le denier tire fait par le bateau pour le chrono
+        self.cadence_tir = 1000 # en milliseconde
         self.ID = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
         self.maxVie = 50
         self.vie = self.maxVie
@@ -155,8 +155,8 @@ class Navire:
 
     def shoot(self):
         # verifie si il a rechargé
-        if pygame.time.get_ticks() - self.dernier_tire >= self.cadance_tire:
-            self.dernier_tire = pygame.time.get_ticks()
+        if pygame.time.get_ticks() - self.dernier_tir >= self.cadence_tir:
+            self.dernier_tir = pygame.time.get_ticks()
 
             # argument : x, y, angle, distance_max, image
             # l'angle est ajusté en fonction de la vitesse du bateau. si il avance les boulet continue dans sa direction
@@ -294,8 +294,8 @@ class Navire:
     def effetItem(self):
         self.updateIcons()
         self.maxVie = 50
-        self.vitesse_max = 7
-        self.maniabilite = 5
+        self.vitesse_max = 4
+        self.maniabilite = 4
 
         if self.recompense[0] in res.listeCoques:
             self.DisplayIconPast = self.AncienneiconCoque
