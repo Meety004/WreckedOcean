@@ -34,9 +34,33 @@ class Shot:
         self.inraged = inraged
 
     # le boulet avance
-    def avancer(self):
-        self.x += self.vitesse * math.cos(math.radians(self.angle - 90))
-        self.y += self.vitesse * math.sin(math.radians(self.angle - 90))
+    def avancer(self, liste_navire):
+        bateaux_in_range = []
+        bateau_proche = None
+        for i in range(len(liste_navire)):
+            if res.calc_distance(self.x, self.y, liste_navire[i].position_x(), liste_navire[i].position_y()) <= 20:
+                bateaux_in_range.append((liste_navire[i], res.calc_distance(self.x, self.y, liste_navire[i].position_x(), liste_navire[i].position_y())))
+        if len(bateaux_in_range) > 0:
+            bateau_proche = bateaux_in_range[0]
+        if bateau_proche is not None:
+            for i in range(len(bateaux_in_range)):
+                if bateaux_in_range[i][1] > bateau_proche[1]:
+                    bateau_proche = bateaux_in_range[i]
+
+        if bateau_proche is not None:
+            if self.x > bateau_proche[0].x:
+                self.x -= self.vitesse
+            else:
+                self.x += self.vitesse
+            if self.y > bateau_proche[0].y:
+                self.y -= self.vitesse
+            else:
+                self.y += self.vitesse
+        else:
+            self.x += self.vitesse * math.cos(math.radians(self.angle - 90))
+            self.y += self.vitesse * math.sin(math.radians(self.angle - 90))
+
+
     
     def collision(self, cible_x, cible_y, cible_ID):
         # verifie si le boulet de canon est dans le bateau pour les x (on calcule par rapport a l'inclinaison du bateau aussi)

@@ -217,7 +217,7 @@ while running:
 
     for shot_i in reversed(liste_shot):
         if shot_i[0] is not None: # deuxieme verification pour voir si il n'y a pas de None dans les tir car ca casse tout
-            shot_i[0].avancer()
+            shot_i[0].avancer(liste_navire)
             if shot_i[0].despawn_distance():
                 liste_shot.remove(shot_i)
             for i in range(len(liste_navire)-1, -1, -1):
