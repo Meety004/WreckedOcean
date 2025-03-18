@@ -38,8 +38,9 @@ class Shot:
         bateaux_in_range = []
         bateau_proche = None
         for i in range(len(liste_navire)):
-            if res.calc_distance(self.x, self.y, liste_navire[i].position_x(), liste_navire[i].position_y()) <= 20:
+            if res.calc_distance(self.x, self.y, liste_navire[i].position_x(), liste_navire[i].position_y()) <= 20 and self.ID_tireur != liste_navire[i].ID:
                 bateaux_in_range.append((liste_navire[i], res.calc_distance(self.x, self.y, liste_navire[i].position_x(), liste_navire[i].position_y())))
+                print("coucou")
         if len(bateaux_in_range) > 0:
             bateau_proche = bateaux_in_range[0]
         if bateau_proche is not None:
