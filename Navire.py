@@ -499,12 +499,12 @@ class Navire:
                 self.cadance_tir = 600
 
         elif self.recompense[0] in res.liste_malus:
-            if self.equipement['voile'] == "Voile Trouée":
+            if self.recompense[0] == "Voile Trouée":
                 self.iconVoile = self.DisplayIconNew
                 self.VoileMaxVitesse = 0.5
-            elif self.equipement['canons'] == "Canons Rouillés":
+            elif self.recompense[0] == "Canons Rouillés":
                 self.iconCanon = self.DisplayIconNew
-            elif self.equipement["coque"] == "Coque Trouée":
+            elif self.recompense[0] == "Coque Trouée":
                 self.iconCoque = self.DisplayIconNew
 
         self.maxVie = self.maxVie + self.VoileMaxVie + self.CoqueMaxVie
