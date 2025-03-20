@@ -8,11 +8,6 @@ import ressources as res
 # importation de la classe Navire
 from Navire import Navire
 
-# comportement de l'IA
-# actuel : avance sans jamais s'arreter et essaye de garder une direction coherente (ne vas jamais tt le temps tout droit et ne tourne pas en rond)
-# fonctionnement : l'IA a une action de base. il a 2 chance sur 50 de changer d'action. si l'action est la meme 23 fois de suite il doit changer (permet de ne pas faire un trop gros tour)
-# a venir : evitement des bordure de la map
-
 class IA_ennemis(Navire):
     def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt):
         super().__init__(v_max, acceleration, maniabilite, image, screen_width, screen_height, dt)

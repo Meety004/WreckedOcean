@@ -422,10 +422,13 @@ class Navire:
         elif self.recompense[0] in res.liste_malus:
             type = "malus"
             if self.recompense[0] == res.liste_malus[0]:
+                self.DisplayIconPast = self.iconCanon
                 self.DisplayIconNew = self.CanonMalus
             elif self.recompense[0] == res.liste_malus[1]:
+                self.DisplayIconPast = self.iconVoile
                 self.DisplayIconNew = self.VoileMalus
             elif self.recompense[0] == res.liste_malus[2]:
+                self.DisplayIconPast = self.iconCoque
                 self.DisplayIconNew = self.CoqueMalus
         elif self.recompense[0] not in res.listeCanons and self.recompense[0] not in res.listeCoques and self.recompense[0] not in res.listeVoiles and self.recompense[0] not in res.liste_malus:
             print('problème de liste res')
@@ -496,15 +499,15 @@ class Navire:
         elif self.recompense[0] in res.listeCanons:
             self.iconCanon = self.DisplayIconNew
             if (self.equipement['canons'] == "Canon en or") or (self.equipement['canons'] == "Canon légendaire"):
-                self.cadance_tir = 800
+                self.cadance_tir = 600
 
         elif self.recompense[0] in res.liste_malus:
-            if self.equipement['voile'] == "Voile Trouée":
+            if self.recompense[0] == "Voile Trouée":
                 self.iconVoile = self.DisplayIconNew
                 self.VoileMaxVitesse = 0.5
-            elif self.equipement['canons'] == "Canons Rouillés":
+            elif self.recompense[0] == "Canons Rouillés":
                 self.iconCanon = self.DisplayIconNew
-            elif self.equipement["coque"] == "Coque Trouée":
+            elif self.recompense[0] == "Coque Trouée":
                 self.iconCoque = self.DisplayIconNew
 
         self.maxVie = self.maxVie + self.VoileMaxVie + self.CoqueMaxVie
