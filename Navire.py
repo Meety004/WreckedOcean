@@ -381,9 +381,11 @@ class Navire:
             
 
         
-    def updateDisplayIcon(self): 
+    def updateDisplayIcon(self):
+        type = None
         if self.recompense[0] in res.listeCanons:
             self.DisplayIconPast = self.iconCanon
+            type = "canon"
             if self.recompense[1] == "commun":
                 self.DisplayIconNew = self.CanonCommun
             elif self.recompense[1] == "rare":
@@ -394,6 +396,7 @@ class Navire:
                 self.DisplayIconNew = self.CanonLegendaire
         elif self.recompense[0] in res.listeCoques:
             self.DisplayIconPast = self.iconCoque
+            type = "coque"
             if self.recompense[1] == "commun":
                 self.DisplayIconNew = self.CoqueCommun
             elif self.recompense[1] == "rare":
@@ -404,6 +407,7 @@ class Navire:
                 self.DisplayIconNew = self.CoqueLegendaire
         elif self.recompense[0] in res.listeVoiles:
             self.DisplayIconPast = self.iconVoile
+            type = "voile"
             if self.recompense[1] == "commun":
                 self.DisplayIconNew = self.VoileCommun
             elif self.recompense[1] == "rare":
@@ -413,6 +417,7 @@ class Navire:
             elif self.recompense[1] == "légendaire":
                 self.DisplayIconNew = self.VoileLegendaire
         elif self.recompense[0] in res.liste_malus:
+            type = "malus"
             if self.recompense[0] == res.liste_malus[0]:
                 self.DisplayIconPast = self.iconCanon
                 self.DisplayIconNew = self.CanonMalus
@@ -422,9 +427,9 @@ class Navire:
             elif self.recompense[0] == res.liste_malus[2]:
                 self.DisplayIconPast = self.iconCoque
                 self.DisplayIconNew = self.CoqueMalus
-        else:
-            print('problème')
-        print(f"Fin Update {self.DisplayIconPast}, {self.DisplayIconNew}, {self.recompense}")
+        elif self.recompense[0] not in res.listeCanons and self.recompense[0] not in res.listeCoques and self.recompense[0] not in res.listeVoiles and self.recompense[0] not in res.liste_malus:
+            print('problème de liste res')
+        print(f"Fin Update {self.DisplayIconPast}, {self.DisplayIconNew}, {self.recompense}, type d'ile {type}")
 
 
 
@@ -473,7 +478,7 @@ class Navire:
                 self.vie += 60
                 self.CoqueMaxVitesse = 1.3
 
-        if self.recompense[0] in res.listeVoiles:
+        elif self.recompense[0] in res.listeVoiles:
             self.iconVoile = self.DisplayIconNew
             self.VoileMaxVitesse = 1
             self.VoileMaxVie = 0
@@ -488,12 +493,12 @@ class Navire:
                 self.VoileMaxVitesse = 1.3
                 self.maniabilite = self.maniabilite * 1.05
 
-        if self.recompense[0] in res.listeCanons:
+        elif self.recompense[0] in res.listeCanons:
             self.iconCanon = self.DisplayIconNew
             if (self.equipement['canons'] == "Canon en or") or (self.equipement['canons'] == "Canon légendaire"):
-                self.cadance_tir = 900
+                self.cadance_tir = 800
 
-        if self.recompense[0] in res.liste_malus:
+        elif self.recompense[0] in res.liste_malus:
             if self.equipement['voile'] == "Voile Trouée":
                 self.iconVoile = self.DisplayIconNew
                 self.VoileMaxVitesse = 0.5
@@ -504,4 +509,3 @@ class Navire:
 
         self.maxVie = self.maxVie + self.VoileMaxVie + self.CoqueMaxVie
         self.vitesse_max = self.vitesse_max * self.VoileMaxVitesse * self.CoqueMaxVitesse
-        self.DisplayIconNew = None
