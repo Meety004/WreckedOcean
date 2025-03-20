@@ -138,6 +138,6 @@ Voici la liste de tous ces bénédicitons triées par rareté, avec leur probabi
 Notre professeur, M. MARIE-JEANNE nous a accompagné pendant toute la durée de ce projet, nous apportant solutions et idées nouvelles.
 Voici la liste des élèves ayant participé au projet **Wrecked Ocean**.
 - BELLEC-ESCALERA Elliot - Réalisation, Développement
-- CADEAU--FLAUJAT Gabriel - Textures, Réalisation, Développement
+- CADEAU--FLAUJAT Gabriel - Textures, Réalisation, Développement, Documentation
 - KELEMEN Thomas - Développement
-- GABRIEL Tom - Réalisation vidéo
+- GABRIEL Tom - Réalisation vidéo, Textures, Documentation
