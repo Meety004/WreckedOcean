@@ -317,24 +317,24 @@ while running:
     screen.blit(texte, (screen_width*0.47, screen_height*0.91))
 
     # affiche la vitesse de joueur
-    texte_vitesse = police.render("max speed : " + str(round(liste_joueur[0].get_max_speed())), True, (25, 128, 212))
+    texte_vitesse = police.render("Vitesse Max : " + str(round(liste_joueur[0].get_max_speed())), True, (25, 128, 212))
     screen.blit(texte_vitesse, (screen_width*0.44, screen_height*0.95))
 
     # affiche les degats du joueur
     if liste_joueur[0].getEquipement()["canons"] == "Canon en bronze":
-        texte_degats = police.render("degats : 18", True, (179, 0, 0))
+        texte_degats = police.render("Dégats : 18", True, (179, 0, 0))
     if liste_joueur[0].getEquipement()["canons"] == "Canon en argent":
-        texte_degats = police.render("degats : 20", True, (179, 0, 0))
+        texte_degats = police.render("Dégats : 20", True, (179, 0, 0))
     if liste_joueur[0].getEquipement()["canons"] == "Canon en or":
-        texte_degats = police.render("degats : 25", True, (179, 0, 0))
+        texte_degats = police.render("Dégats : 25", True, (179, 0, 0))
     if liste_joueur[0].getEquipement()["canons"] == "Canon légendaire":
-        texte_degats = police.render("degats : 35", True, (179, 0, 0))
+        texte_degats = police.render("Dégats : 35", True, (179, 0, 0))
     else:
-        texte_degats = police.render("degats : 15", True, (179, 0, 0))
+        texte_degats = police.render("Dégats : 15", True, (179, 0, 0))
     screen.blit(texte_degats, (screen_width*0.34, screen_height*0.90))
 
     # affiche la cadance de tire du joueur
-    texte_cadance = police.render("cadence : " + str(1000/liste_navire[0].get_cadance_tir()) + "tirs/s" , True, (179, 0, 0))
+    texte_cadance = police.render("Cadence : " + str(1000/liste_navire[0].get_cadance_tir()) + "tirs/s" , True, (179, 0, 0))
     screen.blit(texte_cadance, (screen_width*0.55, screen_height*0.90))
 
 
