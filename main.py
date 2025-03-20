@@ -285,9 +285,10 @@ while running:
     TypeSurfaceVoile = TypeFontPast.render(dictItems['voile'], True, (0, 0, 0))
     TypeSurfaceCoque = TypeFontPast.render(dictItems['coque'], True, (0, 0, 0))
 
-    screen.blit(TypeSurfaceCanon, (0.86*screen_width, 0.837*screen_height))
+    screen.blit(TypeSurfaceCanon, (0.86*screen_width, 0.955*screen_height))
     screen.blit(TypeSurfaceVoile, (0.86*screen_width, 0.897*screen_height))
-    screen.blit(TypeSurfaceCoque, (0.86*screen_width, 0.955*screen_height))
+    screen.blit(TypeSurfaceCoque, (0.86*screen_width, 0.837*screen_height))
+
 
 
 
