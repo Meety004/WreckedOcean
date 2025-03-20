@@ -551,3 +551,9 @@ class Navire:
                 self.AncienneiconCoque = self.iconCoque
                 self.iconCoque = res.CoqueLegendaire
 
+    
+    def heal_par_vague(self):
+        if self.maxVie - self.vie <= 30:
+            self.vie = self.maxVie
+        else:
+            self.vie += 30

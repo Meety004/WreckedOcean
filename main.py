@@ -157,6 +157,7 @@ while running:
         for i in range(len(liste_ennemis)):
             liste_navire.append(liste_ennemis[i])
         
+        liste_joueur[0].heal_par_vague()
         niveau += 1
 
     # Gestion des touches du premier navire (pour l'instant impossible de rajouter d'autre joueurs ils ont tous les mêmes touches)
