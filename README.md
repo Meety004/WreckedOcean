@@ -28,9 +28,9 @@ Si vous souhaitez équiper l'objet, cliquez sur la touche 'A', qui fermera la fe
 
 ## __**Les bénédictions**__
 Lorsque l'interface des bénédictions s'ouvrira quand vous serez à proximité d'une île, vous pourrez apercevoir l'icône symbolisant la bénédiction se trouvant sur l'île ainsi qu'une description de ses effets. Vous pourrez aussi trouver deux bulles numérotées '1' et '2'. Ces bulles sont vos espaces de stockages de bénédictions. '1' étant l'espace de stockage de votre bénédiction principale, et '2' l'espace de stockage de votre bénédiction secondaire. Si vous souhaitez prendre la bénédiction se trouvant sur l'île, appuyer sur la touche du clavier (1 ou 2) à laquelle vous voulez assigner le déclenchement de la bénédiction. Notez qu'une bénédiction sur l'emplacement principal n'aura pas les mêmes effets que si elle est placée dans l'emplacement secondaire. SI au contraire, elle ne vous intéresse pas, continuez votre chemin. La bénédiction pourra être récupérée par un ennemi, ou disparaitra au bout d'un certain temps.
-Vous pouvez avoir jusqu'à deux bénédictions en même temps.
+Vous pouvez avoir jusqu'à deux bénédictions en même temps, une principale et une secondaire.
 Pour utiliser les bénédictions, utilisez simplement la touche que vous avez assignée à la bénédiction.
-Entre chaque utilisation de bénédiction, il y a un cooldown de 30 secondes durant lesquelles vous ne pouvez utiliser aucune bénédiction.
+Entre chaque utilisation de bénédiction, il y a un cooldown plus ou moins long selon la bénédiction durant lequel vous ne pourrez pas l'utiliser.
 
 ## __**Les ennemis**__
 Vous rencontrerez des ennemis durant votre partie. Ces ennemis sont comme vous: ils s'équipent et essayent de régner sur la mer. C'est pourquoi ils vous attaqueront. Au fur et à mesure de la partie, les ennemis que vont rencontrerez seront plus forts, pourrotn utiliser plus de bénédiction et auront un meilleur équipement. Les bateaux ennemis ne s'attaqueront pas entre eux. Leur objectif est de contrer le joueur.
@@ -118,11 +118,17 @@ Voici la liste de tous ces équiements triés par rareté, avec leur probabilit�
 Voici la liste de tous ces bénédicitons triées par rareté, avec leur probabilités respectives ainsi que leurs effets.
 
 - Rare
-    - Bénédiction Dash (12,5%) - Permet de joueur de se propulser vers l'avant
-    - Bénédiction Santé (12,5%) - Permet au joueur de restaurer 30 points de vie
+    - Bénédiction Dash (12,5%) (Cooldown - 15sec) - Emplacement principal - Permet au joueur de se propulser vers l'avant de manière considérable
+                                                  - Emplacement secondaire - Permet au joueur de se propulser vers l'avant de manière moins puissante
+      
+    - Bénédiction Santé (12,5%) (Cooldown - 40sec) - Emplacement principal - Permet au joueur de restaurer 50% de ses points de vie max
+                                                   - Emplacement secondaire - Permet au joueur de restaurer 25% de ses points de vie max
 - Mythique
-    - Bénédiction d'Aura (20%) - Permet au joueur de faire des dégâts autour de lui
-    - Bénédiction de Rage (20%) - Permet au joueur d'être beaucoup plus rapide et d'augmenter de 100% les dégâts de ses projectiles, mais le limite à 20 points de vie
+    - Bénédiction d'Aura (20%) (Cooldown - sec) - Emplacement principal - Crée un champ de force autour du joueur qui infligera entre 2 et 10 dégats aux ennemis en fonction de leur proximité
+                                                - Emplacement secondaire - Crée un champ de force autour du joueur qui infligera entre 1 et 5 dégats aux ennemis en fonction de leur proximité
+    
+    - Bénédiction de Rage (20%) - Emplacement Principal - Augmente fortement les dégats et la vitesse du joueur (+50%) pendant 10 secondes, mais le limite temporairement à 30 points de vie
+                                - Emplacement Secondaire - Augmente fortement les dégats et la vitesse du joueur (+50%) pendant 5 secondes, mais le limite temporairement à 20 points de vie
 - Légendaire
     - Bénédiction Godmode (25%) - Permet au joueur de ne prendre aucun dégât
     - Bénédiction Projectile (25%) - Permet au joueur d'envoyer une horde de projectile autour de lui
