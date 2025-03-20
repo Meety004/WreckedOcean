@@ -496,7 +496,7 @@ class Navire:
         elif self.recompense[0] in res.listeCanons:
             self.iconCanon = self.DisplayIconNew
             if (self.equipement['canons'] == "Canon en or") or (self.equipement['canons'] == "Canon légendaire"):
-                self.cadance_tir = 800
+                self.cadance_tir = 600
 
         elif self.recompense[0] in res.liste_malus:
             if self.equipement['voile'] == "Voile Trouée":
