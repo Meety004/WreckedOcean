@@ -414,10 +414,13 @@ class Navire:
                 self.DisplayIconNew = self.VoileLegendaire
         elif self.recompense[0] in res.liste_malus:
             if self.recompense[0] == res.liste_malus[0]:
+                self.DisplayIconPast = self.iconCanon
                 self.DisplayIconNew = self.CanonMalus
             elif self.recompense[0] == res.liste_malus[1]:
+                self.DisplayIconPast = self.iconVoile
                 self.DisplayIconNew = self.VoileMalus
             elif self.recompense[0] == res.liste_malus[2]:
+                self.DisplayIconPast = self.iconCoque
                 self.DisplayIconNew = self.CoqueMalus
         else:
             print('problème')
