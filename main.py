@@ -11,7 +11,6 @@ screen_width = pygame.display.Info().current_w
 screen_height = pygame.display.Info().current_h
 playHeight = screen_height -  (1/5 * screen_height)
 screen = pygame.display.set_mode((screen_width, screen_height))
-print(screen_width, screen_height)
 
 police = pygame.font.Font(None, 36) # gere la police lors de l'affichage de texte a l'ecran
 
