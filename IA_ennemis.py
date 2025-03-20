@@ -159,7 +159,7 @@ class IA_ennemis_stage_2(Navire):
         
     def bouger(self, inutile, liste_iles, liste_joueur):
         if self.joueur_in_range(liste_joueur)[0]:
-            if self.equipement['canons'] not in ('+2 Canons', '+4 Canons'):
+            if self.equipement['canons'] not in ('+1 Canon', '+2 Canons', '+4 Canons'):
                 if self.x < liste_joueur[0].position_x():
                     operateur = 60
                 elif self.x > liste_joueur[0].position_x():
