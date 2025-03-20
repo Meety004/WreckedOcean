@@ -301,6 +301,8 @@ class Navire:
         return self.vitesse_max
     def get_maniabilite(self):
         return self.maniabilite
+    def get_cadance_tir(self):
+        return self.cadance_tire
     
     def getEquipement(self):
         return self.equipement
