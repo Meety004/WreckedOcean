@@ -15,6 +15,9 @@ print(screen_width, screen_height)
 
 police = pygame.font.Font(None, 36) # gere la police lors de l'affichage de texte a l'ecran
 
+ocean = pygame.image.load("images/Backgrounds/ocean background.jpg").convert_alpha()
+ocean = pygame.transform.scale(ocean, (screen_width, (playHeight + (1/34 * screen_height)))).convert_alpha()
+
 # la bouteille sous la barre de vie
 design_barre_de_vie = pygame.transform.scale(pygame.image.load("images/Interfaces/barre_de_vie.png").convert_alpha(), (screen_width*0.09, screen_height*0.265))
 design_barre_de_vie = pygame.transform.rotate(design_barre_de_vie, 90)
@@ -254,13 +257,10 @@ while running:
     # DRAW
 
 
-
     #Remplir l'écran avec une couleur de fond
-    screen.fill((170, 170, 170))
+    screen.fill((0, 0, 0))
 
     # affichage de l'ocean en fond
-    ocean = pygame.image.load("images/Backgrounds/ocean background.jpg").convert_alpha()
-    ocean = pygame.transform.scale(ocean, (screen_width, (playHeight + (1/34 * screen_height)))).convert_alpha()
     screen.blit(ocean, (0, 0))
 
     # Dessine les navires
@@ -298,7 +298,10 @@ while running:
         screen.blit(TypeSurfaceNew, (0.158*screen_width, 0.200*screen_height))
         screen.blit(NewTextTitle, (0.158*screen_width, 0.234*screen_height))
         screen.blit(NewTextDescription, (0.159*screen_width, 0.272*screen_height))
-            
+
+    # affiche le carré en bas pour que le jeux n'aille pas au dessus
+    pygame.draw.rect(screen, (170, 170, 170), (0, playHeight, screen_width, (playHeight + (1/34 * screen_height))))
+
     # affiche la bare de vie du joueur
     
         # la bouteille
@@ -307,11 +310,15 @@ while running:
     
         # la bare de vie
     largeur = (screen_width*0.1) * ((liste_joueur[0].get_vie()*(screen_width*0.1) / liste_joueur[0].get_max_vie())/(screen_width*0.1))
-    texte = police.render(str(liste_joueur[0].get_vie()), True, (255, 0, 0))
+    texte = police.render(str(liste_joueur[0].get_vie()) + "/" + str(liste_joueur[0].get_max_vie()), True, (255, 0, 0))
     bare_de_vie = pygame.Rect(screen_width*0.44, screen_height * 0.86, largeur, screen_width*0.02) # affiche a 44% de la largeur et 86% de la hauteur de l'ecran, la largeur est de 0.02% la taille de la hauteur de l'ecran
     pygame.draw.rect(screen, (255, 0, 0), bare_de_vie)
         # le texte pour avoir le nombre de vie exacte
-    screen.blit(texte, (screen_width*0.48, screen_height*0.9))
+    screen.blit(texte, (screen_width*0.47, screen_height*0.91))
+
+        # affiche la vitesse de joueur
+    texte_vitesse = police.render("max speed : " + str(round(liste_joueur[0].get_max_speed())), True, (25, 128, 212))
+    screen.blit(texte_vitesse, (screen_width*0.44, screen_height*0.95))
 
     # affichage des degats lorsque le joueur est touché
     if len(liste_texte_degats) != 0:

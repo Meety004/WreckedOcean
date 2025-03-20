@@ -295,6 +295,12 @@ class Navire:
         return self.vie
     def get_max_vie(self):
         return self.maxVie
+    def get_speed(self):
+        return self.vitesse
+    def get_max_speed(self):
+        return self.vitesse_max
+    def get_maniabilite(self):
+        return self.maniabilite
     
     def getEquipement(self):
         return self.equipement
