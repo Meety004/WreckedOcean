@@ -316,6 +316,9 @@ class Navire:
     def getDescriptionTextNew(self):
         return self.DescriptionTextNew
     
+    def getImages(self):
+        return self.iconCoque, self.iconVoile, self.iconCanon
+    
 
     def LoadText(self):
         if not isinstance(self.TitleTextPast, pygame.Surface):
