@@ -456,6 +456,7 @@ class Navire:
         self.maniabilite = 5
 
         if self.recompense[0] in res.listeCoques:
+            print("coque")
             self.iconCoque = self.DisplayIconNew
             self.CoqueMaxVie = 0
             self.CoqueMaxVitesse = 1
@@ -482,6 +483,7 @@ class Navire:
                 self.CoqueMaxVitesse = 1.3
 
         elif self.recompense[0] in res.listeVoiles:
+            print("voile")
             self.iconVoile = self.DisplayIconNew
             self.VoileMaxVitesse = 1
             self.VoileMaxVie = 0
@@ -497,6 +499,7 @@ class Navire:
                 self.maniabilite = self.maniabilite * 1.05
 
         elif self.recompense[0] in res.listeCanons:
+            print("canon")
             self.iconCanon = self.DisplayIconNew
             if (self.equipement['canons'] == "Canon en or") or (self.equipement['canons'] == "Canon légendaire"):
                 self.cadance_tir = 600
