@@ -57,7 +57,8 @@ def start_game():
             "images/Textures/Iles/ile_rare.png", 
             "images/Textures/Iles/ile_mythique.png", 
             "images/Textures/Iles/ile_legendaire.png",
-            liste_navire
+            liste_navire,
+            None
             )]
 
         for i in range(len(liste_navire)):
@@ -84,7 +85,7 @@ def start_game():
             if timer <= 0:
                 timer = setTimer()
                 if nbrIles < maxIles:
-                    liste_iles.append(Iles(screen_width, playHeight,"images/Textures/Iles/ile_commune.png","images/Textures/Iles/ile_rare.png","images/Textures/Iles/ile_mythique.png","images/Textures/Iles/ile_legendaire.png",liste_navire))
+                    liste_iles.append(Iles(screen_width, playHeight,"images/Textures/Iles/ile_commune.png","images/Textures/Iles/ile_rare.png","images/Textures/Iles/ile_mythique.png","images/Textures/Iles/ile_legendaire.png",liste_navire, liste_iles))
                     nbrIles += 1
             return nbrIles, maxIles, timer
 

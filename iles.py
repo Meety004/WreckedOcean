@@ -3,7 +3,7 @@ from random import *
 import pygame
 
 class Iles:
-    def __init__(self, screen_width, screen_height, imageC, imageR, imageM, imageL, liste_nav):
+    def __init__(self, screen_width, screen_height, imageC, imageR, imageM, imageL, liste_nav, liste_iles):
 
         # Liste des raretés des iles
         self.ile_rarete = ['commun', 'rare','mythique', 'légendaire']
@@ -41,6 +41,8 @@ class Iles:
         # Liste avec tous les navires (joueur et ennemis)
         self.listeNav = liste_nav
 
+        self.liste_iles = liste_iles
+
         #Liste des récompenses de chaque type d'ile, ainsi que leurs probabilités
         self.liste_recompenses_communes = ['+1 Canon', 'Canon en bronze', 'Voile en toile de jute', 'Coque épicéa', 'Coque chêne', self.random_malus()[0]]
         self.probabilité_commun = [0.2, 0.2, 0.2, 0.1, 0.2, 0.1]
@@ -60,8 +62,9 @@ class Iles:
         
         #On vérifie si l'île est assez éloignée des navires
         verifProx = False
+        verifProxIle = False
 
-        while verifProx == False:
+        while verifProx == False or verifProxIle == False:
             self.x = randint(100, (self.screen_width-100))
             self.y = uniform(100, (self.screen_height-100))
             for i in range(len(self.listeNav)):
@@ -70,6 +73,13 @@ class Iles:
                     verifProx = True
                 else:
                     verifProx = False
+            if self.liste_iles is not None:
+                for i in range(len(self.liste_iles)):
+                    distanceIleIle = res.calc_distance(self.x, self.y, self.liste_iles[i].position_x(), self.liste_iles[i].position_y())
+                    if distanceIleIle >= 150:
+                        verifProxIle = True
+                    else:
+                        verifProxIle = False
 
         self.timer = randint(1000,2000)
 
