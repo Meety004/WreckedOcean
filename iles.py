@@ -80,6 +80,8 @@ class Iles:
                         verifProxIle = True
                     else:
                         verifProxIle = False
+            else:
+                verifProxIle = True
 
         self.timer = randint(1000,2000)
 
