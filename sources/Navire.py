@@ -508,9 +508,11 @@ class Navire:
 
         elif (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus) and self.ile_actuelle == ile:
                 self.afficher_items = False
-                self.afficher_benediction = False
                 self.text_loaded = False
                 self.ile_actuelle = None  # On oublie l'île actuelle
+        elif self.recompense[0] in res.liste_benedictions and  self.recompense[0] not in res.liste_malus and self.ile_actuelle == ile:
+                self.afficher_benediction = False
+                self.ile_actuelle = None
             
 
         
