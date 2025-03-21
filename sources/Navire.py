@@ -496,7 +496,7 @@ class Navire:
                 print(recompense[0])
 
                 # Si l'interface n'est pas affichée, ou si on s'approche d'une nouvelle île
-                if not self.afficher_items or self.ile_actuelle is None:
+                if not self.afficher_benediction or self.ile_actuelle is None:
 
                     if self.ile_actuelle != ile:
                         self.afficher_benediction = False
