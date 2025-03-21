@@ -3,7 +3,7 @@ import pygame
 import ressources as res
 
 class Shot:
-    def __init__(self, x, y, angle, distance_max, img, tireur, canons, inraged):
+    def __init__(self, x, y, angle, distance_max, img, tireur, canons, inraged, tupleScreen):
         self.x = x
         self.y = y
         self.position_initiale_x = x
@@ -17,6 +17,8 @@ class Shot:
         self.image = pygame.transform.scale(image, (self.width, self.height)).convert_alpha()
         self.ID_tireur = tireur
         self.canons = canons
+        self.screen_width = tupleScreen[0]
+        self.screen_height = tupleScreen[1]
 
         #On change les caractéristiques des canons en fonction de l'équipement
 
@@ -84,3 +86,14 @@ class Shot:
 
     def is_inraged(self):
         return self.inraged
+    
+
+    def sortir_ecran(self):
+        if self.x > self.screen_width:
+            self.x = 0
+        if self.x < 0:
+            self.x = self.screen_width
+        if self.y > self.screen_height + 20:
+            self.y = 0
+        if self.y < 0:
+            self.y = self.screen_height

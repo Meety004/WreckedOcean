@@ -53,7 +53,7 @@ keyBindList =  [
 
 def start_game():
         # Listes des éléments du jeu
-        liste_joueur = [Navire(4, 0.1, 4, "images/Textures/Bateaux/bateau_j1.png", screen_width, playHeight, dt, 0)] #vitesse_max, acceleration, maniabilité, image
+        liste_joueur = [Navire(5, 0.1, 4, "images/Textures/Bateaux/bateau_j1.png", screen_width, playHeight, dt, 0)] #vitesse_max, acceleration, maniabilité, image
         liste_ennemis = []
         niveau = 0
 
@@ -212,6 +212,8 @@ while running:
 
             # verifie qu'ils ne sortent pas de l'ecran
             navire_i.sortir_ecran(screen_width, playHeight)
+
+
     
     for navire in liste_navire: # verifie la rage, l'aura et le godmode des navires
         navire.still_inraged()
@@ -235,6 +237,7 @@ while running:
         ennemis.sortir_ecran(screen_width, playHeight)
 
     for shot_i in reversed(liste_shot):
+        shot_i[0].sortir_ecran()
         if shot_i[0] is not None: # deuxieme verification pour voir si il n'y a pas de None dans les tir car ca casse tout
             shot_i[0].avancer(liste_navire)
             if shot_i[0].despawn_distance():
@@ -360,12 +363,13 @@ while running:
     
     # la bare de vie
     largeur = (screen_width*0.1) * ((liste_joueur[0].get_vie()*(screen_width*0.1) / liste_joueur[0].get_max_vie())/(screen_width*0.1))
-    texte = police.render(str(liste_joueur[0].get_vie()), True, (255, 0, 0))
+    StrVie = str(liste_joueur[0].get_vie()) + " / " + str(liste_joueur[0].get_max_vie())
+    texteVie = police.render((StrVie), True, (255, 0, 0))
     bare_de_vie = pygame.Rect(screen_width*0.44, screen_height * 0.86, largeur, screen_width*0.02) # affiche a 44% de la largeur et 86% de la hauteur de l'ecran, la largeur est de 0.02% la taille de la hauteur de l'ecran
     pygame.draw.rect(screen, (255, 0, 0), bare_de_vie)
 
     # le texte pour avoir le nombre de vie exacte
-    screen.blit(texte, (screen_width*0.48, screen_height*0.9))
+    screen.blit(texteVie, (screen_width*0.473, screen_height*0.91))
 
 
     #Affiche l'équipement actuel du joueur
@@ -415,7 +419,7 @@ while running:
         screen.blit(NewTextDescription, (0.159*screen_width, 0.272*screen_height))
 
     # affiche la vitesse de joueur
-    texte_vitesse = police.render("Vitesse Max : " + str(round(liste_joueur[0].get_max_speed())), True, (25, 128, 212))
+    texte_vitesse = police.render("Vitesse Max : " + str(round(liste_joueur[0].get_max_speed(), 1)), True, (25, 128, 212))
     screen.blit(texte_vitesse, (screen_width*0.44, screen_height*0.95))
 
     # affiche les degats du joueur
@@ -432,7 +436,8 @@ while running:
     screen.blit(texte_degats, (screen_width*0.34, screen_height*0.90))
 
     # affiche la cadence de tir du joueur
-    texte_cadence = police.render("Cadence : " + str(1000/liste_navire[0].get_cadence_tir()) + "tirs/s" , True, (179, 0, 0))
+    cadence_rounded = round(1000/liste_joueur[0].get_cadence_tir(), 1)
+    texte_cadence = police.render("Cadence : " + str(cadence_rounded) + "tirs/s" , True, (179, 0, 0))
     screen.blit(texte_cadence, (screen_width*0.55, screen_height*0.90))
 
 
