@@ -277,18 +277,18 @@ while running:
     iconCanon = pygame.transform.scale(iconCanon, (2.616/100*screen_width, 5.072/100*screen_height))
     iconVoile = pygame.transform.scale(iconVoile, (2.616/100*screen_width, 5.072/100*screen_height))
     iconCoque = pygame.transform.scale(iconCoque, (2.616/100*screen_width, 5.072/100*screen_height))
-    screen.blit(iconCanon, (0.83*screen_width, 0.829*screen_height))
-    screen.blit(iconVoile, (0.83*screen_width, 0.889*screen_height))
-    screen.blit(iconCoque, (0.83*screen_width, 0.949*screen_height))
+    screen.blit(iconCanon, (0.81*screen_width, 0.829*screen_height))
+    screen.blit(iconVoile, (0.81*screen_width, 0.889*screen_height))
+    screen.blit(iconCoque, (0.81*screen_width, 0.949*screen_height))
 
     dictItems = liste_joueur[0].getEquipement()
     TypeSurfaceCanon = TypeFontPast.render(dictItems['canons'], True, (0, 0, 0))
     TypeSurfaceVoile = TypeFontPast.render(dictItems['voile'], True, (0, 0, 0))
     TypeSurfaceCoque = TypeFontPast.render(dictItems['coque'], True, (0, 0, 0))
 
-    screen.blit(TypeSurfaceCanon, (0.86*screen_width, 0.955*screen_height))
-    screen.blit(TypeSurfaceVoile, (0.86*screen_width, 0.897*screen_height))
-    screen.blit(TypeSurfaceCoque, (0.86*screen_width, 0.837*screen_height))
+    screen.blit(TypeSurfaceCanon, (0.84*screen_width, 0.955*screen_height))
+    screen.blit(TypeSurfaceVoile, (0.84*screen_width, 0.897*screen_height))
+    screen.blit(TypeSurfaceCoque, (0.84*screen_width, 0.837*screen_height))
 
 
 

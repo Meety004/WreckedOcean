@@ -69,14 +69,14 @@ class Iles:
             self.y = uniform(100, (self.screen_height-100))
             for i in range(len(self.listeNav)):
                 distanceIleNav =  res.calc_distance(self.x, self.y, self.listeNav[i].position_x(), self.listeNav[i].position_y())
-                if distanceIleNav >= 100:
+                if distanceIleNav >= 150:
                     verifProx = True
                 else:
                     verifProx = False
             if self.liste_iles is not None:
                 for i in range(len(self.liste_iles)):
                     distanceIleIle = res.calc_distance(self.x, self.y, self.liste_iles[i].position_x(), self.liste_iles[i].position_y())
-                    if distanceIleIle >= 150:
+                    if distanceIleIle >= 250:
                         verifProxIle = True
                     else:
                         verifProxIle = False
