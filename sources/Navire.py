@@ -30,8 +30,8 @@ class Navire:
         self.vitesse = 0
         self.angle = 270
         self.maniabilite = maniabilite # Vitesse de rotation du bateau
-        self.width = screen_width*0.018
-        self.height = screen_height*0.053
+        self.width = screen_width*0.022
+        self.height = screen_height*0.059
 
         self.screen_width = screen_width
         self.screen_height = screen_height
