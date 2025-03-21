@@ -118,21 +118,23 @@ Voici la liste de tous ces équiements triés par rareté, avec leur probabilit�
 Voici la liste de tous ces bénédicitons triées par rareté, avec leur probabilités respectives ainsi que leurs effets.
 
 - Rare
-    - Bénédiction Dash (12,5%) (Cooldown - 15sec) - Emplacement principal - Permet au joueur de se propulser vers l'avant de manière considérable
-                                                  - Emplacement secondaire - Permet au joueur de se propulser vers l'avant de manière moins puissante
+    - Bénédiction Dash (12,5%) (Cooldown - 15 sec) - Emplacement Principal - Permet au joueur de se propulser vers l'avant de manière considérable
+                                                  - Emplacement Secondaire - Permet au joueur de se propulser vers l'avant de manière plutôt efficace
       
-    - Bénédiction Santé (12,5%) (Cooldown - 40sec) - Emplacement principal - Permet au joueur de restaurer 50% de ses points de vie max
-                                                   - Emplacement secondaire - Permet au joueur de restaurer 25% de ses points de vie max
+    - Bénédiction Santé (12,5%) (Cooldown - 40 sec) - Emplacement Principal - Permet au joueur de restaurer 50% de ses points de vie max
+                                                   - Emplacement Secondaire - Permet au joueur de restaurer 25% de ses points de vie max
 - Mythique
-    - Bénédiction d'Aura (20%) (Cooldown - sec) - Emplacement principal - Crée un champ de force autour du joueur qui infligera entre 2 et 10 dégats aux ennemis en fonction de leur proximité
-                                                - Emplacement secondaire - Crée un champ de force autour du joueur qui infligera entre 1 et 5 dégats aux ennemis en fonction de leur proximité
+    - Bénédiction d'Aura (20%) (Cooldown - 30sec) - Emplacement Principal - Crée une zone autour du joueur qui infligera entre 2 et 10 dégats aux ennemis en fonction de leur proximité
+                                                - Emplacement Secondaire - Crée une zone autour du joueur qui infligera entre 1 et 5 dégats aux ennemis en fonction de leur proximité
     
-    - Bénédiction de Rage (20%) - Emplacement Principal - Augmente fortement les dégats et la vitesse du joueur (+50%) pendant 10 secondes, mais le limite temporairement à 30 points de vie
-                                - Emplacement Secondaire - Augmente fortement les dégats et la vitesse du joueur (+50%) pendant 5 secondes, mais le limite temporairement à 20 points de vie
+    - Bénédiction de Rage (20%) (Cooldown - 30sec) - Emplacement Principal - Augmente les dégats et la vitesse du joueur (+50%) pendant 10 sec, mais le limite temporairement à 30 pts de vie
+                                                 - Emplacement Secondaire - Augmente les dégats et la vitesse du joueur (+50%) pendant 5 sec, mais le limite temporairement à 20 pts de vie
 - Légendaire
-    - Bénédiction Godmode (25%) - Permet au joueur de ne prendre aucun dégât
-    - Bénédiction Projectile (25%) - Permet au joueur d'envoyer une horde de projectile autour de lui
-
+    - Bénédiction Godmode (25%) (Cooldown - 40sec) - Emplacement Principal - Permet au joueur de ne pas prendre de dégats pendant 10 sec
+                                                 - Emplacement Secondaire - Permet au joueur de ne pas prendre de dégats pendant 5 sec
+      
+    - Bénédiction Projectile (25%) (Cooldown - 50sec) - Emplacement Principal - Permet au joueur d'envoyer une horde de projectile autour de lui quand il tire pendant 10 sec (tir double)
+                                                      - Emplacement Secondaire - Permet au joueur d'envoyer une horde de projectile autour de lui quand il tire pendant 10 sec (tir simple)
 ## __**Crédits**__
 **Wrecked Ocean** est un jeu réalisé à l'occasion du concours Trophée NSI, dans la catégorie Terminale.
 Notre professeur, M. MARIE-JEANNE nous a accompagné pendant toute la durée de ce projet, nous apportant solutions et idées nouvelles.
