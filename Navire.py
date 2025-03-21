@@ -201,7 +201,7 @@ class Navire:
             return liste_tirs
         
     def GererEventTir(self, event, liste_tirs):
-        if event.type == tirDouble:
+        if event.type == tirDouble and self.equipement["canons"] == "Canon à tirs doubles":
             tir_droiteD = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, 170, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
             liste_tirs.append((tir_droiteD, self.equipement['canons']))
 
