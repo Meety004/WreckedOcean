@@ -62,26 +62,30 @@ class Iles:
         
         #On vérifie si l'île est assez éloignée des navires
         verifProx = False
-        verifProxIle = False
+        if self.liste_iles is not None:
+            verifProxIle = False
+        else:
+            verifProxIle = True
 
         while verifProx == False or verifProxIle == False:
             self.x = randint(100, (self.screen_width-100))
             self.y = uniform(100, (self.screen_height-100))
+            verifProx2 = True
             for i in range(len(self.listeNav)):
                 distanceIleNav =  res.calc_distance(self.x, self.y, self.listeNav[i].position_x(), self.listeNav[i].position_y())
-                if distanceIleNav >= 150:
-                    verifProx = True
-                else:
-                    verifProx = False
+                if distanceIleNav <= 150:
+                    verifProx2 = False
+            if verifProx2:
+                verifProx = True
+            
             if self.liste_iles is not None:
+                verifProxIle2 = True
                 for i in range(len(self.liste_iles)):
                     distanceIleIle = res.calc_distance(self.x, self.y, self.liste_iles[i].position_x(), self.liste_iles[i].position_y())
-                    if distanceIleIle >= 250:
-                        verifProxIle = True
-                    else:
-                        verifProxIle = False
-            else:
-                verifProxIle = True
+                    if distanceIleIle <= 250:
+                        verifProxIle2 = False
+                if verifProxIle2:
+                    verifProxIle = True
 
         self.timer = randint(1000,2000)
 
