@@ -322,10 +322,10 @@ class Navire:
             liste_tirs.append((tir_gaucheD, self.equipement['canons']))
 
             if ("Bénédiction Projectile" in self.benedictions and self.giga_tir_double):
-                tire_avantD = shot.Shot(self.x, self.y, self.angle, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
-                liste_tirs.append((tire_avantD, self.equipement['canons']))
-                tire_arriereD = shot.Shot(self.x, self.y, self.angle + 180, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
-                liste_tirs.append((tire_arriereD, self.equipement['canons']))
+                tir_avantD = shot.Shot(self.x, self.y, self.angle, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                liste_tirs.append((tir_avantD, self.equipement['canons']))
+                tir_arriereD = shot.Shot(self.x, self.y, self.angle + 180, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
+                liste_tirs.append((tir_arriereD, self.equipement['canons']))
                 tir_diag1D = shot.Shot(self.x, self.y, self.angle + 45, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
                 liste_tirs.append((tir_diag1D, self.equipement['canons']))
                 tir_diag2D = shot.Shot(self.x, self.y, self.angle - 45, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged)
@@ -372,8 +372,8 @@ class Navire:
         return self.vitesse_max
     def get_maniabilite(self):
         return self.maniabilite
-    def get_cadance_tir(self):
-        return self.cadance_tire
+    def get_cadence_tir(self):
+        return self.cadence_tir
     
     def getEquipement(self):
         return self.equipement
