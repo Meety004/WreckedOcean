@@ -24,7 +24,7 @@ class Shot:
             self.vitesse = self.vitesse * 1.05
         elif self.canons == "Canon en or":
             self.vitesse = self.vitesse * 1.1
-        elif self.canons == "Canon Ballistique":
+        elif self.canons == "Canon ballistique":
             self.distance_max = self.distance_max * 2
         elif self.canons == "Canon légendaire":
             self.vitesse = self.vitesse * 1.15
