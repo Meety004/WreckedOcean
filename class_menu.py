@@ -1,10 +1,9 @@
-import pygame
+import pygame, os
 import class_button as bouton
 
 class Menu:
-    def __init__(self, nb_bouton, texte, image, width, height):
+    def __init__(self, nb_bouton, image, width, height):
         self.nombre_boutons = nb_bouton
-        self.texte_affiche = texte
         self.width = width
         self.height = height
         self.est_actif = True
@@ -24,9 +23,9 @@ class Menu:
         for i in range(self.nombre_boutons):
             y = y_start + i * 15.7/100*screen_height  # Espacement uniforme de 70 pixels
             if i == 0:
-                self.liste_boutons.append(bouton.Bouton(screen_width/2 - 10.4/100*screen_width, y - 10.4/100*screen_height, 23.4/100*screen_width, 13.9/100*screen_height, "images/Interfaces/start.png"))
+                self.liste_boutons.append(bouton.Bouton(screen_width/2 - 10.4/100*screen_width, y - 10.4/100*screen_height, 23.4/100*screen_width, 13.9/100*screen_height, os.path.join("images", "Interfaces", "start.png")))
             else:
-                self.liste_boutons.append(bouton.Bouton(screen_width/2 - 10.4/100*screen_width, y - 10.4/100*screen_height, 23.4/100*screen_width, 13.9/100*screen_height, "images/Interfaces/quitter.png"))
+                self.liste_boutons.append(bouton.Bouton(screen_width/2 - 10.4/100*screen_width, y - 10.4/100*screen_height, 23.4/100*screen_width, 13.9/100*screen_height, os.path.join("images", "Interfaces", "quitter.png")))
 
     def actif(self, screen_width, screen_height, screen):
         if self.est_actif:

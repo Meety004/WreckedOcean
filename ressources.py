@@ -1,4 +1,4 @@
-import math, pygame
+import math, pygame, os
 
 def calc_distance(x1, y1, x2, y2):
     # fonction pour calculer une distance
@@ -177,31 +177,31 @@ listeEquipementStart = [
     "Coque de base"
 ]
 
-CoqueCommun = "images/Icons/Coques/coque_commun.png"
-CoqueRare = "images/Icons/Coques/coque_rare.png"
-CoqueMythique = "images/Icons/Coques/coque_mythique.png"
-CoqueLegendaire = "images/Icons/Coques/coque_legendaire.png"
+CoqueCommun = os.path.join('images', 'Icons', 'Coques', 'coque_commun.png')
+CoqueRare = os.path.join('images', 'Icons', 'Coques', 'coque_rare.png') 
+CoqueMythique = os.path.join('images', 'Icons', 'Coques', 'coque_mythique.png')
+CoqueLegendaire = os.path.join('images', 'Icons', 'Coques', 'coque_legendaire.png')
 
-VoileCommun = "images/Icons/Voiles/voile_commun.png"
-VoileRare = "images/Icons/Voiles/voile_rare.png"
-VoileMythique = "images/Icons/Voiles/voile_mythique.png"
-VoileLegendaire = "images/Icons/Voiles/voile_legendaire.png"
+VoileCommun = os.path.join('images', 'Icons', 'Voiles', 'voile_commun.png')
+VoileRare = os.path.join('images', 'Icons', 'Voiles', 'voile_rare.png')
+VoileMythique = os.path.join('images', 'Icons', 'Voiles', 'voile_mythique.png')
+VoileLegendaire = os.path.join('images', 'Icons', 'Voiles', 'voile_legendaire.png')
 
-CanonCommun = "images/Icons/Canons/canon_commun.png"
-CanonRare = "images/Icons/Canons/canon_rare.png"
-CanonMythique = "images/Icons/Canons/canon_mythique.png"
-CanonLegendaire = "images/Icons/Canons/canon_legendaire.png"
+CanonCommun = os.path.join('images', 'Icons', 'Canons', 'canon_commun.png')
+CanonRare = os.path.join('images', 'Icons', 'Canons', 'canon_rare.png')
+CanonMythique = os.path.join('images', 'Icons', 'Canons', 'canon_mythique.png')
+CanonLegendaire = os.path.join('images', 'Icons', 'Canons', 'canon_legendaire.png')
 
-VoileMalus = "images/Icons/Voiles/voile_trouee.png"
-CanonMalus = "images/Icons/Canons/canon_rouille.png"
-CoqueMalus = "images/Icons/Coques/coque_trouee.png"
+VoileMalus = os.path.join('images', 'Icons', 'Voiles', 'voile_trouee.png')
+CanonMalus = os.path.join('images', 'Icons', 'Canons', 'canon_rouille.png')
+CoqueMalus = os.path.join('images', 'Icons', 'Coques', 'coque_trouee.png')
 
-BeneAura = "images/Icons/Benedictions/bene_aura.png"
-BeneDash = "images/Icons/Benedictions/bene_dash.png"
-BeneGodMode = "images/Icons/Benedictions/bene_godmode.png"
-BeneProjectile = "images/Icons/Benedictions/bene_projectile.png"
-BeneRage = "images/Icons/Benedictions/bene_rage.png"
-BeneSante = "images/Icons/Benedictions/bene_sante.png"
+BeneAura = os.path.join('images', 'Icons', 'Benedictions', 'bene_aura.png')
+BeneDash = os.path.join('images', 'Icons', 'Benedictions', 'bene_dash.png')
+BeneGodMode = os.path.join('images', 'Icons', 'Benedictions', 'bene_godmode.png')
+BeneProjectiles = os.path.join('images', 'Icons', 'Benedictions', 'bene_projectiles.png')
+BeneRage = os.path.join('images', 'Icons', 'Benedictions', 'bene_rage.png')
+BeneSante = os.path.join('images', 'Icons', 'Benedictions', 'bene_sante.png')
 
 keyBindList =  [
     pygame.K_UP,
@@ -244,4 +244,4 @@ dictItemsBuff = {
     'Voile légendaire': "Vitesse Max +30% | Maniabilité +5%"
 }
 
-fontPixel = "Fonts/pixel-font.otf"
+fontPixel = os.path.join('Fonts', 'pixel-font.otf')

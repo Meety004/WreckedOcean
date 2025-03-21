@@ -14,6 +14,7 @@ import pygame
 import random
 import shot
 import string
+import os
 import ressources as res
 
 # On crée un évènement pour le tir double
@@ -53,7 +54,7 @@ class Navire:
         self.afficher_items = False  # Variable d'état pour suivre l'affichage de l'image
 
         #On charge l'image de l'interface de choix d'item
-        self.ItemsUI = pygame.image.load("images/Interfaces/equip_menu_item.png").convert_alpha()
+        self.ItemsUI = pygame.image.load(os.path.join("images", "Interfaces", "equip_menu_item.png")).convert_alpha()
         self.ItemsUI = pygame.transform.scale(self.ItemsUI, (screen_width*0.4, pygame.display.Info().current_h*0.4)).convert_alpha()
         
         if self.type == 2:
@@ -94,6 +95,8 @@ class Navire:
         self.iconCanon = res.CanonCommun
         self.iconCanon = pygame.image.load(self.iconCanon).convert_alpha()
         self.iconCanon = pygame.transform.scale(self.iconCanon, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.imageBoulet = os.path.join("images", "Textures", "Autres", "boulet_canon.png")
 
 
         #Variables qui contiennent les chemins des icones s'affichant sur l'interface de choix d'item
@@ -142,6 +145,8 @@ class Navire:
 
         self.distance_max = screen_height*0.15
         self.distance_maxFront = self.distance_max * 1.5
+
+        self.screen = (self.screen_width, self.screen_height)
 
         self.loadImages()
 
@@ -204,7 +209,23 @@ class Navire:
         self.CoqueLegendaire = pygame.image.load(res.CoqueLegendaire).convert_alpha()
         self.CoqueLegendaire = pygame.transform.scale(self.CoqueLegendaire, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
 
-        self.screen = (self.screen_width, self.screen_height)
+        self.Dash = pygame.image.load(res.BeneDash).convert_alpha()
+        self.Dash = pygame.transform.scale(self.Dash, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.Aura = pygame.image.load(res.BeneAura).convert_alpha()
+        self.Aura = pygame.transform.scale(self.Aura, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.GodMode = pygame.image.load(res.BeneGodMode).convert_alpha()
+        self.GodMode = pygame.transform.scale(self.GodMode, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.Projectiles = pygame.image.load(res.BeneProjectiles).convert_alpha()
+        self.Projectiles = pygame.transform.scale(self.Projectiles, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.Rage = pygame.image.load(res.BeneRage).convert_alpha()
+        self.Rage = pygame.transform.scale(self.Rage, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
+
+        self.Sante = pygame.image.load(res.BeneSante).convert_alpha()
+        self.Sante = pygame.transform.scale(self.Sante, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
 
 
     # Le bateau avance en fonction de la vitesse, immobile si la vitesse est nulle
@@ -271,43 +292,43 @@ class Navire:
         if pygame.time.get_ticks() - self.dernier_tir >= self.cadence_tir:
             self.dernier_tir = pygame.time.get_ticks()
 
-            # 
+            
             liste_tirs = []
             
             if not self.giga_tir:
-                tir_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+                tir_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_droite, self.equipement['canons']))
 
-                tir_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+                tir_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_gauche, self.equipement['canons']))
 
-            tir_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+            tir_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
             liste_tirs.append((tir_gauche, self.equipement['canons']))
 
             if self.equipement['canons'] == '+1 Canon' or self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+4 Canons':
-                tir_avant = shot.Shot(self.x, self.y, self.angle, self.distance_maxFront, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+                tir_avant = shot.Shot(self.x, self.y, self.angle, self.distance_maxFront, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_avant, self.equipement['canons']))
 
             if self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                tir_arriere = shot.Shot(self.x, self.y, self.angle + 180, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+                tir_arriere = shot.Shot(self.x, self.y, self.angle + 180, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_arriere, self.equipement['canons']))
 
             if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                tir_diag1 = shot.Shot(self.x, self.y, self.angle + 30, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+                tir_diag1 = shot.Shot(self.x, self.y, self.angle + 30, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_diag1, self.equipement['canons']))
 
             if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
-                tir_diag2 = shot.Shot(self.x, self.y, self.angle - 30, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+                tir_diag2 = shot.Shot(self.x, self.y, self.angle - 30, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_diag2, self.equipement['canons']))
 
             if "Bénédiction Projectile" in self.benedictions and self.giga_tir:
-                tir_diag3 = shot.Shot(self.x, self.y, self.angle + 225, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+                tir_diag3 = shot.Shot(self.x, self.y, self.angle + 225, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_diag3, self.equipement['canons']))
-                tir_diag4 = shot.Shot(self.x, self.y, self.angle - 225, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+                tir_diag4 = shot.Shot(self.x, self.y, self.angle - 225, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_diag4, self.equipement['canons']))
-                tir_droite = shot.Shot(self.x, self.y, self.angle + 90, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+                tir_droite = shot.Shot(self.x, self.y, self.angle + 90, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_droite, self.equipement['canons']))
-                tir_gauche = shot.Shot(self.x, self.y, self.angle - 90, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+                tir_gauche = shot.Shot(self.x, self.y, self.angle - 90, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_gauche, self.equipement['canons']))
 
             if self.equipement['canons'] == "Canon à tirs doubles" or ("Bénédiction Projectile" in self.benedictions and self.giga_tir_double): 
@@ -317,24 +338,24 @@ class Navire:
         
     def GererEventTir(self, event, liste_tirs):
         if event.type == tirDouble and self.equipement["canons"] == "Canon à tirs doubles":
-            tir_droiteD = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+            tir_droiteD = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
             liste_tirs.append((tir_droiteD, self.equipement['canons']))
 
-            tir_gaucheD = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+            tir_gaucheD = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
             liste_tirs.append((tir_gaucheD, self.equipement['canons']))
 
             if ("Bénédiction Projectile" in self.benedictions and self.giga_tir_double):
-                tir_avantD = shot.Shot(self.x, self.y, self.angle, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+                tir_avantD = shot.Shot(self.x, self.y, self.angle, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_avantD, self.equipement['canons']))
-                tir_arriereD = shot.Shot(self.x, self.y, self.angle + 180, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+                tir_arriereD = shot.Shot(self.x, self.y, self.angle + 180, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_arriereD, self.equipement['canons']))
-                tir_diag1D = shot.Shot(self.x, self.y, self.angle + 45, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+                tir_diag1D = shot.Shot(self.x, self.y, self.angle + 45, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_diag1D, self.equipement['canons']))
-                tir_diag2D = shot.Shot(self.x, self.y, self.angle - 45, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+                tir_diag2D = shot.Shot(self.x, self.y, self.angle - 45, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_diag2D, self.equipement['canons']))
-                tir_diag3D = shot.Shot(self.x, self.y, self.angle + 225, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+                tir_diag3D = shot.Shot(self.x, self.y, self.angle + 225, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_diag3D, self.equipement['canons']))
-                tir_diag4D = shot.Shot(self.x, self.y, self.angle - 225, self.distance_max, "images/Textures/Autres/boulet_canon.png", self.ID, self.equipement['canons'], self.inraged, self.screen)
+                tir_diag4D = shot.Shot(self.x, self.y, self.angle - 225, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_diag4D, self.equipement['canons']))
         
     def get_damaged(self, damage):

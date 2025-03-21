@@ -2,7 +2,7 @@ import pygame
 from Navire import *
 from IA_ennemis import *
 from iles import *
-import shot as module_shot
+import os
 import class_menu
 
 # Initialisation de Pygame
@@ -12,14 +12,7 @@ screen_height = pygame.display.Info().current_h
 playHeight = screen_height -  (1/5 * screen_height)
 screen = pygame.display.set_mode((screen_width, screen_height))
 
-police = pygame.font.Font(None, 36) # gere la police lors de l'affichage de texte a l'ecran
-
-ocean = pygame.image.load("images/Backgrounds/ocean background.jpg").convert_alpha()
-ocean = pygame.transform.scale(ocean, (screen_width, (playHeight + (1/34 * screen_height)))).convert_alpha()
-
-# la bouteille sous la barre de vie
-design_barre_de_vie = pygame.transform.scale(pygame.image.load("images/Interfaces/barre_de_vie.png").convert_alpha(), (screen_width*0.09, screen_height*0.265))
-design_barre_de_vie = pygame.transform.rotate(design_barre_de_vie, 90)
+pause = None
 
 # Initialisation du delta time pour avoir la même vitesse sur tout les ordis
 framerate = 60
@@ -30,13 +23,20 @@ dt = clock.tick(framerate)
 ocean = pygame.image.load("images/Backgrounds/ocean background.jpg").convert_alpha()
 ocean = pygame.transform.scale(ocean, (screen_width, (playHeight + (1/34 * screen_height)))).convert_alpha()
 
+pathBateau = os.path.join("images", "Textures", "Bateaux", "bateau.png")
+
 # chargment de l'image avec un giga tir
 giga_tir_image = pygame.transform.scale(pygame.image.load("images/icons/BenedictionsPlay/giga_tir.png"), (70, 70)).convert_alpha()
 rage_image = pygame.transform.scale(pygame.image.load("images/icons/BenedictionsPlay/rage.png"), (70, 70)).convert_alpha()
 aura_image = pygame.transform.scale(pygame.image.load("images/icons/BenedictionsPlay/aura.png"), (70, 70)).convert_alpha()
 god_mode_image = pygame.transform.scale(pygame.image.load("images/icons/BenedictionsPlay/god_mode.png"), (140, 140)).convert_alpha()
 
-pause = None
+
+# la bouteille sous la barre de vie
+design_barre_de_vie = pygame.transform.scale(pygame.image.load("images/Interfaces/barre_de_vie.png").convert_alpha(), (screen_width*0.09, screen_height*0.265))
+design_barre_de_vie = pygame.transform.rotate(design_barre_de_vie, 90)
+
+police = pygame.font.Font(None, 36) # gere la police lors de l'affichage de texte a l'ecran
 
 TypeFontPast = pygame.font.Font(res.fontPixel, 32)
 TypeSurfacePast = TypeFontPast.render("Votre équipement actuel:", True, (0, 0, 0))
@@ -53,7 +53,7 @@ keyBindList =  [
 
 def start_game():
         # Listes des éléments du jeu
-        liste_joueur = [Navire(5, 0.1, 4, "images/Textures/Bateaux/bateau_j1.png", screen_width, playHeight, dt, 0)] #vitesse_max, acceleration, maniabilité, image
+        liste_joueur = [Navire(5, 0.1, 4, os.path.join("images", "Textures", "Bateaux", "bateau_j1.png"), screen_width, playHeight, dt, 0)] #vitesse_max, acceleration, maniabilité, image
         liste_ennemis = []
         niveau = 0
 
@@ -69,10 +69,10 @@ def start_game():
         liste_iles = [Iles(
             screen_width, 
             playHeight,
-            "images/Textures/Iles/ile_commune.png", 
-            "images/Textures/Iles/ile_rare.png", 
-            "images/Textures/Iles/ile_mythique.png", 
-            "images/Textures/Iles/ile_legendaire.png",
+            os.path.join("images", "Textures", "Iles", "ile_commune.png"),
+            os.path.join("images", "Textures", "Iles", "ile_rare.png"), 
+            os.path.join("images", "Textures", "Iles", "ile_mythique.png"), 
+            os.path.join("images", "Textures", "Iles", "ile_legendaire.png"),
             liste_navire,
             None
             )]
@@ -101,13 +101,13 @@ def start_game():
             if timer <= 0:
                 timer = setTimer()
                 if nbrIles < maxIles:
-                    liste_iles.append(Iles(screen_width, playHeight,"images/Textures/Iles/ile_commune.png","images/Textures/Iles/ile_rare.png","images/Textures/Iles/ile_mythique.png","images/Textures/Iles/ile_legendaire.png",liste_navire, liste_iles))
+                    liste_iles.append(Iles(screen_width, playHeight, os.path.join("images", "Textures", "Iles", "ile_commune.png"), os.path.join("images", "Textures", "Iles", "ile_rare.png"), os.path.join("images", "Textures", "Iles", "ile_mythique.png"), os.path.join("images", "Textures", "Iles", "ile_legendaire.png"),liste_navire, liste_iles))
                     nbrIles += 1
             if nbrIles > maxIles:
                 nbrIles = maxIles
                 
             if nbrIles == 0:
-                liste_iles.append(Iles(screen_width, playHeight,"images/Textures/Iles/ile_commune.png","images/Textures/Iles/ile_rare.png","images/Textures/Iles/ile_mythique.png","images/Textures/Iles/ile_legendaire.png",liste_navire, liste_iles))
+                liste_iles.append(Iles(screen_width, playHeight,os.path.join("images", "Textures", "Iles", "ile_commune.png"), os.path.join("images", "Textures", "Iles", "ile_rare.png"), os.path.join("images", "Textures", "Iles", "ile_mythique.png"), os.path.join("images", "Textures", "Iles", "ile_legendaire.png"),liste_navire, liste_iles))
                 timer = setTimer()
                 nbrIles += 1
             return nbrIles, maxIles, timer
@@ -126,7 +126,7 @@ BLACK = (0, 0, 0)
 running = True
 
 # ECRAN TITRE
-menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
+menu = class_menu.Menu(2, os.path.join("images", "Interfaces", "menu.png"), screen_width, screen_height)
 running = menu.actif(screen_width, screen_height, screen)
 
 # Boucle de jeu
@@ -151,24 +151,24 @@ while running:
     if len(liste_ennemis) == 0:
         if niveau%5 == 0 and niveau != 0:
             for i in range(niveau // 5):
-                liste_ennemis.append(IA_ennemis_stage_2(4, 0.1, 4, "images/Textures/Bateaux/bateau.png", screen_width, playHeight, dt))
+                liste_ennemis.append(IA_ennemis_stage_2(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
             for i in range((niveau // 10) + 1):
-                liste_ennemis.append(IA_ennemis_chasseurs(4, 0.1, 4, "images/Textures/Bateaux/bateau.png", screen_width, playHeight, dt))
+                liste_ennemis.append(IA_ennemis_chasseurs(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
             for i in range(niveau // 3):
-                liste_ennemis.append(IA_ennemis_basiques(4, 0.1, 4, "images/Textures/Bateaux/bateau.png", screen_width, playHeight, dt))
+                liste_ennemis.append(IA_ennemis_basiques(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
         elif niveau%3 == 0 and niveau != 0:
             var_intermediaire = niveau // 3
             if var_intermediaire > 5:
                 var_intermediaire = 5
             for i in range(var_intermediaire):
-                liste_ennemis.append(IA_ennemis_chasseurs(4, 0.1, 4, "images/Textures/Bateaux/bateau.png", screen_width, playHeight, dt))
+                liste_ennemis.append(IA_ennemis_chasseurs(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
             for i in range(var_intermediaire//2):
-                liste_ennemis.append(IA_ennemis_basiques(4, 0.1, 4, "images/Textures/Bateaux/bateau.png", screen_width, playHeight, dt))
+                liste_ennemis.append(IA_ennemis_basiques(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
         else:
             if niveau > 10:
                 niveau = 10
             for i in range(niveau):
-                liste_ennemis.append(IA_ennemis_basiques(4, 0.1, 4, "images/Textures/Bateaux/bateau.png", screen_width, playHeight, dt))
+                liste_ennemis.append(IA_ennemis_basiques(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
         for i in range(len(liste_ennemis)):
             liste_navire.append(liste_ennemis[i])
         
@@ -280,7 +280,7 @@ while running:
             liste_navire.remove(navire_i)
     if len(liste_joueur) == 0:
         liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats, niveau = start_game()
-        menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
+        menu = class_menu.Menu(2, os.path.join("images", "Interfaces", "menu.png"), screen_width, screen_height)
         running = menu.actif(screen_width, screen_height, screen)
         continue
             
@@ -460,7 +460,7 @@ while running:
         running = False
 
     if keys[pygame.K_ESCAPE]:
-        menu = class_menu.Menu(2, "pas besoin pour l'instant", "images/Interfaces/menu.png", screen_width, screen_height)
+        menu = class_menu.Menu(2,os.path.join("images", "Interfaces", "menu.png"), screen_width, screen_height)
         running = menu.actif(screen_width, screen_height, screen)
 
     # Limiter la boucle à 60 images par seconde
