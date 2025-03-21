@@ -9,6 +9,7 @@ class Menu:
         self.height = height
         self.est_actif = True
         
+
         self.image = pygame.image.load(image).convert_alpha()
         self.image = pygame.transform.scale(self.image, (self.width, self.height)).convert_alpha()
         #self.rect = self.image.get_rect(center=(width/2, height/2))
@@ -19,13 +20,13 @@ class Menu:
 
     def les_boutons(self, screen_width, screen_height):
         self.liste_boutons = []
-        y_start = (screen_height + 50 ) / 2  # Départ centré verticalement
+        y_start = 52.3/100*screen_height  # Départ centré verticalement
         for i in range(self.nombre_boutons):
-            y = y_start + i * 170  # Espacement uniforme de 70 pixels
+            y = y_start + i * 15.7/100*screen_height  # Espacement uniforme de 70 pixels
             if i == 0:
-                self.liste_boutons.append(bouton.Bouton(screen_width/2 - 200, y - 225/2, 400, 225, "images/Interfaces/start.png"))
+                self.liste_boutons.append(bouton.Bouton(screen_width/2 - 10.4/100*screen_width, y - 10.4/100*screen_height, 23.4/100*screen_width, 13.9/100*screen_height, "images/Interfaces/start.png"))
             else:
-                self.liste_boutons.append(bouton.Bouton(screen_width/2 - 200, y - 225/2, 400, 225, "images/Interfaces/bouton.png"))
+                self.liste_boutons.append(bouton.Bouton(screen_width/2 - 10.4/100*screen_width, y - 10.4/100*screen_height, 23.4/100*screen_width, 13.9/100*screen_height, "images/Interfaces/quitter.png"))
 
     def actif(self, screen_width, screen_height, screen):
         if self.est_actif:

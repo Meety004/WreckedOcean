@@ -35,6 +35,13 @@ god_mode_image = pygame.transform.scale(pygame.image.load("images/icons/Benedict
 
 pause = None
 
+TypeFontPast = pygame.font.Font(res.fontPixel, 32)
+TypeSurfacePast = TypeFontPast.render("Votre équipement actuel:", True, (0, 0, 0))
+TypeSurfaceNew = TypeFontPast.render("Ce que vous avez trouvé:", True, (0, 0, 0))
+
+TypeDisplayEquipement = pygame.font.Font(res.fontPixel, 16)
+
+
 keyBindList =  [
     pygame.K_UP,
     pygame.K_LEFT,
@@ -63,7 +70,8 @@ def start_game():
             "images/Textures/Iles/ile_rare.png", 
             "images/Textures/Iles/ile_mythique.png", 
             "images/Textures/Iles/ile_legendaire.png",
-            liste_navire
+            liste_navire,
+            None
             )]
 
         for i in range(len(liste_navire)):
@@ -74,13 +82,10 @@ def start_game():
         liste_shot = []
         
         # Nombre maximal d'îles sur la map
-        maxIles = 5
+        maxIles = 7
 
         # Variable contenant le nombre d'îles affichées
         nbrIles = 1
-
-        # Nombre maximul d'îles sur la map
-        maxIles = 5
 
         # On crée un timer d'un nombre de ticks avant la prochaine apparition d'île
         def setTimer():
@@ -93,8 +98,15 @@ def start_game():
             if timer <= 0:
                 timer = setTimer()
                 if nbrIles < maxIles:
-                    liste_iles.append(Iles(screen_width, playHeight,"images/Textures/Iles/ile_commune.png","images/Textures/Iles/ile_rare.png","images/Textures/Iles/ile_mythique.png","images/Textures/Iles/ile_legendaire.png",liste_navire))
+                    liste_iles.append(Iles(screen_width, playHeight,"images/Textures/Iles/ile_commune.png","images/Textures/Iles/ile_rare.png","images/Textures/Iles/ile_mythique.png","images/Textures/Iles/ile_legendaire.png",liste_navire, liste_iles))
                     nbrIles += 1
+            if nbrIles > maxIles:
+                nbrIles = maxIles
+                
+            if nbrIles == 0:
+                liste_iles.append(Iles(screen_width, playHeight,"images/Textures/Iles/ile_commune.png","images/Textures/Iles/ile_rare.png","images/Textures/Iles/ile_mythique.png","images/Textures/Iles/ile_legendaire.png",liste_navire, liste_iles))
+                timer = setTimer()
+                nbrIles += 1
             return nbrIles, maxIles, timer
 
         #On appelle le timer pour la première fois
@@ -171,7 +183,7 @@ while running:
 
             if keys[keyBindList[0]]: # fleche du haut
                 navire_i.accelerer()
-            else:
+            else: 
                 navire_i.ralentit()
 
             if keys[keyBindList[1]]: # fleche gauche
@@ -279,7 +291,8 @@ while running:
         for n in liste_navire:
             if len(liste_navire) > 0:
                 recompense = ile.type_recompenses()
-                n.equipInterface(recompense, ile.position_x(), ile.position_y())
+                n.equipInterface(recompense, ile.position_x(), ile.position_y(), ile)
+                n.verifIleExiste(liste_iles)
                 if n.afficher_items == True:
 
                     if keys[pygame.K_a] or n.type in (1, 3):
@@ -287,13 +300,14 @@ while running:
                             if ile in liste_iles:
                                 liste_iles.remove(ile)
                                 nbrIles -= 1
-                        n.afficher_items = False
-                        n.equiper()
+                            n.afficher_items = False
+                            n.equiper()
                 elif res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                     verifIleMalus = n.verifIleMalus
                     if verifIleMalus == True:
-                        liste_iles.remove(ile)
-                        verifIleMalus = False
+                        if ile in liste_iles:
+                            liste_iles.remove(ile)
+                            verifIleMalus = False
 
 
     # Appelle de la fonction de compte à rebours pour apparition des îles
@@ -336,10 +350,6 @@ while running:
     for navire_i in liste_navire:
         if navire_i.aura_active():
             pygame.draw.circle(screen, (0, 255, 255), (int(navire_i.position_x()), int(navire_i.position_y())), 150, 4)
-
-    #Affiche l'interface de choix d'item pour le joueur uniquement
-    if liste_joueur[0].afficher_items == True:
-        screen.blit(liste_joueur[0].ItemsUI, (15, 15))
         
     # affiche la bare de vie du joueur
     
@@ -354,6 +364,52 @@ while running:
     pygame.draw.rect(screen, (255, 0, 0), bare_de_vie)
         # le texte pour avoir le nombre de vie exacte
     screen.blit(texte, (screen_width*0.48, screen_height*0.9))
+    #Affiche l'équipement actuel du joueur
+    (iconCanon, iconVoile, iconCoque) = liste_joueur[0].getImages()
+
+    iconCanon = pygame.transform.scale(iconCanon, (2.616/100*screen_width, 5.072/100*screen_height))
+    iconVoile = pygame.transform.scale(iconVoile, (2.616/100*screen_width, 5.072/100*screen_height))
+    iconCoque = pygame.transform.scale(iconCoque, (2.616/100*screen_width, 5.072/100*screen_height))
+    screen.blit(iconCanon, (0.79*screen_width, 0.829*screen_height))
+    screen.blit(iconVoile, (0.79*screen_width, 0.889*screen_height))
+    screen.blit(iconCoque, (0.79*screen_width, 0.949*screen_height))
+
+    dictItems = liste_joueur[0].getEquipement()
+    TypeSurfaceCanon = TypeFontPast.render(dictItems['canons'], True, (0, 0, 0))
+    TypeSurfaceVoile = TypeFontPast.render(dictItems['voile'], True, (0, 0, 0))
+    TypeSurfaceCoque = TypeFontPast.render(dictItems['coque'], True, (0, 0, 0))
+
+    screen.blit(TypeSurfaceCanon, (0.82*screen_width, 0.955*screen_height))
+    screen.blit(TypeSurfaceVoile, (0.82*screen_width, 0.897*screen_height))
+    screen.blit(TypeSurfaceCoque, (0.82*screen_width, 0.837*screen_height))
+
+
+
+
+    #Affiche l'interface de choix d'item pour le joueur uniquement
+    if liste_joueur[0].afficher_items == True:
+        screen.blit(liste_joueur[0].getItemUI(), (0.78/100*screen_width, 1.39/100*screen_height))
+        PastIcon = liste_joueur[0].getPastDisplay()
+        NewIcon = liste_joueur[0].getNewDisplay()
+
+
+        screen.blit(PastIcon, (0.071 * screen_width, 0.077 * screen_height))
+        screen.blit(NewIcon, (0.071 * screen_width, 0.215 * screen_height))
+
+        PastTextTitle = liste_joueur[0].getTitleTextPast()
+        NewTextTitle = liste_joueur[0].getTitleTextNew()
+        PastTextDescription = liste_joueur[0].getDescriptionTextPast()
+        NewTextDescription = liste_joueur[0].getDescriptionTextNew()
+
+
+        screen.blit(TypeSurfacePast, (0.158*screen_width, 0.068*screen_height))
+        screen.blit(PastTextTitle, (0.158*screen_width, 0.102*screen_height))
+        screen.blit(PastTextDescription, (0.159*screen_width, 0.137*screen_height))
+
+        screen.blit(TypeSurfaceNew, (0.158*screen_width, 0.200*screen_height))
+        screen.blit(NewTextTitle, (0.158*screen_width, 0.234*screen_height))
+        screen.blit(NewTextDescription, (0.159*screen_width, 0.272*screen_height))
+            
 
     # affichage des degats lorsque le joueur est touché
     if len(liste_texte_degats) != 0:
