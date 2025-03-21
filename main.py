@@ -50,7 +50,7 @@ keyBindList =  [
 
 def start_game():
         # Listes des éléments du jeu
-        liste_joueur = [Navire(4, 0.1, 4, "images/Textures/Bateaux/bato_j1.png", screen_width, playHeight, dt, 0)] #vitesse_max, acceleration, maniabilité, image
+        liste_joueur = [Navire(4, 0.1, 4, "images/Textures/Bateaux/bateau_j1.png", screen_width, playHeight, dt, 0)] #vitesse_max, acceleration, maniabilité, image
         liste_ennemis = []
         niveau = 0
 
@@ -320,7 +320,7 @@ while running:
 
 
     #Remplir l'écran avec une couleur de fond
-    screen.fill((170, 170, 170))
+    screen.fill((245, 228, 156))
 
     # affichage de l'ocean en fond
     screen.blit(ocean, (0, 0))

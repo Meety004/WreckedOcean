@@ -219,7 +219,7 @@ dictItemsBuff = {
     'Canons Rouillés': "Vitesse projectiles -15%",
     'Voile Trouée': "Vitesse Max -50%",
     'Coque Trouée': "Inverse les commandes",
-    'Canon de base': "Aucun bonus",
+    'Canons de base': "Aucun bonus",
     'Voile de base': "Aucun bonus",
     'Coque de base': "Aucun bonus",
     '+1 Canon': "Ajoute un canon à l'avant",

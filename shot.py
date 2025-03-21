@@ -8,8 +8,8 @@ class Shot:
         self.y = y
         self.position_initiale_x = x
         self.position_initiale_y = y
-        self.width = 22
-        self.height = 22
+        self.width = 32
+        self.height = 32
         self.angle = angle
         self.vitesse = 9
         self.distance_max = distance_max
