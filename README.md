@@ -118,7 +118,8 @@ Voici la liste de tous ces équiements triés par rareté, avec leur probabilit�
 Voici la liste de tous ces bénédicitons triées par rareté, avec leur probabilités respectives ainsi que leurs effets.
 
 - Rare
-    - Bénédiction Dash (12,5%) (Cooldown - 15 sec) - Emplacement Principal - Permet au joueur de se propulser vers l'avant de manière considérable
+    - __Bénédiction Dash__ (12,5%) (Cooldown - 15 sec)
+    -                                             - Emplacement Principal - Permet au joueur de se propulser vers l'avant de manière considérable
                                                   - Emplacement Secondaire - Permet au joueur de se propulser vers l'avant de manière plutôt efficace
       
     - Bénédiction Santé (12,5%) (Cooldown - 40 sec) - Emplacement Principal - Permet au joueur de restaurer 50% de ses points de vie max
