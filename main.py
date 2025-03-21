@@ -14,6 +14,9 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 police = pygame.font.Font(None, 36) # gere la police lors de l'affichage de texte a l'ecran
 
+ocean = pygame.image.load("images/Backgrounds/ocean background.jpg").convert_alpha()
+ocean = pygame.transform.scale(ocean, (screen_width, (playHeight + (1/34 * screen_height)))).convert_alpha()
+
 # la bouteille sous la barre de vie
 design_barre_de_vie = pygame.transform.scale(pygame.image.load("images/Interfaces/barre_de_vie.png").convert_alpha(), (screen_width*0.09, screen_height*0.265))
 design_barre_de_vie = pygame.transform.rotate(design_barre_de_vie, 90)
@@ -255,8 +258,7 @@ while running:
                         if not shot_i[0].is_inraged():
                             liste_texte_degats.append([police.render(str(damage), True, (255, 0, 0)), 0])
                         if shot_i[0].is_inraged():
-                            liste_texte_degats.append([police.render(str(math.floor((damage+1)*1.5)), True, (255, 0, 0)), 0])
-
+                            liste_texte_degats.append([police.render(str(math.floor((damage+1)*1.5)), True, (255, 0, 0)), 0])                    
                     if shot_i in liste_shot:
                         liste_shot.remove(shot_i)
         else:
@@ -316,7 +318,6 @@ while running:
 
 
     # DRAW
-
 
 
     #Remplir l'écran avec une couleur de fond
@@ -409,7 +410,46 @@ while running:
         screen.blit(TypeSurfaceNew, (0.158*screen_width, 0.200*screen_height))
         screen.blit(NewTextTitle, (0.158*screen_width, 0.234*screen_height))
         screen.blit(NewTextDescription, (0.159*screen_width, 0.272*screen_height))
-            
+
+    # affiche le carré en bas pour que le jeux n'aille pas au dessus
+    pygame.draw.rect(screen, (170, 170, 170), (0, playHeight, screen_width, (playHeight + (1/34 * screen_height))))
+
+    # affiche la bare de vie du joueur
+    
+        # la bouteille
+    rect_barre_de_vie = design_barre_de_vie.get_rect(center=(screen_width/2, 7 * screen_height/8))
+    screen.blit(design_barre_de_vie, rect_barre_de_vie)
+    
+        # la bare de vie
+    largeur = (screen_width*0.1) * ((liste_joueur[0].get_vie()*(screen_width*0.1) / liste_joueur[0].get_max_vie())/(screen_width*0.1))
+    texte = police.render(str(liste_joueur[0].get_vie()) + "/" + str(liste_joueur[0].get_max_vie()), True, (255, 0, 0))
+    bare_de_vie = pygame.Rect(screen_width*0.44, screen_height * 0.86, largeur, screen_width*0.02) # affiche a 44% de la largeur et 86% de la hauteur de l'ecran, la largeur est de 0.02% la taille de la hauteur de l'ecran
+    pygame.draw.rect(screen, (255, 0, 0), bare_de_vie)
+        # le texte pour avoir le nombre de vie exacte
+    screen.blit(texte, (screen_width*0.47, screen_height*0.91))
+
+    # affiche la vitesse de joueur
+    texte_vitesse = police.render("Vitesse Max : " + str(round(liste_joueur[0].get_max_speed())), True, (25, 128, 212))
+    screen.blit(texte_vitesse, (screen_width*0.44, screen_height*0.95))
+
+    # affiche les degats du joueur
+    if liste_joueur[0].getEquipement()["canons"] == "Canon en bronze":
+        texte_degats = police.render("Dégats : 18", True, (179, 0, 0))
+    if liste_joueur[0].getEquipement()["canons"] == "Canon en argent":
+        texte_degats = police.render("Dégats : 20", True, (179, 0, 0))
+    if liste_joueur[0].getEquipement()["canons"] == "Canon en or":
+        texte_degats = police.render("Dégats : 25", True, (179, 0, 0))
+    if liste_joueur[0].getEquipement()["canons"] == "Canon légendaire":
+        texte_degats = police.render("Dégats : 35", True, (179, 0, 0))
+    else:
+        texte_degats = police.render("Dégats : 15", True, (179, 0, 0))
+    screen.blit(texte_degats, (screen_width*0.34, screen_height*0.90))
+
+    # affiche la cadance de tire du joueur
+    texte_cadance = police.render("Cadence : " + str(1000/liste_navire[0].get_cadance_tir()) + "tirs/s" , True, (179, 0, 0))
+    screen.blit(texte_cadance, (screen_width*0.55, screen_height*0.90))
+
+
 
     # affichage des degats lorsque le joueur est touché
     if len(liste_texte_degats) != 0:

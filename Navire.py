@@ -366,6 +366,14 @@ class Navire:
         return self.vie
     def get_max_vie(self):
         return self.maxVie
+    def get_speed(self):
+        return self.vitesse
+    def get_max_speed(self):
+        return self.vitesse_max
+    def get_maniabilite(self):
+        return self.maniabilite
+    def get_cadance_tir(self):
+        return self.cadance_tire
     
     def getEquipement(self):
         return self.equipement
@@ -505,9 +513,6 @@ class Navire:
             elif self.recompense[0] == res.liste_malus[2]:
                 self.DisplayIconPast = self.iconCoque
                 self.DisplayIconNew = self.CoqueMalus
-
-
-
 
     def equiper(self):
         # Mettre à jour l'équipement en fonction de la récompense
