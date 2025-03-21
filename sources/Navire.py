@@ -53,9 +53,15 @@ class Navire:
 
         self.afficher_items = False  # Variable d'état pour suivre l'affichage de l'image
 
+        self.afficher_benediction = False
+
         #On charge l'image de l'interface de choix d'item
         self.ItemsUI = pygame.image.load(os.path.join("data", "images", "Interfaces", "equip_menu_item.png")).convert_alpha()
         self.ItemsUI = pygame.transform.scale(self.ItemsUI, (screen_width*0.4, pygame.display.Info().current_h*0.4)).convert_alpha()
+
+        #On charge l'image de l'interface de choix de bénédiction
+        self.benedictionUI = pygame.image.load(os.path.join("data", "images", "Interfaces", "equip_menu_bene.png")).convert_alpha()
+        self.benedictionUI = pygame.transform.scale(self.benedictionUI, (screen_width*0.4, pygame.display.Info().current_h*0.4)).convert_alpha()
         
         if self.type == 2:
             self.equipement = {
@@ -70,9 +76,9 @@ class Navire:
             'coque':    "Coque de base"
             }
 
-        self.benedictions = ["Bénédiction de rage", "Bénédiction d'aura"]
-
         #On crée une liste qui contient les bénédictions du bateau
+        self.benedictions = [None, None]
+
 
         #Stocke la récompense de l'île
         self.recompense = None
@@ -141,12 +147,12 @@ class Navire:
 
         self.text_loaded = False
 
-        self.type = None
-
         self.distance_max = screen_height*0.15
         self.distance_maxFront = self.distance_max * 1.5
 
         self.screen = (self.screen_width, self.screen_height)
+
+        self.typeRec = None
 
         self.loadImages()
 
@@ -410,6 +416,9 @@ class Navire:
     def getItemUI(self):
         return self.ItemsUI
     
+    def getBenedictionUI(self):
+        return self.benedictionUI
+    
     def getTitleTextPast(self):
         return self.TitleTextPast
     
@@ -428,9 +437,9 @@ class Navire:
 
     def LoadText(self):
         if not isinstance(self.TitleTextPast, pygame.Surface):
-            self.TitleTextPast = self.TitleFont.render(self.equipement[self.type], True, (0, 0, 0))  # Noir
+            self.TitleTextPast = self.TitleFont.render(self.equipement[self.typeRec], True, (0, 0, 0))  # Noir
         if not isinstance(self.DescriptionTextPast, pygame.Surface):
-            equip = self.equipement[self.type]
+            equip = self.equipement[self.typeRec]
             self.DescriptionTextPast = self.DescriptionFont.render(res.dictItemsBuff[equip], True, (0, 0, 0))
 
         if not isinstance(self.TitleTextNew, pygame.Surface):
@@ -450,11 +459,11 @@ class Navire:
     def equipInterface(self, recompense, xIle, yIle, ile):
         self.recompense = recompense
         if self.recompense[0] in res.listeCanons:
-            self.type = "canons"
+            self.typeRec = "canons"
         elif self.recompense[0] in res.listeVoiles:
-            self.type = "voile"
+            self.typeRec = "voile"
         elif self.recompense[0] in res.listeCoques:
-            self.type = "coque"
+            self.typeRec = "coque"
 
 
         if res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
@@ -483,18 +492,31 @@ class Navire:
                 self.equiper()
                 self.verifIleMalus = True
 
+            elif self.recompense[0] in res.liste_benedictions:
+                print(recompense[0])
+
+                # Si l'interface n'est pas affichée, ou si on s'approche d'une nouvelle île
+                if not self.afficher_items or self.ile_actuelle is None:
+
+                    if self.ile_actuelle != ile:
+                        self.afficher_benediction = False
+                        self.ile_actuelle = ile
+                    
+                    self.ile_actuelle = ile  # On mémorise l'île qui a ouvert l'interface
+
+                self.afficher_benediction = True
+
         elif (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus) and self.ile_actuelle == ile:
                 self.afficher_items = False
+                self.afficher_benediction = False
                 self.text_loaded = False
                 self.ile_actuelle = None  # On oublie l'île actuelle
             
 
         
     def updateDisplayIcon(self):
-        type = None
         if self.recompense[0] in res.listeCanons:
             self.DisplayIconPast = self.iconCanon
-            type = "canon"
             if self.recompense[1] == "commun":
                 self.DisplayIconNew = self.CanonCommun
             elif self.recompense[1] == "rare":
@@ -505,7 +527,6 @@ class Navire:
                 self.DisplayIconNew = self.CanonLegendaire
         elif self.recompense[0] in res.listeCoques:
             self.DisplayIconPast = self.iconCoque
-            type = "coque"
             if self.recompense[1] == "commun":
                 self.DisplayIconNew = self.CoqueCommun
             elif self.recompense[1] == "rare":
@@ -516,7 +537,6 @@ class Navire:
                 self.DisplayIconNew = self.CoqueLegendaire
         elif self.recompense[0] in res.listeVoiles:
             self.DisplayIconPast = self.iconVoile
-            type = "voile"
             if self.recompense[1] == "commun":
                 self.DisplayIconNew = self.VoileCommun
             elif self.recompense[1] == "rare":
@@ -526,7 +546,6 @@ class Navire:
             elif self.recompense[1] == "légendaire":
                 self.DisplayIconNew = self.VoileLegendaire
         elif self.recompense[0] in res.liste_malus:
-            type = "malus"
             if self.recompense[0] == res.liste_malus[0]:
                 self.DisplayIconPast = self.iconCanon
                 self.DisplayIconNew = self.CanonMalus
@@ -546,6 +565,14 @@ class Navire:
         elif self.recompense[0] in res.listeCoques or self.recompense[0] == res.liste_malus[2]:
             self.equipement['coque'] = self.recompense[0]
         self.effetItem()
+
+    def equiper_benediction(self, emplacement):
+        if self.recompense[0] in res.liste_benedictions:
+            if emplacement == 0:
+                self.benedictions[0] = self.recompense[0]
+            elif emplacement == 1:
+                self.benedictions[1] = self.recompense[0]
+        
 
 
     def effetItem(self):

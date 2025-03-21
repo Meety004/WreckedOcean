@@ -200,10 +200,10 @@ while running:
                 if tir_du_navire is not None:
                     liste_shot.extend(tir_du_navire)
 
-            if keys[pygame.K_s]:
+            if keys[pygame.K_1] and navire_i.afficher_benediction == False:
                 navire_i.use_benediction_1()
             
-            if keys[pygame.K_d]:
+            if keys[pygame.K_2] and navire_i.afficher_benediction == False:
                 navire_i.use_benediction_2()
 
 
@@ -307,6 +307,24 @@ while running:
                                 nbrIles -= 1
                             n.afficher_items = False
                             n.equiper()
+
+                if n.afficher_benediction == True:
+                        if keys[pygame.K_1] or n.type in (1, 3):
+                            if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
+                                if ile in liste_iles:
+                                    liste_iles.remove(ile)
+                                    nbrIles -= 1
+                                n.afficher_benediction = False
+                                n.equiper_benediction(0)
+
+                        if keys[pygame.K_2] or n.type in (1, 3):
+                            if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
+                                if ile in liste_iles:
+                                    liste_iles.remove(ile)
+                                    nbrIles -= 1
+                                n.afficher_benediction = False
+                                n.equiper_benediction(1)
+
                 elif res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                     verifIleMalus = n.verifIleMalus
                     if verifIleMalus == True:
@@ -417,6 +435,9 @@ while running:
         screen.blit(TypeSurfaceNew, (0.158*screen_width, 0.200*screen_height))
         screen.blit(NewTextTitle, (0.158*screen_width, 0.234*screen_height))
         screen.blit(NewTextDescription, (0.159*screen_width, 0.272*screen_height))
+
+    if liste_joueur[0].afficher_benediction == True:
+        screen.blit(liste_joueur[0].getBenedictionUI(), (0.78/100*screen_width, 1.39/100*screen_height))
 
     # affiche la vitesse de joueur
     texte_vitesse = police.render("Vitesse Max : " + str(round(liste_joueur[0].get_max_speed(), 1)), True, (25, 128, 212))
