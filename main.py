@@ -87,6 +87,9 @@ def start_game():
                 if nbrIles < maxIles:
                     liste_iles.append(Iles(screen_width, playHeight,"images/Textures/Iles/ile_commune.png","images/Textures/Iles/ile_rare.png","images/Textures/Iles/ile_mythique.png","images/Textures/Iles/ile_legendaire.png",liste_navire, liste_iles))
                     nbrIles += 1
+            if nbrIles == 0:
+                liste_iles.append(Iles(screen_width, playHeight,"images/Textures/Iles/ile_commune.png","images/Textures/Iles/ile_rare.png","images/Textures/Iles/ile_mythique.png","images/Textures/Iles/ile_legendaire.png",liste_navire, liste_iles))
+                timer = setTimer()
             return nbrIles, maxIles, timer
 
         #On appelle le timer pour la première fois
@@ -236,8 +239,8 @@ while running:
                             if ile in liste_iles:
                                 liste_iles.remove(ile)
                                 nbrIles -= 1
-                        liste_joueur[0].afficher_items = False
-                        liste_joueur[0].equiper()
+                            liste_joueur[0].afficher_items = False
+                            liste_joueur[0].equiper()
                 elif res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) <= 75:
                     verifIleMalus = n.verifIleMalus
                     if verifIleMalus == True:
