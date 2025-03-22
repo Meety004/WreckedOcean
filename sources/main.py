@@ -297,6 +297,7 @@ while running:
             if len(liste_navire) > 0:
                 recompense = ile.type_recompenses()
                 n.equipInterface(recompense, ile.position_x(), ile.position_y(), ile)
+                n.beneInterface(ile.position_x(), ile.position_y(), ile)
                 n.verifIleExiste(liste_iles)
                 if n.afficher_items == True:
 

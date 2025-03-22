@@ -1,12 +1,3 @@
-# BUG ACTUEL:
-# Lorsque que le bateau a équipé un item de chaque type, (ex voile puis canon, puis coque)
-# et qu'il approche une il qui ne contient pas le type du dernier item équipé
-# l'icone du dernier item équipé reste affiché sur l'interface de choix d'item
-# donc soit iconCoque soit iconVoile soit iconCanon prend une mauvaise valeur une fois que tous les 3 ont été changés.
-
-
-
-
 # IMPORTS
 
 import math
@@ -109,8 +100,8 @@ class Navire:
         self.DisplayIconNew = None
         self.DisplayIconPast = None
 
-        self.timer_benediction_1 = res.Timer(0)  # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
-        self.timer_benediction_2 = res.Timer(0) # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
+        self.timer_benediction_1 = res.Timer(1)  # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
+        self.timer_benediction_2 = res.Timer(1) # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
         self.timer_dash = 15
         self.timer_sante = 20
         self.timer_aura = 30
@@ -153,6 +144,11 @@ class Navire:
         self.screen = (self.screen_width, self.screen_height)
 
         self.typeRec = None
+
+        self.iconBenediction1 = None
+        self.iconBenediction2 = None
+
+        self.newBenedictionIcon = None
 
         self.loadImages()
 
@@ -491,11 +487,31 @@ class Navire:
                 self.updateDisplayIcon()
                 self.equiper()
                 self.verifIleMalus = True
-                
+
         elif (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus) and self.ile_actuelle == ile:
                 self.afficher_items = False
                 self.text_loaded = False
                 self.ile_actuelle = None  # On oublie l'île actuelle
+        
+    def beneInterface(self, xIle, yIle, ile):
+        if res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
+            if self.recompense[0] in res.liste_benedictions:
+
+                # Si l'interface n'est pas affichée, ou si on s'approche d'une nouvelle île
+                if not self.afficher_benediction or self.ile_actuelle is None:
+
+                    if self.ile_actuelle != ile:
+                        self.afficher_benediction = True
+                        self.ile_actuelle = ile
+
+                    #Update des icones et du texte
+                    self.ile_actuelle = ile
+                    
+                self.afficher_benediction = True
+
+        elif self.recompense[0] in res.liste_benedictions and self.ile_actuelle == ile:
+                    self.afficher_benediction = False
+                    self.ile_actuelle = None
             
 
         
