@@ -491,28 +491,11 @@ class Navire:
                 self.updateDisplayIcon()
                 self.equiper()
                 self.verifIleMalus = True
-
-            elif self.recompense[0] in res.liste_benedictions:
-                print(recompense[0])
-
-                # Si l'interface n'est pas affichée, ou si on s'approche d'une nouvelle île
-                if not self.afficher_benediction or self.ile_actuelle is None:
-
-                    if self.ile_actuelle != ile:
-                        self.afficher_benediction = False
-                        self.ile_actuelle = ile
-                    
-                    self.ile_actuelle = ile  # On mémorise l'île qui a ouvert l'interface
-
-                self.afficher_benediction = True
-
+                
         elif (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus) and self.ile_actuelle == ile:
                 self.afficher_items = False
                 self.text_loaded = False
                 self.ile_actuelle = None  # On oublie l'île actuelle
-        elif self.recompense[0] in res.liste_benedictions and  self.recompense[0] not in res.liste_malus and self.ile_actuelle == ile:
-                self.afficher_benediction = False
-                self.ile_actuelle = None
             
 
         
