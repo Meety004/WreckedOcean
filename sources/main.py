@@ -397,6 +397,7 @@ while running:
     # le texte pour avoir le nombre de vie exacte
     screen.blit(texteVie, (screen_width*0.473, screen_height*0.91))
 
+    print(liste_navire[0].type)
 
     #Affiche l'équipement actuel du joueur
     (iconCanon, iconVoile, iconCoque) = liste_joueur[0].getImages()
