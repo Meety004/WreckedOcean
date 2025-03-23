@@ -177,31 +177,31 @@ listeEquipementStart = [
     "Coque de base"
 ]
 
-CoqueCommun = os.path.join("data",'images', 'Icons', 'Coques', 'coque_commun.png')
-CoqueRare = os.path.join("data",'images', 'Icons', 'Coques', 'coque_rare.png') 
-CoqueMythique = os.path.join("data",'images', 'Icons', 'Coques', 'coque_mythique.png')
-CoqueLegendaire = os.path.join("data",'images', 'Icons', 'Coques', 'coque_legendaire.png')
+CoqueCommun = os.path.join("data",'images', 'icons', 'Coques', 'coque_commun.png')
+CoqueRare = os.path.join("data",'images', 'icons', 'Coques', 'coque_rare.png') 
+CoqueMythique = os.path.join("data",'images', 'icons', 'Coques', 'coque_mythique.png')
+CoqueLegendaire = os.path.join("data",'images', 'icons', 'Coques', 'coque_legendaire.png')
 
-VoileCommun = os.path.join("data",'images', 'Icons', 'Voiles', 'voile_commun.png')
-VoileRare = os.path.join("data",'images', 'Icons', 'Voiles', 'voile_rare.png')
-VoileMythique = os.path.join("data",'images', 'Icons', 'Voiles', 'voile_mythique.png')
-VoileLegendaire = os.path.join("data",'images', 'Icons', 'Voiles', 'voile_legendaire.png')
+VoileCommun = os.path.join("data",'images', 'icons', 'Voiles', 'voile_commun.png')
+VoileRare = os.path.join("data",'images', 'icons', 'Voiles', 'voile_rare.png')
+VoileMythique = os.path.join("data",'images', 'icons', 'Voiles', 'voile_mythique.png')
+VoileLegendaire = os.path.join("data",'images', 'icons', 'Voiles', 'voile_legendaire.png')
 
-CanonCommun = os.path.join("data",'images', 'Icons', 'Canons', 'canon_commun.png')
-CanonRare = os.path.join("data",'images', 'Icons', 'Canons', 'canon_rare.png')
-CanonMythique = os.path.join("data",'images', 'Icons', 'Canons', 'canon_mythique.png')
-CanonLegendaire = os.path.join("data",'images', 'Icons', 'Canons', 'canon_legendaire.png')
+CanonCommun = os.path.join("data",'images', 'icons', 'Canons', 'canon_commun.png')
+CanonRare = os.path.join("data",'images', 'icons', 'Canons', 'canon_rare.png')
+CanonMythique = os.path.join("data",'images', 'icons', 'Canons', 'canon_mythique.png')
+CanonLegendaire = os.path.join("data",'images', 'icons', 'Canons', 'canon_legendaire.png')
 
-VoileMalus = os.path.join("data",'images', 'Icons', 'Voiles', 'voile_trouee.png')
-CanonMalus = os.path.join("data",'images', 'Icons', 'Canons', 'canon_rouille.png')
-CoqueMalus = os.path.join("data",'images', 'Icons', 'Coques', 'coque_trouee.png')
+VoileMalus = os.path.join("data",'images', 'icons', 'Voiles', 'voile_trouee.png')
+CanonMalus = os.path.join("data",'images', 'icons', 'Canons', 'canon_rouille.png')
+CoqueMalus = os.path.join("data",'images', 'icons', 'Coques', 'coque_trouee.png')
 
-BeneAura = os.path.join("data",'images', 'Icons', 'Benedictions', 'bene_aura.png')
-BeneDash = os.path.join("data",'images', 'Icons', 'Benedictions', 'bene_dash.png')
-BeneGodMode = os.path.join("data",'images', 'Icons', 'Benedictions', 'bene_godmode.png')
-BeneProjectiles = os.path.join("data",'images', 'Icons', 'Benedictions', 'bene_projectiles.png')
-BeneRage = os.path.join("data",'images', 'Icons', 'Benedictions', 'bene_rage.png')
-BeneSante = os.path.join("data",'images', 'Icons', 'Benedictions', 'bene_sante.png')
+BeneAura = os.path.join("data",'images', 'icons', 'Benedictions', 'bene_aura.png')
+BeneDash = os.path.join("data",'images', 'icons', 'Benedictions', 'bene_dash.png')
+BeneGodMode = os.path.join("data",'images', 'icons', 'Benedictions', 'bene_godmode.png')
+BeneProjectiles = os.path.join("data",'images', 'icons', 'Benedictions', 'bene_projectiles.png')
+BeneRage = os.path.join("data",'images', 'icons', 'Benedictions', 'bene_rage.png')
+BeneSante = os.path.join("data",'images', 'icons', 'Benedictions', 'bene_sante.png')
 
 keyBindList =  [
     pygame.K_UP,
