@@ -138,7 +138,7 @@ class Navire:
 
         self.text_loaded = False
 
-        self.distance_max = screen_height*0.15
+        self.distance_max = screen_height*0.20
         self.distance_maxFront = self.distance_max * 1.5
 
         self.screen = (self.screen_width, self.screen_height)
@@ -488,7 +488,7 @@ class Navire:
                 self.equiper()
                 self.verifIleMalus = True
                 
-        elif (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus) and self.ile_actuelle == ile:
+        elif self.recompense[0] not in res.liste_benedictions and self.recompense[0] not in res.liste_malus and self.ile_actuelle == ile:
                 self.afficher_items = False
                 self.text_loaded = False
                 self.ile_actuelle = None  # On oublie l'île actuelle
@@ -510,8 +510,8 @@ class Navire:
                 self.afficher_benediction = True
 
         elif self.recompense[0] in res.liste_benedictions and self.ile_actuelle == ile:
-                    self.afficher_benediction = False
-                    self.ile_actuelle = None
+            self.afficher_benediction = False
+            self.ile_actuelle = None
             
 
         

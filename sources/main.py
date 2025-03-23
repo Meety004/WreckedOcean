@@ -301,7 +301,7 @@ while running:
                 n.verifIleExiste(liste_iles)
                 if n.afficher_items == True:
 
-                    if keys[pygame.K_a] or n.type in (1, 3):
+                    if keys[pygame.K_a]: #or n.type in (1, 3):
                         if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                             if ile in liste_iles:
                                 liste_iles.remove(ile)
@@ -310,7 +310,7 @@ while running:
                             n.equiper()
 
                 if n.afficher_benediction == True:
-                        if keys[pygame.K_1] or n.type in (1, 3):
+                        if keys[pygame.K_1]: # or n.type in (1, 3):
                             if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                                 if ile in liste_iles:
                                     liste_iles.remove(ile)
@@ -318,7 +318,7 @@ while running:
                                 n.afficher_benediction = False
                                 n.equiper_benediction(0)
 
-                        if keys[pygame.K_2] or n.type in (1, 3):
+                        if keys[pygame.K_2]: # or n.type in (1, 3):
                             if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                                 if ile in liste_iles:
                                     liste_iles.remove(ile)
