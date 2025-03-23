@@ -1,11 +1,11 @@
 # **Wrecked Ocean**
 
-### __Installation et informations importantes__
+# __Installation et informations importantes__
 
 ## Installation
 Pour installer **Wrecked Ocean**, il existe deux méthodes:
 
-# Cloner depuis GitHub:
+### Cloner depuis GitHub:
 Pour ce faire, il vous sufit d'éxécuter la commande suivante dans un terminal:
 - `git clone https://github.com/Meety004/BATOS-ET-MATS-J.git `
 
@@ -36,7 +36,7 @@ Il vous faudra ensuite suivre les étapes listées ci-dessus.
 Notez que *WreckedOceanVenv* est une suggestion de nom d'environnement virtuel, il vous est possible de le nommer comme vous le souhaitez.
 
 
-### Fonctionnalités
+# Fonctionnalités
 
 ## __Atention, ce projet en est cours de développment. Toutes les fonctionnalités listées ne sont pas encore implémentées.__
 

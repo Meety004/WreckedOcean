@@ -459,21 +459,19 @@ class Navire:
             self.DescriptionTextNew = self.DescriptionFont.render(res.dictItemsBuff[equip], True, (0, 0, 0))
 
     def LoadTextBene(self):
-        if not isinstance(self.TitleTextBene1, pygame.Surface):
-            if self.benedictions[0] == None:
-                self.TitleTextBene1 = self.TitleFont.render("Aucune", True, (0, 0, 0))
-            else:
-                self.TitleTextBene1 = self.TitleFont.render(self.benedictions[0], True, (0, 0, 0))  # Noir
-        if not isinstance(self.TitleTextBene2, pygame.Surface):
-            if self.benedictions[1] == None:
-                self.TitleTextBene2 = self.TitleFont.render("Aucune", True, (0, 0, 0))
-            else:
+        if self.benedictions[0] == None:
+            self.TitleTextBene1 = self.TitleFont.render("Aucune", True, (0, 0, 0))
+        else:
+            self.TitleTextBene1 = self.TitleFont.render(self.benedictions[0], True, (0, 0, 0))  # Noir
+
+        if self.benedictions[1] == None:
+            self.TitleTextBene2 = self.TitleFont.render("Aucune", True, (0, 0, 0))
+        else:
                 self.TitleTextBene2 = self.TitleFont.render(self.benedictions[1], True, (0, 0, 0))
-        if not isinstance(self.TitleTexteBeneNew, pygame.Surface):
-            self.TitleTexteBeneNew = self.TitleFont.render(self.recompense[0], True, (0, 0, 0))
-        if not isinstance(self.DescriptionTextBeneNew, pygame.Surface):
-            benediction = self.recompense[0]
-            self.DescriptionTextBeneNew = self.DescriptionFont.render(res.dictBenedictionsBuff[benediction], True, (0, 0, 0))
+
+        self.TitleTexteBeneNew = self.TitleFont.render(self.recompense[0], True, (0, 0, 0))
+        benediction = self.recompense[0]
+        self.DescriptionTextBeneNew = self.DescriptionFont.render(res.dictBenedictionsBuff[benediction], True, (0, 0, 0))
 
     def verifIleExiste(self, liste_iles):
         if (self.ile_actuelle is not None) and (self.ile_actuelle not in liste_iles):
@@ -611,8 +609,6 @@ class Navire:
             self.newBenedictionIcon = self.Rage
         elif self.recompense[0] == "Bénédiction Santé":
             self.newBenedictionIcon = self.Sante
-        else:
-            print("Erreur : Bénédiction inconnue")
 
     def equiper(self):
         # Mettre à jour l'équipement en fonction de la récompense
@@ -625,7 +621,6 @@ class Navire:
         self.effetItem()
 
     def equiper_benediction(self, emplacement):
-        print("équipé") 
         if self.recompense[0] in res.liste_benedictions:
             if emplacement == 0:
                 self.benedictions[0] = self.recompense[0]
