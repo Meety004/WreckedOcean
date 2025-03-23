@@ -1,6 +1,35 @@
 # **Wrecked Ocean**
 
-### __Atention, ce projet en est cours de développment. Toutes les fonctionnalités listées ne sont pas encore implémentées.__
+### __Installation et informations importantes__
+
+## Installation
+Pour installer **Wrecked Ocean**, il existe deux méthodes:
+
+- Cloner depuis GitHub:
+Pour ce faire, il vous sufit d'éxécuter la commande suivante:
+` git clone https://github.com/Meety004/BATOS-ET-MATS-J.git `
+
+Ensuite, télécharger les librairies nécessaires au fonctionnement du programme grâce à la commande suivante:
+` pip install -r BATOS-ET-MATS-J/requirements.txt `
+
+Pour lancer le programme, naviguez jusqu'au dossier de jeu:
+` cd BATOS-ET-MATS-J `
+
+Enfin, éxécuter la commande suivante:
+` python sources/main.py `
+
+Attention, pour éxécuter ce projet, il vous faudra avoir installé Python auparavant.
+Il est conseillé d'utiliser une version comprise entre Python 3.8 et Python 3.12.
+Les librairies utilisées ne sont pas complètement compatibles avec Python 3.13.
+Les versions antérieures à Python 3.8 n'ont pas été testées et peuvent ne pas supporter le programme.
+Pour vérifier votre version de Python, éxécuter la commande:
+` python --version` 
+
+Si Python n'est pas installé, veuillez le télécharger ici: [text](https://www.python.org/downloads/) en l'ajoutant au PATH lors de l'installation.
+
+### Fonctionnalités
+
+## __Atention, ce projet en est cours de développment. Toutes les fonctionnalités listées ne sont pas encore implémentées.__
 
 ## __**Introduction**__
 Le jeu **Wrecked Ocean** est un jeu qui se joue en solo. Vous y incarnerez un pirate cherchant à devenir le meilleur et le plus riche de tous. Pour cela, vous devrez chercher de l'équipement puissant sur des îles et affronterez des ennemis puissants lors de vagues intenses pour récupérer leurs équipements légendaires !
@@ -136,6 +165,15 @@ Voici la liste de tous ces bénédicitons triées par rareté, avec leur probabi
       
     - Bénédiction Projectile (25%) (Cooldown - 50sec) - Emplacement Principal - Permet au joueur d'envoyer une horde de projectile autour de lui quand il tire pendant 10 sec (tir double)
                                                       - Emplacement Secondaire - Permet au joueur d'envoyer une horde de projectile autour de lui quand il tire pendant 10 sec (tir simple)
+
+## __**Compatibilité**__
+**Wrecked Ocean** est compatible sur *Windows 10* et *Windows 11*. Le jeu n'a pas été testé sur les versions antérieures à Windows 10.
+Le jeu est aussi compaptible avec Linux. Des tests on été réalisés sur *Ubuntu 24.04.2* ainsi que sur *Debian 12.10.0*.
+Le jeu peut fonctionner sur des versions antérieures de ces systèmes d'exploitations, mais cela n'est pas garanti.
+Attention, si vous utilisez une machine virtuelle (VM), il se peut que des problèmes liés à la taille de la fenêtre de la machine virtuelle apparaissent.
+Faites attention de bien régler vos configurations de VM pour afficher la totalité de l'écran de jeu.
+
+
 ## __**Crédits**__
 **Wrecked Ocean** est un jeu réalisé à l'occasion du concours Trophée NSI, dans la catégorie Terminale.
 Notre professeur, M. MARIE-JEANNE nous a accompagné pendant toute la durée de ce projet, nous apportant solutions et idées nouvelles.
