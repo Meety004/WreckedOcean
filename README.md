@@ -80,7 +80,7 @@ Voici la liste de tous ces équiements triés par rareté, avec leur probabilit�
         - Canons Rouillés (6,66%) - Malus - Rend les projectiles 15% plus lents
     - Voiles:
         - Voile en toile de jute (20%) - Augmente la vitesse maximale de 5%
-        - Voile Trouée (6,66%) - Malus - Diminue la vitesse maximale du joueur de 50%
+        - Voile Trouée (6,66%) - Malus - Diminue la vitesse maximale du joueur de 20%
 
 - Rare
     - Coques:

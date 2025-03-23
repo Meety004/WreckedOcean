@@ -57,7 +57,7 @@ class Navire:
         if self.type == 2:
             self.equipement = {
             'canons':    "+2 Canons",
-            'voile':    "Voile Latine",
+            'voile':    "Voile latine",
             'coque':    "Coque épicéa"
             }
         else:
@@ -149,6 +149,14 @@ class Navire:
         self.iconBenediction2 = None
 
         self.newBenedictionIcon = None
+
+        self.TitleTextBene1 = None
+        self.TitleTextBene2 = None
+
+        self.TitleTexteBeneNew = None
+        self.DescriptionTextBeneNew = None
+
+        self.text_loaded_bene = False
 
         self.loadImages()
 
@@ -323,7 +331,7 @@ class Navire:
                 tir_diag2 = shot.Shot(self.x, self.y, self.angle - 30, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_diag2, self.equipement['canons']))
 
-            if "Bénédiction Projectile" in self.benedictions and self.giga_tir:
+            if "Bénédiction Projectiles" in self.benedictions and self.giga_tir:
                 tir_diag3 = shot.Shot(self.x, self.y, self.angle + 225, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_diag3, self.equipement['canons']))
                 tir_diag4 = shot.Shot(self.x, self.y, self.angle - 225, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
@@ -333,7 +341,7 @@ class Navire:
                 tir_gauche = shot.Shot(self.x, self.y, self.angle - 90, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_gauche, self.equipement['canons']))
 
-            if self.equipement['canons'] == "Canon à tirs doubles" or ("Bénédiction Projectile" in self.benedictions and self.giga_tir_double): 
+            if self.equipement['canons'] == "Canon à tirs doubles" or ("Bénédiction Projectiles" in self.benedictions and self.giga_tir_double): 
                 pygame.time.set_timer(tirDouble, 70, loops=1)
 
             return liste_tirs
@@ -346,7 +354,7 @@ class Navire:
             tir_gaucheD = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
             liste_tirs.append((tir_gaucheD, self.equipement['canons']))
 
-            if ("Bénédiction Projectile" in self.benedictions and self.giga_tir_double):
+            if ("Bénédiction Projectiles" in self.benedictions and self.giga_tir_double):
                 tir_avantD = shot.Shot(self.x, self.y, self.angle, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_avantD, self.equipement['canons']))
                 tir_arriereD = shot.Shot(self.x, self.y, self.angle + 180, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
@@ -433,6 +441,9 @@ class Navire:
     def getBenedictionsImages(self):
         return self.newBenedictionIcon, self.iconBenediction1, self.iconBenediction2
     
+    def getBenedictionsTexts(self):
+        return self.TitleTextBene1, self.TitleTextBene2, self.TitleTexteBeneNew, self.DescriptionTextBeneNew
+    
 
     def LoadText(self):
         if not isinstance(self.TitleTextPast, pygame.Surface):
@@ -446,6 +457,23 @@ class Navire:
         if not isinstance(self.DescriptionTextNew, pygame.Surface):
             equip = self.recompense[0]
             self.DescriptionTextNew = self.DescriptionFont.render(res.dictItemsBuff[equip], True, (0, 0, 0))
+
+    def LoadTextBene(self):
+        if not isinstance(self.TitleTextBene1, pygame.Surface):
+            if self.benedictions[0] == None:
+                self.TitleTextBene1 = self.TitleFont.render("Aucune", True, (0, 0, 0))
+            else:
+                self.TitleTextBene1 = self.TitleFont.render(self.benedictions[0], True, (0, 0, 0))  # Noir
+        if not isinstance(self.TitleTextBene2, pygame.Surface):
+            if self.benedictions[1] == None:
+                self.TitleTextBene2 = self.TitleFont.render("Aucune", True, (0, 0, 0))
+            else:
+                self.TitleTextBene2 = self.TitleFont.render(self.benedictions[1], True, (0, 0, 0))
+        if not isinstance(self.TitleTexteBeneNew, pygame.Surface):
+            self.TitleTexteBeneNew = self.TitleFont.render(self.recompense[0], True, (0, 0, 0))
+        if not isinstance(self.DescriptionTextBeneNew, pygame.Surface):
+            benediction = self.recompense[0]
+            self.DescriptionTextBeneNew = self.DescriptionFont.render(res.dictBenedictionsBuff[benediction], True, (0, 0, 0))
 
     def verifIleExiste(self, liste_iles):
         if (self.ile_actuelle is not None) and (self.ile_actuelle not in liste_iles):
@@ -505,23 +533,30 @@ class Navire:
                 if not self.afficher_benediction or self.ile_actuelle is None:
 
                     if self.ile_actuelle != ile:
-                        self.afficher_benediction = True
+                        self.afficher_benediction = False
+                        self.text_loaded_bene = False
+                        self.TitleTextBene1 = None
+                        self.TitleTextBene2 = None
+                        self.TitleTexteBeneNew = None
+                        self.DescriptionTextBeneNew = None
                         self.ile_actuelle = ile
 
                     #Update des icones et du texte
-                    self.updateDisplayIconItem()
+                    self.updateDisplayIconBene()
+                    self.LoadTextBene()
+                    self.text_loaded_bene = True
                     self.ile_actuelle = ile
                     
                 self.afficher_benediction = True
 
         elif self.recompense[0] in res.liste_benedictions and self.ile_actuelle == ile:
             self.afficher_benediction = False
+            self.text_loaded_bene = False
             self.ile_actuelle = None
             
 
         
     def updateDisplayIconItem(self):
-        print("called")
         if self.recompense[0] in res.listeCanons:
             self.DisplayIconPast = self.iconCanon
             if self.recompense[1] == "commun":
@@ -562,22 +597,22 @@ class Navire:
             elif self.recompense[0] == res.liste_malus[2]:
                 self.DisplayIconPast = self.iconCoque
                 self.DisplayIconNew = self.CoqueMalus
-        else:
-            print("problème nom, ", self.recompense[0])
 
-    def updateDisplayIconItem(self):
+    def updateDisplayIconBene(self):
         if self.recompense[0] == "Bénédiction Dash":
             self.newBenedictionIcon = self.Dash
-        elif self.recompense[0] == "Bénédiction Aura":
+        elif self.recompense[0] == "Bénédiction d'aura":
             self.newBenedictionIcon = self.Aura
         elif self.recompense[0] == "Bénédiction GodMode":
             self.newBenedictionIcon = self.GodMode
         elif self.recompense[0] == "Bénédiction Projectiles":
             self.newBenedictionIcon = self.Projectiles
-        elif self.recompense[0] == "Bénédiction Rage":
+        elif self.recompense[0] == "Bénédiction de rage":
             self.newBenedictionIcon = self.Rage
         elif self.recompense[0] == "Bénédiction Santé":
             self.newBenedictionIcon = self.Sante
+        else:
+            print("Erreur : Bénédiction inconnue")
 
     def equiper(self):
         # Mettre à jour l'équipement en fonction de la récompense
@@ -637,9 +672,9 @@ class Navire:
             self.VoileMaxVie = 0
             if self.equipement['voile'] == "Voile en toile de jute":
                 self.VoileMaxVitesse = 1.05
-            elif self.equipement['voile'] == "Voile Latine":
+            elif self.equipement['voile'] == "Voile latine":
                 self.VoileMaxVitesse = 1.1
-            elif self.equipement['voile'] == "Voile Enchantée":
+            elif self.equipement['voile'] == "Voile enchantée":
                 self.VoileMaxVitesse = 1.25
                 self.maniabilite = self.maniabilite * 1.02
             elif self.equipement['voile'] == "Voile légendaire":
@@ -654,7 +689,7 @@ class Navire:
         elif self.recompense[0] in res.liste_malus:
             if self.recompense[0] == "Voile Trouée":
                 self.iconVoile = self.DisplayIconNew
-                self.VoileMaxVitesse = 0.5
+                self.VoileMaxVitesse = 0.8
             elif self.recompense[0] == "Canons Rouillés":
                 self.iconCanon = self.DisplayIconNew
             elif self.recompense[0] == "Coque Trouée":
@@ -693,7 +728,7 @@ class Navire:
                     self.rage_timer = res.Timer(15)
                     self.inraged = True
                     self.life_before_rage = self.vie/self.maxVie
-                    self.vie = 30
+                    self.vie = 20
                     self.timer_benediction_1 = res.Timer(50)
                     self.gif_rage = True
                 
@@ -704,7 +739,7 @@ class Navire:
                     self.timer_benediction_1 = res.Timer(50)
             
             if self.timer_benediction_1.timer_ended_special(self.timer_giga_tir) or self.timer_benediction_1.timer_ended():
-                if self.benedictions[0] == "Bénédiction Projectile":
+                if self.benedictions[0] == "Bénédiction Projectiles":
                     self.giga_tir = True
                     self.giga_tir_double = True
                     self.timer_giga_tir_duree = res.Timer(8)
@@ -749,7 +784,7 @@ class Navire:
                     self.timer_benediction_2 = res.Timer(50)
 
             if self.timer_benediction_2.timer_ended_special(self.timer_giga_tir) or self.timer_benediction_2.timer_ended():
-                if self.benedictions[1] == "Bénédiction Projectile":    
+                if self.benedictions[1] == "Bénédiction Projectiles":    
                     self.giga_tir = True
                     self.timer_giga_tir_duree = res.Timer(5)
                     self.timer_benediction_2 = res.Timer(50)
@@ -799,7 +834,6 @@ class Navire:
                                     ennemi.get_damaged(self.aura_degat)
                                     if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 30:
                                         ennemi.get_damaged(self.aura_degat)
-                        print(ennemi.get_vie())
                         self.aura_damage_timer.reset()
             if self.aura_timer.timer_ended():
                 self.has_aura = False

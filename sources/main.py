@@ -304,7 +304,7 @@ while running:
                 n.verifIleExiste(liste_iles)
                 if n.afficher_items == True:
 
-                    if keys[pygame.K_a] or n.type in (1, 3):
+                    if keys[pygame.K_a]: # or n.type in (1, 3):
                         if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                             if ile in liste_iles:
                                 liste_iles.remove(ile)
@@ -313,7 +313,7 @@ while running:
                             n.equiper()
 
                 if n.afficher_benediction == True:
-                        if keys[pygame.K_1] or n.type in (1, 3):
+                        if keys[pygame.K_1]: # or n.type in (1, 3):
                             if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                                 if ile in liste_iles:
                                     liste_iles.remove(ile)
@@ -321,7 +321,7 @@ while running:
                                 n.afficher_benediction = False
                                 n.equiper_benediction(0)
 
-                        if keys[pygame.K_2] or n.type in (1, 3):
+                        if keys[pygame.K_2]: # or n.type in (1, 3):
                             if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                                 if ile in liste_iles:
                                     liste_iles.remove(ile)
@@ -452,9 +452,19 @@ while running:
             Bene2Icon = croixBenediction
 
 
-        screen.blit(NewBeneIcon, (0.071 * screen_width, 0.077 * screen_height))
-        screen.blit(Bene1Icon, (0.071 * screen_width, 0.215 * screen_height))
-        screen.blit(Bene2Icon, (0.071 * screen_width, 0.353 * screen_height))
+        screen.blit(NewBeneIcon, (0.071 * screen_width, 0.215 * screen_height))
+        screen.blit(Bene1Icon, (0.090 * screen_width, 0.040* screen_height))
+        screen.blit(Bene2Icon, (0.255 * screen_width, 0.040 * screen_height))
+
+        Bene1TextTitle = liste_joueur[0].getBenedictionsTexts()[0]
+        Bene2TextTitle = liste_joueur[0].getBenedictionsTexts()[1]
+        NewTextTitle = liste_joueur[0].getBenedictionsTexts()[2]
+        NewTextDescription = liste_joueur[0].getBenedictionsTexts()[3]
+
+        screen.blit(Bene1TextTitle, (0.100 * screen_width, 0.065* screen_height))
+        screen.blit(Bene2TextTitle, (0.270 * screen_width, 0.065 * screen_height))
+        screen.blit(NewTextTitle, (0.153 * screen_width, 0.230 * screen_height))
+        screen.blit(NewTextDescription, (0.153 * screen_width, 0.265 * screen_height))
 
     # affiche la vitesse de joueur
     texte_vitesse = police.render("Vitesse Max : " + str(round(liste_joueur[0].get_max_speed(), 1)), True, (25, 128, 212))

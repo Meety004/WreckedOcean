@@ -128,9 +128,9 @@ liste_benedictions = [
     "Bénédiction Dash", 
     "Bénédiction Santé",
     "Bénédiction d'aura", 
-    "Bénédiciton de rage",
+    "Bénédiction de rage",
     "Bénédiction GodMode", 
-    "Bénédiction Projectile"
+    "Bénédiction Projectiles"
 ]
 
 liste_malus = [
@@ -242,6 +242,15 @@ dictItemsBuff = {
     'Voile latine': "Vitesse Max +10%",
     'Voile enchantée': "Vitesse Max +25% | Maniabilité +2%",
     'Voile légendaire': "Vitesse Max +30% | Maniabilité +5%"
+}
+
+dictBenedictionsBuff = {
+    "Bénédiction Dash": "Vous permet de faire une forte accélération",
+    "Bénédiction Santé": "Ajoute 50% de votre PV max",
+    "Bénédiction d'aura": "Crée une aura qui fait des dégâts aux ennemis proches",
+    "Bénédiction de rage": "Augmente les dégâts et la vitesse de 50%, réduit les PV à 20",
+    "Bénédiction GodMode": "Vous rend invincible",
+    "Bénédiction Projectiles": "Envoie une multitude de projectiles autour de vous"
 }
 
 fontPixel = os.path.join("data", 'Fonts', 'pixel-font.otf')

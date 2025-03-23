@@ -48,9 +48,9 @@ class Iles:
         self.probabilité_commun = [0.2, 0.2, 0.2, 0.1, 0.2, 0.1]
         self.liste_recompenses_rares = ['+2 Canons', 'Canon en argent', 'Canon ballistique', 'Voile latine', 'Coque en bouleau', 'Coque en chêne massif', 'Bénédiction Dash', 'Bénédiction Santé']
         self.probabilité_rare = [0.1, 0.175, 0.1, 0.175, 0.1, 0.1, 0.125, 0.125]
-        self.liste_recompenses_mythiques = ['+3 Canons', 'Canon en or', 'Canon à tirs doubles', 'Voile enchantée', 'Coque en bois magique', "Bénédiction d'aura", 'Bénédiciton de rage']
+        self.liste_recompenses_mythiques = ['+3 Canons', 'Canon en or', 'Canon à tirs doubles', 'Voile enchantée', 'Coque en bois magique', "Bénédiction d'aura", 'Bénédiction de rage']
         self.probabilité_mythique = [0.12, 0.12, 0.12, 0.12, 0.12, 0.2, 0.2]
-        self.liste_recompenses_legendaires = ['+4 Canons', 'Canon légendaire', 'Voile légendaire', 'Coque légendaire', 'Bénédiction GodMode', 'Bénédiction Projectile']
+        self.liste_recompenses_legendaires = ['+4 Canons', 'Canon légendaire', 'Voile légendaire', 'Coque légendaire', 'Bénédiction GodMode', 'Bénédiction Projectiles']
         self.probabilité_legendaire = [0.125, 0.125, 0.125, 0.125, 0.25, 0.25]
         
         #Dictionnaire qui associe le type d'ile à ses probabilités
