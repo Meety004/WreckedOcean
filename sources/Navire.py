@@ -446,6 +446,7 @@ class Navire:
 
     def verifIleExiste(self, liste_iles):
         if (self.ile_actuelle is not None) and (self.ile_actuelle not in liste_iles):
+            self.afficher_benediction = False
             self.afficher_items = False
             self.text_loaded = False
             self.ile_actuelle = None
