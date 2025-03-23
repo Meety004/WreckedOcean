@@ -46,6 +46,10 @@ TypeSurfacePast = TypeFontPast.render("Votre équipement actuel:", True, (0, 0, 
 TypeSurfaceNew = TypeFontPast.render("Ce que vous avez trouvé:", True, (0, 0, 0))
 
 TypeDisplayEquipement = pygame.font.Font(res.fontPixel, 16)
+TypeDisplayBenediction = pygame.font.Font(res.fontPixel, 24)
+
+Bene1Surface = TypeDisplayBenediction.render("Bénédiction 1", True, (0, 0, 0))
+Bene2Surface = TypeDisplayBenediction.render("Bénédiction 2", True, (0, 0, 0))
 
 
 keyBindList =  [
@@ -304,7 +308,7 @@ while running:
                 n.verifIleExiste(liste_iles)
                 if n.afficher_items == True:
 
-                    if keys[pygame.K_a]: # or n.type in (1, 3):
+                    if keys[pygame.K_a] or n.type in (1, 3):
                         if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                             if ile in liste_iles:
                                 liste_iles.remove(ile)
@@ -313,7 +317,7 @@ while running:
                             n.equiper()
 
                 if n.afficher_benediction == True:
-                        if keys[pygame.K_1]: # or n.type in (1, 3):
+                        if keys[pygame.K_1] or n.type in (1, 3):
                             if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                                 if ile in liste_iles:
                                     liste_iles.remove(ile)
@@ -321,7 +325,7 @@ while running:
                                 n.afficher_benediction = False
                                 n.equiper_benediction(0)
 
-                        if keys[pygame.K_2]: # or n.type in (1, 3):
+                        if keys[pygame.K_2] or n.type in (1, 3):
                             if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                                 if ile in liste_iles:
                                     liste_iles.remove(ile)
@@ -413,7 +417,28 @@ while running:
     screen.blit(TypeSurfaceVoile, (0.82*screen_width, 0.897*screen_height))
     screen.blit(TypeSurfaceCoque, (0.82*screen_width, 0.837*screen_height))
 
+    #Affiche les bénédictions du joueur
+    Bene1 = liste_joueur[0].getBenedictionsImages()[0]
+    Bene2 = liste_joueur[0].getBenedictionsImages()[1]
+    if Bene1 == None:
+        Bene1 = croixBenediction
+    if Bene2 == None:
+        Bene2 = croixBenediction
+    screen.blit(Bene1, (0.05*screen_width, 0.860*screen_height))
+    screen.blit(Bene2, (0.175*screen_width, 0.860*screen_height))
 
+    screen.blit(Bene1Surface, (0.055*screen_width, 0.825*screen_height))
+    screen.blit(Bene2Surface, (0.180*screen_width, 0.825*screen_height))
+
+    DisplayTitleBene1 = liste_joueur[0].getBenedictionsTexts()[0]
+    DisplayTitleBene2 = liste_joueur[0].getBenedictionsTexts()[1]
+    if DisplayTitleBene1 == None:
+        DisplayTitleBene1 = TypeDisplayBenediction.render("Aucune", True, (0, 0, 0))
+    if DisplayTitleBene2 == None:
+        DisplayTitleBene2 = TypeDisplayBenediction.render("Aucune", True, (0, 0, 0))
+
+    screen.blit(DisplayTitleBene1, (0.065*screen_width, 0.96*screen_height))
+    screen.blit(DisplayTitleBene2, (0.190*screen_width, 0.96*screen_height))
 
 
     #Affiche l'interface de choix d'item pour le joueur uniquement
@@ -461,8 +486,8 @@ while running:
         NewTextTitle = liste_joueur[0].getBenedictionsTexts()[2]
         NewTextDescription = liste_joueur[0].getBenedictionsTexts()[3]
 
-        screen.blit(Bene1TextTitle, (0.100 * screen_width, 0.065* screen_height))
-        screen.blit(Bene2TextTitle, (0.270 * screen_width, 0.065 * screen_height))
+        screen.blit(Bene1TextTitle, (0.105 * screen_width, 0.14* screen_height))
+        screen.blit(Bene2TextTitle, (0.275 * screen_width, 0.14 * screen_height))
         screen.blit(NewTextTitle, (0.153 * screen_width, 0.230 * screen_height))
         screen.blit(NewTextDescription, (0.153 * screen_width, 0.265 * screen_height))
 
@@ -473,11 +498,11 @@ while running:
     # affiche les degats du joueur
     if liste_joueur[0].getEquipement()["canons"] == "Canon en bronze":
         texte_degats = police.render("Dégats : 18", True, (179, 0, 0))
-    if liste_joueur[0].getEquipement()["canons"] == "Canon en argent":
+    elif liste_joueur[0].getEquipement()["canons"] == "Canon en argent":
         texte_degats = police.render("Dégats : 20", True, (179, 0, 0))
-    if liste_joueur[0].getEquipement()["canons"] == "Canon en or":
+    elif liste_joueur[0].getEquipement()["canons"] == "Canon en or":
         texte_degats = police.render("Dégats : 25", True, (179, 0, 0))
-    if liste_joueur[0].getEquipement()["canons"] == "Canon légendaire":
+    elif liste_joueur[0].getEquipement()["canons"] == "Canon légendaire":
         texte_degats = police.render("Dégats : 35", True, (179, 0, 0))
     else:
         texte_degats = police.render("Dégats : 15", True, (179, 0, 0))

@@ -100,8 +100,8 @@ class Navire:
         self.DisplayIconNew = None
         self.DisplayIconPast = None
 
-        self.timer_benediction_1 = res.Timer(1)  # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
-        self.timer_benediction_2 = res.Timer(1) # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
+        self.timer_benediction_1 = res.Timer(5)  # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
+        self.timer_benediction_2 = res.Timer(5) # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
         self.timer_dash = 15
         self.timer_sante = 20
         self.timer_aura = 30
@@ -625,6 +625,7 @@ class Navire:
         self.effetItem()
 
     def equiper_benediction(self, emplacement):
+        print("équipé") 
         if self.recompense[0] in res.liste_benedictions:
             if emplacement == 0:
                 self.benedictions[0] = self.recompense[0]
@@ -654,7 +655,7 @@ class Navire:
             elif self.equipement['coque'] == "Coque en chêne massif":
                 self.CoqueMaxVie += 75
                 self.vie += 75
-                self.CoqueMaxVitesse = 0.75
+                self.CoqueMaxVitesse = 0.85
             elif self.equipement['coque'] == "Coque chêne":
                 self.CoqueMaxVitesse = 1.05
             elif self.equipement['coque'] == "Coque en bois magique":
