@@ -36,6 +36,9 @@ god_mode_image = pygame.transform.scale(pygame.image.load(os.path.join("data", "
 design_barre_de_vie = pygame.transform.scale(pygame.image.load(os.path.join("data", "images", "Interfaces", "barre_de_vie.png")).convert_alpha(), (screen_width*0.09, screen_height*0.265))
 design_barre_de_vie = pygame.transform.rotate(design_barre_de_vie, 90)
 
+#Croix des bénédictions
+croixBenediction = pygame.transform.scale(pygame.image.load(os.path.join("data", "images", "icons", "Autres", "croix_bene.png")), (6.55/100*screen_width, 12.7/100*playHeight)).convert_alpha()
+
 police = pygame.font.Font(None, 36) # gere la police lors de l'affichage de texte a l'ecran
 
 TypeFontPast = pygame.font.Font(res.fontPixel, 32)
@@ -301,7 +304,7 @@ while running:
                 n.verifIleExiste(liste_iles)
                 if n.afficher_items == True:
 
-                    if keys[pygame.K_a]: #or n.type in (1, 3):
+                    if keys[pygame.K_a] or n.type in (1, 3):
                         if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                             if ile in liste_iles:
                                 liste_iles.remove(ile)
@@ -310,7 +313,7 @@ while running:
                             n.equiper()
 
                 if n.afficher_benediction == True:
-                        if keys[pygame.K_1]: # or n.type in (1, 3):
+                        if keys[pygame.K_1] or n.type in (1, 3):
                             if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                                 if ile in liste_iles:
                                     liste_iles.remove(ile)
@@ -318,7 +321,7 @@ while running:
                                 n.afficher_benediction = False
                                 n.equiper_benediction(0)
 
-                        if keys[pygame.K_2]: # or n.type in (1, 3):
+                        if keys[pygame.K_2] or n.type in (1, 3):
                             if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                                 if ile in liste_iles:
                                     liste_iles.remove(ile)
@@ -439,6 +442,19 @@ while running:
 
     if liste_joueur[0].afficher_benediction == True:
         screen.blit(liste_joueur[0].getBenedictionUI(), (0.78/100*screen_width, 1.39/100*screen_height))
+        NewBeneIcon = liste_joueur[0].getBenedictionsImages()[0]
+        Bene1Icon = liste_joueur[0].getBenedictionsImages()[1]
+        Bene2Icon = liste_joueur[0].getBenedictionsImages()[2]
+
+        if Bene1Icon == None:
+            Bene1Icon = croixBenediction
+        if Bene2Icon == None:
+            Bene2Icon = croixBenediction
+
+
+        screen.blit(NewBeneIcon, (0.071 * screen_width, 0.077 * screen_height))
+        screen.blit(Bene1Icon, (0.071 * screen_width, 0.215 * screen_height))
+        screen.blit(Bene2Icon, (0.071 * screen_width, 0.353 * screen_height))
 
     # affiche la vitesse de joueur
     texte_vitesse = police.render("Vitesse Max : " + str(round(liste_joueur[0].get_max_speed(), 1)), True, (25, 128, 212))

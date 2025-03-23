@@ -430,6 +430,9 @@ class Navire:
     def getImages(self):
         return self.iconCoque, self.iconVoile, self.iconCanon
     
+    def getBenedictionsImages(self):
+        return self.newBenedictionIcon, self.iconBenediction1, self.iconBenediction2
+    
 
     def LoadText(self):
         if not isinstance(self.TitleTextPast, pygame.Surface):
@@ -477,7 +480,7 @@ class Navire:
                         self.DescriptionTextNew = None
                         self.ile_actuelle = ile
                     
-                    self.updateDisplayIcon()
+                    self.updateDisplayIconItem()
                     self.LoadText()
                     self.text_loaded = True
                     self.ile_actuelle = ile  # On mémorise l'île qui a ouvert l'interface
@@ -485,7 +488,7 @@ class Navire:
                 self.afficher_items = True
 
             elif self.recompense[0] in res.liste_malus:
-                self.updateDisplayIcon()
+                self.updateDisplayIconItem()
                 self.equiper()
                 self.verifIleMalus = True
                 
@@ -506,6 +509,7 @@ class Navire:
                         self.ile_actuelle = ile
 
                     #Update des icones et du texte
+                    self.updateDisplayIconItem()
                     self.ile_actuelle = ile
                     
                 self.afficher_benediction = True
@@ -516,7 +520,8 @@ class Navire:
             
 
         
-    def updateDisplayIcon(self):
+    def updateDisplayIconItem(self):
+        print("called")
         if self.recompense[0] in res.listeCanons:
             self.DisplayIconPast = self.iconCanon
             if self.recompense[1] == "commun":
@@ -557,6 +562,22 @@ class Navire:
             elif self.recompense[0] == res.liste_malus[2]:
                 self.DisplayIconPast = self.iconCoque
                 self.DisplayIconNew = self.CoqueMalus
+        else:
+            print("problème nom, ", self.recompense[0])
+
+    def updateDisplayIconItem(self):
+        if self.recompense[0] == "Bénédiction Dash":
+            self.newBenedictionIcon = self.Dash
+        elif self.recompense[0] == "Bénédiction Aura":
+            self.newBenedictionIcon = self.Aura
+        elif self.recompense[0] == "Bénédiction GodMode":
+            self.newBenedictionIcon = self.GodMode
+        elif self.recompense[0] == "Bénédiction Projectiles":
+            self.newBenedictionIcon = self.Projectiles
+        elif self.recompense[0] == "Bénédiction Rage":
+            self.newBenedictionIcon = self.Rage
+        elif self.recompense[0] == "Bénédiction Santé":
+            self.newBenedictionIcon = self.Sante
 
     def equiper(self):
         # Mettre à jour l'équipement en fonction de la récompense
@@ -572,8 +593,10 @@ class Navire:
         if self.recompense[0] in res.liste_benedictions:
             if emplacement == 0:
                 self.benedictions[0] = self.recompense[0]
+                self.iconBenediction1 = self.newBenedictionIcon
             elif emplacement == 1:
                 self.benedictions[1] = self.recompense[0]
+                self.iconBenediction2 = self.newBenedictionIcon
         
 
 
@@ -686,6 +709,7 @@ class Navire:
                     self.giga_tir_double = True
                     self.timer_giga_tir_duree = res.Timer(8)
                     self.timer_benediction_1 = res.Timer(50)
+        
 
     def use_benediction_2(self):
         if len(self.benedictions) > 1:
