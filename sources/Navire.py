@@ -150,9 +150,6 @@ class Navire:
 
         self.newBenedictionIcon = None
 
-        self.TitleTextBene1 = None
-        self.TitleTextBene2 = None
-
         self.TitleTexteBeneNew = None
         self.DescriptionTextBeneNew = None
 
@@ -442,7 +439,7 @@ class Navire:
         return self.newBenedictionIcon, self.iconBenediction1, self.iconBenediction2
     
     def getBenedictionsTexts(self):
-        return self.TitleTextBene1, self.TitleTextBene2, self.TitleTexteBeneNew, self.DescriptionTextBeneNew
+        return self.benedictions[0], self.benedictions[1], self.TitleTexteBeneNew, self.DescriptionTextBeneNew
     
 
     def LoadText(self):
@@ -459,16 +456,6 @@ class Navire:
             self.DescriptionTextNew = self.DescriptionFont.render(res.dictItemsBuff[equip], True, (0, 0, 0))
 
     def LoadTextBene(self):
-        if self.benedictions[0] == None:
-            self.TitleTextBene1 = self.TitleFont.render("Aucune", True, (0, 0, 0))
-        else:
-            self.TitleTextBene1 = self.TitleFont.render(self.benedictions[0], True, (0, 0, 0))  # Noir
-
-        if self.benedictions[1] == None:
-            self.TitleTextBene2 = self.TitleFont.render("Aucune", True, (0, 0, 0))
-        else:
-                self.TitleTextBene2 = self.TitleFont.render(self.benedictions[1], True, (0, 0, 0))
-
         self.TitleTexteBeneNew = self.TitleFont.render(self.recompense[0], True, (0, 0, 0))
         benediction = self.recompense[0]
         self.DescriptionTextBeneNew = self.DescriptionFont.render(res.dictBenedictionsBuff[benediction], True, (0, 0, 0))
@@ -533,8 +520,6 @@ class Navire:
                     if self.ile_actuelle != ile:
                         self.afficher_benediction = False
                         self.text_loaded_bene = False
-                        self.TitleTextBene1 = None
-                        self.TitleTextBene2 = None
                         self.TitleTexteBeneNew = None
                         self.DescriptionTextBeneNew = None
                         self.ile_actuelle = ile

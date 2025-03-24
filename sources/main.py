@@ -207,10 +207,10 @@ while running:
                 if tir_du_navire is not None:
                     liste_shot.extend(tir_du_navire)
 
-            if keys[pygame.K_1] and navire_i.afficher_benediction == False:
+            if keys[pygame.K_z] and navire_i.afficher_benediction == False:
                 navire_i.use_benediction_1()
             
-            if keys[pygame.K_2] and navire_i.afficher_benediction == False:
+            if keys[pygame.K_e] and navire_i.afficher_benediction == False:
                 navire_i.use_benediction_2()
 
 
@@ -418,8 +418,8 @@ while running:
     screen.blit(TypeSurfaceCoque, (0.82*screen_width, 0.837*screen_height))
 
     #Affiche les bénédictions du joueur
-    Bene1 = liste_joueur[0].getBenedictionsImages()[0]
-    Bene2 = liste_joueur[0].getBenedictionsImages()[1]
+    Bene1 = liste_joueur[0].getBenedictionsImages()[1]
+    Bene2 = liste_joueur[0].getBenedictionsImages()[2]
     if Bene1 == None:
         Bene1 = croixBenediction
     if Bene2 == None:
@@ -430,15 +430,19 @@ while running:
     screen.blit(Bene1Surface, (0.055*screen_width, 0.825*screen_height))
     screen.blit(Bene2Surface, (0.180*screen_width, 0.825*screen_height))
 
-    DisplayTitleBene1 = liste_joueur[0].getBenedictionsTexts()[0]
-    DisplayTitleBene2 = liste_joueur[0].getBenedictionsTexts()[1]
-    if DisplayTitleBene1 == None:
-        DisplayTitleBene1 = TypeDisplayBenediction.render("Aucune", True, (0, 0, 0))
-    if DisplayTitleBene2 == None:
-        DisplayTitleBene2 = TypeDisplayBenediction.render("Aucune", True, (0, 0, 0))
+    TexteSurfaceBene1 = liste_joueur[0].getBenedictionsTexts()[0]
+    TexteSurfaceBene2 = liste_joueur[0].getBenedictionsTexts()[1]
 
-    screen.blit(DisplayTitleBene1, (0.065*screen_width, 0.96*screen_height))
-    screen.blit(DisplayTitleBene2, (0.190*screen_width, 0.96*screen_height))
+    if TexteSurfaceBene1 == None:#not in res.liste_benedictions:
+        TexteSurfaceBene1 = "Aucune"
+    if TexteSurfaceBene2 == None:#not in res.liste_benedictions:
+        TexteSurfaceBene2 = "Aucune"
+
+    TexteSurfaceBene1 = TypeDisplayBenediction.render(TexteSurfaceBene1, True, (0, 0, 0))
+    TexteSurfaceBene2 = TypeDisplayBenediction.render(TexteSurfaceBene2, True, (0, 0, 0))
+
+    screen.blit(TexteSurfaceBene1, (0.060*screen_width, 0.96*screen_height))
+    screen.blit(TexteSurfaceBene2, (0.185*screen_width, 0.96*screen_height))
 
 
     #Affiche l'interface de choix d'item pour le joueur uniquement
@@ -483,6 +487,14 @@ while running:
 
         Bene1TextTitle = liste_joueur[0].getBenedictionsTexts()[0]
         Bene2TextTitle = liste_joueur[0].getBenedictionsTexts()[1]
+        if Bene1TextTitle == None:
+            Bene1TextTitle = "Aucune"
+        if Bene2TextTitle == None:
+            Bene2TextTitle = "Aucune"
+        
+        Bene1TextTitle = TypeDisplayBenediction.render(Bene1TextTitle, True, (0, 0, 0))
+        Bene2TextTitle = TypeDisplayBenediction.render(Bene2TextTitle, True, (0, 0, 0))
+
         NewTextTitle = liste_joueur[0].getBenedictionsTexts()[2]
         NewTextDescription = liste_joueur[0].getBenedictionsTexts()[3]
 

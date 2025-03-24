@@ -90,8 +90,10 @@ Voici les touches de contrôle de jeu:
 - Equiper: `A`
 - Pause: `Echap`
 - Quitter le jeu: `Tab`
-- Choisir bénédicition 1: `1`
-- Choisir bénédicition 2: `2`
+- Equiper une bénédiction dans l'emplacement primaire: `1`
+- Equiper une bénédiction dans l'emplacement secondaire: `2`
+- Utiliser la bénédiciton primaire : `Z`
+- Utiliser la bénédiciton secondaire : `E`
 
 ### Attention, lorsque vous avez la Coque Trouée (équipement malus), vos touches de déplacement seront inversées et deviendront les suivantes:
 - Avancer: `Flèche Bas`
@@ -157,8 +159,8 @@ Voici la liste de tous ces bénédicitons triées par rareté, avec leur probabi
 
 - Rare
     - __Bénédiction Dash__ (12,5%) (Cooldown - 15 sec)
-    -                                             - Emplacement Principal - Permet au joueur de se propulser vers l'avant de manière considérable
-                                                  - Emplacement Secondaire - Permet au joueur de se propulser vers l'avant de manière plutôt efficace
+        - Emplacement Principal - Permet au joueur de se propulser vers l'avant de manière considérable
+        - Emplacement Secondaire - Permet au joueur de se propulser vers l'avant de manière plutôt efficace
       
     - Bénédiction Santé (12,5%) (Cooldown - 40 sec) - Emplacement Principal - Permet au joueur de restaurer 50% de ses points de vie max
                                                    - Emplacement Secondaire - Permet au joueur de restaurer 25% de ses points de vie max
