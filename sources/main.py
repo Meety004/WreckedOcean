@@ -404,18 +404,18 @@ while running:
     iconCanon = pygame.transform.scale(iconCanon, (2.616/100*screen_width, 5.072/100*screen_height))
     iconVoile = pygame.transform.scale(iconVoile, (2.616/100*screen_width, 5.072/100*screen_height))
     iconCoque = pygame.transform.scale(iconCoque, (2.616/100*screen_width, 5.072/100*screen_height))
-    screen.blit(iconCanon, (0.79*screen_width, 0.829*screen_height))
-    screen.blit(iconVoile, (0.79*screen_width, 0.889*screen_height))
-    screen.blit(iconCoque, (0.79*screen_width, 0.949*screen_height))
+    screen.blit(iconCanon, (0.77*screen_width, 0.829*screen_height))
+    screen.blit(iconVoile, (0.77*screen_width, 0.889*screen_height))
+    screen.blit(iconCoque, (0.77*screen_width, 0.949*screen_height))
 
     dictItems = liste_joueur[0].getEquipement()
     TypeSurfaceCanon = TypeFontPast.render(dictItems['canons'], True, (0, 0, 0))
     TypeSurfaceVoile = TypeFontPast.render(dictItems['voile'], True, (0, 0, 0))
     TypeSurfaceCoque = TypeFontPast.render(dictItems['coque'], True, (0, 0, 0))
 
-    screen.blit(TypeSurfaceCanon, (0.82*screen_width, 0.955*screen_height))
-    screen.blit(TypeSurfaceVoile, (0.82*screen_width, 0.897*screen_height))
-    screen.blit(TypeSurfaceCoque, (0.82*screen_width, 0.837*screen_height))
+    screen.blit(TypeSurfaceCanon, (0.80*screen_width, 0.955*screen_height))
+    screen.blit(TypeSurfaceVoile, (0.80*screen_width, 0.897*screen_height))
+    screen.blit(TypeSurfaceCoque, (0.80*screen_width, 0.837*screen_height))
 
     #Affiche les bénédictions du joueur
     Bene1 = liste_joueur[0].getBenedictionsImages()[1]
@@ -441,8 +441,8 @@ while running:
     TexteSurfaceBene1 = TypeDisplayBenediction.render(TexteSurfaceBene1, True, (0, 0, 0))
     TexteSurfaceBene2 = TypeDisplayBenediction.render(TexteSurfaceBene2, True, (0, 0, 0))
 
-    screen.blit(TexteSurfaceBene1, (0.060*screen_width, 0.96*screen_height))
-    screen.blit(TexteSurfaceBene2, (0.185*screen_width, 0.96*screen_height))
+    screen.blit(TexteSurfaceBene1, (0.055*screen_width, 0.96*screen_height))
+    screen.blit(TexteSurfaceBene2, (0.180*screen_width, 0.96*screen_height))
 
 
     #Affiche l'interface de choix d'item pour le joueur uniquement
@@ -498,32 +498,44 @@ while running:
         NewTextTitle = liste_joueur[0].getBenedictionsTexts()[2]
         NewTextDescription = liste_joueur[0].getBenedictionsTexts()[3]
 
-        screen.blit(Bene1TextTitle, (0.105 * screen_width, 0.14* screen_height))
-        screen.blit(Bene2TextTitle, (0.275 * screen_width, 0.14 * screen_height))
+        screen.blit(Bene1TextTitle, (0.100 * screen_width, 0.14* screen_height))
+        screen.blit(Bene2TextTitle, (0.270 * screen_width, 0.14 * screen_height))
         screen.blit(NewTextTitle, (0.153 * screen_width, 0.230 * screen_height))
         screen.blit(NewTextDescription, (0.153 * screen_width, 0.265 * screen_height))
 
     # affiche la vitesse de joueur
-    texte_vitesse = police.render("Vitesse Max : " + str(round(liste_joueur[0].get_max_speed(), 1)), True, (25, 128, 212))
-    screen.blit(texte_vitesse, (screen_width*0.44, screen_height*0.95))
+    texte_vitesse = police.render("Vitesse Max: " + str(round(liste_joueur[0].get_max_speed(), 1)), True, (25, 128, 212))
+    screen.blit(texte_vitesse, (screen_width*0.60, screen_height*0.91))
 
     # affiche les degats du joueur
     if liste_joueur[0].getEquipement()["canons"] == "Canon en bronze":
-        texte_degats = police.render("Dégats : 18", True, (179, 0, 0))
+        texte_degats = police.render("Dégats: 18", True, (179, 0, 0))
     elif liste_joueur[0].getEquipement()["canons"] == "Canon en argent":
-        texte_degats = police.render("Dégats : 20", True, (179, 0, 0))
+        texte_degats = police.render("Dégats: 20", True, (179, 0, 0))
     elif liste_joueur[0].getEquipement()["canons"] == "Canon en or":
-        texte_degats = police.render("Dégats : 25", True, (179, 0, 0))
+        texte_degats = police.render("Dégats: 25", True, (179, 0, 0))
     elif liste_joueur[0].getEquipement()["canons"] == "Canon légendaire":
-        texte_degats = police.render("Dégats : 35", True, (179, 0, 0))
+        texte_degats = police.render("Dégats: 35", True, (179, 0, 0))
     else:
-        texte_degats = police.render("Dégats : 15", True, (179, 0, 0))
-    screen.blit(texte_degats, (screen_width*0.34, screen_height*0.90))
+        texte_degats = police.render("Dégats: 15", True, (179, 0, 0))
+    screen.blit(texte_degats, (screen_width*0.60, screen_height*0.88))
 
     # affiche la cadence de tir du joueur
     cadence_rounded = round(1000/liste_joueur[0].get_cadence_tir(), 1)
-    texte_cadence = police.render("Cadence : " + str(cadence_rounded) + "tirs/s" , True, (179, 0, 0))
-    screen.blit(texte_cadence, (screen_width*0.55, screen_height*0.90))
+    texte_cadence = police.render("Cadence: " + str(cadence_rounded) + "tirs/s" , True, (179, 0, 0))
+    screen.blit(texte_cadence, (screen_width*0.60, screen_height*0.85))
+
+    # Affiche la vague actuelle:
+    if len(liste_ennemis) <= 1:
+        textEnnemis = str(len(liste_ennemis)) +  " ennemi restant"
+    else:
+        textEnnemis = str(len(liste_ennemis)) +  " ennemis restants"
+    
+    textVague = police.render(("Vague: " + str(niveau-1)), True, (0, 0, 0))
+    textEnnemis = police.render(textEnnemis, True, (0, 0, 0))
+
+    screen.blit(textVague, (screen_width*0.45, screen_height*0.945))
+    screen.blit(textEnnemis, (screen_width*0.45, screen_height*0.965))
 
 
     # affichage des degats lorsque le joueur est touché
