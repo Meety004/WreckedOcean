@@ -100,8 +100,8 @@ class Navire:
         self.DisplayIconNew = None
         self.DisplayIconPast = None
 
-        self.timer_benediction_1 = res.Timer(5)  # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
-        self.timer_benediction_2 = res.Timer(5) # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
+        self.timer_benediction_1 = res.Timer(0)  # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
+        self.timer_benediction_2 = res.Timer(0) # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
         self.timer_dash = 15
         self.timer_sante = 20
         self.timer_aura = 30

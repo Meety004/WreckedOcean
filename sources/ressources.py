@@ -28,6 +28,10 @@ class Timer:
             return True
         else:
             return False
+        
+    def getTime(self):
+        self.elapse()
+        return self.temps_actuel
 
 def valeur_equipement(objet):
     if objet in listeCanons:

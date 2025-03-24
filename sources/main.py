@@ -118,6 +118,9 @@ def start_game():
                 timer = setTimer()
                 nbrIles += 1
             return nbrIles, maxIles, timer
+        
+        def getNiveau():
+            return niveau
 
         #On appelle le timer pour la première fois
         timer = setTimer()
@@ -154,7 +157,7 @@ while running:
     # Récupérer l'état des touches
     keys = pygame.key.get_pressed()
 
-    #différentes wave d'ennemis
+    #différentes waves d'ennemis
     if len(liste_ennemis) == 0:
         if niveau%5 == 0 and niveau != 0:
             for i in range(niveau // 5):
@@ -444,6 +447,14 @@ while running:
     screen.blit(TexteSurfaceBene1, (0.055*screen_width, 0.96*screen_height))
     screen.blit(TexteSurfaceBene2, (0.180*screen_width, 0.96*screen_height))
 
+    # Affiche une croix sur l'icone de bénédiction si celle ci n'est pas utilisable
+
+    # ça marche pas je comprends pas comment tu t'en es sorti Elliot tu t'en occuperas dcp
+
+    #if not liste_joueur[0].timer_benediction_1.timer_ended() and 0<=liste_joueur[0].timer_benediction_1.getTime()<=50:
+    #    screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
+    #if not liste_joueur[0].timer_benediction_2.timer_ended() and 0<=liste_joueur[0].timer_benediction_2.getTime()<=50:
+    #    screen.blit(croixBenediction, (0.175*screen_width, 0.860*screen_height))
 
     #Affiche l'interface de choix d'item pour le joueur uniquement
     if liste_joueur[0].afficher_items == True:
@@ -469,6 +480,7 @@ while running:
         screen.blit(NewTextTitle, (0.158*screen_width, 0.234*screen_height))
         screen.blit(NewTextDescription, (0.159*screen_width, 0.272*screen_height))
 
+    #Affiche l'interface de choix de bénédiction pour le joueur uniquement
     if liste_joueur[0].afficher_benediction == True:
         screen.blit(liste_joueur[0].getBenedictionUI(), (0.78/100*screen_width, 1.39/100*screen_height))
         NewBeneIcon = liste_joueur[0].getBenedictionsImages()[0]
