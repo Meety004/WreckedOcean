@@ -21,16 +21,27 @@ tirDouble = pygame.USEREVENT + 1
 # Création de la classe Navire qui gère les fonctionnalités de base du joueur et des ennemis
 class Navire:
     def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt, type):
+        """
+        Constructeur de la classe Navire
+        Prend en argument la vitesse max, l'accélération, la maniabilité, l'image du navire, la taille de l'écran et le type du navire
+        """
         # Contrôle du vaisseau
         self.vitesse_max = v_max
         self.acceleration = acceleration
+
+        # La position du navire est aléatoire sur la map
         self.x = random.randint(0, screen_width)
         self.y = random.uniform(0, screen_height)
         self.vitesse = 0
         self.angle = 270
-        self.maniabilite = maniabilite # Vitesse de rotation du bateau
+
+        # Vitesse de rotation du navire
+        self.maniabilite = maniabilite
+
+        # Type du navire (0 = Joueur; 1 = Ennemi Basique; 2 = Ennemi Chasseur; 3 = Ennemi Intelligent)
         self.type = type
 
+        # On définit une taille différente pour le joueur et les ennemis
         if type == 0:
             self.width = screen_width*0.022
             self.height = screen_height*0.062
@@ -38,39 +49,51 @@ class Navire:
             self.width = screen_width*0.020
             self.height = screen_height*0.064   
 
+        # On définit la taille de l'écran
         self.screen_width = screen_width
         self.screen_height = screen_height
 
-        #On charge et adapte la taille des images des bateaux
+        # On charge et adapte la taille des images des bateaux
         original_image = pygame.image.load(image).convert_alpha()
         original_image = pygame.transform.scale(original_image, (self.width, self.height)).convert_alpha()
 
-        self.image = original_image  # Image qui sera affichée
-        self.dernier_tir = 0 # Le denier tir fait par le bateau
-        self.cadence_tir = 1000 # Durée minimale entre deux tirs
+        # Image qui sera affichée
+        self.image = original_image
+
+        # Le denier tir fait par le bateau
+        self.dernier_tir = 0 
+
+        # Durée minimale entre deux tirs (en ms)
+        self.cadence_tir = 1000
+
+        # Génération d'un ID aléatoire pour identifier les navires
         self.ID = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
+
+        # On définit un nombre de PV différents en fonction du type de navire
         if type == 2:
             self.maxVie = 30
         else:
             self.maxVie = 50
         self.vie = self.maxVie
 
-        #On vérifie si l'île contient un malus
+        # On vérifie si l'île contient un malus
         self.verifIleMalus = False
 
+        # Indique si l'interface de choix des équipements est affichée
+        self.afficher_items = False  
 
-        self.afficher_items = False  # Variable d'état pour suivre l'affichage de l'image
-
+        # Indique si l'interface de choix des bénédictions est affichée
         self.afficher_benediction = False
 
-        #On charge l'image de l'interface de choix d'item
+        # On charge l'image de l'interface de choix d'item
         self.ItemsUI = pygame.image.load(os.path.join("data", "images", "Interfaces", "equip_menu_item.png")).convert_alpha()
         self.ItemsUI = pygame.transform.scale(self.ItemsUI, (screen_width*0.4, pygame.display.Info().current_h*0.4)).convert_alpha()
 
-        #On charge l'image de l'interface de choix de bénédiction
+        # On charge l'image de l'interface de choix de bénédiction
         self.benedictionUI = pygame.image.load(os.path.join("data", "images", "Interfaces", "equip_menu_bene.png")).convert_alpha()
         self.benedictionUI = pygame.transform.scale(self.benedictionUI, (screen_width*0.4, pygame.display.Info().current_h*0.4)).convert_alpha()
         
+        # On donne un équipement de base différent pour les Ennemis Chasseurs qui ne peuvent pas récupérer d'équipement
         if self.type == 2:
             self.equipement = {
             'canons':    "+2 Canons",
@@ -87,17 +110,16 @@ class Navire:
         #On crée une liste qui contient les bénédictions du bateau
         self.benedictions = [None, None]
 
-
-        #Stocke la récompense de l'île
+        # Stocke la récompense de l'île
         self.recompense = None
 
-        #Variables qui contiennent les modificateurs de vie et de vitesse des coques et des voiles
+        # Variables qui contiennent les modificateurs de vie et de vitesse des coques et des voiles
         self.CoqueMaxVie = 0
         self.CoqueMaxVitesse = 1
         self.VoileMaxVie = 0
         self.VoileMaxVitesse = 1
 
-        #Variables qui contiennent les chemins des icones pour chaque type d'équipement
+        # Variables qui contiennent les icones pour chaque type d'équipement
         self.iconCoque = res.CoqueCommun
         self.iconCoque = pygame.image.load(self.iconCoque).convert_alpha()
         self.iconCoque = pygame.transform.scale(self.iconCoque, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
@@ -110,10 +132,11 @@ class Navire:
         self.iconCanon = pygame.image.load(self.iconCanon).convert_alpha()
         self.iconCanon = pygame.transform.scale(self.iconCanon, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
 
+        # Image du boulet de canon
         self.imageBoulet = os.path.join("data", "images", "Textures", "Autres", "boulet_canon.png")
 
 
-        #Variables qui contiennent les chemins des icones s'affichant sur l'interface de choix d'item
+        # Variables qui contiennent les chemins des icones s'affichant sur l'interface de choix d'item
         self.DisplayIconNew = None
         self.DisplayIconPast = None
 
