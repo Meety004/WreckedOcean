@@ -2,7 +2,7 @@
 
 # __Installation et informations importantes__
 
-## Installation
+## __**Installation**__
 Pour installer **Wrecked Ocean**, il existe deux méthodes:
 
 ### Cloner depuis GitHub:
@@ -34,6 +34,31 @@ Voici la démarche à suivre:
 
 Il vous faudra ensuite suivre les étapes listées ci-dessus.
 Notez que *WreckedOceanVenv* est une suggestion de nom d'environnement virtuel, il vous est possible de le nommer comme vous le souhaitez.
+
+### Télécharger le fichier zip
+Vous pouvez aussi télécharger le fichier zip du projet.
+Il vous faudra ensuite extraire les fichiers.
+Ensuite, dans un terminal, éxécutez les commandes suivantes une fois que vous êtes dans le répertoire où se situe le jeu.
+- ```pip install -r BATOS-ET-MATS-J/requirements.txt ```
+- ```cd BATOS-ET-MATS-J ```
+- ```python sources/main.py ```
+
+Assurez vous d'avoir Python installé pour éxécuter le programme.
+Suivez les étapes ci-dessus pour installer Python ou créer un environnement virtuel.
+
+## __**Compatibilité**__
+**Wrecked Ocean** est compatible sur *Windows 10* et *Windows 11*. Le jeu n'a pas été testé sur les versions antérieures à Windows 10.
+Le jeu est aussi compaptible avec Linux. Des tests on été réalisés sur *Ubuntu 24.04.2* ainsi que sur *Debian 12.10.0*.
+Le jeu peut fonctionner sur des versions antérieures de ces systèmes d'exploitations, mais cela n'est pas garanti.
+Attention, si vous utilisez une machine virtuelle (VM), il se peut que des problèmes liés à la taille de la fenêtre de la machine virtuelle apparaissent.
+Faites attention de bien régler vos configurations de VM pour afficher la totalité de l'écran de jeu.
+
+## __**Problèmes et résolutions**__
+**Wrecked Ocean** peut comporter des bugs.
+Si vous en rencontrez, vous pouvez contacter *gabriel.flaujat@gmail.com* et *bellecelliot@gmail.com*.
+Vous pouvez aussi créer une Pull Request sur GitHub afin de voir vos modifications ajoutées au projet.
+Le jeu est encore en développement, les bugs seront donc corrigés avec les futures mises à jour.
+
 
 
 # Fonctionnalités
@@ -176,13 +201,6 @@ Voici la liste de tous ces bénédicitons triées par rareté, avec leur probabi
       
     - Bénédiction Projectile (25%) (Cooldown - 50sec) - Emplacement Principal - Permet au joueur d'envoyer une horde de projectile autour de lui quand il tire pendant 10 sec (tir double)
                                                       - Emplacement Secondaire - Permet au joueur d'envoyer une horde de projectile autour de lui quand il tire pendant 10 sec (tir simple)
-
-## __**Compatibilité**__
-**Wrecked Ocean** est compatible sur *Windows 10* et *Windows 11*. Le jeu n'a pas été testé sur les versions antérieures à Windows 10.
-Le jeu est aussi compaptible avec Linux. Des tests on été réalisés sur *Ubuntu 24.04.2* ainsi que sur *Debian 12.10.0*.
-Le jeu peut fonctionner sur des versions antérieures de ces systèmes d'exploitations, mais cela n'est pas garanti.
-Attention, si vous utilisez une machine virtuelle (VM), il se peut que des problèmes liés à la taille de la fenêtre de la machine virtuelle apparaissent.
-Faites attention de bien régler vos configurations de VM pour afficher la totalité de l'écran de jeu.
 
 
 ## __**Crédits**__
