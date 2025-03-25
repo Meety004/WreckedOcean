@@ -62,7 +62,7 @@ class Navire:
             }
         else:
             self.equipement = {
-            'canons':    "Canons de base",
+            'canons':    "Canon de base",
             'voile':    "Voile de base",
             'coque':    "Coque de base"
             }
@@ -139,7 +139,7 @@ class Navire:
         self.text_loaded = False
 
         self.distance_max = screen_height*0.20
-        self.distance_maxFront = self.distance_max * 1.5
+        self.distance_maxFront = self.distance_max * 1.8
 
         self.screen = (self.screen_width, self.screen_height)
 
@@ -309,22 +309,22 @@ class Navire:
                 tir_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_gauche, self.equipement['canons']))
 
-            tir_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
-            liste_tirs.append((tir_gauche, self.equipement['canons']))
-
-            if self.equipement['canons'] == '+1 Canon' or self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+4 Canons':
-                tir_avant = shot.Shot(self.x, self.y, self.angle, self.distance_maxFront, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
+            if self.equipement['canons'] == '+1 Canon' or self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+4 Canons' or ("Bénédiction Projectiles" in self.benedictions and self.giga_tir):
+                if self.vitesse != 0:
+                    tir_avant = shot.Shot(self.x, self.y, self.angle, self.distance_maxFront, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
+                else:
+                    tir_avant = shot.Shot(self.x, self.y, self.angle, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_avant, self.equipement['canons']))
 
-            if self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
+            if self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons' or ("Bénédiction Projectiles" in self.benedictions and self.giga_tir):
                 tir_arriere = shot.Shot(self.x, self.y, self.angle + 180, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_arriere, self.equipement['canons']))
 
-            if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
+            if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons' or ("Bénédiction Projectiles" in self.benedictions and self.giga_tir):
                 tir_diag1 = shot.Shot(self.x, self.y, self.angle + 30, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_diag1, self.equipement['canons']))
 
-            if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons':
+            if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons' or ("Bénédiction Projectiles" in self.benedictions and self.giga_tir):
                 tir_diag2 = shot.Shot(self.x, self.y, self.angle - 30, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_diag2, self.equipement['canons']))
 
@@ -344,7 +344,7 @@ class Navire:
             return liste_tirs
         
     def GererEventTir(self, event, liste_tirs):
-        if event.type == tirDouble and self.equipement["canons"] == "Canon à tirs doubles":
+        if event.type == tirDouble and (self.equipement["canons"] == "Canon à tirs doubles" or self.giga_tir_double):
             tir_droiteD = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
             liste_tirs.append((tir_droiteD, self.equipement['canons']))
 

@@ -452,22 +452,22 @@ while running:
     # JE COMRPENDS PAS ELLIOT COMMENT TES TIMERS FONCTIONNENT
 
     if liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction Santé":
-        if not liste_joueur[0].timer_sante.timer_ended():
+        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_sante):
             screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
     elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction Dash":
-        if not liste_joueur[0].timer_dash.timer_ended():
+        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_dash):
             screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
     elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction d'aura":
-        if not liste_joueur[0].timer_aura.timer_ended():
+        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_aura):
             screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
     elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction de rage":
-        if not liste_joueur[0].timer_rage.timer_ended():
+        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_rage):
             screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
     elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction GodMode":
-        if not liste_joueur[0].timer_godmode.timer_ended():
+        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_GodMode):
             screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
     elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction Projectiles":
-        if not liste_joueur[0].timer_giga_tir.timer_ended():
+        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_giga_tir):
             screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
 
 
