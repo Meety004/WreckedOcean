@@ -467,24 +467,46 @@ while running:
     screen.blit(TexteSurfaceBene2, (0.176*screen_width, 0.96*screen_height))
 
     # Affiche une croix sur l'icone de bénédiction si celle ci n'est pas utilisable
-    if liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction Santé":
-        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_sante):
-            screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
-    elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction Dash":
-        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_dash):
-            screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
-    elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction d'aura":
-        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_aura):
-            screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
-    elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction de rage":
-        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_rage):
-            screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
-    elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction GodMode":
-        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_GodMode):
-            screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
-    elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction Projectiles":
-        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_giga_tir):
-            screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
+    if liste_joueur[0].timer_benediction_1 != None:
+        if liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction Santé":
+            if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_sante):
+                screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
+        elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction Dash":
+            if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_dash):
+                screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
+        elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction d'aura":
+            if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_aura):
+                screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
+        elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction de rage":
+            if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_rage):
+                screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
+        elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction GodMode":
+            if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_GodMode):
+                screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
+        elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction Projectiles":
+            if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_giga_tir):
+                screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
+
+    # Affiche une croix sur l'icone de bénédiction 2 si celle ci n'est pas utilisable
+    if liste_joueur[0].timer_benediction_2 != None:
+        if liste_joueur[0].getBenedictionsTexts()[1] == "Bénédiction Santé":
+            if not liste_joueur[0].timer_benediction_2.timer_ended_special(liste_joueur[0].timer_sante):
+                screen.blit(croixBenediction, (0.175*screen_width, 0.860*screen_height))
+        elif liste_joueur[0].getBenedictionsTexts()[1] == "Bénédiction Dash":
+            if not liste_joueur[0].timer_benediction_2.timer_ended_special(liste_joueur[0].timer_dash):
+                screen.blit(croixBenediction, (0.175*screen_width, 0.860*screen_height))
+        elif liste_joueur[0].getBenedictionsTexts()[1] == "Bénédiction d'aura":
+            if not liste_joueur[0].timer_benediction_2.timer_ended_special(liste_joueur[0].timer_aura):
+                screen.blit(croixBenediction, (0.175*screen_width, 0.860*screen_height))
+        elif liste_joueur[0].getBenedictionsTexts()[1] == "Bénédiction de rage":
+            if not liste_joueur[0].timer_benediction_2.timer_ended_special(liste_joueur[0].timer_rage):
+                screen.blit(croixBenediction, (0.175*screen_width, 0.860*screen_height))
+        elif liste_joueur[0].getBenedictionsTexts()[1] == "Bénédiction GodMode":
+            if not liste_joueur[0].timer_benediction_2.timer_ended_special(liste_joueur[0].timer_GodMode):
+                screen.blit(croixBenediction, (0.175*screen_width, 0.860*screen_height))
+        elif liste_joueur[0].getBenedictionsTexts()[1] == "Bénédiction Projectiles":
+            if not liste_joueur[0].timer_benediction_2.timer_ended_special(liste_joueur[0].timer_giga_tir):
+                screen.blit(croixBenediction, (0.175*screen_width, 0.860*screen_height))
 
 
     #Affiche l'interface de choix d'item pour le joueur uniquement
