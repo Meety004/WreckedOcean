@@ -125,6 +125,8 @@ def start_game():
     #Apparition des îles sous certaines conditions (timer à 0, 5 îles au total maximum)
     def apparitionIles(nbrIles, maxIles, timer):
         timer -= 1
+        if len(liste_iles) == 0:
+            nbrIles = 0
         if timer <= 0:
             timer = setTimer()
             if nbrIles < maxIles:
