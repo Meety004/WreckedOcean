@@ -247,8 +247,8 @@ Voici la liste des différents rôles et des élèves ayant participé au projet
     - GABRIEL Tom (Icones des équipements)
 
 - Documentation:
-    - GABRIEL Tom (ReadME, Présentation PDF, Documents d'explication, Résumé)
-    - CADEAU--FLAUJAT Gabriel (ReadME, Commentaires, Docstring)
+    - GABRIEL Tom (README, Présentation PDF, Documents d'explication, Résumé)
+    - CADEAU--FLAUJAT Gabriel (README, Commentaires, Docstring)
     - BELLEC-ESCALERA Elliot (Commentaires, Docstring)
     - KELEMEN Thomas (Commentaires, Docstring)
 
@@ -257,4 +257,4 @@ Voici la liste des différents rôles et des élèves ayant participé au projet
 
 - Remerciements supplémentaires:
     - PLADEAU Quentin (Aide au développement)
-    - FreePik ()
+    - FreePik (Ressources)

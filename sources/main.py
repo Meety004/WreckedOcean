@@ -431,26 +431,24 @@ while running:
     screen.blit(Bene1, (0.05*screen_width, 0.860*screen_height))
     screen.blit(Bene2, (0.175*screen_width, 0.860*screen_height))
 
-    screen.blit(Bene1Surface, (0.055*screen_width, 0.825*screen_height))
-    screen.blit(Bene2Surface, (0.180*screen_width, 0.825*screen_height))
+    screen.blit(Bene1Surface, (0.050*screen_width, 0.825*screen_height))
+    screen.blit(Bene2Surface, (0.170*screen_width, 0.825*screen_height))
 
     TexteSurfaceBene1 = liste_joueur[0].getBenedictionsTexts()[0]
     TexteSurfaceBene2 = liste_joueur[0].getBenedictionsTexts()[1]
 
-    if TexteSurfaceBene1 == None:#not in res.liste_benedictions:
+    if TexteSurfaceBene1 == None:
         TexteSurfaceBene1 = "Aucune"
-    if TexteSurfaceBene2 == None:#not in res.liste_benedictions:
+    if TexteSurfaceBene2 == None:
         TexteSurfaceBene2 = "Aucune"
 
     TexteSurfaceBene1 = TypeDisplayBenediction.render(TexteSurfaceBene1, True, (0, 0, 0))
     TexteSurfaceBene2 = TypeDisplayBenediction.render(TexteSurfaceBene2, True, (0, 0, 0))
 
-    screen.blit(TexteSurfaceBene1, (0.055*screen_width, 0.96*screen_height))
-    screen.blit(TexteSurfaceBene2, (0.180*screen_width, 0.96*screen_height))
+    screen.blit(TexteSurfaceBene1, (0.051*screen_width, 0.96*screen_height))
+    screen.blit(TexteSurfaceBene2, (0.176*screen_width, 0.96*screen_height))
 
     # Affiche une croix sur l'icone de bénédiction si celle ci n'est pas utilisable
-    # JE COMRPENDS PAS ELLIOT COMMENT TES TIMERS FONCTIONNENT
-
     if liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction Santé":
         if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_sante):
             screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
@@ -525,8 +523,8 @@ while running:
         NewTextTitle = liste_joueur[0].getBenedictionsTexts()[2]
         NewTextDescription = liste_joueur[0].getBenedictionsTexts()[3]
 
-        screen.blit(Bene1TextTitle, (0.100 * screen_width, 0.14* screen_height))
-        screen.blit(Bene2TextTitle, (0.270 * screen_width, 0.14 * screen_height))
+        screen.blit(Bene1TextTitle, (0.098 * screen_width, 0.135* screen_height))
+        screen.blit(Bene2TextTitle, (0.268 * screen_width, 0.135 * screen_height))
         screen.blit(NewTextTitle, (0.153 * screen_width, 0.230 * screen_height))
         screen.blit(NewTextDescription, (0.153 * screen_width, 0.265 * screen_height))
 
@@ -562,7 +560,7 @@ while running:
     textEnnemis = police.render(textEnnemis, True, (0, 0, 0))
 
     screen.blit(textVague, (screen_width*0.45, screen_height*0.945))
-    screen.blit(textEnnemis, (screen_width*0.45, screen_height*0.965))
+    screen.blit(textEnnemis, (screen_width*0.45, screen_height*0.968))
 
 
     # affichage des degats lorsque le joueur est touché

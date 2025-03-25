@@ -62,7 +62,7 @@ class Navire:
             }
         else:
             self.equipement = {
-            'canons':    "Canon de base",
+            'canons':    "Canons de base",
             'voile':    "Voile de base",
             'coque':    "Coque de base"
             }
@@ -635,7 +635,7 @@ class Navire:
             elif self.equipement['coque'] == "Coque en chêne massif":
                 self.CoqueMaxVie += 75
                 self.vie += 75
-                self.CoqueMaxVitesse = 0.85
+                self.CoqueMaxVitesse = 0.80
             elif self.equipement['coque'] == "Coque chêne":
                 self.CoqueMaxVitesse = 1.05
             elif self.equipement['coque'] == "Coque en bois magique":
@@ -670,7 +670,7 @@ class Navire:
         elif self.recompense[0] in res.liste_malus:
             if self.recompense[0] == "Voile Trouée":
                 self.iconVoile = self.DisplayIconNew
-                self.VoileMaxVitesse = 0.8
+                self.VoileMaxVitesse = 0.75
             elif self.recompense[0] == "Canons Rouillés":
                 self.iconCanon = self.DisplayIconNew
             elif self.recompense[0] == "Coque Trouée":
