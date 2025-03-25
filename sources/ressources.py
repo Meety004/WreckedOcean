@@ -28,6 +28,10 @@ class Timer:
             return True
         else:
             return False
+        
+    def getTime(self):
+        self.elapse()
+        return self.temps_actuel
 
 def valeur_equipement(objet):
     if objet in listeCanons:
@@ -128,9 +132,9 @@ liste_benedictions = [
     "Bénédiction Dash", 
     "Bénédiction Santé",
     "Bénédiction d'aura", 
-    "Bénédiciton de rage",
+    "Bénédiction de rage",
     "Bénédiction GodMode", 
-    "Bénédiction Projectile"
+    "Bénédiction Projectiles"
 ]
 
 liste_malus = [
@@ -177,31 +181,31 @@ listeEquipementStart = [
     "Coque de base"
 ]
 
-CoqueCommun = os.path.join("data",'images', 'Icons', 'Coques', 'coque_commun.png')
-CoqueRare = os.path.join("data",'images', 'Icons', 'Coques', 'coque_rare.png') 
-CoqueMythique = os.path.join("data",'images', 'Icons', 'Coques', 'coque_mythique.png')
-CoqueLegendaire = os.path.join("data",'images', 'Icons', 'Coques', 'coque_legendaire.png')
+CoqueCommun = os.path.join("data",'images', 'icons', 'Coques', 'coque_commun.png')
+CoqueRare = os.path.join("data",'images', 'icons', 'Coques', 'coque_rare.png') 
+CoqueMythique = os.path.join("data",'images', 'icons', 'Coques', 'coque_mythique.png')
+CoqueLegendaire = os.path.join("data",'images', 'icons', 'Coques', 'coque_legendaire.png')
 
-VoileCommun = os.path.join("data",'images', 'Icons', 'Voiles', 'voile_commun.png')
-VoileRare = os.path.join("data",'images', 'Icons', 'Voiles', 'voile_rare.png')
-VoileMythique = os.path.join("data",'images', 'Icons', 'Voiles', 'voile_mythique.png')
-VoileLegendaire = os.path.join("data",'images', 'Icons', 'Voiles', 'voile_legendaire.png')
+VoileCommun = os.path.join("data",'images', 'icons', 'Voiles', 'voile_commun.png')
+VoileRare = os.path.join("data",'images', 'icons', 'Voiles', 'voile_rare.png')
+VoileMythique = os.path.join("data",'images', 'icons', 'Voiles', 'voile_mythique.png')
+VoileLegendaire = os.path.join("data",'images', 'icons', 'Voiles', 'voile_legendaire.png')
 
-CanonCommun = os.path.join("data",'images', 'Icons', 'Canons', 'canon_commun.png')
-CanonRare = os.path.join("data",'images', 'Icons', 'Canons', 'canon_rare.png')
-CanonMythique = os.path.join("data",'images', 'Icons', 'Canons', 'canon_mythique.png')
-CanonLegendaire = os.path.join("data",'images', 'Icons', 'Canons', 'canon_legendaire.png')
+CanonCommun = os.path.join("data",'images', 'icons', 'Canons', 'canon_commun.png')
+CanonRare = os.path.join("data",'images', 'icons', 'Canons', 'canon_rare.png')
+CanonMythique = os.path.join("data",'images', 'icons', 'Canons', 'canon_mythique.png')
+CanonLegendaire = os.path.join("data",'images', 'icons', 'Canons', 'canon_legendaire.png')
 
-VoileMalus = os.path.join("data",'images', 'Icons', 'Voiles', 'voile_trouee.png')
-CanonMalus = os.path.join("data",'images', 'Icons', 'Canons', 'canon_rouille.png')
-CoqueMalus = os.path.join("data",'images', 'Icons', 'Coques', 'coque_trouee.png')
+VoileMalus = os.path.join("data",'images', 'icons', 'Voiles', 'voile_trouee.png')
+CanonMalus = os.path.join("data",'images', 'icons', 'Canons', 'canon_rouille.png')
+CoqueMalus = os.path.join("data",'images', 'icons', 'Coques', 'coque_trouee.png')
 
-BeneAura = os.path.join("data",'images', 'Icons', 'Benedictions', 'bene_aura.png')
-BeneDash = os.path.join("data",'images', 'Icons', 'Benedictions', 'bene_dash.png')
-BeneGodMode = os.path.join("data",'images', 'Icons', 'Benedictions', 'bene_godmode.png')
-BeneProjectiles = os.path.join("data",'images', 'Icons', 'Benedictions', 'bene_projectiles.png')
-BeneRage = os.path.join("data",'images', 'Icons', 'Benedictions', 'bene_rage.png')
-BeneSante = os.path.join("data",'images', 'Icons', 'Benedictions', 'bene_sante.png')
+BeneAura = os.path.join("data",'images', 'icons', 'Benedictions', 'bene_aura.png')
+BeneDash = os.path.join("data",'images', 'icons', 'Benedictions', 'bene_dash.png')
+BeneGodMode = os.path.join("data",'images', 'icons', 'Benedictions', 'bene_godmode.png')
+BeneProjectiles = os.path.join("data",'images', 'icons', 'Benedictions', 'bene_projectiles.png')
+BeneRage = os.path.join("data",'images', 'icons', 'Benedictions', 'bene_rage.png')
+BeneSante = os.path.join("data",'images', 'icons', 'Benedictions', 'bene_sante.png')
 
 keyBindList =  [
     pygame.K_UP,
@@ -217,7 +221,7 @@ keyBindCursedList =  [
 
 dictItemsBuff = {
     'Canons Rouillés': "Vitesse projectiles -15%",
-    'Voile Trouée': "Vitesse Max -50%",
+    'Voile Trouée': "Vitesse Max -25%",
     'Coque Trouée': "Inverse les commandes",
     'Canons de base': "Aucun bonus",
     'Voile de base': "Aucun bonus",
@@ -235,13 +239,22 @@ dictItemsBuff = {
     'Coque épicéa': "PV Max +10",
     'Coque chêne': "Vitesse Max +10%",
     'Coque en bouleau': "PV Max +10 | Vitesse Max +5%",
-    'Coque en chêne massif': "PV Max +75",
+    'Coque en chêne massif': "PV Max +75 | Vitesse Max -20%",
     'Coque en bois magique': "PV Max +50 | Vitesse Max +20% |\n Chance d'esquive",
     'Coque légendaire': "PV Max +60 | Vitesse Max +30%",
     'Voile en toile de jute': "Vitesse Max +5%",
     'Voile latine': "Vitesse Max +10%",
     'Voile enchantée': "Vitesse Max +25% | Maniabilité +2%",
     'Voile légendaire': "Vitesse Max +30% | Maniabilité +5%"
+}
+
+dictBenedictionsBuff = {
+    "Bénédiction Dash": "Vous permet de faire une forte accélération",
+    "Bénédiction Santé": "Ajoute 50% de votre PV max",
+    "Bénédiction d'aura": "Crée une aura qui fait des dégâts aux ennemis proches",
+    "Bénédiction de rage": "Augmente les dégâts et la vitesse de 50%, réduit les PV à 20",
+    "Bénédiction GodMode": "Vous rend invincible",
+    "Bénédiction Projectiles": "Envoie une multitude de projectiles autour de vous"
 }
 
 fontPixel = os.path.join("data", 'Fonts', 'pixel-font.otf')

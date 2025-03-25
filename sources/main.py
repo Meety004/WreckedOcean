@@ -36,6 +36,9 @@ god_mode_image = pygame.transform.scale(pygame.image.load(os.path.join("data", "
 design_barre_de_vie = pygame.transform.scale(pygame.image.load(os.path.join("data", "images", "Interfaces", "barre_de_vie.png")).convert_alpha(), (screen_width*0.09, screen_height*0.265))
 design_barre_de_vie = pygame.transform.rotate(design_barre_de_vie, 90)
 
+#Croix des bénédictions
+croixBenediction = pygame.transform.scale(pygame.image.load(os.path.join("data", "images", "icons", "Autres", "croix_bene.png")), (6.55/100*screen_width, 12.7/100*playHeight)).convert_alpha()
+
 police = pygame.font.Font(None, 36) # gere la police lors de l'affichage de texte a l'ecran
 
 TypeFontPast = pygame.font.Font(res.fontPixel, 32)
@@ -43,6 +46,10 @@ TypeSurfacePast = TypeFontPast.render("Votre équipement actuel:", True, (0, 0, 
 TypeSurfaceNew = TypeFontPast.render("Ce que vous avez trouvé:", True, (0, 0, 0))
 
 TypeDisplayEquipement = pygame.font.Font(res.fontPixel, 16)
+TypeDisplayBenediction = pygame.font.Font(res.fontPixel, 24)
+
+Bene1Surface = TypeDisplayBenediction.render("Bénédiction 1", True, (0, 0, 0))
+Bene2Surface = TypeDisplayBenediction.render("Bénédiction 2", True, (0, 0, 0))
 
 
 keyBindList =  [
@@ -74,7 +81,8 @@ def start_game():
             os.path.join("data", "images", "Textures", "Iles", "ile_mythique.png"), 
             os.path.join("data", "images", "Textures", "Iles", "ile_legendaire.png"),
             liste_navire,
-            None
+            None,
+            niveau
             )]
 
         for i in range(len(liste_navire)):
@@ -101,16 +109,19 @@ def start_game():
             if timer <= 0:
                 timer = setTimer()
                 if nbrIles < maxIles:
-                    liste_iles.append(Iles(screen_width, playHeight, os.path.join("data", "images", "Textures", "Iles", "ile_commune.png"), os.path.join("data", "images", "Textures", "Iles", "ile_rare.png"), os.path.join("data", "images", "Textures", "Iles", "ile_mythique.png"), os.path.join("data", "images", "Textures", "Iles", "ile_legendaire.png"),liste_navire, liste_iles))
+                    liste_iles.append(Iles(screen_width, playHeight, os.path.join("data", "images", "Textures", "Iles", "ile_commune.png"), os.path.join("data", "images", "Textures", "Iles", "ile_rare.png"), os.path.join("data", "images", "Textures", "Iles", "ile_mythique.png"), os.path.join("data", "images", "Textures", "Iles", "ile_legendaire.png"),liste_navire, liste_iles, niveau))
                     nbrIles += 1
             if nbrIles > maxIles:
                 nbrIles = maxIles
                 
             if nbrIles == 0:
-                liste_iles.append(Iles(screen_width, playHeight,os.path.join("data", "images", "Textures", "Iles", "ile_commune.png"), os.path.join("data", "images", "Textures", "Iles", "ile_rare.png"), os.path.join("data", "images", "Textures", "Iles", "ile_mythique.png"), os.path.join("data", "images", "Textures", "Iles", "ile_legendaire.png"),liste_navire, liste_iles))
+                liste_iles.append(Iles(screen_width, playHeight,os.path.join("data", "images", "Textures", "Iles", "ile_commune.png"), os.path.join("data", "images", "Textures", "Iles", "ile_rare.png"), os.path.join("data", "images", "Textures", "Iles", "ile_mythique.png"), os.path.join("data", "images", "Textures", "Iles", "ile_legendaire.png"),liste_navire, liste_iles, niveau))
                 timer = setTimer()
                 nbrIles += 1
             return nbrIles, maxIles, timer
+        
+        def getNiveau():
+            return niveau
 
         #On appelle le timer pour la première fois
         timer = setTimer()
@@ -131,7 +142,7 @@ running = menu.actif(screen_width, screen_height, screen)
 
 # Boucle de jeu
 while running:
-    #menu.actif(screen_width, screen_height, screen)
+    menu.actif(screen_width, screen_height, screen)
 
 
     # UPDATE
@@ -147,7 +158,7 @@ while running:
     # Récupérer l'état des touches
     keys = pygame.key.get_pressed()
 
-    #différentes wave d'ennemis
+    #différentes waves d'ennemis
     if len(liste_ennemis) == 0:
         if niveau%5 == 0 and niveau != 0:
             for i in range(niveau // 5):
@@ -200,10 +211,10 @@ while running:
                 if tir_du_navire is not None:
                     liste_shot.extend(tir_du_navire)
 
-            if keys[pygame.K_1] and navire_i.afficher_benediction == False:
+            if keys[pygame.K_z] and navire_i.afficher_benediction == False:
                 navire_i.use_benediction_1()
             
-            if keys[pygame.K_2] and navire_i.afficher_benediction == False:
+            if keys[pygame.K_e] and navire_i.afficher_benediction == False:
                 navire_i.use_benediction_2()
 
 
@@ -297,6 +308,7 @@ while running:
             if len(liste_navire) > 0:
                 recompense = ile.type_recompenses()
                 n.equipInterface(recompense, ile.position_x(), ile.position_y(), ile)
+                n.beneInterface(ile.position_x(), ile.position_y(), ile)
                 n.verifIleExiste(liste_iles)
                 if n.afficher_items == True:
 
@@ -396,20 +408,65 @@ while running:
     iconCanon = pygame.transform.scale(iconCanon, (2.616/100*screen_width, 5.072/100*screen_height))
     iconVoile = pygame.transform.scale(iconVoile, (2.616/100*screen_width, 5.072/100*screen_height))
     iconCoque = pygame.transform.scale(iconCoque, (2.616/100*screen_width, 5.072/100*screen_height))
-    screen.blit(iconCanon, (0.79*screen_width, 0.829*screen_height))
-    screen.blit(iconVoile, (0.79*screen_width, 0.889*screen_height))
-    screen.blit(iconCoque, (0.79*screen_width, 0.949*screen_height))
+    screen.blit(iconCanon, (0.77*screen_width, 0.829*screen_height))
+    screen.blit(iconVoile, (0.77*screen_width, 0.889*screen_height))
+    screen.blit(iconCoque, (0.77*screen_width, 0.949*screen_height))
 
     dictItems = liste_joueur[0].getEquipement()
     TypeSurfaceCanon = TypeFontPast.render(dictItems['canons'], True, (0, 0, 0))
     TypeSurfaceVoile = TypeFontPast.render(dictItems['voile'], True, (0, 0, 0))
     TypeSurfaceCoque = TypeFontPast.render(dictItems['coque'], True, (0, 0, 0))
 
-    screen.blit(TypeSurfaceCanon, (0.82*screen_width, 0.955*screen_height))
-    screen.blit(TypeSurfaceVoile, (0.82*screen_width, 0.897*screen_height))
-    screen.blit(TypeSurfaceCoque, (0.82*screen_width, 0.837*screen_height))
+    screen.blit(TypeSurfaceCanon, (0.80*screen_width, 0.955*screen_height))
+    screen.blit(TypeSurfaceVoile, (0.80*screen_width, 0.897*screen_height))
+    screen.blit(TypeSurfaceCoque, (0.80*screen_width, 0.837*screen_height))
 
+    #Affiche les bénédictions du joueur
+    Bene1 = liste_joueur[0].getBenedictionsImages()[1]
+    Bene2 = liste_joueur[0].getBenedictionsImages()[2]
+    if Bene1 == None:
+        Bene1 = croixBenediction
+    if Bene2 == None:
+        Bene2 = croixBenediction
+    screen.blit(Bene1, (0.05*screen_width, 0.860*screen_height))
+    screen.blit(Bene2, (0.175*screen_width, 0.860*screen_height))
 
+    screen.blit(Bene1Surface, (0.050*screen_width, 0.825*screen_height))
+    screen.blit(Bene2Surface, (0.170*screen_width, 0.825*screen_height))
+
+    TexteSurfaceBene1 = liste_joueur[0].getBenedictionsTexts()[0]
+    TexteSurfaceBene2 = liste_joueur[0].getBenedictionsTexts()[1]
+
+    if TexteSurfaceBene1 == None:
+        TexteSurfaceBene1 = "Aucune"
+    if TexteSurfaceBene2 == None:
+        TexteSurfaceBene2 = "Aucune"
+
+    TexteSurfaceBene1 = TypeDisplayBenediction.render(TexteSurfaceBene1, True, (0, 0, 0))
+    TexteSurfaceBene2 = TypeDisplayBenediction.render(TexteSurfaceBene2, True, (0, 0, 0))
+
+    screen.blit(TexteSurfaceBene1, (0.051*screen_width, 0.96*screen_height))
+    screen.blit(TexteSurfaceBene2, (0.176*screen_width, 0.96*screen_height))
+
+    # Affiche une croix sur l'icone de bénédiction si celle ci n'est pas utilisable
+    if liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction Santé":
+        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_sante):
+            screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
+    elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction Dash":
+        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_dash):
+            screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
+    elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction d'aura":
+        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_aura):
+            screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
+    elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction de rage":
+        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_rage):
+            screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
+    elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction GodMode":
+        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_GodMode):
+            screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
+    elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction Projectiles":
+        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_giga_tir):
+            screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
 
 
     #Affiche l'interface de choix d'item pour le joueur uniquement
@@ -436,30 +493,74 @@ while running:
         screen.blit(NewTextTitle, (0.158*screen_width, 0.234*screen_height))
         screen.blit(NewTextDescription, (0.159*screen_width, 0.272*screen_height))
 
+    #Affiche l'interface de choix de bénédiction pour le joueur uniquement
     if liste_joueur[0].afficher_benediction == True:
         screen.blit(liste_joueur[0].getBenedictionUI(), (0.78/100*screen_width, 1.39/100*screen_height))
+        NewBeneIcon = liste_joueur[0].getBenedictionsImages()[0]
+        Bene1Icon = liste_joueur[0].getBenedictionsImages()[1]
+        Bene2Icon = liste_joueur[0].getBenedictionsImages()[2]
+
+        if Bene1Icon == None:
+            Bene1Icon = croixBenediction
+        if Bene2Icon == None:
+            Bene2Icon = croixBenediction
+
+
+        screen.blit(NewBeneIcon, (0.071 * screen_width, 0.215 * screen_height))
+        screen.blit(Bene1Icon, (0.090 * screen_width, 0.040* screen_height))
+        screen.blit(Bene2Icon, (0.255 * screen_width, 0.040 * screen_height))
+
+        Bene1TextTitle = liste_joueur[0].getBenedictionsTexts()[0]
+        Bene2TextTitle = liste_joueur[0].getBenedictionsTexts()[1]
+        if Bene1TextTitle == None:
+            Bene1TextTitle = "Aucune"
+        if Bene2TextTitle == None:
+            Bene2TextTitle = "Aucune"
+        
+        Bene1TextTitle = TypeDisplayBenediction.render(Bene1TextTitle, True, (0, 0, 0))
+        Bene2TextTitle = TypeDisplayBenediction.render(Bene2TextTitle, True, (0, 0, 0))
+
+        NewTextTitle = liste_joueur[0].getBenedictionsTexts()[2]
+        NewTextDescription = liste_joueur[0].getBenedictionsTexts()[3]
+
+        screen.blit(Bene1TextTitle, (0.098 * screen_width, 0.135* screen_height))
+        screen.blit(Bene2TextTitle, (0.268 * screen_width, 0.135 * screen_height))
+        screen.blit(NewTextTitle, (0.153 * screen_width, 0.230 * screen_height))
+        screen.blit(NewTextDescription, (0.153 * screen_width, 0.265 * screen_height))
 
     # affiche la vitesse de joueur
-    texte_vitesse = police.render("Vitesse Max : " + str(round(liste_joueur[0].get_max_speed(), 1)), True, (25, 128, 212))
-    screen.blit(texte_vitesse, (screen_width*0.44, screen_height*0.95))
+    texte_vitesse = police.render("Vitesse Max: " + str(round(liste_joueur[0].get_max_speed(), 1)), True, (25, 128, 212))
+    screen.blit(texte_vitesse, (screen_width*0.60, screen_height*0.91))
 
     # affiche les degats du joueur
     if liste_joueur[0].getEquipement()["canons"] == "Canon en bronze":
-        texte_degats = police.render("Dégats : 18", True, (179, 0, 0))
-    if liste_joueur[0].getEquipement()["canons"] == "Canon en argent":
-        texte_degats = police.render("Dégats : 20", True, (179, 0, 0))
-    if liste_joueur[0].getEquipement()["canons"] == "Canon en or":
-        texte_degats = police.render("Dégats : 25", True, (179, 0, 0))
-    if liste_joueur[0].getEquipement()["canons"] == "Canon légendaire":
-        texte_degats = police.render("Dégats : 35", True, (179, 0, 0))
+        texte_degats = police.render("Dégats: 18", True, (179, 0, 0))
+    elif liste_joueur[0].getEquipement()["canons"] == "Canon en argent":
+        texte_degats = police.render("Dégats: 20", True, (179, 0, 0))
+    elif liste_joueur[0].getEquipement()["canons"] == "Canon en or":
+        texte_degats = police.render("Dégats: 25", True, (179, 0, 0))
+    elif liste_joueur[0].getEquipement()["canons"] == "Canon légendaire":
+        texte_degats = police.render("Dégats: 35", True, (179, 0, 0))
     else:
-        texte_degats = police.render("Dégats : 15", True, (179, 0, 0))
-    screen.blit(texte_degats, (screen_width*0.34, screen_height*0.90))
+        texte_degats = police.render("Dégats: 15", True, (179, 0, 0))
+    screen.blit(texte_degats, (screen_width*0.60, screen_height*0.88))
 
     # affiche la cadence de tir du joueur
     cadence_rounded = round(1000/liste_joueur[0].get_cadence_tir(), 1)
-    texte_cadence = police.render("Cadence : " + str(cadence_rounded) + "tirs/s" , True, (179, 0, 0))
-    screen.blit(texte_cadence, (screen_width*0.55, screen_height*0.90))
+    texte_cadence = police.render("Cadence: " + str(cadence_rounded) + "tirs/s" , True, (179, 0, 0))
+    screen.blit(texte_cadence, (screen_width*0.60, screen_height*0.85))
+
+    # Affiche la vague actuelle:
+    if len(liste_ennemis) <= 1:
+        textEnnemis = str(len(liste_ennemis)) +  " ennemi restant"
+    else:
+        textEnnemis = str(len(liste_ennemis)) +  " ennemis restants"
+    
+    textVague = police.render(("Vague: " + str(niveau-1)), True, (0, 0, 0))
+    textEnnemis = police.render(textEnnemis, True, (0, 0, 0))
+
+    screen.blit(textVague, (screen_width*0.45, screen_height*0.945))
+    screen.blit(textEnnemis, (screen_width*0.45, screen_height*0.968))
 
 
     # affichage des degats lorsque le joueur est touché
