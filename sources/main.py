@@ -1,137 +1,151 @@
 # Projet: WRECKED OCEAN
 # Auteurs: BELLEC-ESCALERA Elliot, CADEAU--FLAUJAT Gabriel, KELEMEN Thomas, GABRIEL TOM
 
-
+# Importation des librairies et des fichiers dont au aura besoin par la suite
 import pygame
+import os
+
 from Navire import *
 from IA_ennemis import *
 from iles import *
-import os
-import class_menu
+from class_menu import *
 
 # Initialisation de Pygame
 pygame.init()
+
+# Définition de la taille de la fenêtre de jeu
 screen_width = pygame.display.Info().current_w
 screen_height = pygame.display.Info().current_h
 playHeight = screen_height -  (1/5 * screen_height)
 screen = pygame.display.set_mode((screen_width, screen_height))
 
+# Mise à zéro de la variable de pause
 pause = None
 
-# Initialisation du delta time pour avoir la même vitesse sur tout les ordis
+# Initialisation du framerate pour egaliser la vitesse de jeu sur toutes les machines
 framerate = 60
 clock = pygame.time.Clock()
 dt = clock.tick(framerate)
 
-#bg
+# Création et chargement de l'image d'arrière-plan
 ocean = pygame.image.load(os.path.join("data", "images", "Backgrounds", "ocean_background.jpg")).convert_alpha()
 ocean = pygame.transform.scale(ocean, (screen_width, (playHeight + (1/34 * screen_height)))).convert_alpha()
 
+# Création du chemin du fichier du bateau du joueur
 pathBateau = os.path.join("data", "images", "Textures", "Bateaux", "bateau.png")
 
-# chargment de l'image avec un giga tir
+# Chargement des images d'indication des bénédictions
 giga_tir_image = pygame.transform.scale(pygame.image.load(os.path.join("data", "images", "icons", "BenedictionsPlay", "giga_tir.png")), (70, 70)).convert_alpha() 
 rage_image = pygame.transform.scale(pygame.image.load(os.path.join("data", "images", "icons", "BenedictionsPlay", "rage.png")), (70, 70)).convert_alpha()
 aura_image = pygame.transform.scale(pygame.image.load(os.path.join("data", "images", "icons", "BenedictionsPlay", "aura.png")), (70, 70)).convert_alpha()
 god_mode_image = pygame.transform.scale(pygame.image.load(os.path.join("data", "images", "icons", "BenedictionsPlay", "god_mode.png")), (140, 140)).convert_alpha()
 
 
-# la bouteille sous la barre de vie
+# Chargement de l'image de la bouteille sous la barre de vie
 design_barre_de_vie = pygame.transform.scale(pygame.image.load(os.path.join("data", "images", "Interfaces", "barre_de_vie.png")).convert_alpha(), (screen_width*0.09, screen_height*0.265))
 design_barre_de_vie = pygame.transform.rotate(design_barre_de_vie, 90)
 
-#Croix des bénédictions
+# Chargement de l'image de croix des bénédictions
 croixBenediction = pygame.transform.scale(pygame.image.load(os.path.join("data", "images", "icons", "Autres", "croix_bene.png")), (6.55/100*screen_width, 12.7/100*playHeight)).convert_alpha()
 
-police = pygame.font.Font(None, 36) # gere la police lors de l'affichage de texte a l'ecran
+# Chargement de la police pour l'affichage des variables du joueur à l'écran
+police = pygame.font.Font(None, 36)
 
+# Création des zones de textes affichant l'équipement à l'écran
 TypeFontPast = pygame.font.Font(res.fontPixel, 32)
 TypeSurfacePast = TypeFontPast.render("Votre équipement actuel:", True, (0, 0, 0))
 TypeSurfaceNew = TypeFontPast.render("Ce que vous avez trouvé:", True, (0, 0, 0))
 
+# Création des zones de textes affichant les bénédictions à l'écran
 TypeDisplayEquipement = pygame.font.Font(res.fontPixel, 16)
 TypeDisplayBenediction = pygame.font.Font(res.fontPixel, 24)
-
 Bene1Surface = TypeDisplayBenediction.render("Bénédiction 1", True, (0, 0, 0))
 Bene2Surface = TypeDisplayBenediction.render("Bénédiction 2", True, (0, 0, 0))
 
-
+# Création d'une liste contenant les touches de déplacement du joueur
 keyBindList =  [
     pygame.K_UP,
     pygame.K_LEFT,
     pygame.K_RIGHT
     ]
 
+# Fonction de lancement du jeu, lors que le bouton "START"
 def start_game():
-        # Listes des éléments du jeu
-        liste_joueur = [Navire(5, 0.1, 4, os.path.join("data", "images", "Textures", "Bateaux", "bateau_j1.png"), screen_width, playHeight, dt, 0)] #vitesse_max, acceleration, maniabilité, image
-        liste_ennemis = []
-        niveau = 0
 
-        # dans linterface utilisateur
-        liste_texte_degats = []
+    # Liste contenant les joueurs (un seul élément)
+    liste_joueur = [Navire(5, 0.1, 4, os.path.join("data", "images", "Textures", "Bateaux", "bateau_j1.png"), screen_width, playHeight, dt, 0)] #vitesse_max, acceleration, maniabilité, image
+    
+    # Liste contenant les ennemis
+    liste_ennemis = []
 
-        # Liste avec les joueur et les ennemis (contenant donc tout les Navire a l'ecran)
-        liste_navire = liste_joueur + liste_ennemis
+    # Variable contenant le numéro de la
+    niveau = 0
 
-        # Liste de tuples avec les coordonées des navires.
-        liste_coords = []
-        # Liste avec les îles
-        liste_iles = [Iles(
-            screen_width, 
-            playHeight,
-            os.path.join("data", "images", "Textures", "Iles", "ile_commune.png"),
-            os.path.join("data", "images", "Textures", "Iles", "ile_rare.png"), 
-            os.path.join("data", "images", "Textures", "Iles", "ile_mythique.png"), 
-            os.path.join("data", "images", "Textures", "Iles", "ile_legendaire.png"),
-            liste_navire,
-            None,
-            niveau
-            )]
+    # Liste contenant les dégats affichés à l'écran
+    liste_texte_degats = []
 
-        for i in range(len(liste_navire)):
-            coords = ("(", liste_navire[i].position_x(), ",", liste_navire[i].position_y(), ")")
-            liste_coords.append(coords)
+    # Liste avec les joueur et les ennemis (contenant donc tout les navires a l'ecran)
+    liste_navire = liste_joueur + liste_ennemis
 
-        # Liste de tout les tirs à l'écran
-        liste_shot = []
-        
-        # Nombre maximal d'îles sur la map
-        maxIles = 7
+    # Liste de tuples avec les coordonées des navires.
+    liste_coords = []
 
-        # Variable contenant le nombre d'îles affichées
-        nbrIles = 1
+    # Liste contenant les îles
+    liste_iles = [Iles(
+        screen_width, 
+        playHeight,
+        os.path.join("data", "images", "Textures", "Iles", "ile_commune.png"),
+        os.path.join("data", "images", "Textures", "Iles", "ile_rare.png"), 
+        os.path.join("data", "images", "Textures", "Iles", "ile_mythique.png"), 
+        os.path.join("data", "images", "Textures", "Iles", "ile_legendaire.png"),
+        liste_navire,
+        None,
+        niveau
+        )]
 
-        # On crée un timer d'un nombre de ticks avant la prochaine apparition d'île
-        def setTimer():
-            timer = randint(100, 300)
-            return timer
+    # Ajout des coordonées des navires à la liste des coordonées
+    for i in range(len(liste_navire)):
+        coords = ("(", liste_navire[i].position_x(), ",", liste_navire[i].position_y(), ")")
+        liste_coords.append(coords)
 
-        #On fait apparaitre des îles sous certaines conditions (timer à 0, 5 îles au total maximum)
-        def apparitionIles(nbrIles, maxIles, timer):
-            timer -= 1
-            if timer <= 0:
-                timer = setTimer()
-                if nbrIles < maxIles:
-                    liste_iles.append(Iles(screen_width, playHeight, os.path.join("data", "images", "Textures", "Iles", "ile_commune.png"), os.path.join("data", "images", "Textures", "Iles", "ile_rare.png"), os.path.join("data", "images", "Textures", "Iles", "ile_mythique.png"), os.path.join("data", "images", "Textures", "Iles", "ile_legendaire.png"),liste_navire, liste_iles, niveau))
-                    nbrIles += 1
-            if nbrIles > maxIles:
-                nbrIles = maxIles
-                
-            if nbrIles == 0:
-                liste_iles.append(Iles(screen_width, playHeight,os.path.join("data", "images", "Textures", "Iles", "ile_commune.png"), os.path.join("data", "images", "Textures", "Iles", "ile_rare.png"), os.path.join("data", "images", "Textures", "Iles", "ile_mythique.png"), os.path.join("data", "images", "Textures", "Iles", "ile_legendaire.png"),liste_navire, liste_iles, niveau))
-                timer = setTimer()
+    # Liste de tous les tirs affichés à l'écran
+    liste_shot = []
+    
+    # Nombre maximal d'îles sur la map
+    maxIles = 5
+
+    # Variable contenant le nombre d'îles affichées
+    nbrIles = 1
+
+    # Création d'un timer du nombre de ticks avant la prochaine apparition d'île
+    def setTimer():
+        timer = randint(100, 300)
+        return timer
+
+    #Apparition des îles sous certaines conditions (timer à 0, 5 îles au total maximum)
+    def apparitionIles(nbrIles, maxIles, timer):
+        timer -= 1
+        if timer <= 0:
+            timer = setTimer()
+            if nbrIles < maxIles:
+                liste_iles.append(Iles(screen_width, playHeight, os.path.join("data", "images", "Textures", "Iles", "ile_commune.png"), os.path.join("data", "images", "Textures", "Iles", "ile_rare.png"), os.path.join("data", "images", "Textures", "Iles", "ile_mythique.png"), os.path.join("data", "images", "Textures", "Iles", "ile_legendaire.png"),liste_navire, liste_iles, niveau))
                 nbrIles += 1
-            return nbrIles, maxIles, timer
-        
-        def getNiveau():
-            return niveau
+        if nbrIles > maxIles:
+            nbrIles = maxIles
+            
+        if nbrIles == 0:
+            liste_iles.append(Iles(screen_width, playHeight,os.path.join("data", "images", "Textures", "Iles", "ile_commune.png"), os.path.join("data", "images", "Textures", "Iles", "ile_rare.png"), os.path.join("data", "images", "Textures", "Iles", "ile_mythique.png"), os.path.join("data", "images", "Textures", "Iles", "ile_legendaire.png"),liste_navire, liste_iles, niveau))
+            timer = setTimer()
+            nbrIles += 1
+        return nbrIles, maxIles, timer
 
-        #On appelle le timer pour la première fois
-        timer = setTimer()
+    # Appel du timer pour la première fois
+    timer = setTimer()
 
-        return liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats, niveau
+    # Renvoi de toutes les variables pour le reste du jeu
+    return liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats, niveau
 
+# Association des variables pour le jeu
 liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats, niveau = start_game()
 
 # Définition de la couleur de fond (noir)
@@ -140,11 +154,11 @@ BLACK = (0, 0, 0)
 # Boucle principale du jeu
 running = True
 
-# ECRAN TITRE
-menu = class_menu.Menu(2, os.path.join("data", "images", "Interfaces", "menu.png"), screen_width, screen_height)
+# Création de l'écran titre
+menu = Menu(2, os.path.join("data", "images", "Interfaces", "menu.png"), screen_width, screen_height)
 running = menu.actif(screen_width, screen_height, screen)
 
-# Boucle de jeu
+# BOUCLE DE JEU PRINCIPALE
 while running:
     menu.actif(screen_width, screen_height, screen)
 
@@ -295,7 +309,7 @@ while running:
             liste_navire.remove(navire_i)
     if len(liste_joueur) == 0:
         liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats, niveau = start_game()
-        menu = class_menu.Menu(2, os.path.join("data", "images", "Interfaces", "menu.png"), screen_width, screen_height)
+        menu = Menu(2, os.path.join("data", "images", "Interfaces", "menu.png"), screen_width, screen_height)
         running = menu.actif(screen_width, screen_height, screen)
         continue
             
@@ -586,7 +600,7 @@ while running:
         running = False
 
     if keys[pygame.K_ESCAPE]:
-        menu = class_menu.Menu(2,os.path.join("data", "images", "Interfaces", "menu.png"), screen_width, screen_height)
+        menu = Menu(2,os.path.join("data", "images", "Interfaces", "menu.png"), screen_width, screen_height)
         running = menu.actif(screen_width, screen_height, screen)
 
     # Limiter la boucle à 60 images par seconde
