@@ -367,8 +367,9 @@ while running:
                     verifIleMalus = n.verifIleMalus
                     if verifIleMalus == True:
                         if ile in liste_iles:
+                            n.verifIleMalus = False
                             liste_iles.remove(ile)
-                            verifIleMalus = False
+
 
 
     # Appelle de la fonction de compte à rebours pour apparition des îles
