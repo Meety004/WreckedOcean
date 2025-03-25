@@ -221,6 +221,9 @@ class IA_ennemis_stage_2(Navire):
         super().accelerer() # Les chasseurs avancent tout le temps
         super().avancer()
 
+    def utilisation_benediction(self):
+        pass
+
     def tirer(self, inutilex, inutiley, liste_joueur):
         # si l'ennemi est à distance même s'il n'est pas bien incliné ça tire
         if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) < 80 :
