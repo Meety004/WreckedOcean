@@ -28,8 +28,14 @@ clock = pygame.time.Clock()
 dt = clock.tick(framerate)
 
 # Création et chargement de l'image d'arrière-plan
-ocean = pygame.image.load(os.path.join("data", "images", "Backgrounds", "ocean_background.jpg")).convert_alpha()
-ocean = pygame.transform.scale(ocean, (screen_width, (playHeight + (1/34 * screen_height)))).convert_alpha()
+time_last_update = pygame.time.get_ticks()
+frames = [] # stockage de chaque image
+for i in range(28):
+    temp = pygame.image.load(f"{os.path.join("data", "images", "Backgrounds", "Ocean", "")}OCEAN_{i+1}.gif").convert_alpha()
+    temp = pygame.transform.scale(temp, (screen_width, (playHeight + (1/34 * screen_height)))).convert_alpha()
+    frames.append(temp)
+current_frame = 1
+spriteVY = 3
 
 # Création du chemin du fichier du bateau du joueur
 pathBateau = os.path.join("data", "images", "Textures", "Bateaux", "bateau.png")
@@ -377,7 +383,12 @@ while running:
     screen.fill((245, 228, 156))
 
     # affichage de l'ocean en fond
-    screen.blit(ocean, (0, 0))
+    current_time = pygame.time.get_ticks()
+    if current_time - time_last_update > 100:  # Changer de frame toutes les 100 ms
+        current_frame = (current_frame + 1) % len(frames)
+        image = frames[current_frame]
+        time_last_update = current_time
+    screen.blit(image, (0, 0))
 
     # Dessine les navires
     for navire_i in liste_navire:
