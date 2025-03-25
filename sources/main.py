@@ -1,3 +1,7 @@
+# Projet: WRECKED OCEAN
+# Auteurs: BELLEC-ESCALERA Elliot, CADEAU--FLAUJAT Gabriel, KELEMEN Thomas, GABRIEL TOM
+
+
 import pygame
 from Navire import *
 from IA_ennemis import *

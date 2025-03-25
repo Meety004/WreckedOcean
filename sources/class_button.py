@@ -1,3 +1,6 @@
+# Projet: WRECKED OCEAN
+# Auteurs: BELLEC-ESCALERA Elliot, CADEAU--FLAUJAT Gabriel, KELEMEN Thomas, GABRIEL TOM
+
 import pygame
 
 class Bouton:

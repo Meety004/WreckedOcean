@@ -1,3 +1,6 @@
+# Projet: WRECKED OCEAN
+# Auteurs: BELLEC-ESCALERA Elliot, CADEAU--FLAUJAT Gabriel, KELEMEN Thomas, GABRIEL TOM
+
 # les IA ennemies
 # importation des modules
 import pygame

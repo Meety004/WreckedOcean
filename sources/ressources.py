@@ -1,3 +1,6 @@
+# Projet: WRECKED OCEAN
+# Auteurs: BELLEC-ESCALERA Elliot, CADEAU--FLAUJAT Gabriel, KELEMEN Thomas, GABRIEL TOM
+
 import math, pygame, os
 
 def calc_distance(x1, y1, x2, y2):
