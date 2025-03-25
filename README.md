@@ -19,9 +19,13 @@ Enfin, éxécutez la commande suivante:
 - ```python sources/main.py ```
 
 Attention, pour éxécuter ce projet, il vous faudra avoir installé Python auparavant.
+
 Il est conseillé d'utiliser une version comprise entre Python 3.8 et Python 3.12.9.
+
 Les librairies utilisées ne sont pas complètement compatibles avec Python 3.13.
+
 Les versions antérieures à Python 3.8 n'ont pas été testées et peuvent ne pas supporter le programme.
+
 Pour vérifier votre version de Python, éxécutez la commande:
 - ```python --version```
 
@@ -38,7 +42,9 @@ Notez que *WreckedOceanVenv* est une suggestion de nom d'environnement virtuel, 
 ### Télécharger le fichier zip
 Vous pouvez aussi télécharger le fichier zip du projet.
 Il vous faudra ensuite extraire les fichiers.
+
 Ensuite, dans un terminal, éxécutez les commandes suivantes une fois que vous êtes dans le répertoire où se situe le jeu.
+
 - ```pip install -r BATOS-ET-MATS-J/requirements.txt ```
 - ```cd BATOS-ET-MATS-J ```
 - ```python sources/main.py ```
@@ -48,15 +54,21 @@ Suivez les étapes ci-dessus pour installer Python ou créer un environnement vi
 
 ## __**Compatibilité**__
 **Wrecked Ocean** est compatible sur *Windows 10* et *Windows 11*. Le jeu n'a pas été testé sur les versions antérieures à Windows 10.
+
 Le jeu est aussi compaptible avec Linux. Des tests on été réalisés sur *Ubuntu 24.04.2* ainsi que sur *Debian 12.10.0*.
+
 Le jeu peut fonctionner sur des versions antérieures de ces systèmes d'exploitations, mais cela n'est pas garanti.
+
 Attention, si vous utilisez une machine virtuelle (VM), il se peut que des problèmes liés à la taille de la fenêtre de la machine virtuelle apparaissent.
+
 Faites attention de bien régler vos configurations de VM pour afficher la totalité de l'écran de jeu.
 
 ## __**Problèmes et résolutions**__
 **Wrecked Ocean** peut comporter des bugs.
 Si vous en rencontrez, vous pouvez contacter *gabriel.flaujat@gmail.com* et *bellecelliot@gmail.com*.
+
 Vous pouvez aussi créer une Pull Request sur GitHub afin de voir vos modifications ajoutées au projet.
+
 Le jeu est encore en développement, les bugs seront donc corrigés avec les futures mises à jour.
 
 
