@@ -31,7 +31,8 @@ dt = clock.tick(framerate)
 time_last_update = pygame.time.get_ticks()
 frames = [] # stockage de chaque image
 for i in range(28):
-    temp = pygame.image.load(f"{os.path.join("data", "images", "Backgrounds", "Ocean", "")}OCEAN_{i+1}.gif").convert_alpha()
+    tempPath = os.path.join("data", "images", "Backgrounds", "Ocean", "")
+    temp = pygame.image.load(f"{tempPath}OCEAN_{i+1}.gif").convert_alpha()
     temp = pygame.transform.scale(temp, (screen_width, (playHeight + (1/34 * screen_height)))).convert_alpha()
     frames.append(temp)
 current_frame = 1
@@ -460,8 +461,8 @@ while running:
         Bene1 = croixBenediction
     if Bene2 == None:
         Bene2 = croixBenediction
-    screen.blit(Bene1, (0.05*screen_width, 0.860*screen_height))
-    screen.blit(Bene2, (0.175*screen_width, 0.860*screen_height))
+    screen.blit(Bene1, (0.050*screen_width, 0.860*screen_height))
+    screen.blit(Bene2, (0.170*screen_width, 0.860*screen_height))
 
     screen.blit(Bene1Surface, (0.050*screen_width, 0.825*screen_height))
     screen.blit(Bene2Surface, (0.170*screen_width, 0.825*screen_height))
@@ -477,8 +478,8 @@ while running:
     TexteSurfaceBene1 = TypeDisplayBenediction.render(TexteSurfaceBene1, True, (0, 0, 0))
     TexteSurfaceBene2 = TypeDisplayBenediction.render(TexteSurfaceBene2, True, (0, 0, 0))
 
-    screen.blit(TexteSurfaceBene1, (0.051*screen_width, 0.96*screen_height))
-    screen.blit(TexteSurfaceBene2, (0.176*screen_width, 0.96*screen_height))
+    screen.blit(TexteSurfaceBene1, (0.050*screen_width, 0.96*screen_height))
+    screen.blit(TexteSurfaceBene2, (0.170*screen_width, 0.96*screen_height))
 
     # Affiche une croix sur l'icone de bénédiction si celle ci n'est pas utilisable
     if liste_joueur[0].timer_benediction_1 != None:

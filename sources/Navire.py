@@ -25,8 +25,14 @@ class Navire:
         self.vitesse = 0
         self.angle = 270
         self.maniabilite = maniabilite # Vitesse de rotation du bateau
-        self.width = screen_width*0.022
-        self.height = screen_height*0.062
+        self.type = type
+
+        if type == 0:
+            self.width = screen_width*0.022
+            self.height = screen_height*0.062
+        else:
+            self.width = screen_width*0.020
+            self.height = screen_height*0.064   
 
         self.screen_width = screen_width
         self.screen_height = screen_height
@@ -44,7 +50,7 @@ class Navire:
 
         #On vérifie si l'île contient un malus
         self.verifIleMalus = False
-        self.type = type
+
 
         self.afficher_items = False  # Variable d'état pour suivre l'affichage de l'image
 
