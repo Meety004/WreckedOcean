@@ -263,6 +263,17 @@ class IA_ennemis_stage_2(Navire):
         elif self.benedictions[1] == "Bénédiction de rage":
             self.use_benediction_2()
 
+    def choix_slot_benediction(self):
+        if self.recompense in res.liste_benedictions:
+            if self.benedictions[0] == None:
+                return 0
+            elif self.benedictions[1] == None:
+                return 1
+            elif res.valeur_equipement(self.benedictions[0]) < res.valeur_equipement(self.benedictions[1]):
+                return 0
+            else:
+                return 1
+
     def tirer(self, inutilex, inutiley, liste_joueur):
         # si l'ennemi est à distance même s'il n'est pas bien incliné ça tire
         if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) < 80 :

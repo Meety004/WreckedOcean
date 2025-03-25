@@ -331,7 +331,10 @@ while running:
                                     liste_iles.remove(ile)
                                     nbrIles -= 1
                                 n.afficher_benediction = False
-                                n.equiper_benediction(0)
+                                if n.type == 3:
+                                    n.equiper_benediction(n.choix_slot_benediction())
+                                else:
+                                    n.equiper_benediction(0)
 
                         if keys[pygame.K_2] or n.type in (1, 3):
                             if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
@@ -339,7 +342,10 @@ while running:
                                     liste_iles.remove(ile)
                                     nbrIles -= 1
                                 n.afficher_benediction = False
-                                n.equiper_benediction(1)
+                                if n.type == 3:
+                                    n.equiper_benediction(n.choix_slot_benediction())
+                                else:
+                                    n.equiper_benediction(1)
 
                 elif res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                     verifIleMalus = n.verifIleMalus
