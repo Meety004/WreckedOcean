@@ -1,6 +1,6 @@
 # **Wrecked Ocean**
 
-# __Installation et informations importantes__
+# __**Installation et informations importantes**__
 
 ## __**Installation**__
 Pour installer **Wrecked Ocean**, il existe deux méthodes:
@@ -67,13 +67,13 @@ Faites attention de bien régler vos configurations de VM pour afficher la total
 **Wrecked Ocean** peut comporter des bugs.
 Si vous en rencontrez, vous pouvez contacter *gabriel.flaujat@gmail.com* et *bellecelliot@gmail.com*.
 
-Vous pouvez aussi créer une Pull Request sur GitHub afin de voir vos modifications ajoutées au projet.
+Vous pouvez aussi créer une __*Pull Request*__ sur *GitHub* afin de voir vos modifications ajoutées au projet.
 
 Le jeu est encore en développement, les bugs seront donc corrigés avec les futures mises à jour.
 
 
 
-# Fonctionnalités
+# __**Fonctionnalités**__
 
 ## __Atention, ce projet en est cours de développment. Toutes les fonctionnalités listées ne sont pas encore implémentées.__
 
@@ -110,7 +110,7 @@ Entre chaque utilisation de bénédiction, il y a un cooldown plus ou moins long
 ## __**Les ennemis**__
 Vous rencontrerez des ennemis durant votre partie. Ces ennemis sont comme vous: ils s'équipent et essayent de régner sur la mer. C'est pourquoi ils vous attaqueront. Au fur et à mesure de la partie, les ennemis que vont rencontrerez seront plus forts, pourrotn utiliser plus de bénédiction et auront un meilleur équipement. Les bateaux ennemis ne s'attaqueront pas entre eux. Leur objectif est de contrer le joueur.
 
-## __**Les boss**__ (Fonctionnalité en développement)
+## __**Les boss**__ (Fonctionnalité en développement - Non disponible)
 Vous pourrez rencontrer, de temps à autre un boss. Ces boss sont les ennemis les plus forts du jeu. Chacun d'eux à une pièce d'équipement particulière, avec des capacités et des pouvoirs incroyables. En vainquant un boss, vous pourrez récupérer son équipement.
 Voici la liste des différents boss présents dans le jeu.
 - Le Queen Anne’s Revenge - Capacité: 50% de vitesse supplémentaire (Voile)
@@ -194,32 +194,67 @@ Voici la liste de tous ces équiements triés par rareté, avec leur probabilit�
 **Wrecked Ocean** compte au total **8 bénédictions**. 
 Voici la liste de tous ces bénédicitons triées par rareté, avec leur probabilités respectives ainsi que leurs effets.
 
-- Rare
+- __**Rare**__
+
     - __Bénédiction Dash__ (12,5%) (Cooldown - 15 sec)
         - Emplacement Principal - Permet au joueur de se propulser vers l'avant de manière considérable
         - Emplacement Secondaire - Permet au joueur de se propulser vers l'avant de manière plutôt efficace
       
-    - Bénédiction Santé (12,5%) (Cooldown - 40 sec) - Emplacement Principal - Permet au joueur de restaurer 50% de ses points de vie max
-                                                   - Emplacement Secondaire - Permet au joueur de restaurer 25% de ses points de vie max
-- Mythique
-    - Bénédiction d'Aura (20%) (Cooldown - 30sec) - Emplacement Principal - Crée une zone autour du joueur qui infligera entre 2 et 10 dégats aux ennemis en fonction de leur proximité
-                                                - Emplacement Secondaire - Crée une zone autour du joueur qui infligera entre 1 et 5 dégats aux ennemis en fonction de leur proximité
-    
-    - Bénédiction de Rage (20%) (Cooldown - 30sec) - Emplacement Principal - Augmente les dégats et la vitesse du joueur (+50%) pendant 10 sec, mais le limite temporairement à 30 pts de vie
-                                                 - Emplacement Secondaire - Augmente les dégats et la vitesse du joueur (+50%) pendant 5 sec, mais le limite temporairement à 20 pts de vie
-- Légendaire
-    - Bénédiction Godmode (25%) (Cooldown - 40sec) - Emplacement Principal - Permet au joueur de ne pas prendre de dégats pendant 10 sec
-                                                 - Emplacement Secondaire - Permet au joueur de ne pas prendre de dégats pendant 5 sec
-      
-    - Bénédiction Projectile (25%) (Cooldown - 50sec) - Emplacement Principal - Permet au joueur d'envoyer une horde de projectile autour de lui quand il tire pendant 10 sec (tir double)
-                                                      - Emplacement Secondaire - Permet au joueur d'envoyer une horde de projectile autour de lui quand il tire pendant 10 sec (tir simple)
+    - __Bénédiction Santé__ (12,5%) (Cooldown - 40 sec) 
+        - Emplacement Principal - Permet au joueur de restaurer 50% de ses points de vie max
+        - Emplacement Secondaire - Permet au joueur de restaurer 25% de ses points de vie max
 
+- __**Mythique**__
+
+    - __Bénédiction d'Aura__ (20%) (Cooldown - 30sec) 
+        - Emplacement Principal - Crée une zone autour du joueur qui infligera entre 2 et 10 dégats aux ennemis en fonction de leur proximité
+        - Emplacement Secondaire - Crée une zone autour du joueur qui infligera entre 1 et 5 dégats aux ennemis en fonction de leur proximité
+    
+    - __Bénédiction de Rage__ (20%) (Cooldown - 30sec) 
+        - Emplacement Principal - Augmente les dégats et la vitesse du joueur (+50%) pendant 10 sec, mais le limite temporairement à 30 pts de vie
+        - Emplacement Secondaire - Augmente les dégats et la vitesse du joueur (+50%) pendant 5 sec, mais le limite temporairement à 20 pts de vie
+
+- __**Légendaire**__
+
+    - __Bénédiction Godmode__ (25%) (Cooldown - 40sec) 
+        - Emplacement Principal - Permet au joueur de ne pas prendre de dégats pendant 10 sec
+        - Emplacement Secondaire - Permet au joueur de ne pas prendre de dégats pendant 5 sec
+      
+    - __Bénédiction Projectile__ (25%) (Cooldown - 50sec) 
+        - Emplacement Principal - Permet au joueur d'envoyer une horde de projectile autour de lui quand il tire pendant 10 sec (tir double)
+        - Emplacement Secondaire - Permet au joueur d'envoyer une horde de projectile autour de lui quand il tire pendant 10 sec (tir simple)
+
+# Informations Complémentaires
 
 ## __**Crédits**__
 **Wrecked Ocean** est un jeu réalisé à l'occasion du concours Trophée NSI, dans la catégorie Terminale.
 Notre professeur, M. MARIE-JEANNE nous a accompagné pendant toute la durée de ce projet, nous apportant solutions et idées nouvelles.
-Voici la liste des élèves ayant participé au projet **Wrecked Ocean**.
-- BELLEC-ESCALERA Elliot - Réalisation, Développement
-- CADEAU--FLAUJAT Gabriel - Textures, Réalisation, Développement, Documentation
-- KELEMEN Thomas - Développement
-- GABRIEL Tom - Réalisation vidéo, Textures, Documentation
+Voici la liste des différents rôles et des élèves ayant participé au projet.
+
+- Réalisation:
+    - BELEC-ESCALERA Elliot
+    - CADEAU--FLAUJAT Gabriel
+
+- Développement:
+    - BELLEC-ESCALERA Elliot (Bénédictions, Base du jeu et UI)
+    - CADEAU--FLAUJAT Gabriel (Equipements, Interfaces, Iles et UI)
+    - KELEMEN Thomas (Navires ennemis)
+    - GABRIEL Tom (UI et Animations)
+
+- Textures:
+    - BELLEC-ESCALERA Elliot (Indicateurs de bénédictions et Icones)
+    - CADEAU--FLAUJAT Gabriel (Interfaces, Icones de bénédictions, Bateaux et Iles)
+    - GABRIEL Tom (Icones des équipements)
+
+- Documentation:
+    - GABRIEL Tom (ReadME, Présentation PDF, Documents d'explication, Résumé)
+    - CADEAU--FLAUJAT Gabriel (ReadME, Commentaires, Docstring)
+    - BELLEC-ESCALERA Elliot (Commentaires, Docstring)
+    - KELEMEN Thomas (Commentaires, Docstring)
+
+- Réalisation Vidéo:
+    - GABRIEL Tom (Montage, VFX, 3D)
+
+- Remerciements supplémentaires:
+    - PLADEAU Quentin (Aide au développement)
+    - FreePik ()
