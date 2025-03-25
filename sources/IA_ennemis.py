@@ -218,11 +218,50 @@ class IA_ennemis_stage_2(Navire):
             elif self.action == 1:
                 super().tourne_gauche()
         
+        self.utilisation_benediction(liste_joueur)
         super().accelerer() # Les chasseurs avancent tout le temps
         super().avancer()
 
-    def utilisation_benediction(self):
-        pass
+    def utilisation_benediction(self, liste_joueur):
+        if "Bénédiction Dash" in self.benedictions:
+            if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) > 500:
+                if self.benedictions[0] == "Bénédiction Dash":
+                    self.use_benediction_1()
+                else:
+                    self.use_benediction_2()
+        
+        if "Bénédiction Santé" in self.benedictions:
+            if self.vie <= (self.maxVie/2):
+                if self.benedictions[0] == "Bénédiction Santé":
+                    self.use_benediction_1()
+                else:
+                    self.use_benediction_2()
+        
+        if "Bénédiction d'aura" in self.benedictions:
+            if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 120:
+                if self.benedictions[0] == "Bénédiction d'aura":
+                    self.use_benediction_1()
+                else:
+                    self.use_benediction_2()
+
+        if "Bénédiction Projectiles" in self.benedictions:
+            if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 100:
+                if self.benedictions[0] == "Bénédiction Projectiles":
+                    self.use_benediction_1()
+                else:
+                    self.use_benediction_2()
+
+        if "Bénédiction GodMode" in self.benedictions:
+            if self.vie <= 30 and res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 400:
+                if self.benedictions[0] == "Bénédiction GodMode":
+                    self.use_benediction_1()
+                else:
+                    self.use_benediction_2()
+
+        if self.benedictions[0] == "Bénédiction de rage":
+            self.use_benediction_1()
+        elif self.benedictions[1] == "Bénédiction de rage":
+            self.use_benediction_2()
 
     def tirer(self, inutilex, inutiley, liste_joueur):
         # si l'ennemi est à distance même s'il n'est pas bien incliné ça tire
