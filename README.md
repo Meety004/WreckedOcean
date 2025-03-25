@@ -7,30 +7,30 @@ Pour installer **Wrecked Ocean**, il existe deux méthodes:
 
 ### Cloner depuis GitHub:
 Pour ce faire, il vous sufit d'éxécuter la commande suivante dans un terminal:
-- `git clone https://github.com/Meety004/BATOS-ET-MATS-J.git `
+- ```git clone https://github.com/Meety004/BATOS-ET-MATS-J.git ```
 
 Ensuite, télécharger les librairies nécessaires au fonctionnement du programme grâce à la commande suivante:
-- `pip install -r BATOS-ET-MATS-J/requirements.txt `
+- ```pip install -r BATOS-ET-MATS-J/requirements.txt ```
 
 Pour lancer le programme, naviguez jusqu'au dossier de jeu:
-- `cd BATOS-ET-MATS-J `
+- ```cd BATOS-ET-MATS-J ```
 
 Enfin, éxécutez la commande suivante:
-- `python sources/main.py `
+- ```python sources/main.py ```
 
 Attention, pour éxécuter ce projet, il vous faudra avoir installé Python auparavant.
 Il est conseillé d'utiliser une version comprise entre Python 3.8 et Python 3.12.9.
 Les librairies utilisées ne sont pas complètement compatibles avec Python 3.13.
 Les versions antérieures à Python 3.8 n'ont pas été testées et peuvent ne pas supporter le programme.
 Pour vérifier votre version de Python, éxécutez la commande:
-- `python --version` 
+- ```python --version```
 
 Si Python n'est pas installé, veuillez le télécharger ici: [python.org](https://www.python.org/downloads/) en l'ajoutant au PATH lors de l'installation.
 
 Si vous ne souhaitez pas polluer votre machine avec des librairies, vous pouvez installer et éxécuter le programme dans un environnement virtuel (venv).
 Voici la démarche à suivre:
-- `python -m venv /WreckedOceanVenv`
-- `cd WreckedOceanVenv`
+- ```python -m venv /WreckedOceanVenv```
+- ```cd WreckedOceanVenv```
 
 Il vous faudra ensuite suivre les étapes listées ci-dessus.
 Notez que *WreckedOceanVenv* est une suggestion de nom d'environnement virtuel, il vous est possible de le nommer comme vous le souhaitez.
