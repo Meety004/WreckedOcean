@@ -1,0 +1,15 @@
+main.py - Contient le code principal, la  base du jeu
+
+IA_Ennemis.py - Contient le code de l'intelligence artificielle utilisée pour les ennemis
+
+Navire.py - Contient la classe Navire responsable du paramétrage des navires dans le jeu (vitesse, taille, modificateurs, maniabilité…)
+
+class_button.py - Contient le code des boutons du menu de l'interface principale
+
+class_menu.py - Contient le code du menu de l'interface principale
+
+iles.py - Contient le code des îles
+
+ressources.py - Contient les diverses ressources nécessaires au bon fonctionnement du code (comparaisons, listes importantes…)
+
+shot.py - Contient le code des tirs des canons
