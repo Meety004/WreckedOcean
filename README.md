@@ -126,7 +126,6 @@ Voici les touches de contrôle de jeu:
 - Tirer: `Espace`
 - Equiper: `A`
 - Pause: `Echap`
-- Quitter le jeu: `Tab`
 - Equiper une bénédiction dans l'emplacement primaire: `1`
 - Equiper une bénédiction dans l'emplacement secondaire: `2`
 - Utiliser la bénédiciton primaire : `Z`

@@ -78,6 +78,11 @@ keyBindList =  [
 
 # Fonction de lancement du jeu, lors que le bouton "START"
 def start_game():
+    """
+    Fonction de démarrage du jeu
+    Affiche le menu de démarrage
+    Met à zéro toutes les variables de jeu et les renvoie
+    """
 
     # Liste contenant les joueurs (un seul élément)
     liste_joueur = [Navire(5, 0.1, 4, os.path.join("data", "images", "Textures", "Bateaux", "bateau_j1.png"), screen_width, playHeight, dt, 0)] #vitesse_max, acceleration, maniabilité, image
@@ -126,11 +131,19 @@ def start_game():
 
     # Création d'un timer du nombre de ticks avant la prochaine apparition d'île
     def setTimer():
+        """
+        Définit un timer avant l'apparition de la prochaine île
+        """
         timer = randint(100, 300)
         return timer
 
-    #Apparition des îles sous certaines conditions (timer à 0, 5 îles au total maximum)
+    # Apparition des îles sous certaines conditions (timer à 0, 5 îles au total maximum)
     def apparitionIles(nbrIles, maxIles, timer):
+        """
+        Gère l'apparition et la disparition des îles
+        Prend en argument le nombre d'îles actuel, le nombre maximum d'île et le temps jusqu'à la prochaine apparition d'île
+        Renvoie le nombre d'îles actuel, le nombre maximum d'île et le temps jusqu'à la prochaine apparition d'île
+        """
         timer -= 1
         if len(liste_iles) == 0:
             nbrIles = 0
@@ -541,7 +554,7 @@ while running:
     TexteSurfaceBene1 = liste_joueur[0].getBenedictionsTexts()[0]
     TexteSurfaceBene2 = liste_joueur[0].getBenedictionsTexts()[1]
 
-    # Si le joueur n'a pas de bénédiction, on affiche Aucune
+    # Si le joueur n'a pas de bénédiction, on affiche "Aucune"
     if TexteSurfaceBene1 == None:
         TexteSurfaceBene1 = "Aucune"
     if TexteSurfaceBene2 == None:
@@ -554,7 +567,7 @@ while running:
     screen.blit(TexteSurfaceBene1, (0.050*screen_width, 0.96*screen_height))
     screen.blit(TexteSurfaceBene2, (0.170*screen_width, 0.96*screen_height))
 
-    # Affiche une croix sur l'icone de bénédiction primaire si celle ci n'est pas utilisable
+    # Affiche une croix sur l'icone de bénédiction primaire si celle-ci n'est pas utilisable
     if liste_joueur[0].timer_benediction_1 != None:
         if liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction Santé":
             if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_sante):
@@ -575,7 +588,7 @@ while running:
             if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_giga_tir):
                 screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
 
-    # Affiche une croix sur l'icone de bénédiction secondaire si celle ci n'est pas utilisable
+    # Affiche une croix sur l'icone de bénédiction secondaire si celle-ci n'est pas utilisable
     if liste_joueur[0].timer_benediction_2 != None:
         if liste_joueur[0].getBenedictionsTexts()[1] == "Bénédiction Santé":
             if not liste_joueur[0].timer_benediction_2.timer_ended_special(liste_joueur[0].timer_sante):
@@ -597,70 +610,87 @@ while running:
                 screen.blit(croixBenediction, (0.175*screen_width, 0.860*screen_height))
 
 
-    #Affiche l'interface de choix d'item pour le joueur uniquement
+    # Affichage de l'interface de choix d'item pour le joueur uniquement
     if liste_joueur[0].afficher_items == True:
+
+        # Affichage de l'image d'interface
         screen.blit(liste_joueur[0].getItemUI(), (0.78/100*screen_width, 1.39/100*screen_height))
+
+        # On récupère les icones à afficher
         PastIcon = liste_joueur[0].getPastDisplay()
         NewIcon = liste_joueur[0].getNewDisplay()
 
-
+        # On affiche ces icones
         screen.blit(PastIcon, (0.071 * screen_width, 0.077 * screen_height))
         screen.blit(NewIcon, (0.071 * screen_width, 0.215 * screen_height))
 
+        # On récupère le nom et la descriptions de l'équipement actuel et de l'équipement qui a été trouvé
         PastTextTitle = liste_joueur[0].getTitleTextPast()
         NewTextTitle = liste_joueur[0].getTitleTextNew()
         PastTextDescription = liste_joueur[0].getDescriptionTextPast()
         NewTextDescription = liste_joueur[0].getDescriptionTextNew()
 
-
+        # On affiche tout le texte de l'équipement actuel
         screen.blit(TypeSurfacePast, (0.158*screen_width, 0.068*screen_height))
         screen.blit(PastTextTitle, (0.158*screen_width, 0.102*screen_height))
         screen.blit(PastTextDescription, (0.159*screen_width, 0.137*screen_height))
 
+        # On affiche tout le texte de l'équipement qui a été trouvé
         screen.blit(TypeSurfaceNew, (0.158*screen_width, 0.200*screen_height))
         screen.blit(NewTextTitle, (0.158*screen_width, 0.234*screen_height))
         screen.blit(NewTextDescription, (0.159*screen_width, 0.272*screen_height))
 
-    #Affiche l'interface de choix de bénédiction pour le joueur uniquement
+    # Affichage de l'interface de choix de bénédiction pour le joueur uniquement
     if liste_joueur[0].afficher_benediction == True:
+
+        # Affichage de l'image d'interface
         screen.blit(liste_joueur[0].getBenedictionUI(), (0.78/100*screen_width, 1.39/100*screen_height))
+
+        # On récupère les icones à afficher
         NewBeneIcon = liste_joueur[0].getBenedictionsImages()[0]
         Bene1Icon = liste_joueur[0].getBenedictionsImages()[1]
         Bene2Icon = liste_joueur[0].getBenedictionsImages()[2]
 
+        # Si le joueur n'a pas de bénédiction, on affiche une croix
         if Bene1Icon == None:
             Bene1Icon = croixBenediction
         if Bene2Icon == None:
             Bene2Icon = croixBenediction
 
-
+        # On affiche les icones sur l'interface
         screen.blit(NewBeneIcon, (0.071 * screen_width, 0.215 * screen_height))
         screen.blit(Bene1Icon, (0.090 * screen_width, 0.040* screen_height))
         screen.blit(Bene2Icon, (0.255 * screen_width, 0.040 * screen_height))
 
+        # On récupère le nom des bénédictions à afficher
         Bene1TextTitle = liste_joueur[0].getBenedictionsTexts()[0]
         Bene2TextTitle = liste_joueur[0].getBenedictionsTexts()[1]
+
+        # Si le joueur n'a pas de bénédiction, on affiche "Aucune"
         if Bene1TextTitle == None:
             Bene1TextTitle = "Aucune"
         if Bene2TextTitle == None:
             Bene2TextTitle = "Aucune"
         
+        # On charge le texte du noms des bénédictions du joueur
         Bene1TextTitle = TypeDisplayBenediction.render(Bene1TextTitle, True, (0, 0, 0))
         Bene2TextTitle = TypeDisplayBenediction.render(Bene2TextTitle, True, (0, 0, 0))
 
+        # On récupère le nom et la description de la bénédiction qui a été trouvée
         NewTextTitle = liste_joueur[0].getBenedictionsTexts()[2]
         NewTextDescription = liste_joueur[0].getBenedictionsTexts()[3]
 
+        # On affiche tous les textes à l'écran
         screen.blit(Bene1TextTitle, (0.098 * screen_width, 0.135* screen_height))
         screen.blit(Bene2TextTitle, (0.268 * screen_width, 0.135 * screen_height))
         screen.blit(NewTextTitle, (0.153 * screen_width, 0.230 * screen_height))
         screen.blit(NewTextDescription, (0.153 * screen_width, 0.265 * screen_height))
 
-    # affiche la vitesse de joueur
+    # Affichage de la vitesse max du joueur
     texte_vitesse = police.render("Vitesse Max: " + str(round(liste_joueur[0].get_max_speed(), 1)), True, (25, 128, 212))
     screen.blit(texte_vitesse, (screen_width*0.60, screen_height*0.91))
 
-    # affiche les degats du joueur
+    # Affichage des dégats du joueurs
     if liste_joueur[0].getEquipement()["canons"] == "Canon en bronze":
         texte_degats = police.render("Dégats: 18", True, (179, 0, 0))
     elif liste_joueur[0].getEquipement()["canons"] == "Canon en argent":
@@ -673,17 +703,17 @@ while running:
         texte_degats = police.render("Dégats: 15", True, (179, 0, 0))
     screen.blit(texte_degats, (screen_width*0.60, screen_height*0.88))
 
-    # affiche la cadence de tir du joueur
+    # Affichage de la cadence de tir du joueur
     cadence_rounded = round(1000/liste_joueur[0].get_cadence_tir(), 1)
     texte_cadence = police.render("Cadence: " + str(cadence_rounded) + "tirs/s" , True, (179, 0, 0))
     screen.blit(texte_cadence, (screen_width*0.60, screen_height*0.85))
 
-    # Affiche la vague actuelle:
+    # Affichage de la vague actuelle et du nombre d'ennemis restants:
     if len(liste_ennemis) <= 1:
         textEnnemis = str(len(liste_ennemis)) +  " ennemi restant"
     else:
         textEnnemis = str(len(liste_ennemis)) +  " ennemis restants"
-    
+
     textVague = police.render(("Vague: " + str(niveau-1)), True, (0, 0, 0))
     textEnnemis = police.render(textEnnemis, True, (0, 0, 0))
 
@@ -691,7 +721,7 @@ while running:
     screen.blit(textEnnemis, (screen_width*0.45, screen_height*0.968))
 
 
-    # affichage des degats lorsque le joueur est touché
+    # Affichage des dégats lorsque le joueur est touché
     if len(liste_texte_degats) != 0:
         for i in range(len(liste_texte_degats)-1, -1, -1) :
             if cible_du_tir < len(liste_navire):
@@ -701,20 +731,16 @@ while running:
                 if liste_texte_degats[i][1] >= 60:
                     liste_texte_degats.pop(i)
     
-    # Rafraîchir l'écran
+    # On rafraichit l'écran à chaque tick
     pygame.display.flip()
 
-
-    # pour quitter le jeux
-    if keys[pygame.K_TAB]: # si on appuie sur tab ca quitte le jeu
-        running = False
-
+    # Met le jeu en pause
     if keys[pygame.K_ESCAPE]:
         menu = Menu(2,os.path.join("data", "images", "Interfaces", "menu.png"), screen_width, screen_height)
         running = menu.actif(screen_width, screen_height, screen)
 
     # Limiter la boucle à 60 images par seconde
-    dt = clock.tick(framerate) # en fait non ca marche pas
+    dt = clock.tick(framerate)
 
-# Quitter Pygame proprement
+# On quitte Pygame proprement
 pygame.quit()
