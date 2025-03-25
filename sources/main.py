@@ -336,16 +336,13 @@ while running:
                                 else:
                                     n.equiper_benediction(0)
 
-                        if keys[pygame.K_2] or n.type in (1, 3):
+                        if keys[pygame.K_2]:
                             if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                                 if ile in liste_iles:
                                     liste_iles.remove(ile)
                                     nbrIles -= 1
                                 n.afficher_benediction = False
-                                if n.type == 3:
-                                    n.equiper_benediction(n.choix_slot_benediction())
-                                else:
-                                    n.equiper_benediction(1)
+                                n.equiper_benediction(1)
 
                 elif res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                     verifIleMalus = n.verifIleMalus
@@ -472,7 +469,7 @@ while running:
         if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_rage):
             screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
     elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction GodMode":
-        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_GodMode):
+        if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_godmode):
             screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
     elif liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction Projectiles":
         if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_giga_tir):

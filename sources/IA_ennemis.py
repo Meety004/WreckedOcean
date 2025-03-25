@@ -189,7 +189,7 @@ class IA_ennemis_stage_2(Navire):
                 elif angle_joueur < -5:
                     super().tourne_gauche()
         
-        elif self.ile_in_range(liste_iles)[0] and res.comparaison_valeur_equipement_ile(liste_iles[self.ile_in_range(liste_iles)[1]], self.equipement):
+        elif self.ile_in_range(liste_iles)[0] and res.comparaison_valeur_equipement_ile(liste_iles[self.ile_in_range(liste_iles)[1]], self.equipement, self.benedictions):
             self.verif_ile = self.ile_in_range(liste_iles)
             if self.verif_ile[0]: # si une île est à portée, se dirige vers l'île, sinon, se déplace aléatoirement
                 calcul_intermediaire = self.y - liste_iles[self.verif_ile[1]].position_y() # différence de la valeur y entre l'IA et l'île
@@ -264,7 +264,7 @@ class IA_ennemis_stage_2(Navire):
             self.use_benediction_2()
 
     def choix_slot_benediction(self):
-        if self.recompense in res.liste_benedictions:
+        if self.recompense[0] in res.liste_benedictions:
             if self.benedictions[0] == None:
                 return 0
             elif self.benedictions[1] == None:
