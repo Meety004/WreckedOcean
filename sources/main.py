@@ -169,23 +169,25 @@ running = menu.actif(screen_width, screen_height, screen)
 
 # BOUCLE DE JEU PRINCIPALE
 while running:
+
+    # Création du menu de démarrage
     menu.actif(screen_width, screen_height, screen)
 
-
-    # UPDATE
-
- 
-    # Gestion des événements (quitter le jeu)
+    # Gestion des événements pygame
     for event in pygame.event.get():
+        
+        # On quitte le jeu
         if event.type == pygame.QUIT:
             running = False
+
+        # On appelle une méthode pour gérer le tir double
         for i in liste_navire:
             i.GererEventTir(event, liste_shot)
 
-    # Récupérer l'état des touches
+    # Récupération l'état des touches
     keys = pygame.key.get_pressed()
 
-    #différentes waves d'ennemis
+    # On gère les différentes vagues d'ennemis
     if len(liste_ennemis) == 0:
         if niveau%5 == 0 and niveau != 0:
             for i in range(niveau // 5):
@@ -210,37 +212,45 @@ while running:
         for i in range(len(liste_ennemis)):
             liste_navire.append(liste_ennemis[i])
         
+        # On donne de la vie au joueur à chaque fin de vague
         liste_joueur[0].heal_par_vague()
         niveau += 1
 
-    # Gestion des touches du premier navire (pour l'instant impossible de rajouter d'autre joueurs ils ont tous les mêmes touches)
+    # Gestion des touches du joueur
     if len(liste_joueur) > 0:
 
+        # On inverse les contrôles lorsque le joueur a la Coque Trouée
         for navire_i in liste_joueur:
             if navire_i.getEquipement()['coque'] == "Coque Trouée":
                 keyBindList = res.keyBindCursedList
             else:
                 keyBindList = res.keyBindList
 
-            if keys[keyBindList[0]]: # fleche du haut
+            # On avance avec la flèche du haut
+            if keys[keyBindList[0]]:
                 navire_i.accelerer()
             else: 
                 navire_i.ralentit()
 
-            if keys[keyBindList[1]]: # fleche gauche
+            # On tourne à gauche avec la flèche gauche
+            if keys[keyBindList[1]]:
                 navire_i.tourne_gauche()
 
-            if keys[keyBindList[2]]: # fleche droite
+            # On tourne à droite avec la flèche droite
+            if keys[keyBindList[2]]:
                 navire_i.tourne_droite()
             
-            if keys[pygame.K_SPACE]: # espace
+            # La barre d'espace fait tirer le bateau
+            if keys[pygame.K_SPACE]:
                 tir_du_navire = navire_i.shoot()
                 if tir_du_navire is not None:
                     liste_shot.extend(tir_du_navire)
 
+            # La touche 1 fait utiliser la bénédiction primaire
             if keys[pygame.K_z] and navire_i.afficher_benediction == False:
                 navire_i.use_benediction_1()
             
+            # La touche 2 fait utiliser la bénédiction secondaire
             if keys[pygame.K_e] and navire_i.afficher_benediction == False:
                 navire_i.use_benediction_2()
 
@@ -248,30 +258,37 @@ while running:
             # Mettre à jour la position des navires
             navire_i.avancer()
 
-            # verifie qu'ils ne sortent pas de l'ecran
+            # On vérifie que le joueur ne sorte pas de l'écran
             navire_i.sortir_ecran(screen_width, playHeight)
 
 
-    
-    for navire in liste_navire: # verifie la rage, l'aura et le godmode des navires
+    # On vérifie l'état des bénédictions des navires
+    for navire in liste_navire:
         navire.still_inraged()
         navire.aura_activated(liste_ennemis)
         navire.in_godmode()
         navire.still_giga_tir()
 
-    # fait les deplacements de l'ennemi
-    
+
+    # On gère les actions des ennemis
     for ennemis in liste_ennemis:
-        # a besoin de la position des joueurs pour incliner le deplacement
+
+        # On fait bouger les ennemis en fonction de la position des îles et celle du joueur
         ennemis.bouger(liste_navire, liste_iles, liste_joueur)
         
         for adversaire in liste_navire:
-            if adversaire.get_ID() != ennemis.get_ID():
-                # gère le tir de l'ennemi. return None si le joueur n'est pas a porté de l'ennemi
-                tir_ennemi = ennemis.tirer(adversaire.position_x(), adversaire.position_y(), liste_joueur)
-                if tir_ennemi != None: # si ça return none alors il l'efface
-                    liste_shot.extend(tir_ennemi) # la fonction de tir return une liste. il faut donc extend pour fusionner les liste et pas append
 
+            # On évite que l'ennemi ne se tire dessus
+            if adversaire.get_ID() != ennemis.get_ID():
+                
+                # Gère le tir de l'annemi
+                tir_ennemi = ennemis.tirer(adversaire.position_x(), adversaire.position_y(), liste_joueur)
+
+                # Si un adversaire est à portée, on ajoute le tir à la liste des tirs.
+                if tir_ennemi != None:
+                    liste_shot.extend(tir_ennemi)
+
+        # On vérifie que les ennemis ne sortent pas de l'écran
         ennemis.sortir_ecran(screen_width, playHeight)
 
     for shot_i in reversed(liste_shot):
