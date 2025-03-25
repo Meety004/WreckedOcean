@@ -1,10 +1,9 @@
 import ressources as res
 from random import *
 import pygame
-import main
 
 class Iles:
-    def __init__(self, screen_width, screen_height, imageC, imageR, imageM, imageL, liste_nav, liste_iles):
+    def __init__(self, screen_width, screen_height, imageC, imageR, imageM, imageL, liste_nav, liste_iles, niveau):
 
         # Liste des raretés des iles
         self.ile_rarete = ['commun', 'rare','mythique', 'légendaire']
@@ -17,22 +16,26 @@ class Iles:
         self.width = 5.20/100*screen_width
         self.height = 11.56/100*screen_height
 
+        self.vague = niveau + 1
+
         # Choix du type d'île
 
-        if (main.getNiveau()) - 1 == 1:
+        if self.vague == 1:
             self.typeList = choices(self.ile_rarete, weights=[0.56, 0.41, 0.03, 0.00], k=1)
-        elif (main.getNiveau()) - 1 == 2:
+        elif self.vague == 2:
             self.typeList = choices(self.ile_rarete, weights=[0.54, 0.38, 0.06, 0.02], k=1)
-        elif (main.getNiveau()) - 1 == 3:
+        elif self.vague == 3:
             self.typeList = choices(self.ile_rarete, weights=[0.50, 0.36, 0.10, 0.04], k=1)
-        elif (main.getNiveau()) - 1 == 4:
+        elif self.vague == 4:
             self.typeList = choices(self.ile_rarete, weights=[0.47, 0.35, 0.13, 0.05], k=1)
-        elif (main.getNiveau()) - 1 == 5:
+        elif self.vague == 5:
             self.typeList = choices(self.ile_rarete, weights=[0.43, 0.33, 0.17, 0.07], k=1)
-        elif (main.getNiveau()) - 1 == 6:
+        elif self.vague == 6:
             self.typeList = choices(self.ile_rarete, weights=[0.38, 0.30, 0.22, 0.10], k=1)
-        elif (main.getNiveau()) - 1 >= 7:
+        elif self.vague >= 7:
             self.typeList = choices(self.ile_rarete, weights=[0.22, 0.33, 0.30, 0.15], k=1)
+        else:
+            print("au secours", self.vague)
         
         self.type = self.typeList[0]
 
