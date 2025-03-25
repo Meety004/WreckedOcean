@@ -805,20 +805,20 @@ class Navire:
     def stop_animation_rage(self):
         self.gif_rage = False
     
-    def aura_activated(self, liste_ennemis):
+    def aura_activated(self, liste_navires):
         if self.has_aura:
-            for ennemi in liste_ennemis:
-                if self.aura_damage_timer.timer_ended():
-                    if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 150:
-                        ennemi.get_damaged(self.aura_degat)
-                        if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 120:
-                            ennemi.get_damaged(self.aura_degat)
-                            if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 90:
-                                ennemi.get_damaged(self.aura_degat)
-                                if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 60:
-                                    ennemi.get_damaged(self.aura_degat)
-                                    if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 30:
-                                        ennemi.get_damaged(self.aura_degat)
+            for n in liste_navires:
+                if self.aura_damage_timer.timer_ended() and n.get_ID() != self.ID:
+                    if res.calc_distance(self.x, self.y, n.position_x(), n.position_y()) <= 150:
+                        n.get_damaged(self.aura_degat)
+                        if res.calc_distance(self.x, self.y, n.position_x(), n.position_y()) <= 120:
+                            n.get_damaged(self.aura_degat)
+                            if res.calc_distance(self.x, self.y, n.position_x(), n.position_y()) <= 90:
+                                n.get_damaged(self.aura_degat)
+                                if res.calc_distance(self.x, self.y, n.position_x(), n.position_y()) <= 60:
+                                    n.get_damaged(self.aura_degat)
+                                    if res.calc_distance(self.x, self.y, n.position_x(), n.position_y()) <= 30:
+                                        n.get_damaged(self.aura_degat)
                         self.aura_damage_timer.reset()
             if self.aura_timer.timer_ended():
                 self.has_aura = False

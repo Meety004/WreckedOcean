@@ -232,7 +232,7 @@ while running:
     
     for navire in liste_navire: # verifie la rage, l'aura et le godmode des navires
         navire.still_inraged()
-        navire.aura_activated(liste_ennemis)
+        navire.aura_activated(liste_navire)
         navire.in_godmode()
         navire.still_giga_tir()
 
