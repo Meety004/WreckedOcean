@@ -226,22 +226,22 @@ keyBindCursedList =  [
 ]
 
 dictItemsBuff = {
-    'Canons Rouillés': "Vitesse projectiles -15%",
+    'Canons Rouillés': "Vitesse projectiles -25%",
     'Voile Trouée': "Vitesse Max -25%",
     'Coque Trouée': "Inverse les commandes",
     'Canons de base': "Aucun bonus",
     'Voile de base': "Aucun bonus",
     'Coque de base': "Aucun bonus",
     '+1 Canon': "Ajoute un canon à l'avant",
-    'Canon en bronze': "Dégâts +20%",
+    'Canon en bronze': "Dégats +20%",
     '+2 Canons': "Ajoute un canon à l'avant et à l'arrière",
-    'Canon en argent': "Dégâts +33% | Vitesse projectiles +5%",
+    'Canon en argent': "Dégats +33% | Vitesse projectiles +5%",
     'Canon ballistique': "Les projectiles vont deux fois plus loin",
     '+3 Canons': "Ajoute un canon à à l'arrière et deux en diagonale",
-    'Canon en or': "Dégâts +66% | Vitesse projectiles +10% | Cadence +40%",
+    'Canon en or': "Dégats +66% | Vitesse projectiles +10% | Cadence +40%",
     'Canon à tirs doubles': "Tire un deuxième projectile à chaque tir",
     '+4 Canons': "Ajoute quatre canons",
-    'Canon légendaire': "Dégâts +133% | Vitesse projectiles +15% |\n Cadence +40%",
+    'Canon légendaire': "Dégats +133% |Vitesse projectiles +15% |Cadence +40%",
     'Coque épicéa': "PV Max +10",
     'Coque chêne': "Vitesse Max +10%",
     'Coque en bouleau': "PV Max +10 | Vitesse Max +5%",
@@ -257,8 +257,8 @@ dictItemsBuff = {
 dictBenedictionsBuff = {
     "Bénédiction Dash": "Vous permet de faire une forte accélération",
     "Bénédiction Santé": "Ajoute 50% de votre PV max",
-    "Bénédiction d'aura": "Crée une aura qui fait des dégâts aux ennemis proches",
-    "Bénédiction de rage": "Augmente les dégâts et la vitesse de 50%, réduit les PV à 20",
+    "Bénédiction d'aura": "Crée une aura qui fait des Dégats aux ennemis proches",
+    "Bénédiction de rage": "Augmente les Dégats et la vitesse de 50%, réduit les PV à 20",
     "Bénédiction GodMode": "Vous rend invincible",
     "Bénédiction Projectiles": "Envoie une multitude de projectiles autour de vous"
 }

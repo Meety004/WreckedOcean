@@ -4,17 +4,21 @@
 
 # IMPORTS
 
+# Imports des librairies
 import math
 import pygame
 import random
-import shot
 import string
 import os
+
+# Imports des modules
+import shot
 import ressources as res
 
-# On crée un évènement pour le tir double
+# On crée un évènement pour gérer le tir double
 tirDouble = pygame.USEREVENT + 1
 
+# Création de la classe Navire qui gère les fonctionnalités de base du joueur et des ennemis
 class Navire:
     def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt, type):
         # Contrôle du vaisseau

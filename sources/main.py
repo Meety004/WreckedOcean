@@ -1,7 +1,7 @@
 # Projet: WRECKED OCEAN
 # Auteurs: BELLEC-ESCALERA Elliot, CADEAU--FLAUJAT Gabriel, KELEMEN Thomas, GABRIEL TOM
 
-# Importation des librairies et des fichiers dont au aura besoin par la suite
+# Importation des librairies et des fichiers dont on aura besoin par la suite
 import pygame
 import os
 
@@ -323,7 +323,7 @@ while running:
                 # Si le boulet rentre en collision avec un navire
                 if shot_i[0].collision(liste_navire[i].position_x(), liste_navire[i].position_y(), liste_navire[i].get_ID()):
                     damage = 15
-                    # On met à jour la valeur des dégâts en fonction de l'équipement du tireur
+                    # On met à jour la valeur des Dégats en fonction de l'équipement du tireur
                     if shot_i[1] == "Canon en bronze":
                         damage = 18
                     elif shot_i[1] == "Canon en argent":
@@ -335,7 +335,7 @@ while running:
                     # Si le tireur n'est pas la cible, on retire de la vie à la cible
                     if not shot_i[0].getIDTireur() == liste_navire[i].get_ID():
                         liste_navire[i].get_damaged(damage)
-                        # On applique des dégâts supplémentaires si le navire a la bénédiciton Rage activée
+                        # On applique des Dégats supplémentaires si le navire a la bénédiciton Rage activée
                         if shot_i[0].is_inraged():
                             liste_navire[i].get_damaged(math.floor((damage+1)/2))
                         cible_du_tir = i
