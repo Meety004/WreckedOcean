@@ -189,6 +189,8 @@ while running:
 
     # On gère les différentes vagues d'ennemis
     if len(liste_ennemis) == 0:
+
+        # Si le niveau (vague) actuel est divisible par 5, on fait apparaitre des Ennemis Basiques, Chasseurs et Intelligents
         if niveau%5 == 0 and niveau != 0:
             for i in range(niveau // 5):
                 liste_ennemis.append(IA_ennemis_stage_2(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
@@ -196,6 +198,8 @@ while running:
                 liste_ennemis.append(IA_ennemis_chasseurs(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
             for i in range(niveau // 3):
                 liste_ennemis.append(IA_ennemis_basiques(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
+        
+        # Si le niveau (vague) actuel est divisible par 3, on fait apparaitre des Ennemis Basiques et Chasseurs
         elif niveau%3 == 0 and niveau != 0:
             var_intermediaire = niveau // 3
             if var_intermediaire > 5:
@@ -207,6 +211,8 @@ while running:
         else:
             if niveau > 10:
                 niveau = 10
+            
+            # Sinon, on fait apparaitre des Enemis Basiques
             for i in range(niveau):
                 liste_ennemis.append(IA_ennemis_basiques(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
         for i in range(len(liste_ennemis)):
@@ -291,15 +297,20 @@ while running:
         # On vérifie que les ennemis ne sortent pas de l'écran
         ennemis.sortir_ecran(screen_width, playHeight)
 
+    # On parcours tous les tirs
     for shot_i in reversed(liste_shot):
         shot_i[0].sortir_ecran()
-        if shot_i[0] is not None: # deuxieme verification pour voir si il n'y a pas de None dans les tir car ca casse tout
+        # On revérifie si un tir n'est pas nul pour éviter un crash
+        if shot_i[0] is not None:
+            # On fait avancer le boulet de canon et disparraitre après une certaine distance
             shot_i[0].avancer(liste_navire)
             if shot_i[0].despawn_distance():
                 liste_shot.remove(shot_i)
             for i in range(len(liste_navire)-1, -1, -1):
+                # Si le boulet rentre en collision avec un navire
                 if shot_i[0].collision(liste_navire[i].position_x(), liste_navire[i].position_y(), liste_navire[i].get_ID()):
                     damage = 15
+                    # On met à jour la valeur des dégâts en fonction de l'équipement du tireur
                     if shot_i[1] == "Canon en bronze":
                         damage = 18
                     elif shot_i[1] == "Canon en argent":
@@ -308,8 +319,10 @@ while running:
                         damage = 25
                     elif shot_i[1] == "Canon légendaire":
                         damage = 35
+                    # Si le tireur n'est pas la cible, on retire de la vie à la cible
                     if not shot_i[0].getIDTireur() == liste_navire[i].get_ID():
                         liste_navire[i].get_damaged(damage)
+                        # On applique des dégâts supplémentaires si le navire a la bénédiciton Rage activée
                         if shot_i[0].is_inraged():
                             liste_navire[i].get_damaged(math.floor((damage+1)/2))
                         cible_du_tir = i
@@ -320,19 +333,28 @@ while running:
                     if shot_i in liste_shot:
                         liste_shot.remove(shot_i)
         else:
-            liste_shot.remove(shot_i) # si il y a un None ça le detruit
-        
+            # Si un tir est nul, on le supprime
+            liste_shot.remove(shot_i)
+    
+    # On parcours la liste de tous les navires
     for navire_i in liste_navire:
         if navire_i.is_dead():
+
+            # Si le joueur a été touché et qu'il n'a plus de vie, on l'enlève de la liste
             if len(liste_joueur) > 0:
                 for i in range(len(liste_joueur)-1, -1, -1):
                     if liste_joueur[i].get_ID() == navire_i.get_ID():
                         liste_joueur.pop(i)
+            # Si un ennemi a été touché et qu'il n'a plus de vie, on l'enlève de la liste
             if len(liste_ennemis) > 0:
                 for i in range(len(liste_ennemis)-1, -1, -1):
                     if liste_ennemis[i].get_ID() == navire_i.get_ID():
                         liste_ennemis.pop(i)
+            
+            # On supprime le navire de la liste des navires
             liste_navire.remove(navire_i)
+
+    # S'il n'y a plus de joueur, on active le menu de démarrage et on remet à 0 les variables de jeu
     if len(liste_joueur) == 0:
         liste_joueur, liste_ennemis, liste_navire, liste_coords, liste_iles, liste_shot, nbrIles, maxIles, setTimer, apparitionIles, timer, liste_texte_degats, niveau = start_game()
         menu = Menu(2, os.path.join("data", "images", "Interfaces", "menu.png"), screen_width, screen_height)
@@ -340,34 +362,49 @@ while running:
         continue
             
 
-    # Appelle la méthode de gestion du temps des  îles et les supprime au bout d'un certain temps.
+    # On parcours la liste des îles
     for ile in liste_iles:
-        ile.decompte()
+
+        # On crée un timer de durée de vie de l'île
         timeLeft = ile.decompte()
+
+        # Une fois le timer écoulé, on supprime l'île
         if timeLeft <= 0:
             liste_iles.remove(ile)
             nbrIles -= 1
 
+        # On parcours la liste des navires
         for n in liste_navire:
             if len(liste_navire) > 0:
+
+                # On sauvegarde la récompense sur l'île
                 recompense = ile.type_recompenses()
+
+                # On appelle les fonctions de gestion des interfaces
                 n.equipInterface(recompense, ile.position_x(), ile.position_y(), ile)
                 n.beneInterface(ile.position_x(), ile.position_y(), ile)
+
+                # On appelle la fonction de vérification d'existence de l'île pour éviter des bugs d'interface
                 n.verifIleExiste(liste_iles)
                 if n.afficher_items == True:
-
+                    
+                    # On équipe l'équipement pour les navires dans un rayon de 75 autour de l'île si le joueur appuie sur A ou si le navire Ennemi est un Ennemi Basique ou Chasseur
                     if keys[pygame.K_a] or n.type in (1, 3):
                         if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                             if ile in liste_iles:
+                                # On supprime l'île
                                 liste_iles.remove(ile)
                                 nbrIles -= 1
                             n.afficher_items = False
                             n.equiper()
 
                 if n.afficher_benediction == True:
+                        
+                        # On équipe la bénédiction  dans l'emplacement primaire pour les navires dans un rayon de 75 autour de l'île si le joueur appuie sur A ou si le navire Ennemi est un Ennemi Basique ou Chasseur
                         if keys[pygame.K_1] or n.type in (1, 3):
                             if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                                 if ile in liste_iles:
+                                    # On supprime l'île
                                     liste_iles.remove(ile)
                                     nbrIles -= 1
                                 n.afficher_benediction = False
@@ -376,14 +413,17 @@ while running:
                                 else:
                                     n.equiper_benediction(0)
 
+                        # On équipe la bénédiction  dans l'emplacement primaire pour les navires dans un rayon de 75 autour de l'île si le joueur appuie sur A ou si le navire Ennemi est un Ennemi Basique ou Chasseur
                         if keys[pygame.K_2]:
                             if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                                 if ile in liste_iles:
+                                    # On supprime l'île
                                     liste_iles.remove(ile)
                                     nbrIles -= 1
                                 n.afficher_benediction = False
                                 n.equiper_benediction(1)
 
+                # Si le navire est dans un rayon de 75 autour d'une île contenant un malus, on supprime l'île pour éviter des bugs d'interface
                 elif res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                     verifIleMalus = n.verifIleMalus
                     if verifIleMalus == True:
@@ -393,20 +433,22 @@ while running:
 
 
 
-    # Appelle de la fonction de compte à rebours pour apparition des îles
+    # Appelle de la fonction de compte à rebours pour l'apparition des îles
     nbrIles, maxIles, timer = apparitionIles(nbrIles, maxIles, timer)
 
 
 
-    # DRAW
+    # DRAW - GERE LA PARTIE GRAPHIQUE
 
 
-    #Remplir l'écran avec une couleur de fond
+    # Remplissage de l'écran avec une couleur de fond (beige)
     screen.fill((245, 228, 156))
 
-    # affichage de l'ocean en fond
+    # On fait défiler les différentes frames de l'arrière-plan
     current_time = pygame.time.get_ticks()
-    if current_time - time_last_update > 100:  # Changer de frame toutes les 100 ms
+
+    # Changement de frame toutes les 100 ms
+    if current_time - time_last_update > 100:
         current_frame = (current_frame + 1) % len(frames)
         image = frames[current_frame]
         time_last_update = current_time
@@ -414,6 +456,8 @@ while running:
 
     # Dessine les navires
     for navire_i in liste_navire:
+        # Ajout de l'indicateur de bénédiction sur le bateau
+
         if navire_i.godmode_active():
             screen.blit(god_mode_image, god_mode_image.get_rect(center=(navire_i.position_x(), navire_i.position_y())))
         if navire_i.is_giga_tir():
@@ -425,7 +469,7 @@ while running:
         
         navire_i.afficher(screen)
 
-    # dessine les tirs
+    # Dessine les boulets de canon
     for shot_i in liste_shot:
         shot_i[0].afficher(screen)
 
@@ -433,31 +477,32 @@ while running:
     for ile in liste_iles:
         ile.afficher(screen)
 
-    # dessine l'aura
+    # Dessine le cercle d'aura
     for navire_i in liste_navire:
         if navire_i.aura_active():
             pygame.draw.circle(screen, (0, 255, 255), (int(navire_i.position_x()), int(navire_i.position_y())), 150, 4)
         
-    # affiche la bare de vie du joueur
+    # Affiche la bare de vie du joueur
     
-    # la bouteille
+    # La bouteille
     rect_barre_de_vie = design_barre_de_vie.get_rect(center=(screen_width/2, 7 * screen_height/8))
     screen.blit(design_barre_de_vie, rect_barre_de_vie)
     
-    # la bare de vie
+    # La bare de vie en rouge
     largeur = (screen_width*0.1) * ((liste_joueur[0].get_vie()*(screen_width*0.1) / liste_joueur[0].get_max_vie())/(screen_width*0.1))
-    StrVie = str(liste_joueur[0].get_vie()) + " / " + str(liste_joueur[0].get_max_vie())
-    texteVie = police.render((StrVie), True, (255, 0, 0))
     bare_de_vie = pygame.Rect(screen_width*0.44, screen_height * 0.86, largeur, screen_width*0.02) # affiche a 44% de la largeur et 86% de la hauteur de l'ecran, la largeur est de 0.02% la taille de la hauteur de l'ecran
     pygame.draw.rect(screen, (255, 0, 0), bare_de_vie)
 
-    # le texte pour avoir le nombre de vie exacte
+    # Création et affichage du texte affichant la vie du joueur
+    StrVie = str(liste_joueur[0].get_vie()) + " / " + str(liste_joueur[0].get_max_vie())
+    texteVie = police.render((StrVie), True, (255, 0, 0))
     screen.blit(texteVie, (screen_width*0.473, screen_height*0.91))
 
 
-    #Affiche l'équipement actuel du joueur
+    # Affiche l'équipement actuel du joueur
     (iconCanon, iconVoile, iconCoque) = liste_joueur[0].getImages()
 
+    # On affiche les icones de l'équipement du joueur
     iconCanon = pygame.transform.scale(iconCanon, (2.616/100*screen_width, 5.072/100*screen_height))
     iconVoile = pygame.transform.scale(iconVoile, (2.616/100*screen_width, 5.072/100*screen_height))
     iconCoque = pygame.transform.scale(iconCoque, (2.616/100*screen_width, 5.072/100*screen_height))
@@ -465,18 +510,22 @@ while running:
     screen.blit(iconVoile, (0.77*screen_width, 0.889*screen_height))
     screen.blit(iconCoque, (0.77*screen_width, 0.949*screen_height))
 
+    # On récupère l'équipement du joueur
     dictItems = liste_joueur[0].getEquipement()
     TypeSurfaceCanon = TypeFontPast.render(dictItems['canons'], True, (0, 0, 0))
     TypeSurfaceVoile = TypeFontPast.render(dictItems['voile'], True, (0, 0, 0))
     TypeSurfaceCoque = TypeFontPast.render(dictItems['coque'], True, (0, 0, 0))
 
+    # On affiche le nom des équipements à côté des icones respectives
     screen.blit(TypeSurfaceCanon, (0.80*screen_width, 0.955*screen_height))
     screen.blit(TypeSurfaceVoile, (0.80*screen_width, 0.897*screen_height))
     screen.blit(TypeSurfaceCoque, (0.80*screen_width, 0.837*screen_height))
 
-    #Affiche les bénédictions du joueur
+    # Affiche les bénédictions du joueur
     Bene1 = liste_joueur[0].getBenedictionsImages()[1]
     Bene2 = liste_joueur[0].getBenedictionsImages()[2]
+
+    # Si le joueur n'a pas de bénédiction, on affiche une croix
     if Bene1 == None:
         Bene1 = croixBenediction
     if Bene2 == None:
@@ -484,24 +533,28 @@ while running:
     screen.blit(Bene1, (0.050*screen_width, 0.860*screen_height))
     screen.blit(Bene2, (0.170*screen_width, 0.860*screen_height))
 
+    # Affichage des titres annonçant les bénédictions
     screen.blit(Bene1Surface, (0.050*screen_width, 0.825*screen_height))
     screen.blit(Bene2Surface, (0.170*screen_width, 0.825*screen_height))
 
+    # On récupère les bénédictions du joueur
     TexteSurfaceBene1 = liste_joueur[0].getBenedictionsTexts()[0]
     TexteSurfaceBene2 = liste_joueur[0].getBenedictionsTexts()[1]
 
+    # Si le joueur n'a pas de bénédiction, on affiche Aucune
     if TexteSurfaceBene1 == None:
         TexteSurfaceBene1 = "Aucune"
     if TexteSurfaceBene2 == None:
         TexteSurfaceBene2 = "Aucune"
 
+    # On charge et affiche le nom des bénédictions
     TexteSurfaceBene1 = TypeDisplayBenediction.render(TexteSurfaceBene1, True, (0, 0, 0))
     TexteSurfaceBene2 = TypeDisplayBenediction.render(TexteSurfaceBene2, True, (0, 0, 0))
 
     screen.blit(TexteSurfaceBene1, (0.050*screen_width, 0.96*screen_height))
     screen.blit(TexteSurfaceBene2, (0.170*screen_width, 0.96*screen_height))
 
-    # Affiche une croix sur l'icone de bénédiction si celle ci n'est pas utilisable
+    # Affiche une croix sur l'icone de bénédiction primaire si celle ci n'est pas utilisable
     if liste_joueur[0].timer_benediction_1 != None:
         if liste_joueur[0].getBenedictionsTexts()[0] == "Bénédiction Santé":
             if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_sante):
@@ -522,7 +575,7 @@ while running:
             if not liste_joueur[0].timer_benediction_1.timer_ended_special(liste_joueur[0].timer_giga_tir):
                 screen.blit(croixBenediction, (0.05*screen_width, 0.860*screen_height))
 
-    # Affiche une croix sur l'icone de bénédiction 2 si celle ci n'est pas utilisable
+    # Affiche une croix sur l'icone de bénédiction secondaire si celle ci n'est pas utilisable
     if liste_joueur[0].timer_benediction_2 != None:
         if liste_joueur[0].getBenedictionsTexts()[1] == "Bénédiction Santé":
             if not liste_joueur[0].timer_benediction_2.timer_ended_special(liste_joueur[0].timer_sante):
