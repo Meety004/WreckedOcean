@@ -189,7 +189,7 @@ class IA_ennemis_stage_2(Navire):
                 elif angle_joueur < -5:
                     super().tourne_gauche()
         
-        elif self.ile_in_range(liste_iles)[0] and res.comparaison_valeur_equipement_ile(liste_iles[self.ile_in_range(liste_iles)[1]], self.equipement):
+        elif self.ile_in_range(liste_iles)[0] and res.comparaison_valeur_equipement_ile(liste_iles[self.ile_in_range(liste_iles)[1]], self.equipement, self.benedictions):
             self.verif_ile = self.ile_in_range(liste_iles)
             if self.verif_ile[0]: # si une île est à portée, se dirige vers l'île, sinon, se déplace aléatoirement
                 calcul_intermediaire = self.y - liste_iles[self.verif_ile[1]].position_y() # différence de la valeur y entre l'IA et l'île
@@ -218,8 +218,61 @@ class IA_ennemis_stage_2(Navire):
             elif self.action == 1:
                 super().tourne_gauche()
         
+        self.utilisation_benediction(liste_joueur)
         super().accelerer() # Les chasseurs avancent tout le temps
         super().avancer()
+
+    def utilisation_benediction(self, liste_joueur):
+        if "Bénédiction Dash" in self.benedictions:
+            if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) > 500:
+                if self.benedictions[0] == "Bénédiction Dash":
+                    self.use_benediction_1()
+                else:
+                    self.use_benediction_2()
+        
+        if "Bénédiction Santé" in self.benedictions:
+            if self.vie <= (self.maxVie/2):
+                if self.benedictions[0] == "Bénédiction Santé":
+                    self.use_benediction_1()
+                else:
+                    self.use_benediction_2()
+        
+        if "Bénédiction d'aura" in self.benedictions:
+            if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 120:
+                if self.benedictions[0] == "Bénédiction d'aura":
+                    self.use_benediction_1()
+                else:
+                    self.use_benediction_2()
+
+        if "Bénédiction Projectiles" in self.benedictions:
+            if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 100:
+                if self.benedictions[0] == "Bénédiction Projectiles":
+                    self.use_benediction_1()
+                else:
+                    self.use_benediction_2()
+
+        if "Bénédiction GodMode" in self.benedictions:
+            if self.vie <= 30 and res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 400:
+                if self.benedictions[0] == "Bénédiction GodMode":
+                    self.use_benediction_1()
+                else:
+                    self.use_benediction_2()
+
+        if self.benedictions[0] == "Bénédiction de rage":
+            self.use_benediction_1()
+        elif self.benedictions[1] == "Bénédiction de rage":
+            self.use_benediction_2()
+
+    def choix_slot_benediction(self):
+        if self.recompense[0] in res.liste_benedictions:
+            if self.benedictions[0] == None:
+                return 0
+            elif self.benedictions[1] == None:
+                return 1
+            elif res.valeur_equipement(self.benedictions[0]) < res.valeur_equipement(self.benedictions[1]):
+                return 0
+            else:
+                return 1
 
     def tirer(self, inutilex, inutiley, liste_joueur):
         # si l'ennemi est à distance même s'il n'est pas bien incliné ça tire

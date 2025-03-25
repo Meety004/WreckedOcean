@@ -45,7 +45,10 @@ class Navire:
         self.dernier_tir = 0 # Le denier tir fait par le bateau
         self.cadence_tir = 1000 # Durée minimale entre deux tirs
         self.ID = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
-        self.maxVie = 50
+        if type == 2:
+            self.maxVie = 30
+        else:
+            self.maxVie = 50
         self.vie = self.maxVie
 
         #On vérifie si l'île contient un malus
@@ -696,8 +699,8 @@ class Navire:
         if len(self.benedictions) > 0:
             if self.timer_benediction_1.timer_ended_special(self.timer_dash) or self.timer_benediction_1.timer_ended():
                 if self.benedictions[0] == "Bénédiction Dash": # te fait dasher de 200
-                    self.x += 350 * math.cos(math.radians(self.angle - 90))
-                    self.y += 350 * math.sin(math.radians(self.angle - 90))
+                    self.x += 200 * math.cos(math.radians(self.angle - 90))
+                    self.y += 200 * math.sin(math.radians(self.angle - 90))
                     self.timer_benediction_1 = res.Timer(50)
             
             if self.timer_benediction_1.timer_ended_special(self.timer_sante) or self.timer_benediction_1.timer_ended():
@@ -740,9 +743,9 @@ class Navire:
     def use_benediction_2(self):
         if len(self.benedictions) > 1:
             if self.timer_benediction_2.timer_ended_special(self.timer_dash) or self.timer_benediction_2.timer_ended():
-                if self.benedictions[1] == "Bénédiction Dash": # te fait dasher de 200
-                    self.x += 250 * math.cos(math.radians(self.angle - 90))
-                    self.y += 250 * math.sin(math.radians(self.angle - 90))
+                if self.benedictions[1] == "Bénédiction Dash": # te fait dasher de 100
+                    self.x += 100 * math.cos(math.radians(self.angle - 90))
+                    self.y += 100 * math.sin(math.radians(self.angle - 90))
                     self.timer_benediction_2 = res.Timer(50)
             
             if self.timer_benediction_2.timer_ended_special(self.timer_sante) or self.timer_benediction_2.timer_ended():
@@ -811,20 +814,20 @@ class Navire:
     def stop_animation_rage(self):
         self.gif_rage = False
     
-    def aura_activated(self, liste_ennemis):
+    def aura_activated(self, liste_navires):
         if self.has_aura:
-            for ennemi in liste_ennemis:
-                if self.aura_damage_timer.timer_ended():
-                    if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 150:
-                        ennemi.get_damaged(self.aura_degat)
-                        if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 120:
-                            ennemi.get_damaged(self.aura_degat)
-                            if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 90:
-                                ennemi.get_damaged(self.aura_degat)
-                                if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 60:
-                                    ennemi.get_damaged(self.aura_degat)
-                                    if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 30:
-                                        ennemi.get_damaged(self.aura_degat)
+            for n in liste_navires:
+                if self.aura_damage_timer.timer_ended() and n.get_ID() != self.ID:
+                    if res.calc_distance(self.x, self.y, n.position_x(), n.position_y()) <= 150:
+                        n.get_damaged(self.aura_degat)
+                        if res.calc_distance(self.x, self.y, n.position_x(), n.position_y()) <= 120:
+                            n.get_damaged(self.aura_degat)
+                            if res.calc_distance(self.x, self.y, n.position_x(), n.position_y()) <= 90:
+                                n.get_damaged(self.aura_degat)
+                                if res.calc_distance(self.x, self.y, n.position_x(), n.position_y()) <= 60:
+                                    n.get_damaged(self.aura_degat)
+                                    if res.calc_distance(self.x, self.y, n.position_x(), n.position_y()) <= 30:
+                                        n.get_damaged(self.aura_degat)
                         self.aura_damage_timer.reset()
             if self.aura_timer.timer_ended():
                 self.has_aura = False

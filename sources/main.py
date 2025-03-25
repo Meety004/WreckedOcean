@@ -265,7 +265,7 @@ while running:
     # On vérifie l'état des bénédictions des navires
     for navire in liste_navire:
         navire.still_inraged()
-        navire.aura_activated(liste_ennemis)
+        navire.aura_activated(liste_navire)
         navire.in_godmode()
         navire.still_giga_tir()
 
@@ -371,9 +371,12 @@ while running:
                                     liste_iles.remove(ile)
                                     nbrIles -= 1
                                 n.afficher_benediction = False
-                                n.equiper_benediction(0)
+                                if n.type == 3:
+                                    n.equiper_benediction(n.choix_slot_benediction())
+                                else:
+                                    n.equiper_benediction(0)
 
-                        if keys[pygame.K_2] or n.type in (1, 3):
+                        if keys[pygame.K_2]:
                             if res.calc_distance(n.position_x(), n.position_y(), ile.position_x(), ile.position_y()) < 75:
                                 if ile in liste_iles:
                                     liste_iles.remove(ile)

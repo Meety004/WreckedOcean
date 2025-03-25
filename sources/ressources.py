@@ -112,11 +112,14 @@ def valeur_equipement(objet):
     elif objet in listeEquipementStart:
         return 0
     
+    elif objet is None:
+        return 1
+    
     else:
         return -1
 
-def comparaison_valeur_equipement_ile(ile, equipement):
-    val_equip = (valeur_equipement(equipement['canons'])+valeur_equipement(equipement['voile'])+valeur_equipement(equipement['coque']))/3
+def comparaison_valeur_equipement_ile(ile, equipement, benedictions):
+    val_equip = (valeur_equipement(equipement['canons'])+valeur_equipement(equipement['voile'])+valeur_equipement(equipement['coque'])+valeur_equipement(benedictions[0])+valeur_equipement(benedictions[1]))/5
     if ile.type == 'commun':
         val_ile = 1
     elif ile.type == 'rare':
