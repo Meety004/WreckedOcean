@@ -1,21 +1,29 @@
 # Projet: WRECKED OCEAN
 # Auteurs: BELLEC-ESCALERA Elliot, CADEAU--FLAUJAT Gabriel, KELEMEN Thomas, GABRIEL TOM
 
+#importation des modules
 import math, pygame, os
 
 def calc_distance(x1, y1, x2, y2):
-    # fonction pour calculer une distance
+    """ fonction pour calculer une distance 
+    Prend en argument les positions x et y des deux objets """
     return math.sqrt((x2-x1)**2 + (y2-y1)**2)
 
 class Timer:
     def __init__(self, duree_secondes):
+        """
+        Constructeur de timer
+        Prend en argument la durée
+        """
         self.duree_secondes = duree_secondes
         self.temps_initial = pygame.time.get_ticks() / 1000  # Convertir en secondes
 
     def elapse(self):
+        """ Actualise le temps actuel """
         self.temps_actuel = pygame.time.get_ticks() / 1000  # Convertir en secondes
 
     def timer_ended(self):
+        """ Revoie True si la bénédiction en utilisation peut toujours être utilisée, sinon False """
         self.elapse()
         if self.temps_actuel - self.temps_initial >= self.duree_secondes:
             return True
@@ -23,9 +31,11 @@ class Timer:
             return False
 
     def reset(self):
+        """ Réinitialise le temps initial """
         self.temps_initial = pygame.time.get_ticks() / 1000  # Convertir en secondes
 
     def timer_ended_special(self, duree):
+        """ Revoie True si la bénédiction en utilisation peut toujours être utilisée, sinon False. Dans les cas où la durée d'utilisation est différente"""
         self.elapse()
         if self.temps_actuel - self.temps_initial >= duree:
             return True
@@ -33,10 +43,13 @@ class Timer:
             return False
         
     def getTime(self):
+        """ Renvoie le temps actuel """
         self.elapse()
         return self.temps_actuel
 
 def valeur_equipement(objet):
+    """ Revoie la valeur d'un équipement en fonction de sa rareté
+    Argument : objet(équipement étudié)"""
     if objet in listeCanons:
         i = 0
         while i<2:
@@ -119,6 +132,8 @@ def valeur_equipement(objet):
         return -1
 
 def comparaison_valeur_equipement_ile(ile, equipement, benedictions):
+    """ Compare la valeur potentielle d'un équipement sur une île à la valeur des équipements déjà portés
+    Prend en argument l'île et les équipement et bénédictions du navire"""
     val_equip = (valeur_equipement(equipement['canons'])+valeur_equipement(equipement['voile'])+valeur_equipement(equipement['coque'])+valeur_equipement(benedictions[0])+valeur_equipement(benedictions[1]))/5
     if ile.type == 'commun':
         val_ile = 1
@@ -129,7 +144,7 @@ def comparaison_valeur_equipement_ile(ile, equipement, benedictions):
     else:
         val_ile = 4
     
-    if val_equip<val_ile:
+    if val_equip<val_ile:#renvoie True si 
         return True
     else:
         return False
