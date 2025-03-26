@@ -18,6 +18,8 @@ Pour lancer le programme, naviguez jusqu'au dossier de jeu:
 Enfin, éxécutez la commande suivante:
 - ```python sources/main.py ```
 
+Un écran noir s'affichera pendant quelques secondes ou moins, dépendant de votre ordinateur avant de faire apparaitre le menu du jeu.
+
 Attention, pour éxécuter ce projet, il vous faudra avoir installé Python auparavant.
 
 Il est conseillé d'utiliser une version comprise entre Python 3.8 et Python 3.12.9.
@@ -49,6 +51,8 @@ Ensuite, dans un terminal, éxécutez les commandes suivantes une fois que vous 
 - ```cd BATOS-ET-MATS-J ```
 - ```python sources/main.py ```
 
+Un écran noir s'affichera pendant quelques secondes ou moins, dépendant de votre ordinateur avant de faire apparaitre le menu du jeu.
+
 Assurez vous d'avoir Python installé pour éxécuter le programme.
 Suivez les étapes ci-dessus pour installer Python ou créer un environnement virtuel.
 
@@ -79,16 +83,72 @@ Le jeu est encore en développement, les bugs seront donc corrigés avec les fut
 
 ## __**Introduction**__
 Le jeu **Wrecked Ocean** est un jeu qui se joue en solo. Vous y incarnerez un pirate cherchant à devenir le meilleur et le plus riche de tous. Pour cela, vous devrez chercher de l'équipement puissant sur des îles et affronterez des ennemis puissants lors de vagues intenses pour récupérer leurs équipements légendaires !
-**Wrecked Ocean** est un jeu de réactivité, de stratégie et d'action. Vous pouvez collecter près de 30 équipements différents ainsi que de nombreuses bénédictions.
+**Wrecked Ocean** est un jeu de réactivité, de stratégie et d'action. Vous pouvez collecter près de 25 équipements différents ainsi que de nombreuses bénédictions.
 
 ## __**Les îles**__
-Vous pourrez découvrir différentes îles remplies d'équipement qui apparaîtront. Il existe quatre sortes d'îles différentes. Les îles **communes**, les îles **rares**, les îles **mythiques** ainsi que les îles **légendaires**. Chacune de ces îles a une probabilité d'apparition différente.
-- Ile Commune: 50%
-- Ile Rare: 36%
-- Ile Mythique: 10%
-- Ile Légendaire: 4%
+Vous pourrez voir apparaitre différentes îles remplies d'équipements. Il existe quatre sortes d'îles qui ont des probabilités d'apparition différentes:
+-  **Les îles communes**
+
+    ![Les îles communes](/data/images/README/ile_commune.png)
+
+-  **Les îles rares**
+
+    ![Les îles rares](/data/images/README/ile_rare.png)
+
+- **Les îles mythiques**
+
+    ![Les îles mythiques](/data/images/README/ile_mythique.png)
+
+- **Les îles légendaires**
+
+    ![Les îles légendaires](/data/images/README/ile_legendaire.png)
+
+Lors de la première vague, les probabilités sont les suivantes:
+- Ile Commune: 56%
+- Ile Rare: 41%
+- Ile Mythique: 3%
+- Ile Légendaire: 0%
+
+Plus vous avancerez dans le jeu, plus la probabilité d'avoir des iles plus rare augmentera.
+
+- Vague 2:
+    - Ile Commune: 54%
+    - Ile Rare: 38%
+    - Ile Mythique: 6%
+    - Ile Légendaire: 2%
+
+- Vague 3:
+    - Ile Commune: 50%
+    - Ile Rare: 36%
+    - Ile Mythique: 10%
+    - Ile Légendaire: 4%
+
+- Vague 4:
+    - Ile Commune: 47%
+    - Ile Rare: 35%
+    - Ile Mythique: 13%
+    - Ile Légendaire: 5%
+
+- Vague 5:
+    - Ile Commune: 43%
+    - Ile Rare: 33%
+    - Ile Mythique: 17%
+    - Ile Légendaire: 7%
+
+- Vague 6:
+    - Ile Commune: 38%
+    - Ile Rare: 30%
+    - Ile Mythique: 22%
+    - Ile Légendaire: 10%
+
+- Vague 7 et plus:
+    - Ile Commune: 22%
+    - Ile Rare: 33%
+    - Ile Mythique: 30%
+    - Ile Légendaire: 15%
 
 En vous approchant de ces îles vous aurez différentes issues possibles:
+
 - L'île contient de l'équipement commun, rare, mythique ou légendaire -> une interface d'équipement s'ouvre.
 - L'île contient de l'équipement 'malus' -> aucune interface ne s'ouvre et l'île disparait.
 - L'île contient une bénédiction -> une interface de bénédictions s'ouvre.
@@ -98,17 +158,34 @@ Il existe trois types d'équipements différents:
 - Les canons
 - Les voiles
 - Les coques
+
 Lorsque l'interface d'équipement s'ouvrira au moment où vous serez à proximité d'une île, vous pourrez apercevoir dans une première ligne votre équipement actuel du type correspondant à celui se trouvant sur l'île (canons, coque, voile) ainsi que sa rareté et une description des effets. Vous pourrez aussi trouver dans la deuxième ligne la rareté et le type de l'équipement de l'île sur laquelle vous vous trouvez ainsi qu'une description des effets.
-Si vous souhaitez équiper l'objet, cliquez sur la touche 'A', qui fermera la fenêtre et vous équipera de l'objet. Au contraire, si vous ne souhaitez pas prendre l'objet, continuez votre chemin. L'équipement s'y trouvant pourra être récupéré par un ennemi, ou disparaitra au bout d'un certain temps.
+Si vous souhaitez équiper l'objet, cliquez sur la touche 'A', qui fermera la fenêtre et vous équipera de l'objet. 
+Au contraire, si vous ne souhaitez pas prendre l'objet, continuez votre chemin. L'équipement s'y trouvant pourra être récupéré par un ennemi, ou disparaitra au bout d'un certain temps.
 
 ## __**Les bénédictions**__
-Lorsque l'interface des bénédictions s'ouvrira quand vous serez à proximité d'une île, vous pourrez apercevoir l'icône symbolisant la bénédiction se trouvant sur l'île ainsi qu'une description de ses effets. Vous pourrez aussi trouver deux bulles numérotées '1' et '2'. Ces bulles sont vos espaces de stockages de bénédictions. '1' étant l'espace de stockage de votre bénédiction principale, et '2' l'espace de stockage de votre bénédiction secondaire. Si vous souhaitez prendre la bénédiction se trouvant sur l'île, appuyer sur la touche du clavier (1 ou 2) à laquelle vous voulez assigner le déclenchement de la bénédiction. Notez qu'une bénédiction sur l'emplacement principal n'aura pas les mêmes effets que si elle est placée dans l'emplacement secondaire. SI au contraire, elle ne vous intéresse pas, continuez votre chemin. La bénédiction pourra être récupérée par un ennemi, ou disparaitra au bout d'un certain temps.
+Lorsque l'interface des bénédictions s'ouvrira quand vous serez à proximité d'une île, vous pourrez apercevoir l'icône symbolisant la bénédiction se trouvant sur l'île ainsi qu'une description de ses effets. Vous pourrez aussi trouver deux bulles numérotées '1' et '2'. Ces bulles sont vos espaces de stockages de bénédictions. '1' étant l'espace de stockage de votre bénédiction principale, et '2' l'espace de stockage de votre bénédiction secondaire. 
+Si vous souhaitez prendre la bénédiction se trouvant sur l'île, appuyer sur la touche du clavier (1 ou 2) à laquelle vous voulez assigner le déclenchement de la bénédiction. Notez qu'une bénédiction sur l'emplacement principal n'aura pas les mêmes effets que si elle est placée dans l'emplacement secondaire. 
+SI au contraire, elle ne vous intéresse pas, continuez votre chemin. La bénédiction pourra être récupérée par un ennemi, ou disparaitra au bout d'un certain temps.
 Vous pouvez avoir jusqu'à deux bénédictions en même temps, une principale et une secondaire.
-Pour utiliser les bénédictions, utilisez simplement la touche que vous avez assignée à la bénédiction.
+Pour utiliser les bénédictions, utilisez le touche Z pour la bénédiction principale et E pour la bénédiction secondaire.
 Entre chaque utilisation de bénédiction, il y a un cooldown plus ou moins long selon la bénédiction durant lequel vous ne pourrez pas l'utiliser.
 
 ## __**Les ennemis**__
-Vous rencontrerez des ennemis durant votre partie. Ces ennemis sont comme vous: ils s'équipent et essayent de régner sur la mer. C'est pourquoi ils vous attaqueront. Au fur et à mesure de la partie, les ennemis que vont rencontrerez seront plus forts, pourrotn utiliser plus de bénédiction et auront un meilleur équipement. Les bateaux ennemis ne s'attaqueront pas entre eux. Leur objectif est de contrer le joueur.
+Vous rencontrerez des ennemis durant votre partie. Ces ennemis sont comme vous: ils s'équipent et essayent de régner sur la mer.
+Vous ferez face à des vagues d'ennemis de plus en plus coriaces allant d'un simple **Ennemi Basique**, à plusieurs **Ennemis Intelligents**.
+Voici les spécificités des différents types d'ennemis:
+- **Ennemi Basique:**
+    Peut récupérer l'équipement sur les îles et attaque les navires à proximité
+
+- **Ennemi Chasseur:**
+    Ne peut pas récupérer d'équipement et poursuit le joueur pour le couler
+
+- **Ennemi Intelligent:**
+    Peut récupérer l'équipement sur les îles qui un meilleur équipement que leur équipement acutel, utilise les bénédictions et attaque les navires à proximité
+
+![Le bateau ennemi](/data/images/README/bateau.png)
+
 
 ## __**Les boss**__ (Fonctionnalité en développement - Non disponible)
 Vous pourrez rencontrer, de temps à autre un boss. Ces boss sont les ennemis les plus forts du jeu. Chacun d'eux à une pièce d'équipement particulière, avec des capacités et des pouvoirs incroyables. En vainquant un boss, vous pourrez récupérer son équipement.
@@ -137,7 +214,7 @@ Voici les touches de contrôle de jeu:
 - Droite: `Flèche Gauche`
 
 ## __**Liste des équipement**__
-**Wrecked Ocean** compte au total **29 pièces d'équipements**. 
+**Wrecked Ocean** compte au total **23 pièces d'équipement**. 
 Voici la liste de tous ces équiements triés par rareté, avec leur probabilités respectives ainsi que leurs effets.
 
 - Equipement de base, obtensible seulement à l'apparition du joueur.
@@ -145,24 +222,48 @@ Voici la liste de tous ces équiements triés par rareté, avec leur probabilit�
     - Canon de base
     - Voile de base
 
+- Malus
+    - Coque:
+        - Coque Trouée (6,66%) - Malus - Inverse les commandes de déplacement
+
+
+            ![Le bateau ennemi](/data/images/README/coque_malus.png)
+        
+        - Canons Rouillés (6,66%) - Malus - Rend les projectiles 25% plus lents
+
+            
+            ![Le bateau ennemi](/data/images/README/canon_malus.png)
+
 - Commun
     - Coques:
+
+        ![Le bateau ennemi](/data/images/README/coque_commun.png)
+
         - Coque chêne (20%) - Augmente la vitesse maximale de 5%
         - Coque épicéa (10%) - Ajoute 10 à la santé maximale du joueur
-        - Coque Trouée (6,66%) - Malus - Inverse les commandes de déplacement
+
     - Canons:
+
+        ![Le bateau ennemi](/data/images/README/canon_commun.png)
+
         - +1 Canon (10%) - Ajoute un canon à l'avant
         - Canon en bronze (20%) - Ajoute 20% de dégâts aux projectiles
-        - Canons Rouillés (6,66%) - Malus - Rend les projectiles 25% plus lents
+
     - Voiles:
         - Voile en toile de jute (20%) - Augmente la vitesse maximale de 5%
         - Voile Trouée (6,66%) - Malus - Diminue la vitesse maximale du joueur de 20%
 
 - Rare
     - Coques:
+
+        ![Le bateau ennemi](/data/images/README/coque_rare.png)
+
         - Coque en bouleau (10%) - Ajoute 10 à la santé maximale du joueur et augmente la vitesse maximale de 5%
         - Coque en chêne massif (10%) - Ajoute 75 à la santé maximale du joueur
     - Canons:
+    
+        ![Le bateau ennemi](/data/images/README/canon_rare.png)
+
         - +2 Canons (10%) - Ajoute un canon à l'avant et à l'arrière
         - Canon en argent (17,5%) - Ajoute 33% de dégats  et 5% de vitesse aux projectiles
         - Canon Ballistique (10%) - Multiplie la distance maximale des projectiles par 2
@@ -171,8 +272,14 @@ Voici la liste de tous ces équiements triés par rareté, avec leur probabilit�
 
 - Mythique
     - Coques:
+
+        ![Le bateau ennemi](/data/images/README/coque_mythique.png)
+
         - Coque en bois magique (12%) - Ajoute 50 à la santé maximale du joueur  et augmente la vitesse maximale de 20% et à une chance de 20% de ne pas se prendre les dégâts
     - Canons:
+    
+        ![Le bateau ennemi](/data/images/README/canon_mythique.png)
+
         - +3 Canons (12%) - Ajoute un canon à l'avant, à l'arrière et dans la diagonale avant droite du bateau
         - Canon en or (12%) - Ajoute 66% de dégats et 10% de vitesse au projectiles et augmente la cadence de tir de 10%
         - Canon à tirs doubles (12%) - Tire un deuxième projectile après chaque tir
@@ -181,8 +288,14 @@ Voici la liste de tous ces équiements triés par rareté, avec leur probabilit�
 
 - Légendaire
     - Coques:
+
+        ![Le bateau ennemi](/data/images/README/coque_legendaire.png)
+
         - Coque légendaire (12,5%) - Ajoute 60 à la santé maximale du joueur  et augmente la vitesse maximale de 30%
     - Canons:
+    
+        ![Le bateau ennemi](/data/images/README/canon_legendaire.png)
+
         - +4 Canons (12,5%) - Ajoute un canon à l'avant, à l'arrière et dans les deux diagonales à l'avant du bateau
         - Canon légendaire (12,5%) - Ajoute 133% de dégats et 15% de vitesse au projectiles et augmente la cadence de tir de 10%
     - Voiles:
@@ -240,7 +353,7 @@ Voici la liste des différents rôles et des élèves ayant participé au projet
     - KELEMEN Thomas (Navires ennemis)
     - GABRIEL Tom (UI et Animations)
 
-- Textures:
+- README:
     - BELLEC-ESCALERA Elliot (Indicateurs de bénédictions et Icones)
     - CADEAU--FLAUJAT Gabriel (Interfaces, Icones de bénédictions, Bateaux et Iles)
     - GABRIEL Tom (Icones des équipements)
@@ -253,6 +366,7 @@ Voici la liste des différents rôles et des élèves ayant participé au projet
 
 - Réalisation Vidéo:
     - GABRIEL Tom (Montage, VFX, 3D)
+    - CADEAU--FLAUJAT Gabriel (Voix Off, Gameplay)
 
 - Remerciements supplémentaires:
     - PLADEAU Quentin (Aide au développement)
