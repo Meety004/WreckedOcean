@@ -140,8 +140,11 @@ class Navire:
         self.DisplayIconNew = None
         self.DisplayIconPast = None
 
-        self.timer_benediction_1 = res.Timer(1)  # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
-        self.timer_benediction_2 = res.Timer(1) # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
+        # On initialise un timer pour les bénédictions à 0 pour qu'elles puissent être utilisées directement
+        self.timer_benediction_1 = res.Timer(1)
+        self.timer_benediction_2 = res.Timer(1)
+
+        # On définit un cooldown entre chaque utilisation de bénédiction
         self.timer_dash = 15
         self.timer_sante = 20
         self.timer_aura = 30
@@ -149,67 +152,85 @@ class Navire:
         self.timer_godmode = 40
         self.timer_giga_tir = 50
 
+        # On définit des variables qui servent à la bénédiction de rage
         self.inraged = False
         self.rage_timer = None
         self.life_before_rage = 0
 
+        # On définit des variables qui servent à la bénédiction d'aura
         self.has_aura = False
         self.aura_timer = None
         self.aura_damage_timer = res.Timer(1)
         self.aura_degat = 1
 
+        # On définit des variables qui servent à la bénédiction de GodMode
         self.godmode = False
         self.godmode_timer = None
 
+        # On définit des variables qui servent à la bénédiction de Projectiles
         self.giga_tir = False
         self.giga_tir_double = False
         self.timer_giga_tir_duree = res.Timer(1)
 
-        self.ile_actuelle = None  # Stocke l'île qui a ouvert l'interface
+        # Stocke l'île qui a ouvert l'interface
+        self.ile_actuelle = None
 
+        # Variables contenant le nom et la description de l'équipement actuel
         self.TitleTextPast = None
         self.DescriptionTextPast = None
 
+        # Variables contenant le nom et la description de l'équipement trouvé
         self.TitleTextNew = None
         self.DescriptionTextNew = None
 
+        # On définit des polices différentes poue le nom et la description de l'équipement
         self.TitleFont = pygame.font.Font(res.fontPixel, 28)
         self.DescriptionFont = pygame.font.Font(res.fontPixel, 20)
 
+        # Variable pour vérifier si le texte de l'interface des équipements est chargé
         self.text_loaded = False
 
+        # Variables qui définissent la distance max des projectiles
         self.distance_max = screen_height*0.20
         self.distance_maxFront = self.distance_max * 1.8
 
+        # On définit l'écran qui est utilisé
         self.screen = (self.screen_width, self.screen_height)
 
+        # On stocke le type d'équipement qui a été trouvé sur l'île (Voile, Coque, Canon)
         self.typeRec = None
 
+        # Stocke les icones des bénédiction du joueur
         self.iconBenediction1 = None
         self.iconBenediction2 = None
 
+        # Stocke l'icone de la bénédiction qui a été trouvée par le joueur
         self.newBenedictionIcon = None
 
+        # Variables contenant le nom et la description de la bénédiction trouvée
         self.TitleTexteBeneNew = None
         self.DescriptionTextBeneNew = None
 
+        # Variable pour vérifier si le texte  de l'interface des bénédictions est chargé
         self.text_loaded_bene = False
 
+        # On charge toutes les images et on change leur tailles
         self.loadImages()
 
 
-    # le bateau avance en permanence de la vitesse (donc si la vitesse vaut 0 il avance pas)
+    # On fait avancer le bateau en fonction de sa vitesse
     def avancer(self):
+
+        # Si le joueur a activé la bénédiction de rage, il va plus vite
         if self.inraged:
-            self.x += self.vitesse * 1.5 * math.cos(math.radians(self.angle - 90)) # multiplie la vitesse X par le cosinus de l'angle en fonction de l'incilaison
-            self.y += self.vitesse * 1.5 * math.sin(math.radians(self.angle - 90)) # pareil mais avec les Y et le sinus
+            self.x += self.vitesse * 1.5 * math.cos(math.radians(self.angle - 90)) # Multiplie la vitesse X par le cosinus de l'angle en fonction de l'inclinaison
+            self.y += self.vitesse * 1.5 * math.sin(math.radians(self.angle - 90)) # Multiplie la vitesse Y par le cosinus de l'angle en fonction de l'inclinaison
         else:
-            self.x += self.vitesse * math.cos(math.radians(self.angle - 90)) # multiplie la vitesse X par le cosinus de l'angle en fonction de l'incilaison
-            self.y += self.vitesse * math.sin(math.radians(self.angle - 90)) # pareil mais avec les Y et le sinus
-            # augmente la vitesse
+            self.x += self.vitesse * math.cos(math.radians(self.angle - 90))
+            self.y += self.vitesse * math.sin(math.radians(self.angle - 90))
 
 
-    #On charge toutes les icones pour éviter des ralentissements pendant le jeu
+    #On charge toutes les icones et on les rogne pour éviter des ralentissements pendant le jeu
     def loadImages(self):
         self.CanonMalus = pygame.image.load(res.CanonMalus).convert_alpha()
         self.CanonMalus = pygame.transform.scale(self.CanonMalus, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
@@ -274,12 +295,6 @@ class Navire:
         self.Sante = pygame.image.load(res.BeneSante).convert_alpha()
         self.Sante = pygame.transform.scale(self.Sante, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
 
-
-    # Le bateau avance en fonction de la vitesse, immobile si la vitesse est nulle
-    def avancer(self):
-        self.x += self.vitesse * math.cos(math.radians(self.angle - 90))
-        self.y += self.vitesse * math.sin(math.radians(self.angle - 90))
-
     # Augmente la vitessse
     def accelerer(self):
 
@@ -291,7 +306,7 @@ class Navire:
         if self.vitesse > self.vitesse_max:
             self.vitesse = self.vitesse_max
 
-    #Si il arrete d'avancer le bateau décelère
+    # Si il arrete d'avancer le bateau décelère
     def ralentit(self):
 
         # Ralentit tant que la vitesse n'est pas nulle
@@ -302,16 +317,20 @@ class Navire:
         if self.vitesse < 0:
             self.vitesse = 0
 
+    # On gère la rotation vers la gauche du bateau
     def tourne_gauche(self):
         if self.vitesse > 0:
             self.angle -= self.maniabilite
+
             # Si l'angle est inférieur à 0, on lui rajoute 360 pour qu'il reste toujours entre 0 et 360
             if self.angle < 0:
                 self.angle += 360
 
+    # On gère la rotation vers la droite du bateau
     def tourne_droite(self):
         if self.vitesse > 0:
-            self.angle += self.maniabilite
+            self.angle += self.maniabilitet
+
             # Si l'angle est superieur à 360, on lui enlève 360 pour qu'il reste toujours entre 0 et 360
             if self.angle >= 360:
                 self.angle -= 360
@@ -332,16 +351,19 @@ class Navire:
         rotated_image = pygame.transform.rotate(self.image, -self.angle).convert_alpha()
         rect = rotated_image.get_rect(center=(self.x, self.y))
         self.rect = rect
+
+        # On affiche le bateau à l'écran
         screen.blit(rotated_image, self.rect)
 
     def shoot(self):
-        # verifie si il a rechargé
+        # Vérifie si le canon a rechargé
         if pygame.time.get_ticks() - self.dernier_tir >= self.cadence_tir:
             self.dernier_tir = pygame.time.get_ticks()
 
-            
+            # On stocke les tirs du navire
             liste_tirs = []
             
+            # Par défaut, le bateau tire à droite et à gauche
             if not self.giga_tir:
                 tir_droite = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_droite, self.equipement['canons']))
@@ -349,6 +371,7 @@ class Navire:
                 tir_gauche = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_gauche, self.equipement['canons']))
 
+            # On ajoute un tir à l'avant du bateau
             if self.equipement['canons'] == '+1 Canon' or self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+4 Canons' or ("Bénédiction Projectiles" in self.benedictions and self.giga_tir):
                 if self.vitesse != 0:
                     tir_avant = shot.Shot(self.x, self.y, self.angle, self.distance_maxFront, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
@@ -356,18 +379,22 @@ class Navire:
                     tir_avant = shot.Shot(self.x, self.y, self.angle, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_avant, self.equipement['canons']))
 
+            # On ajoute un tir à l'arrière du bateau
             if self.equipement['canons'] == '+2 Canons' or self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons' or ("Bénédiction Projectiles" in self.benedictions and self.giga_tir):
                 tir_arriere = shot.Shot(self.x, self.y, self.angle + 180, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_arriere, self.equipement['canons']))
 
+            # On ajoute un tir en diagonale avant droite
             if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons' or ("Bénédiction Projectiles" in self.benedictions and self.giga_tir):
                 tir_diag1 = shot.Shot(self.x, self.y, self.angle + 30, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_diag1, self.equipement['canons']))
 
+            # On ajoute un tir en diagonale avant gauche
             if self.equipement['canons'] == '+3 Canons' or self.equipement['canons'] == '+4 Canons' or ("Bénédiction Projectiles" in self.benedictions and self.giga_tir):
                 tir_diag2 = shot.Shot(self.x, self.y, self.angle - 30, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_diag2, self.equipement['canons']))
 
+            # On ajoute une multitude de tirs si la bénédiction projectile est activée
             if "Bénédiction Projectiles" in self.benedictions and self.giga_tir:
                 tir_diag3 = shot.Shot(self.x, self.y, self.angle + 225, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_diag3, self.equipement['canons']))
@@ -378,19 +405,26 @@ class Navire:
                 tir_gauche = shot.Shot(self.x, self.y, self.angle - 90, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_gauche, self.equipement['canons']))
 
+            # On appelle un timer pour gérer le tir double
             if self.equipement['canons'] == "Canon à tirs doubles" or ("Bénédiction Projectiles" in self.benedictions and self.giga_tir_double): 
                 pygame.time.set_timer(tirDouble, 70, loops=1)
 
+            # On renvoie la liste avec tous les tirs du bateau
             return liste_tirs
         
+    # On fait un deuxième tir lorsque le timer est fini
     def GererEventTir(self, event, liste_tirs):
+
         if event.type == tirDouble and (self.equipement["canons"] == "Canon à tirs doubles" or self.giga_tir_double):
+            
+            # Si le navire a un canon à tirs doubles, on fait un deuxième tir à gauche et à droite
             tir_droiteD = shot.Shot(self.x, self.y, self.angle + 90 - self.vitesse*3, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
             liste_tirs.append((tir_droiteD, self.equipement['canons']))
 
             tir_gaucheD = shot.Shot(self.x, self.y, self.angle - 90 + self.vitesse*3, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
             liste_tirs.append((tir_gaucheD, self.equipement['canons']))
 
+            # Si le navire a la bénédiction projectiles activée, on fait un deuxième tir partout autour
             if ("Bénédiction Projectiles" in self.benedictions and self.giga_tir_double):
                 tir_avantD = shot.Shot(self.x, self.y, self.angle, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_avantD, self.equipement['canons']))
@@ -405,103 +439,149 @@ class Navire:
                 tir_diag4D = shot.Shot(self.x, self.y, self.angle - 225, self.distance_max, self.imageBoulet, self.ID, self.equipement['canons'], self.inraged, self.screen)
                 liste_tirs.append((tir_diag4D, self.equipement['canons']))
         
+    # On gère les dégats
     def get_damaged(self, damage):
-        r = 5
+
+        # Si le navire a la coque en bois magique, il y a 20% de chance de ne pas prendre de dégat
         if self.equipement['coque'] == "Coque en bois magique":
             r = random.randint(1,5)
+        
+        # On ne prend pas non plus de dégat si la bénédiction godmode est activée
         if r != 1 and not self.godmode:
-            self.vie -= damage
+                self.vie -= damage
     
+    # On vérifie si le navire est en vie
     def is_dead(self):
         if self.vie <= 0:
             return True
         return False
 
-    # return pour return les caracteristique du bateau
+    # On renvoie différentes caractéristiques de la classe
+
     def position_x(self):
+
         return self.x
+
     def position_y(self):
         return self.y
+
+
     def get_width(self):
         return self.width
+
+
     def get_height(self):
         return self.height
+
+
     def get_angle(self):
         return self.angle
+
+
     def get_ID(self):
         return self.ID
+
+
     def get_rect(self):
         return self.rect
+
+
     def get_vie(self):
         return self.vie
+
+
     def get_max_vie(self):
         return self.maxVie
+
+
     def get_speed(self):
         return self.vitesse
+
+
     def get_max_speed(self):
         return self.vitesse_max
+
+
     def get_maniabilite(self):
         return self.maniabilite
+
+
     def get_cadence_tir(self):
         return self.cadence_tir
+
+
     def get_benedictions(self):
         return self.benedictions
     
+
     def getEquipement(self):
         return self.equipement
     
+
     def getPastDisplay(self):
         return self.DisplayIconPast
      
+
     def getNewDisplay(self):
         return self.DisplayIconNew
     
+
     def getItemUI(self):
         return self.ItemsUI
     
+
     def getBenedictionUI(self):
         return self.benedictionUI
     
+
     def getTitleTextPast(self):
         return self.TitleTextPast
     
+
     def getDescriptionTextPast(self):
         return self.DescriptionTextPast
     
+
     def getTitleTextNew(self):
         return self.TitleTextNew
     
+
     def getDescriptionTextNew(self):
         return self.DescriptionTextNew
     
+
     def getImages(self):
         return self.iconCoque, self.iconVoile, self.iconCanon
     
+
     def getBenedictionsImages(self):
         return self.newBenedictionIcon, self.iconBenediction1, self.iconBenediction2
     
+
     def getBenedictionsTexts(self):
         return self.benedictions[0], self.benedictions[1], self.TitleTexteBeneNew, self.DescriptionTextBeneNew
     
-
+    # On charge le texte de l'interface des équipements si ce n'est pas déjà le cas
     def LoadText(self):
         if not isinstance(self.TitleTextPast, pygame.Surface):
-            self.TitleTextPast = self.TitleFont.render(self.equipement[self.typeRec], True, (0, 0, 0))  # Noir
+            self.TitleTextPast = self.TitleFont.render(self.equipement[self.typeRec], True, (0, 0, 0))
         if not isinstance(self.DescriptionTextPast, pygame.Surface):
             equip = self.equipement[self.typeRec]
             self.DescriptionTextPast = self.DescriptionFont.render(res.dictItemsBuff[equip], True, (0, 0, 0))
 
         if not isinstance(self.TitleTextNew, pygame.Surface):
-            self.TitleTextNew = self.TitleFont.render(self.recompense[0], True, (0, 0, 0))  # Noir
+            self.TitleTextNew = self.TitleFont.render(self.recompense[0], True, (0, 0, 0))
         if not isinstance(self.DescriptionTextNew, pygame.Surface):
             equip = self.recompense[0]
             self.DescriptionTextNew = self.DescriptionFont.render(res.dictItemsBuff[equip], True, (0, 0, 0))
 
+    # On charge le texte de l'interface des bénédictions
     def LoadTextBene(self):
         self.TitleTexteBeneNew = self.TitleFont.render(self.recompense[0], True, (0, 0, 0))
         benediction = self.recompense[0]
         self.DescriptionTextBeneNew = self.DescriptionFont.render(res.dictBenedictionsBuff[benediction], True, (0, 0, 0))
 
+    # On vérifie si l'île existe, sinon on met toutes les variables d'affichage à zéro.
     def verifIleExiste(self, liste_iles):
         if (self.ile_actuelle is not None) and (self.ile_actuelle not in liste_iles):
             self.afficher_benediction = False
@@ -509,10 +589,11 @@ class Navire:
             self.text_loaded = False
             self.ile_actuelle = None
 
-
-
+    # On gère l'affichage de l'interface de choix des équipements
     def equipInterface(self, recompense, xIle, yIle, ile):
         self.recompense = recompense
+
+        # On change le type d'équipement
         if self.recompense[0] in res.listeCanons:
             self.typeRec = "canons"
         elif self.recompense[0] in res.listeVoiles:
@@ -520,12 +601,16 @@ class Navire:
         elif self.recompense[0] in res.listeCoques:
             self.typeRec = "coque"
 
-
+        # On vérifie si la navire est dans un rayon de 75 d'une ile
         if res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
+
+            # Si la récompense est un équipement
             if (self.recompense[0] not in res.liste_benedictions) and (self.recompense[0] not in res.liste_malus):
+
                 # Si l'interface n'est pas affichée, ou si on s'approche d'une nouvelle île
                 if not self.afficher_items or self.ile_actuelle is None:
-
+                    
+                    # Si l'ile qui a ouvert l'interface n'est pas l'ile sur laquelle se trouve le bateau
                     if self.ile_actuelle != ile:
                         self.afficher_items = False
                         self.text_loaded = False
@@ -535,30 +620,39 @@ class Navire:
                         self.DescriptionTextNew = None
                         self.ile_actuelle = ile
                     
+                    # On met à jour les icones et les textes affichés 
                     self.updateDisplayIconItem()
                     self.LoadText()
                     self.text_loaded = True
-                    self.ile_actuelle = ile  # On mémorise l'île qui a ouvert l'interface
+                    # On mémorise l'île qui a ouvert l'interface
+                    self.ile_actuelle = ile
 
+                # On garde en mémoire l'ouverture de l'interface
                 self.afficher_items = True
 
+            # Si la récompense est un malus, on met à jour les icones et on équipe directement le malus
             elif self.recompense[0] in res.liste_malus:
                 self.updateDisplayIconItem()
                 self.equiper()
                 self.verifIleMalus = True
-                
+        
+        # Si on est pas dans le rayon de 75, on oublie les variables liées à l'ile
         elif self.recompense[0] not in res.liste_benedictions and self.recompense[0] not in res.liste_malus and self.ile_actuelle == ile:
                 self.afficher_items = False
                 self.text_loaded = False
-                self.ile_actuelle = None  # On oublie l'île actuelle
-        
+                self.ile_actuelle = None
+
+    # On gère l'affichage de l'interface de choix des bénédictions    
     def beneInterface(self, xIle, yIle, ile):
+
+        # On vérifie si la navire est dans un rayon de 75 d'une ile
         if res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
             if self.recompense[0] in res.liste_benedictions:
 
                 # Si l'interface n'est pas affichée, ou si on s'approche d'une nouvelle île
                 if not self.afficher_benediction or self.ile_actuelle is None:
 
+                    # Si l'ile qui a ouvert l'interface n'est pas l'ile sur laquelle se trouve le bateau
                     if self.ile_actuelle != ile:
                         self.afficher_benediction = False
                         self.text_loaded_bene = False
@@ -566,22 +660,27 @@ class Navire:
                         self.DescriptionTextBeneNew = None
                         self.ile_actuelle = ile
 
-                    #Update des icones et du texte
+                    # On met à jour les icones et les textes affichés
                     self.updateDisplayIconBene()
                     self.LoadTextBene()
                     self.text_loaded_bene = True
+                    # On mémorise l'île qui a ouvert l'interface
                     self.ile_actuelle = ile
-                    
+                
+                # On garde en mémoire l'ouverture de l'interface
                 self.afficher_benediction = True
 
+        # Si on est pas dans le rayon de 75, on oublie les variables liées à l'ile
         elif self.recompense[0] in res.liste_benedictions and self.ile_actuelle == ile:
             self.afficher_benediction = False
             self.text_loaded_bene = False
             self.ile_actuelle = None
             
 
-        
+    # On met à jour les icones à afficher en fonction du type d'équipement sur l'ile  
     def updateDisplayIconItem(self):
+        
+        # Si l'équipement est un canon, on affiche le canon actuel du joueur
         if self.recompense[0] in res.listeCanons:
             self.DisplayIconPast = self.iconCanon
             if self.recompense[1] == "commun":
@@ -592,6 +691,8 @@ class Navire:
                 self.DisplayIconNew = self.CanonMythique
             elif self.recompense[1] == "légendaire":
                 self.DisplayIconNew = self.CanonLegendaire
+        
+        # Si l'équipement est une coque, on affiche la coque actuelle du joueur
         elif self.recompense[0] in res.listeCoques:
             self.DisplayIconPast = self.iconCoque
             if self.recompense[1] == "commun":
@@ -602,6 +703,8 @@ class Navire:
                 self.DisplayIconNew = self.CoqueMythique
             elif self.recompense[1] == "légendaire":
                 self.DisplayIconNew = self.CoqueLegendaire
+
+        # Si l'équipement est une voile, on affiche la voile actuelle du joueur
         elif self.recompense[0] in res.listeVoiles:
             self.DisplayIconPast = self.iconVoile
             if self.recompense[1] == "commun":
