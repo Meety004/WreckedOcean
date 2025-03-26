@@ -497,16 +497,16 @@ while running:
         if navire_i.aura_active():
             pygame.draw.circle(screen, (0, 255, 255), (int(navire_i.position_x()), int(navire_i.position_y())), 150, 4)
         
-    # Affiche la bare de vie du joueur
+    # Affiche la barre de vie du joueur
     
     # La bouteille
     rect_barre_de_vie = design_barre_de_vie.get_rect(center=(screen_width/2, 7 * screen_height/8))
     screen.blit(design_barre_de_vie, rect_barre_de_vie)
     
-    # La bare de vie en rouge
+    # La barre de vie en rouge
     largeur = (screen_width*0.1) * ((liste_joueur[0].get_vie()*(screen_width*0.1) / liste_joueur[0].get_max_vie())/(screen_width*0.1))
-    bare_de_vie = pygame.Rect(screen_width*0.44, screen_height * 0.86, largeur, screen_width*0.02) # affiche a 44% de la largeur et 86% de la hauteur de l'ecran, la largeur est de 0.02% la taille de la hauteur de l'ecran
-    pygame.draw.rect(screen, (255, 0, 0), bare_de_vie)
+    barre_de_vie = pygame.Rect(screen_width*0.44, screen_height * 0.86, largeur, screen_width*0.02) # affiche a 44% de la largeur et 86% de la hauteur de l'ecran, la largeur est de 0.02% la taille de la hauteur de l'ecran
+    pygame.draw.rect(screen, (255, 0, 0), barre_de_vie)
 
     # Création et affichage du texte affichant la vie du joueur
     StrVie = str(liste_joueur[0].get_vie()) + " / " + str(liste_joueur[0].get_max_vie())
