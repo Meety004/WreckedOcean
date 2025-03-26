@@ -167,13 +167,26 @@ Lorsque l'interface d'équipement s'ouvrira au moment où vous serez à proximit
 Si vous souhaitez équiper l'objet, cliquez sur la touche 'A', qui fermera la fenêtre et vous équipera de l'objet. 
 Au contraire, si vous ne souhaitez pas prendre l'objet, continuez votre chemin. L'équipement s'y trouvant pourra être récupéré par un ennemi, ou disparaitra au bout d'un certain temps.
 
+Interface de choix des équipements:
+
+![Interface de choix de bénédiction:](/data/images/Interfaces/equip_menu_item.png)
+
+
 ## __**Les bénédictions**__
-Lorsque l'interface des bénédictions s'ouvrira quand vous serez à proximité d'une île, vous pourrez apercevoir l'icône symbolisant la bénédiction se trouvant sur l'île ainsi qu'une description de ses effets. Vous pourrez aussi trouver deux bulles numérotées '1' et '2'. Ces bulles sont vos espaces de stockages de bénédictions. '1' étant l'espace de stockage de votre bénédiction principale, et '2' l'espace de stockage de votre bénédiction secondaire. 
+Lorsque l'interface des bénédictions s'ouvrira quand vous serez à proximité d'une île, vous pourrez apercevoir l'icône symbolisant la bénédiction se trouvant sur l'île ainsi qu'une description de ses effets. Vous pourrez aussi trouver deux bulles numérotées '1' et '2'. Ces bulles sont vos espaces de stockages de bénédictions. '1' étant l'espace de stockage de votre bénédiction principale, et '2' l'espace de stockage de votre bénédiction secondaire.
+
 Si vous souhaitez prendre la bénédiction se trouvant sur l'île, appuyer sur la touche du clavier (1 ou 2) à laquelle vous voulez assigner le déclenchement de la bénédiction. Notez qu'une bénédiction sur l'emplacement principal n'aura pas les mêmes effets que si elle est placée dans l'emplacement secondaire. 
-SI au contraire, elle ne vous intéresse pas, continuez votre chemin. La bénédiction pourra être récupérée par un ennemi, ou disparaitra au bout d'un certain temps.
+
+Si au contraire, elle ne vous intéresse pas, continuez votre chemin. La bénédiction pourra être récupérée par un ennemi, ou disparaitra au bout d'un certain temps.
 Vous pouvez avoir jusqu'à deux bénédictions en même temps, une principale et une secondaire.
+
 Pour utiliser les bénédictions, utilisez le touche Z pour la bénédiction principale et E pour la bénédiction secondaire.
 Entre chaque utilisation de bénédiction, il y a un cooldown plus ou moins long selon la bénédiction durant lequel vous ne pourrez pas l'utiliser.
+
+Interface de choix de bénédiction:
+
+![Interface de choix de bénédiction:](/data/images/Interfaces/equip_menu_bene.png)
+
 
 ## __**Les ennemis**__
 Vous rencontrerez des ennemis durant votre partie. Ces ennemis sont comme vous: ils s'équipent et essayent de régner sur la mer.
@@ -187,6 +200,8 @@ Voici les spécificités des différents types d'ennemis:
 
 - **Ennemi Intelligent:**
     Peut récupérer l'équipement sur les îles qui un meilleur équipement que leur équipement acutel, utilise les bénédictions et attaque les navires à proximité
+
+Le bateau ennemi:
 
 ![Le bateau ennemi](/data/images/README/bateau.png)
 
