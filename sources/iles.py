@@ -23,22 +23,23 @@ class Iles:
 
         # Choix du type d'île
 
-        if self.vague == 1:
-            self.typeList = choices(self.ile_rarete, weights=[0.56, 0.41, 0.03, 0.00], k=1)
-        elif self.vague == 2:
-            self.typeList = choices(self.ile_rarete, weights=[0.54, 0.38, 0.06, 0.02], k=1)
-        elif self.vague == 3:
-            self.typeList = choices(self.ile_rarete, weights=[0.50, 0.36, 0.10, 0.04], k=1)
-        elif self.vague == 4:
-            self.typeList = choices(self.ile_rarete, weights=[0.47, 0.35, 0.13, 0.05], k=1)
-        elif self.vague == 5:
-            self.typeList = choices(self.ile_rarete, weights=[0.43, 0.33, 0.17, 0.07], k=1)
-        elif self.vague == 6:
-            self.typeList = choices(self.ile_rarete, weights=[0.38, 0.30, 0.22, 0.10], k=1)
-        elif self.vague >= 7:
-            self.typeList = choices(self.ile_rarete, weights=[0.22, 0.33, 0.30, 0.15], k=1)
-        else:
-            print("au secours", self.vague)
+        # if self.vague == 1:
+        #     self.typeList = choices(self.ile_rarete, weights=[0.56, 0.41, 0.03, 0.00], k=1)
+        # elif self.vague == 2:
+        #     self.typeList = choices(self.ile_rarete, weights=[0.54, 0.38, 0.06, 0.02], k=1)
+        # elif self.vague == 3:
+        #     self.typeList = choices(self.ile_rarete, weights=[0.50, 0.36, 0.10, 0.04], k=1)
+        # elif self.vague == 4:
+        #     self.typeList = choices(self.ile_rarete, weights=[0.47, 0.35, 0.13, 0.05], k=1)
+        # elif self.vague == 5:
+        #     self.typeList = choices(self.ile_rarete, weights=[0.43, 0.33, 0.17, 0.07], k=1)
+        # elif self.vague == 6:
+        #     self.typeList = choices(self.ile_rarete, weights=[0.38, 0.30, 0.22, 0.10], k=1)
+        # elif self.vague >= 7:
+        #     self.typeList = choices(self.ile_rarete, weights=[0.22, 0.33, 0.30, 0.15], k=1)
+        # else:
+        #     print("au secours", self.vague)
+        self.typeList = choices(self.ile_rarete, weights=[0, 0.33, 0.33, 0.33], k=1)
         
         self.type = self.typeList[0]
 
@@ -67,13 +68,13 @@ class Iles:
 
         #Liste des récompenses de chaque type d'ile, ainsi que leurs probabilités
         self.liste_recompenses_communes = ['+1 Canon', 'Canon en bronze', 'Voile en toile de jute', 'Coque épicéa', 'Coque chêne', self.random_malus()[0]]
-        self.probabilité_commun = [0.2, 0.2, 0.2, 0.1, 0.2, 0.1]
+        self.probabilité_commun = [0, 0, 0, 0, 0.5, 0.5]
         self.liste_recompenses_rares = ['+2 Canons', 'Canon en argent', 'Canon ballistique', 'Voile latine', 'Coque en bouleau', 'Coque en chêne massif', 'Bénédiction Dash', 'Bénédiction Santé']
-        self.probabilité_rare = [0.1, 0.175, 0.1, 0.175, 0.1, 0.1, 0.125, 0.125]
+        self.probabilité_rare = [0, 0, 0, 0.5, 0, 0, 0.5, 0.5]
         self.liste_recompenses_mythiques = ['+3 Canons', 'Canon en or', 'Canon à tirs doubles', 'Voile enchantée', 'Coque en bois magique', "Bénédiction d'aura", 'Bénédiction de rage']
-        self.probabilité_mythique = [0.12, 0.12, 0.12, 0.12, 0.12, 0.2, 0.2]
+        self.probabilité_mythique = [0, 0, 0, 0, 0, 0.5, 0.5]
         self.liste_recompenses_legendaires = ['+4 Canons', 'Canon légendaire', 'Voile légendaire', 'Coque légendaire', 'Bénédiction GodMode', 'Bénédiction Projectiles']
-        self.probabilité_legendaire = [0.125, 0.125, 0.125, 0.125, 0.25, 0.25]
+        self.probabilité_legendaire = [0, 0, 0, 0, 0.5, 0.5]
         
         #Dictionnaire qui associe le type d'ile à ses probabilités
         self.dict_iles = {

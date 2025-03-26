@@ -205,34 +205,37 @@ while running:
     # On gère les différentes vagues d'ennemis
     if len(liste_ennemis) == 0:
 
-        # Si le niveau (vague) actuel est divisible par 5, on fait apparaitre des Ennemis Basiques, Chasseurs et Intelligents
-        if niveau%5 == 0 and niveau != 0:
-            for i in range(niveau // 5):
-                liste_ennemis.append(IA_ennemis_stage_2(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
-            for i in range((niveau // 10) + 1):
-                liste_ennemis.append(IA_ennemis_chasseurs(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
-            for i in range(niveau // 3):
-                liste_ennemis.append(IA_ennemis_basiques(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
+        # # Si le niveau (vague) actuel est divisible par 5, on fait apparaitre des Ennemis Basiques, Chasseurs et Intelligents
+        # if niveau%5 == 0 and niveau != 0:
+        #     for i in range(niveau // 5):
+        #         liste_ennemis.append(IA_ennemis_stage_2(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
+        #     for i in range((niveau // 10) + 1):
+        #         liste_ennemis.append(IA_ennemis_chasseurs(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
+        #     for i in range(niveau // 3):
+        #         liste_ennemis.append(IA_ennemis_basiques(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
         
-        # Si le niveau (vague) actuel est divisible par 3, on fait apparaitre des Ennemis Basiques et Chasseurs
-        elif niveau%3 == 0 and niveau != 0:
-            var_intermediaire = niveau // 3
-            if var_intermediaire > 5:
-                var_intermediaire = 5
-            for i in range(var_intermediaire):
-                liste_ennemis.append(IA_ennemis_chasseurs(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
-            for i in range(var_intermediaire//2):
-                liste_ennemis.append(IA_ennemis_basiques(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
-        else:
-            if niveau > 10:
-                niveau = 10
+        # # Si le niveau (vague) actuel est divisible par 3, on fait apparaitre des Ennemis Basiques et Chasseurs
+        # elif niveau%3 == 0 and niveau != 0:
+        #     var_intermediaire = niveau // 3
+        #     if var_intermediaire > 5:
+        #         var_intermediaire = 5
+        #     for i in range(var_intermediaire):
+        #         liste_ennemis.append(IA_ennemis_chasseurs(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
+        #     for i in range(var_intermediaire//2):
+        #         liste_ennemis.append(IA_ennemis_basiques(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
+        # else:
+        #     if niveau > 10:
+        #         niveau = 10
             
-            # Sinon, on fait apparaitre des Enemis Basiques
-            for i in range(niveau):
-                liste_ennemis.append(IA_ennemis_basiques(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
-        for i in range(len(liste_ennemis)):
-            liste_navire.append(liste_ennemis[i])
-        
+        #     # Sinon, on fait apparaitre des Enemis Basiques
+        #     for i in range(niveau):
+        #         liste_ennemis.append(IA_ennemis_basiques(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
+        # for i in range(len(liste_ennemis)):
+        #     liste_navire.append(liste_ennemis[i])
+
+        liste_ennemis.append(IA_ennemis_stage_2(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
+        liste_navire.append(liste_ennemis[0])
+
         # On donne de la vie au joueur à chaque fin de vague
         liste_joueur[0].heal_par_vague()
         niveau += 1
