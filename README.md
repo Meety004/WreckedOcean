@@ -85,6 +85,10 @@ Le jeu est encore en développement, les bugs seront donc corrigés avec les fut
 Le jeu **Wrecked Ocean** est un jeu qui se joue en solo. Vous y incarnerez un pirate cherchant à devenir le meilleur et le plus riche de tous. Pour cela, vous devrez chercher de l'équipement puissant sur des îles et affronterez des ennemis puissants lors de vagues intenses pour récupérer leurs équipements légendaires !
 **Wrecked Ocean** est un jeu de réactivité, de stratégie et d'action. Vous pouvez collecter près de 25 équipements différents ainsi que de nombreuses bénédictions.
 
+Le bateau du joueur:
+
+![Le bateau du joueur](/data/images/README/bateauJoueur.png)
+
 ## __**Les îles**__
 Vous pourrez voir apparaitre différentes îles remplies d'équipements. Il existe quatre sortes d'îles qui ont des probabilités d'apparition différentes:
 -  **Les îles communes**
@@ -227,78 +231,101 @@ Voici la liste de tous ces équiements triés par rareté, avec leur probabilit�
         - Coque Trouée (6,66%) - Malus - Inverse les commandes de déplacement
 
 
-            ![Le bateau ennemi](/data/images/README/coque_malus.png)
+            ![Coque Trouée](/data/images/README/coque_malus.png)
         
         - Canons Rouillés (6,66%) - Malus - Rend les projectiles 25% plus lents
 
             
-            ![Le bateau ennemi](/data/images/README/canon_malus.png)
+            ![Canons Rouillés](/data/images/README/canon_malus.png)
+
+        - Voile Trouée (6,66%) - Malus - Diminue la vitesse maximale du joueur de 20%
+
+
+            ![Voile Trouée](/data/images/README/voile_malus.png)
+
 
 - Commun
     - Coques:
 
-        ![Le bateau ennemi](/data/images/README/coque_commun.png)
+        ![Coque Commune](/data/images/README/coque_commun.png)
 
         - Coque chêne (20%) - Augmente la vitesse maximale de 5%
         - Coque épicéa (10%) - Ajoute 10 à la santé maximale du joueur
 
     - Canons:
 
-        ![Le bateau ennemi](/data/images/README/canon_commun.png)
+        ![Canons Communs](/data/images/README/canon_commun.png)
 
         - +1 Canon (10%) - Ajoute un canon à l'avant
         - Canon en bronze (20%) - Ajoute 20% de dégâts aux projectiles
 
     - Voiles:
+
+        ![Voile Commune](/data/images/README/voile_commune.png)
+
         - Voile en toile de jute (20%) - Augmente la vitesse maximale de 5%
-        - Voile Trouée (6,66%) - Malus - Diminue la vitesse maximale du joueur de 20%
+        
 
 - Rare
     - Coques:
 
-        ![Le bateau ennemi](/data/images/README/coque_rare.png)
+        ![Coque Rare](/data/images/README/coque_rare.png)
 
         - Coque en bouleau (10%) - Ajoute 10 à la santé maximale du joueur et augmente la vitesse maximale de 5%
         - Coque en chêne massif (10%) - Ajoute 75 à la santé maximale du joueur
+
     - Canons:
     
-        ![Le bateau ennemi](/data/images/README/canon_rare.png)
+        ![Canons Rares](/data/images/README/canon_rare.png)
 
         - +2 Canons (10%) - Ajoute un canon à l'avant et à l'arrière
         - Canon en argent (17,5%) - Ajoute 33% de dégats  et 5% de vitesse aux projectiles
         - Canon Ballistique (10%) - Multiplie la distance maximale des projectiles par 2
     - Voiles:
+
+        ![Voile Rare](/data/images/README/voile_rare.png)
+
         - Voile Latine (17,5%) - Augmente la vitesse maximale de 10%
 
 - Mythique
     - Coques:
 
-        ![Le bateau ennemi](/data/images/README/coque_mythique.png)
+        ![Coque Mythique](/data/images/README/coque_mythique.png)
 
         - Coque en bois magique (12%) - Ajoute 50 à la santé maximale du joueur  et augmente la vitesse maximale de 20% et à une chance de 20% de ne pas se prendre les dégâts
+    
     - Canons:
     
-        ![Le bateau ennemi](/data/images/README/canon_mythique.png)
+        ![Canons Mythiques](/data/images/README/canon_mythique.png)
 
         - +3 Canons (12%) - Ajoute un canon à l'avant, à l'arrière et dans la diagonale avant droite du bateau
         - Canon en or (12%) - Ajoute 66% de dégats et 10% de vitesse au projectiles et augmente la cadence de tir de 10%
         - Canon à tirs doubles (12%) - Tire un deuxième projectile après chaque tir
+
     - Voiles:
+
+        ![Voile Mythique](/data/images/README/voile_mythique.png)
+
         - Voile enchantée (12%) - Augmente le vitesse maximale de 25% et augmente la maniabilité de 2%
 
 - Légendaire
     - Coques:
 
-        ![Le bateau ennemi](/data/images/README/coque_legendaire.png)
+        ![Coque Légendaire](/data/images/README/coque_legendaire.png)
 
         - Coque légendaire (12,5%) - Ajoute 60 à la santé maximale du joueur  et augmente la vitesse maximale de 30%
+
     - Canons:
     
-        ![Le bateau ennemi](/data/images/README/canon_legendaire.png)
+        ![Canons Légendaires](/data/images/README/canon_legendaire.png)
 
         - +4 Canons (12,5%) - Ajoute un canon à l'avant, à l'arrière et dans les deux diagonales à l'avant du bateau
         - Canon légendaire (12,5%) - Ajoute 133% de dégats et 15% de vitesse au projectiles et augmente la cadence de tir de 10%
+
     - Voiles:
+
+        ![Voile Légendaire](/data/images/README/voile_legendaire.png)
+
         - Voile légendaire (12,5%) - Augmente le vitesse maximale de 30% et augmente la maniabilité de 5%
 
         
