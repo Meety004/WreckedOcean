@@ -70,7 +70,7 @@ class Iles:
         self.liste_recompenses_communes = ['+1 Canon', 'Canon en bronze', 'Voile en toile de jute', 'Coque épicéa', 'Coque chêne', self.random_malus()[0]]
         self.probabilité_commun = [0, 0, 0, 0, 0.5, 0.5]
         self.liste_recompenses_rares = ['+2 Canons', 'Canon en argent', 'Canon ballistique', 'Voile latine', 'Coque en bouleau', 'Coque en chêne massif', 'Bénédiction Dash', 'Bénédiction Santé']
-        self.probabilité_rare = [0, 0, 0, 0.5, 0, 0, 0.5, 0.5]
+        self.probabilité_rare = [0, 0, 0, 0, 0, 0, 0.5, 0.5]
         self.liste_recompenses_mythiques = ['+3 Canons', 'Canon en or', 'Canon à tirs doubles', 'Voile enchantée', 'Coque en bois magique', "Bénédiction d'aura", 'Bénédiction de rage']
         self.probabilité_mythique = [0, 0, 0, 0, 0, 0.5, 0.5]
         self.liste_recompenses_legendaires = ['+4 Canons', 'Canon légendaire', 'Voile légendaire', 'Coque légendaire', 'Bénédiction GodMode', 'Bénédiction Projectiles']
