@@ -140,8 +140,8 @@ class Navire:
         self.DisplayIconNew = None
         self.DisplayIconPast = None
 
-        self.timer_benediction_1 = res.Timer(0)  # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
-        self.timer_benediction_2 = res.Timer(0) # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
+        self.timer_benediction_1 = res.Timer(1)  # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
+        self.timer_benediction_2 = res.Timer(1) # Initialiser avec une durée de 0 pour permettre l'utilisation immédiate
         self.timer_dash = 15
         self.timer_sante = 20
         self.timer_aura = 30
@@ -444,6 +444,8 @@ class Navire:
         return self.maniabilite
     def get_cadence_tir(self):
         return self.cadence_tir
+    def get_benedictions(self):
+        return self.benedictions
     
     def getEquipement(self):
         return self.equipement
