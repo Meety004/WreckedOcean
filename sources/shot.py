@@ -4,12 +4,13 @@ import ressources as res
 
 class Shot:
     def __init__(self, x, y, angle, distance_max, img, tireur, canons, inraged, tupleScreen):
+        """ chaque shot est un objet. ils sont créés par pair. ils prennent en parametre : la position initiale, l'angle de tir (les cotés du tireur), la distance maximale qu'ils peuvent parcourir, l'image du boulet, l'ID du tireur, le type de canon et si le tireur est enragé ou non """
         self.x = x
         self.y = y
         self.position_initiale_x = x
         self.position_initiale_y = y
-        self.width = 32
-        self.height = 32
+        self.width = 22
+        self.height = 22
         self.angle = angle
         self.vitesse = 9
         self.distance_max = distance_max
@@ -37,28 +38,36 @@ class Shot:
 
     # le boulet avance
     def avancer(self, liste_navire):
+        """ il prend en parametre la liste navire. le boulet avace tant qu'il ne croise pas un navire avec le même ID que le tireur """
         bateaux_in_range = []
         bateau_proche = None
+
+        # calcule la position des bateaux pour voir il n'y en a pas un a proximité
         for i in range(len(liste_navire)):
             if res.calc_distance(self.x, self.y, liste_navire[i].position_x(), liste_navire[i].position_y()) <= 40 and self.ID_tireur != liste_navire[i].ID:
                 bateaux_in_range.append((liste_navire[i], res.calc_distance(self.x, self.y, liste_navire[i].position_x(), liste_navire[i].position_y())))
+        
+        # la cible sera le premier bateau dans la liste si ils sont tous a la même distance
         if len(bateaux_in_range) > 0:
             bateau_proche = bateaux_in_range[0]
+        # si un navire se rapproche du boulet et se trouve plus proche que la cible actuelle, il devient la nouvelle cible.
         if bateau_proche is not None:
             for i in range(len(bateaux_in_range)):
                 if bateaux_in_range[i][1] > bateau_proche[1]:
                     bateau_proche = bateaux_in_range[i]
 
+        # ajuste la position du tire pour l'incliner vers le bateau le plus proche afin d'aider le joueur a toucher sa cible
         if bateau_proche is not None:
-            if self.x > bateau_proche[0].x:
+            if self.x > bateau_proche[0].x: # ajuste les x
                 self.x -= self.vitesse
             else:
                 self.x += self.vitesse
-            if self.y > bateau_proche[0].y:
+            if self.y > bateau_proche[0].y: # ajuste les y
                 self.y -= self.vitesse
             else:
                 self.y += self.vitesse
         else:
+            # si il n'y a pas de bateau a proximité le boulet continue sa trajectoire
             self.x += self.vitesse * math.cos(math.radians(self.angle - 90))
             self.y += self.vitesse * math.sin(math.radians(self.angle - 90))
 
