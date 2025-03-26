@@ -18,17 +18,7 @@ Vous devez publier le code source du projet lorsque vous redistribuez ou distrib
 Plus d'informations sur la licence GPL v3 peuvent être trouvées sur le site officiel de la Free Software Foundation.
 
 
-2. Licence du texte
-Le contenu textuel de ce projet est sous la licence Creative Commons Attribution - Partage dans les mêmes conditions (CC BY-SA). Vous êtes libre de :
-
-Partager : copier, distribuer et transmettre le texte dans n'importe quel format ou support.
-Modifier : adapter, transformer et créer à partir de ce texte, même à des fins commerciales, tant que vous respectez les conditions suivantes :
-Vous devez attribuer le texte à l'auteur d'origine de manière appropriée, fournir un lien vers la licence, et indiquer si des modifications ont été apportées.
-Vous devez distribuer le texte modifié sous la même licence CC BY-SA.
-Pour plus d'informations sur la licence Creative Commons CC BY-SA, consultez Creative Commons.
-
-
-3. Licence du fichier de police d'écriture
+2. Licence du fichier de police d'écriture
 La police d'écriture utilisée dans ce projet est SH PINSCHER, sous la licence Font Software. Voici les conditions de cette licence :
 
 Utilisation, modification et redistribution : Vous êtes libre d'utiliser, étudier, modifier et redistribuer la police (y compris ses versions dérivées) à des fins personnelles, commerciales et charitables, sous réserve des conditions suivantes :
@@ -40,3 +30,4 @@ Le nom des détenteurs de droits d'auteur (Tinghao Hu) ne doit pas être utilis�
 Clause de non-responsabilité : La police est fournie "en l'état", sans garantie d'aucune sorte, expresse ou implicite, y compris mais non limité à la garantie de qualité marchande, d'adéquation à un usage particulier et de non-violation des droits de propriété intellectuelle. En aucun cas le détenteur des droits d'auteur ne pourra être tenu responsable de toute réclamation, dommage ou autre responsabilité découlant de l'utilisation ou de l'incapacité d'utiliser la police.
 
 Pour plus d'informations sur la licence de la police et pour toute demande ou suggestion, vous pouvez contacter l'auteur à l'adresse suivante : tinghaohu@live.cn.
+Retrouvez le fichier de licence de la police "SH PINSCHER" dans le répertoire docs.

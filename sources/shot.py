@@ -1,16 +1,25 @@
+# Projet: WRECKED OCEAN
+# Auteurs: BELLEC-ESCALERA Elliot, CADEAU--FLAUJAT Gabriel, KELEMEN Thomas, GABRIEL TOM
+
 import math
 import pygame
 import ressources as res
 
 class Shot:
     def __init__(self, x, y, angle, distance_max, img, tireur, canons, inraged, tupleScreen):
-        """ chaque shot est un objet. ils sont créés par pair. ils prennent en parametre : la position initiale, l'angle de tir (les cotés du tireur), la distance maximale qu'ils peuvent parcourir, l'image du boulet, l'ID du tireur, le type de canon et si le tireur est enragé ou non """
+        """ 
+        Constructeur de la classe Shot
+        Chaque tir, est un objet
+        Arguments: la position initiale, l'angle de tir (les cotés du tireur), la distance maximale qu'ils peuvent parcourir, l'image du boulet, l'ID du tireur, le type de canon et si le tireur est enragé ou non 
+        """
         self.x = x
         self.y = y
         self.position_initiale_x = x
         self.position_initiale_y = y
-        self.width = 22
-        self.height = 22
+        self.screen_width = tupleScreen[0]
+        self.screen_height = tupleScreen[1]
+        self.width = self.screen_width*0.01125*1.75
+        self.height = self.screen_height*0.025*1.75
         self.angle = angle
         self.vitesse = 9
         self.distance_max = distance_max
@@ -18,11 +27,8 @@ class Shot:
         self.image = pygame.transform.scale(image, (self.width, self.height)).convert_alpha()
         self.ID_tireur = tireur
         self.canons = canons
-        self.screen_width = tupleScreen[0]
-        self.screen_height = tupleScreen[1]
 
-        #On change les caractéristiques des canons en fonction de l'équipement
-
+        # On change les caractéristiques des canons en fonction de l'équipement
         if self.canons == "Canon en argent":
             self.vitesse = self.vitesse * 1.05
         elif self.canons == "Canon en or":

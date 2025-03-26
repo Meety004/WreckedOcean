@@ -1,15 +1,44 @@
-main.py - Contient le code principal, la  base du jeu
+sources:
+    main.py:
+        Contient la boucle principale du jeu, la gestion d'affichage des images et de dessin à l'écran ainsi que la fonction de démarrage du jeu.
+    
+    IA_Ennemis.py:
+        Contient le code des agents (IA) des ennemis (Basiques, Chasseurs, Intelligents)
+    
+    Navire.py:
+        Contient la classe Navire, contenant toutes les méthodes liées aux navires (joueur et ennemis)
+    
+    class_button.py:
+        Contient le code des boutons du menu de l'interface principale
+    
+    class_menu.py:
+        Contient le code du menu de l'interface principale
+    
+    iles.py:
+        Contient le code des îles (génération, récompense)
+    
+    ressources.py:
+        Contient les diverses ressources nécessaires au bon fonctionnement du code (comparaisons, listes importantes…)
+    
+    shot.py:
+        Contient le code des tirs des canons
+data:
+    Fonts:
+        pixel-font.otf:
+            Fichier de police d'écriture
 
-IA_Ennemis.py - Contient le code de l'intelligence artificielle utilisée pour les ennemis
+    images:
+        Backgrounds:
+            Contient les frames du gif de fond d'écran
 
-Navire.py - Contient la classe Navire responsable du paramétrage des navires dans le jeu (vitesse, taille, modificateurs, maniabilité…)
+        Icons:
+            Contient les différentes icones du jeu (bénédictions, canons, coques, voiles)
 
-class_button.py - Contient le code des boutons du menu de l'interface principale
+        Interfaces:
+            Contient les différentes images des interfaces du jeu (barre de vie, Interface des bénédictions, Interface des équipements)
+        
+        Textures:
+            Contient les différentes textures du jeu (bateaux, îles)
 
-class_menu.py - Contient le code du menu de l'interface principale
-
-iles.py - Contient le code des îles
-
-ressources.py - Contient les diverses ressources nécessaires au bon fonctionnement du code (comparaisons, listes importantes…)
-
-shot.py - Contient le code des tirs des canons
+docs:
+    Contient différents fichiers de documentation (arborescence, licence, présentation)

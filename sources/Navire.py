@@ -220,6 +220,9 @@ class Navire:
 
     # On fait avancer le bateau en fonction de sa vitesse
     def avancer(self):
+        """
+        Fait avance le navire
+        """
 
         # Si le joueur a activé la bénédiction de rage, il va plus vite
         if self.inraged:
@@ -232,6 +235,10 @@ class Navire:
 
     #On charge toutes les icones et on les rogne pour éviter des ralentissements pendant le jeu
     def loadImages(self):
+        """
+        Charge les icones des équipements et des bénédictions
+        """
+
         self.CanonMalus = pygame.image.load(res.CanonMalus).convert_alpha()
         self.CanonMalus = pygame.transform.scale(self.CanonMalus, (6.55/100*self.screen_width, 12.7/100*self.screen_height))
 
@@ -297,6 +304,9 @@ class Navire:
 
     # Augmente la vitessse
     def accelerer(self):
+        """
+        Augmente la vitesse du navire
+        """
 
         # Accelere tant que la vitesse max n'est pas atteinte
         if self.vitesse < self.vitesse_max:
@@ -308,6 +318,9 @@ class Navire:
 
     # Si il arrete d'avancer le bateau décelère
     def ralentit(self):
+        """
+        Diminue la vitesse du navire
+        """
 
         # Ralentit tant que la vitesse n'est pas nulle
         if self.vitesse > 0:
@@ -319,6 +332,9 @@ class Navire:
 
     # On gère la rotation vers la gauche du bateau
     def tourne_gauche(self):
+        """
+        Fait tourner le navire à gauche
+        """
         if self.vitesse > 0:
             self.angle -= self.maniabilite
 
@@ -328,25 +344,36 @@ class Navire:
 
     # On gère la rotation vers la droite du bateau
     def tourne_droite(self):
+        """
+        Fait tourner le navire à droite
+        """
         if self.vitesse > 0:
-            self.angle += self.maniabilitet
+            self.angle += self.maniabilite
 
             # Si l'angle est superieur à 360, on lui enlève 360 pour qu'il reste toujours entre 0 et 360
             if self.angle >= 360:
                 self.angle -= 360
 
     # Pour que le bateau ne sorte pas de l'ecran et revienne de l'autre côté
-    def sortir_ecran(self, largeur_ecran, longueur_ecran):
-        if self.x > largeur_ecran:
+    def sortir_ecran(self, longueur_ecran, hauteur_ecran):
+        """
+        Gère la sortie d'écran des navires
+        Arguments: screen_width, screen_height
+        """
+        if self.x > longueur_ecran:
             self.x = 0
         if self.x < 0:
-            self.x = largeur_ecran
-        if self.y > longueur_ecran:
+            self.x = longueur_ecran
+        if self.y > hauteur_ecran:
             self.y = 0
         if self.y < 0:
-            self.y = longueur_ecran
+            self.y = hauteur_ecran
 
     def afficher(self, screen):
+        """
+        Affiche le bateau à l'écran
+        Arguments: screen
+        """
         # Appliquer la rotation à l'image d'origine sans la modifier définitivement
         rotated_image = pygame.transform.rotate(self.image, -self.angle).convert_alpha()
         rect = rotated_image.get_rect(center=(self.x, self.y))
@@ -356,6 +383,9 @@ class Navire:
         screen.blit(rotated_image, self.rect)
 
     def shoot(self):
+        """
+        Gère les tirs du navire
+        """
         # Vérifie si le canon a rechargé
         if pygame.time.get_ticks() - self.dernier_tir >= self.cadence_tir:
             self.dernier_tir = pygame.time.get_ticks()
@@ -414,6 +444,10 @@ class Navire:
         
     # On fait un deuxième tir lorsque le timer est fini
     def GererEventTir(self, event, liste_tirs):
+        """
+        Gère le tir double
+        Argument: event, liste_tirs
+        """
 
         if event.type == tirDouble and (self.equipement["canons"] == "Canon à tirs doubles" or self.giga_tir_double):
             
@@ -441,6 +475,11 @@ class Navire:
         
     # On gère les dégats
     def get_damaged(self, damage):
+        """
+        Fait des dégats au navire touché
+        Argument: damage
+        """
+        r = None
 
         # Si le navire a la coque en bois magique, il y a 20% de chance de ne pas prendre de dégat
         if self.equipement['coque'] == "Coque en bois magique":
@@ -452,6 +491,9 @@ class Navire:
     
     # On vérifie si le navire est en vie
     def is_dead(self):
+        """
+        Vérifie si le navire n'a plus de vie
+        """
         if self.vie <= 0:
             return True
         return False
@@ -459,110 +501,190 @@ class Navire:
     # On renvoie différentes caractéristiques de la classe
 
     def position_x(self):
-
+        """
+        Renvoie l'ordonnée du navire
+        """
         return self.x
 
     def position_y(self):
+        """
+        Renvoie l'abscisse du navire
+        """
         return self.y
 
-
     def get_width(self):
+        """
+        Renvoie la longueur de l'écran
+        """
         return self.width
-
-
+    
     def get_height(self):
+        """
+        Renvoie la hauteur de l'écran
+        """
         return self.height
 
-
     def get_angle(self):
+        """
+        Renvoie l'angle de rotation du navire
+        """
         return self.angle
 
-
     def get_ID(self):
+        """
+        Renvoie l'ID du navire
+        """
         return self.ID
 
-
     def get_rect(self):
+        """
+        Renvoie le rect du navire
+        """
         return self.rect
 
-
     def get_vie(self):
+        """
+        Renvoie la vie du navire
+        """
         return self.vie
 
-
     def get_max_vie(self):
+        """
+        Renvoie la vie max du navire
+        """
         return self.maxVie
 
-
     def get_speed(self):
+        """
+        Renvoie la vitesse du navire
+        """
         return self.vitesse
 
-
     def get_max_speed(self):
+        """
+        Renvoie la vitesse max du navire
+        """
         return self.vitesse_max
 
-
     def get_maniabilite(self):
+        """
+        Renvoie la maniabilité du navire
+        """
         return self.maniabilite
 
-
     def get_cadence_tir(self):
+        """
+        Renvoie la cadence de tir du navire
+        """
         return self.cadence_tir
 
-
     def get_benedictions(self):
+        """
+        Renvoie la liste des bénédictions du navire
+        """
         return self.benedictions
-    
 
     def getEquipement(self):
+        """
+        Renvoie le dictionnaire des équipements du navire
+        """
         return self.equipement
-    
 
     def getPastDisplay(self):
+        """
+        Renvoie l'icone de l'équipement actuel
+        """
         return self.DisplayIconPast
-     
 
     def getNewDisplay(self):
+        """
+        Renvoie l'icone de l'équipement qui a été trouvé
+        """
         return self.DisplayIconNew
-    
 
     def getItemUI(self):
+        """
+        Renvoie l'image d'interface de choix d'équipement
+        """
         return self.ItemsUI
-    
 
     def getBenedictionUI(self):
+        """
+        Renvoie l'image d'interface de choix de bénédiction
+        """
         return self.benedictionUI
-    
 
     def getTitleTextPast(self):
+        """
+        Renvoie le nom de l'équipement actuel
+        """
         return self.TitleTextPast
-    
 
     def getDescriptionTextPast(self):
+        """
+        Renvoie la description de l'équipement actuel
+        """
         return self.DescriptionTextPast
-    
 
     def getTitleTextNew(self):
+        """
+        Renvoie le nom de l'équipement qui a été trouvé
+        """
         return self.TitleTextNew
-    
 
     def getDescriptionTextNew(self):
+        """
+        Renvoie la description de l'équipement qui a été trouvé
+        """
         return self.DescriptionTextNew
-    
 
     def getImages(self):
+        """
+        Renvoie les icones de la voile, de la coque, et du canon actuels
+        """
         return self.iconCoque, self.iconVoile, self.iconCanon
-    
 
     def getBenedictionsImages(self):
+        """
+        Renvoie les icones des bénédicitons à afficher
+        """
         return self.newBenedictionIcon, self.iconBenediction1, self.iconBenediction2
-    
 
     def getBenedictionsTexts(self):
+        """
+        Renvoie les noms et descriptions des bénédictions à afficher
+        """
         return self.benedictions[0], self.benedictions[1], self.TitleTexteBeneNew, self.DescriptionTextBeneNew
+    
+    def is_giga_tir(self):
+        """
+        Renvoie l'état de la bénédiction projectiles
+        """
+        return self.giga_tir
+    
+    def is_inrage(self):
+        """
+        Renvoie l'état de la bénédiction de rage
+        """
+        return self.inraged
+    
+    def aura_active(self):
+        """
+        Renvoie l'état de la bénédiction d'aura
+        """
+        return self.has_aura
+    
+    def godmode_active(self):
+        """
+        Renvoie l'état de la bénédiction de GodMode
+        """
+        return self.godmode
     
     # On charge le texte de l'interface des équipements si ce n'est pas déjà le cas
     def LoadText(self):
+        """
+        Met à jour les textes à afficher sur l'interface de choix des équipements
+        """
         if not isinstance(self.TitleTextPast, pygame.Surface):
             self.TitleTextPast = self.TitleFont.render(self.equipement[self.typeRec], True, (0, 0, 0))
         if not isinstance(self.DescriptionTextPast, pygame.Surface):
@@ -577,12 +699,19 @@ class Navire:
 
     # On charge le texte de l'interface des bénédictions
     def LoadTextBene(self):
+        """
+        Met à jour les textes à afficher sur l'interface de choix des bénédictions
+        """
         self.TitleTexteBeneNew = self.TitleFont.render(self.recompense[0], True, (0, 0, 0))
         benediction = self.recompense[0]
         self.DescriptionTextBeneNew = self.DescriptionFont.render(res.dictBenedictionsBuff[benediction], True, (0, 0, 0))
 
     # On vérifie si l'île existe, sinon on met toutes les variables d'affichage à zéro.
     def verifIleExiste(self, liste_iles):
+        """
+        Vérifie si l'ile existe encore
+        Argument: liste_iles
+        """
         if (self.ile_actuelle is not None) and (self.ile_actuelle not in liste_iles):
             self.afficher_benediction = False
             self.afficher_items = False
@@ -591,6 +720,10 @@ class Navire:
 
     # On gère l'affichage de l'interface de choix des équipements
     def equipInterface(self, recompense, xIle, yIle, ile):
+        """
+        Gère l'affichage de l'interface de choix des équipements
+        Arguments: recompense, xIle, yIle, ile
+        """
         self.recompense = recompense
 
         # On change le type d'équipement
@@ -644,6 +777,10 @@ class Navire:
 
     # On gère l'affichage de l'interface de choix des bénédictions    
     def beneInterface(self, xIle, yIle, ile):
+        """
+        Gère l'affichage de l'interface de choix des bénédictions
+        Arguments: xIle, yIle, ile
+        """
 
         # On vérifie si la navire est dans un rayon de 75 d'une ile
         if res.calc_distance(self.x, self.y, xIle, yIle) <= 75:
@@ -679,6 +816,9 @@ class Navire:
 
     # On met à jour les icones à afficher en fonction du type d'équipement sur l'ile  
     def updateDisplayIconItem(self):
+        """
+        Met à jour les icones d'équipement à afficher
+        """
         
         # Si l'équipement est un canon, on affiche le canon actuel du joueur
         if self.recompense[0] in res.listeCanons:
@@ -715,6 +855,8 @@ class Navire:
                 self.DisplayIconNew = self.VoileMythique
             elif self.recompense[1] == "légendaire":
                 self.DisplayIconNew = self.VoileLegendaire
+        
+        # Si l'équipement est un malus, on met à jour l'icone
         elif self.recompense[0] in res.liste_malus:
             if self.recompense[0] == res.liste_malus[0]:
                 self.DisplayIconPast = self.iconCanon
@@ -726,7 +868,12 @@ class Navire:
                 self.DisplayIconPast = self.iconCoque
                 self.DisplayIconNew = self.CoqueMalus
 
+    # On met à jour les icones de bénédiction à afficher sur l'interface de choix des bénédictions
     def updateDisplayIconBene(self):
+        """
+        Met à jour les icones de bénédiction à afficher
+        """
+
         if self.recompense[0] == "Bénédiction Dash":
             self.newBenedictionIcon = self.Dash
         elif self.recompense[0] == "Bénédiction d'aura":
@@ -740,8 +887,12 @@ class Navire:
         elif self.recompense[0] == "Bénédiction Santé":
             self.newBenedictionIcon = self.Sante
 
+    # Mettre à jour l'équipement en fonction de la récompense
     def equiper(self):
-        # Mettre à jour l'équipement en fonction de la récompense
+        """
+        Met à jour l'équipement du type de celui trouvé sur l'ile
+        """
+
         if self.recompense[0] in res.listeCanons or self.recompense[0] == res.liste_malus[0]:
             self.equipement['canons'] = self.recompense[0]
         elif self.recompense[0] in res.listeVoiles or self.recompense[0] == res.liste_malus[1]:
@@ -750,7 +901,12 @@ class Navire:
             self.equipement['coque'] = self.recompense[0]
         self.effetItem()
 
+    # Equiper une bénédiction dans l'emplacement principal ou secondaire en fonction de la récompense
     def equiper_benediction(self, emplacement):
+        """
+        Equipe la bénédiction dans l'emplacement spécifié
+        Argument: emplacement
+        """
         if self.recompense[0] in res.liste_benedictions:
             if emplacement == 0:
                 self.benedictions[0] = self.recompense[0]
@@ -759,13 +915,18 @@ class Navire:
                 self.benedictions[1] = self.recompense[0]
                 self.iconBenediction2 = self.newBenedictionIcon
         
-
-
+    # On met à jour les variables du navire changées par les équipements
     def effetItem(self):
+        """
+        Applique les modificateurs des équipements
+        """
+
+        # On remet la vitesse, la vie max et la maniabilité à zéro pour pouvoir les modifier ensuite
         self.maxVie = 50
         self.vitesse_max = 5
         self.maniabilite = 4
 
+        # Modificateurs des coques
         if self.recompense[0] in res.listeCoques:
             self.iconCoque = self.DisplayIconNew
             self.CoqueMaxVie = 0
@@ -792,6 +953,7 @@ class Navire:
                 self.vie += 60
                 self.CoqueMaxVitesse = 1.3
 
+        # Modificateurs des voiles
         elif self.recompense[0] in res.listeVoiles:
             self.iconVoile = self.DisplayIconNew
             self.VoileMaxVitesse = 1
@@ -807,11 +969,13 @@ class Navire:
                 self.VoileMaxVitesse = 1.3
                 self.maniabilite = self.maniabilite * 1.05
 
+        # Modificateurs des voiles
         elif self.recompense[0] in res.listeCanons:
             self.iconCanon = self.DisplayIconNew
             if (self.equipement['canons'] == "Canon en or") or (self.equipement['canons'] == "Canon légendaire"):
                 self.cadence_tir = 600
 
+        # Modificateurs des malus
         elif self.recompense[0] in res.liste_malus:
             if self.recompense[0] == "Voile Trouée":
                 self.iconVoile = self.DisplayIconNew
@@ -821,27 +985,36 @@ class Navire:
             elif self.recompense[0] == "Coque Trouée":
                 self.iconCoque = self.DisplayIconNew
 
+        # On ajoute les modificateurs entre eux
         self.maxVie = self.maxVie + self.VoileMaxVie + self.CoqueMaxVie
         self.vitesse_max = self.vitesse_max * self.VoileMaxVitesse * self.CoqueMaxVitesse
         if self.vie > self.maxVie:
             self.vie = self.maxVie
 
-    # benediction 1 est comme benediction 2 mais en plus puissant
+    # Activation de la bénédiction primaire, plus puissante que la bénédiction secondaire
     def use_benediction_1(self):
+        """
+        Utilise la bénédiction primaire
+        """
+
         if len(self.benedictions) > 0:
+
+            # Fais un dash de 200 pixels si le cooldown est écoulé
             if self.timer_benediction_1.timer_ended_special(self.timer_dash) or self.timer_benediction_1.timer_ended():
-                if self.benedictions[0] == "Bénédiction Dash": # te fait dasher de 200
+                if self.benedictions[0] == "Bénédiction Dash":
                     self.x += 200 * math.cos(math.radians(self.angle - 90))
                     self.y += 200 * math.sin(math.radians(self.angle - 90))
                     self.timer_benediction_1 = res.Timer(50)
             
+            # Rend 50% de la vie max si le cooldown est écoulé
             if self.timer_benediction_1.timer_ended_special(self.timer_sante) or self.timer_benediction_1.timer_ended():
-                if self.benedictions[0] == "Bénédiction Santé": # te rend 50% de ta vie max
+                if self.benedictions[0] == "Bénédiction Santé":
                     self.vie += math.floor(self.maxVie*0.5)
                     if self.vie > self.maxVie:
                         self.vie = self.maxVie
                     self.timer_benediction_1 = res.Timer(50)
             
+            # Crée une zone de 2 dégats par seconde autour du navire pendant 10 secondes si le cooldown est écoulé
             if self.timer_benediction_1.timer_ended_special(self.timer_aura) or self.timer_benediction_1.timer_ended():
                 if self.benedictions[0] == "Bénédiction d'aura":
                     self.aura_timer = res.Timer(10)
@@ -849,6 +1022,7 @@ class Navire:
                     self.timer_benediction_1 = res.Timer(50)
                     self.aura_degat = 2
 
+            # Baisse la vie mais augmente la vitesse et les dégats pendant 15 secondes si le cooldown est écoulé
             if self.timer_benediction_1.timer_ended_special(self.timer_rage) or self.timer_benediction_1.timer_ended():
                 if self.benedictions[0] == "Bénédiction de rage":
                     self.rage_timer = res.Timer(15)
@@ -857,13 +1031,15 @@ class Navire:
                     self.vie = 20
                     self.timer_benediction_1 = res.Timer(50)
                     self.gif_rage = True
-                
+            
+            # Rend le navire invincible pendant 20 seondes si le cooldown est écoulé
             if self.timer_benediction_1.timer_ended_special(self.timer_godmode) or self.timer_benediction_1.timer_ended():
                 if self.benedictions[0] == "Bénédiction GodMode":
                     self.godmode = True
                     self.godmode_timer = res.Timer(20)
                     self.timer_benediction_1 = res.Timer(50)
             
+            # Envoie une multitude de projectiles en tir double autour du navire pendant 8 secondes si le cooldown est écoulé
             if self.timer_benediction_1.timer_ended_special(self.timer_giga_tir) or self.timer_benediction_1.timer_ended():
                 if self.benedictions[0] == "Bénédiction Projectiles":
                     self.giga_tir = True
@@ -871,22 +1047,30 @@ class Navire:
                     self.timer_giga_tir_duree = res.Timer(8)
                     self.timer_benediction_1 = res.Timer(50)
         
-
+    # Activation de la bénédiction secondaire, moins puissante que la bénédiction primaire
     def use_benediction_2(self):
+        """
+        Utilise la bénédiction secondaire
+        """
+        
         if len(self.benedictions) > 1:
+
+            # Fais un dash de 100 pixels si le cooldown est écoulé
             if self.timer_benediction_2.timer_ended_special(self.timer_dash) or self.timer_benediction_2.timer_ended():
-                if self.benedictions[1] == "Bénédiction Dash": # te fait dasher de 100
+                if self.benedictions[1] == "Bénédiction Dash":
                     self.x += 100 * math.cos(math.radians(self.angle - 90))
                     self.y += 100 * math.sin(math.radians(self.angle - 90))
                     self.timer_benediction_2 = res.Timer(50)
-            
+
+            # Rend 25% de la vie max si le cooldown est écoulé
             if self.timer_benediction_2.timer_ended_special(self.timer_sante) or self.timer_benediction_2.timer_ended():
-                if self.benedictions[1] == "Bénédiction Santé": # te rend 50% de ta vie max
+                if self.benedictions[1] == "Bénédiction Santé":
                     self.vie += math.floor(self.maxVie*0.25)
                     if self.vie > self.maxVie:
                         self.vie = self.maxVie
                     self.timer_benediction_2 = res.Timer(50)
             
+            # Crée une zone de 1 dégat par seconde autour du navire pendant 10 secondes si le cooldown est écoulé
             if self.timer_benediction_2.timer_ended_special(self.timer_aura) or self.timer_benediction_2.timer_ended():
                 if self.benedictions[1] == "Bénédiction d'aura":
                     self.aura_timer = res.Timer(10)
@@ -894,6 +1078,7 @@ class Navire:
                     self.timer_benediction_2 = res.Timer(50)
                     self.aura_degat = 1
 
+            # Baisse la vie mais augmente la vitesse et les dégats pendant 10 secondes si le cooldown est écoulé
             if self.timer_benediction_2.timer_ended_special(self.timer_rage) or self.timer_benediction_2.timer_ended():
                 if self.benedictions[1] == "Bénédiction de rage":
                     self.rage_timer = res.Timer(10)
@@ -902,54 +1087,69 @@ class Navire:
                     self.vie = 20
                     self.timer_benediction_2 = res.Timer(50)
                     self.gif_rage = True
-                
+            
+            # Rend le navire invincible pendant 10 seondes si le cooldown est écoulé
             if self.timer_benediction_2.timer_ended_special(self.timer_godmode) or self.timer_benediction_2.timer_ended():
                 if self.benedictions[1] == "Bénédiction GodMode":
                     self.godmode = True
                     self.godmode_timer = res.Timer(10)
                     self.timer_benediction_2 = res.Timer(50)
 
+             # Envoie une multitude de projectiles en tir simple autour du navire pendant 5 secondes si le cooldown est écoulé
             if self.timer_benediction_2.timer_ended_special(self.timer_giga_tir) or self.timer_benediction_2.timer_ended():
                 if self.benedictions[1] == "Bénédiction Projectiles":    
                     self.giga_tir = True
                     self.timer_giga_tir_duree = res.Timer(5)
                     self.timer_benediction_2 = res.Timer(50)
 
+    # On remet la vie que le navire avait avant d'activer la bénédiction de rage, que l'on désactive
     def still_inraged(self):
+        """
+        Désactive la bénédiciton de rage
+        """
         if self.inraged:
             if self.rage_timer != None and self.rage_timer.timer_ended():
                 self.inraged = False
                 self.vie = int(math.floor(self.maxVie * self.life_before_rage))
                 self.rage_timer = None
 
+    # On désactive la bénédiction de projectiles
     def still_giga_tir(self):
+        """
+        Désactive la bénédiciton d'aura
+        """
         if self.giga_tir:
             if self.timer_giga_tir_duree.timer_ended():
                 self.giga_tir = False
                 self.giga_tir_double = False
 
-    def is_giga_tir(self):
-        return self.giga_tir
-    
-    def is_inrage(self):
-        return self.inraged
-    
+    # On désactive la bénédiction de GodMode
     def in_godmode(self):
+        """
+        Désactive la bénédiciton de GodMode
+        """
         if self.godmode:
             if self.godmode_timer.timer_ended():
                 self.godmode = False
                 self.godmode_timer = None
     
-    def godmode_active(self):
-        return self.godmode
-    
+    # On désactive le gif de l'indicateur de rage
     def stop_animation_rage(self):
+        """
+        Désactive de gif de la bénédiction de rage
+        """
         self.gif_rage = False
     
     def aura_activated(self, liste_navires):
+        """
+        Met à jour les dégats de l'aura en fonctio de la distance
+        Argument: liste_navires
+        """
         if self.has_aura:
             for n in liste_navires:
                 if self.aura_damage_timer.timer_ended() and n.get_ID() != self.ID:
+
+                    # On augmente les dégats de l'aura en fonction de la distance au navire
                     if res.calc_distance(self.x, self.y, n.position_x(), n.position_y()) <= 150:
                         n.get_damaged(self.aura_degat)
                         if res.calc_distance(self.x, self.y, n.position_x(), n.position_y()) <= 120:
@@ -961,69 +1161,18 @@ class Navire:
                                     if res.calc_distance(self.x, self.y, n.position_x(), n.position_y()) <= 30:
                                         n.get_damaged(self.aura_degat)
                         self.aura_damage_timer.reset()
+            
+            # On désactive la bénédiction d'aura'
             if self.aura_timer.timer_ended():
                 self.has_aura = False
                 self.aura_timer = None
 
-    def aura_active(self):
-        return self.has_aura
-            
 
-
-    def updateIcons(self):
-        if self.recompense[1] == "commun":
-            if self.recompense[0] in res.listeCanons:
-                self.AncienneiconCanon = self.iconCanon
-                self.iconCanon = res.CanonCommun
-            elif  self.recompense[0] in res.listeVoiles:
-                self.AncienneiconVoile = self.iconVoile
-                self.iconVoile = res.VoileCommun
-            elif  self.recompense[0] in res.listeCoques:
-                self.AncienneiconCoque = self.iconCoque
-                self.iconCoque = res.CoqueCommun
-            elif self.recompense[0] in res.liste_malus:
-                if self.equipement['voile'] == "Voile Trouée":
-                    self.AncienneiconVoile = self.iconVoile
-                    self.iconVoile = res.VoileMalus
-                if self.equipement['canons'] == "Canons Rouillés":
-                    self.AncienneiconCanon = self.iconCanon
-                    self.iconCanon = res.CanonMalus
-                if self.equipement['coque'] == "Coque Trouée":
-                    self.AncienneiconCoque = self.iconCoque
-                    self.iconCoque = res.CoqueMalus
-        elif self.recompense[1] == "rare":
-            if self.recompense[0] in res.listeCanons:
-                self.AncienneiconCanon = self.iconCanon
-                self.iconCanon = res.CanonRare
-            elif  self.recompense[0] in res.listeVoiles:
-                self.AncienneiconVoile = self.iconVoile
-                self.iconVoile = res.VoileRare
-            elif  self.recompense[0] in res.listeCoques:
-                self.AncienneiconCoque = self.iconCoque
-                self.iconCoque = res.CoqueRare
-        elif self.recompense[1] == "mythique":
-            if self.recompense[0] in res.listeCanons:
-                self.AncienneiconCanon = self.iconCanon
-                self.iconCanon = res.CanonMythique
-            elif  self.recompense[0] in res.listeVoiles:
-                self.AncienneiconVoile = self.iconVoile
-                self.iconVoile = res.VoileMythique
-            elif  self.recompense[0] in res.listeCoques:
-                self.AncienneiconCoque = self.iconCoque
-                self.iconCoque = res.CoqueMythique
-        elif self.recompense[1] == "légendaire":
-            if self.recompense[0] in res.listeCanons:
-                self.AncienneiconCanon = self.iconCanon
-                self.iconCanon = res.CanonLegendaire
-            elif  self.recompense[0] in res.listeVoiles:
-                self.AncienneiconVoile = self.iconVoile
-                self.iconVoile = res.VoileLegendaire
-            elif  self.recompense[0] in res.listeCoques:
-                self.AncienneiconCoque = self.iconCoque
-                self.iconCoque = res.CoqueLegendaire
-
-    
+    # On donne de la vie au joueur à chaque fin de vague
     def heal_par_vague(self):
+        """
+        Soigne le joueur à la fin de chaque vague
+        """
         if self.maxVie - self.vie <= 30:
             self.vie = self.maxVie
         else:
