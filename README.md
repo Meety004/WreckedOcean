@@ -7,13 +7,13 @@ Pour installer **Wrecked Ocean**, il existe deux méthodes:
 
 ### Cloner depuis GitHub:
 Pour ce faire, il vous sufit d'éxécuter la commande suivante dans un terminal:
-- ```git clone https://github.com/Meety004/BATOS-ET-MATS-J.git ```
+- ```git clone https://github.com/Meety004/WreckedOcean.git ```
 
 Ensuite, télécharger les librairies nécessaires au fonctionnement du programme grâce à la commande suivante:
-- ```pip install -r BATOS-ET-MATS-J/requirements.txt ```
+- ```pip install -r WreckedOcean/requirements.txt ```
 
 Pour lancer le programme, naviguez jusqu'au dossier de jeu:
-- ```cd BATOS-ET-MATS-J ```
+- ```cd WreckedOcean ```
 
 Enfin, éxécutez la commande suivante:
 - ```python sources/main.py ```
@@ -47,8 +47,8 @@ Il vous faudra ensuite extraire les fichiers.
 
 Ensuite, dans un terminal, éxécutez les commandes suivantes une fois que vous êtes dans le répertoire où se situe le jeu.
 
-- ```pip install -r BATOS-ET-MATS-J/requirements.txt ```
-- ```cd BATOS-ET-MATS-J ```
+- ```pip install -r WreckedOcean/requirements.txt ```
+- ```cd WreckedOcean ```
 - ```python sources/main.py ```
 
 Un écran noir s'affichera pendant quelques secondes ou moins, dépendant de votre ordinateur avant de faire apparaitre le menu du jeu.
