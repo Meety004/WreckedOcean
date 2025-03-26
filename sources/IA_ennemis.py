@@ -13,28 +13,35 @@ from Navire import Navire
 
 class IA_ennemis_basiques(Navire):
     def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt):
+        """
+        Constructeur des IA basiques
+        Prend en argument la vitesse max, l'acceleration, la maniabilité, l'image du navire et la taille de l'écran
+        """
         super().__init__(v_max, acceleration, maniabilite, image, screen_width, screen_height, dt, 1)
         self.action = random.randint(0, 2) # 0 = aller tout droit, 1 = tourner a gauche, 2 = tourner a droite
-        self.compte_action = 0 # compte combien de fois l'IA fait la même action (ne peut pas la faire plus de 23 fois)
+        self.compte_action = 0 # compte combien de fois l'IA fait la même action (ne peut pas la faire plus de 23 fois d'affilée)
         self.verif_ile = (False, 0) # infos sur une île à portée
 
-    # vérifie si la cible de cette IA est à portée de cette IA
     def ennemi_in_range(self, liste_adversaire):
+        """ vérifie si la cible de cette IA est à portée de cette IA """
         for ennemi in liste_adversaire:
             if ennemi.get_ID() != self.ID:
                 if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 120:
                     return True
         return False
     
-    # vérifie si une île est à portée
     def ile_in_range(self, liste_iles):
+        """ vérifie si une île est à portée """
         for ile in range(len(liste_iles)):
             if res.calc_distance(self.x, self.y, liste_iles[ile].position_x(), liste_iles[ile].position_y()) <= 300:
                 return (True, ile)
         return (False, 0)
 
-    # Gère les déplacements de l'IA
     def bouger(self, liste_adversaire, liste_iles, inutile):
+        """
+        Gère les déplacements de l'IA
+        Prend en compte la liste_adversaire(la liste liste_navire), la liste des îles et un quatrième argument non utilisé
+        """
         self.verif_ile = self.ile_in_range(liste_iles)
         if self.verif_ile[0]: # si une île est à portée, se dirige vers l'île, sinon, se déplace aléatoirement
             calcul_intermediaire = self.y - liste_iles[self.verif_ile[1]].position_y() # différence de la valeur y entre l'IA et l'île
@@ -58,7 +65,7 @@ class IA_ennemis_basiques(Navire):
             if nouvelle_action > 3: # si c'est 0 elle va tout droit, si c'est 1 elle tourne à droite si c'est 2 à gauche et sinon elle refait la même action qu'avant pour eviter de changer tout le temps de trajectoire
                 nouvelle_action = self.action
             
-            if self.compte_action >= 23: # verifie si ça fait plus de 23 fois qu'elle fait la même chose pour changer un peu (23 car tourner 23 fois représente un 180 et c'est inutile d'aller au delà)
+            if self.compte_action >= 23: # verifie si ça fait plus de 23 fois qu'elle fait la même action pour changer un peu (car tourner 23 fois représente un 180 et c'est inutile d'aller au delà)
                 while nouvelle_action == self.action: # tant que c'est la même action ca change
                     nouvelle_action = random.randint(0, 50)
                     if nouvelle_action > 3:
@@ -73,7 +80,7 @@ class IA_ennemis_basiques(Navire):
             
             self.action = nouvelle_action
 
-            if self.ennemi_in_range(liste_adversaire):
+            if self.ennemi_in_range(liste_adversaire):# si un ennemi est à portée, sa vitesse est augmentée
                 self.vitesse_max = 5
             else: # si aucun ennemi est à portée il avance comme prévu
                 self.vitesse_max = 4
@@ -86,28 +93,39 @@ class IA_ennemis_basiques(Navire):
         super().avancer()
 
     def tirer(self, cible_x, cible_y, inutile):
+        """ Gère les tirs de l'IA """
         # si l'ennemi est à distance même s'il n'est pas bien incliné ça tire
         if res.calc_distance(self.x, self.y, cible_x, cible_y) <= 140:
             return super().shoot()
 
     def position_x(self):
+        """ Renvoie la position x """
         return self.x
     
     def position_y(self):
+        """ Renvoie la position y """
         return self.y
 
 class IA_ennemis_chasseurs(Navire):
     def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt):
+        """
+        Constructeur des IA chasseurs
+        Prend en argument la vitesse max, l'acceleration, la maniabilité, l'image du navire et la taille de l'écran
+        """
         super().__init__(v_max, acceleration, maniabilite, image, screen_width, screen_height, dt, 2)
     
-    # vérifie si le joueur est à portée de cette IA
     def joueur_in_range(self, liste_joueur):
+        """ vérifie si le joueur est à portée de cette IA """
         if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 120:
             return True
         return False
 
-    # Gère les déplacements de l'IA
     def bouger(self, inutile1, inutile2, liste_joueur):
+        """
+        Gère les déplacements de l'IA
+        Prend en compte deux arguments non utilisés et la liste_joueur
+        """
+        #L'IA chasseur se dirige constamment vers le joueur
         calcul_intermediaire = self.y - liste_joueur[0].position_y()
         if calcul_intermediaire < 0 :
             calcul_intermediaire = -calcul_intermediaire
@@ -129,23 +147,30 @@ class IA_ennemis_chasseurs(Navire):
         super().avancer()
     
     def tirer(self, inutilex, inutiley, liste_joueur):
+        """ Gère les tirs de l'IA """
         # si l'ennemi est à distance même s'il n'est pas bien incliné ça tire
         if self.joueur_in_range(liste_joueur):
             return super().shoot()
 
     def position_x(self):
+        """ Renvoie la position x de l'IA """
         return self.x
     
     def position_y(self):
+        """ Renvoie la position y de l'IA """
         return self.y
 
 class IA_ennemis_stage_2(Navire):
     def __init__(self, v_max, acceleration, maniabilite, image, screen_width, screen_height, dt):
+        """
+        Constructeur des IA stage 2 (ou "intelligentes")
+        Prend en argument la vitesse max, l'acceleration, la maniabilité, l'image du navire et la taille de l'écran
+        """
         super().__init__(v_max, acceleration, maniabilite, image, screen_width, screen_height, dt, 3)
         self.action = random.randint(0, 2)
 
-    # vérifie si le joueur est à portée de cette IA
     def joueur_in_range(self, liste_joueur):
+        """ vérifie si le joueur est à portée de cette IA """
         if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 250:
             return (True, True)
         elif res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 120:
@@ -153,16 +178,20 @@ class IA_ennemis_stage_2(Navire):
         else:
             return (False, False)
         
-    # vérifie si une île est à portée
     def ile_in_range(self, liste_iles):
+        """ vérifie si une île est à portée """
         for ile in range(len(liste_iles)):
             if res.calc_distance(self.x, self.y, liste_iles[ile].position_x(), liste_iles[ile].position_y()) <= 300:
                 return (True, ile)
         return (False, 0)
         
     def bouger(self, inutile, liste_iles, liste_joueur):
-        if self.joueur_in_range(liste_joueur)[0]:
-            if self.equipement['canons'] not in ('+1 Canon', '+2 Canons', '+4 Canons'):
+        """
+        Gère les déplacements de l'IA
+        Prend en compte un argument non utilisé, la liste des îles et la liste_joueur
+        """
+        if self.joueur_in_range(liste_joueur)[0]:# Si le joueur est proche, se dirige vers lui
+            if self.equipement['canons'] not in ('+1 Canon', '+2 Canons', '+4 Canons'):# Si l'IA a un équipement qui lui permet de tirer devant elle, elle se dirige tout droit vers le joueur, sinon s'incline de façon à l'atteindre
                 if self.x < liste_joueur[0].position_x():
                     operateur = 60
                 elif self.x > liste_joueur[0].position_x():
@@ -189,7 +218,7 @@ class IA_ennemis_stage_2(Navire):
                 elif angle_joueur < -5:
                     super().tourne_gauche()
         
-        elif self.ile_in_range(liste_iles)[0] and res.comparaison_valeur_equipement_ile(liste_iles[self.ile_in_range(liste_iles)[1]], self.equipement, self.benedictions):
+        elif self.ile_in_range(liste_iles)[0] and res.comparaison_valeur_equipement_ile(liste_iles[self.ile_in_range(liste_iles)[1]], self.equipement, self.benedictions):# Si le joueur n'est pas proche et qu'une île de valeur suffisante par rapport à l'équipement de l'IA est proche
             self.verif_ile = self.ile_in_range(liste_iles)
             if self.verif_ile[0]: # si une île est à portée, se dirige vers l'île, sinon, se déplace aléatoirement
                 calcul_intermediaire = self.y - liste_iles[self.verif_ile[1]].position_y() # différence de la valeur y entre l'IA et l'île
