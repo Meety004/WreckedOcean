@@ -23,8 +23,10 @@ class IA_ennemis_basiques(Navire):
         self.verif_ile = (False, 0) # infos sur une île à portée
 
     def ennemi_in_range(self, liste_adversaire):
-        """ vérifie si la cible de cette IA est à portée de cette IA
-        Argument : liste des adversaires(liste_navire)"""
+        """ 
+        Vérifie si la cible de cette IA est à portée de cette IA
+        Argument : liste des adversaires(liste_navire)
+        """
         for ennemi in liste_adversaire:
             if ennemi.get_ID() != self.ID:
                 if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 120:
@@ -32,8 +34,10 @@ class IA_ennemis_basiques(Navire):
         return False
     
     def ile_in_range(self, liste_iles):
-        """ vérifie si une île est à portée
-        Argument : liste des îles"""
+        """ 
+        Vérifie si une île est à portée
+        Argument : liste des îles
+        """
         for ile in range(len(liste_iles)):
             if res.calc_distance(self.x, self.y, liste_iles[ile].position_x(), liste_iles[ile].position_y()) <= 300:
                 return (True, ile)
@@ -95,18 +99,24 @@ class IA_ennemis_basiques(Navire):
         super().avancer()
 
     def tirer(self, cible_x, cible_y, inutile):
-        """ Gère les tirs de l'IA
-        Prend en argument la position x et y de la cible et un argument non utilisé """
+        """ 
+        Gère les tirs de l'IA
+        Prend en argument la position x et y de la cible et un argument non utilisé 
+        """
         # si l'ennemi est à distance même s'il n'est pas bien incliné ça tire
         if res.calc_distance(self.x, self.y, cible_x, cible_y) <= 140:
             return super().shoot()
 
     def position_x(self):
-        """ Renvoie la position x """
+        """ 
+        Renvoie la position x 
+        """
         return self.x
     
     def position_y(self):
-        """ Renvoie la position y """
+        """ 
+        Renvoie la position y 
+        """
         return self.y
 
 class IA_ennemis_chasseurs(Navire):
@@ -151,18 +161,24 @@ class IA_ennemis_chasseurs(Navire):
         super().avancer()
     
     def tirer(self, inutilex, inutiley, liste_joueur):
-        """ Gère les tirs de l'IA 
-        Prend deux arguments non utiilisés et la liiste_joueur """
+        """ 
+        Gère les tirs de l'IA 
+        Prend deux arguments non utiilisés et la liiste_joueur 
+        """
         # si le joueur est à distance ça tire
         if self.joueur_in_range(liste_joueur):
             return super().shoot()
 
     def position_x(self):
-        """ Renvoie la position x de l'IA """
+        """ 
+        Renvoie la position x de l'IA 
+        """
         return self.x
     
     def position_y(self):
-        """ Renvoie la position y de l'IA """
+        """ 
+        Renvoie la position y de l'IA
+          """
         return self.y
 
 class IA_ennemis_stage_2(Navire):
@@ -175,8 +191,10 @@ class IA_ennemis_stage_2(Navire):
         self.action = random.randint(0, 2)
 
     def joueur_in_range(self, liste_joueur):
-        """ vérifie si le joueur est à portée de cette IA
-        Argument : liste_joueur"""
+        """ 
+        Vérifie si le joueur est à portée de cette IA
+        Argument : liste_joueur
+        """
         if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 250:
             return (True, True)
         elif res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 120:
@@ -185,8 +203,10 @@ class IA_ennemis_stage_2(Navire):
             return (False, False)
         
     def ile_in_range(self, liste_iles):
-        """ vérifie si une île est à portée
-        Argument : liste des îles"""
+        """ 
+        Vérifie si une île est à portée
+        Argument : liste des îles
+        """
         for ile in range(len(liste_iles)):
             if res.calc_distance(self.x, self.y, liste_iles[ile].position_x(), liste_iles[ile].position_y()) <= 300:
                 return (True, ile)
@@ -259,8 +279,10 @@ class IA_ennemis_stage_2(Navire):
         super().avancer()
 
     def utilisation_benediction(self, liste_joueur):
-        """ Gère l'utilisation des bénédictions 
-        Argument : liste_joueur"""
+        """ 
+        Gère l'utilisation des bénédictions 
+        Argument : liste_joueur
+        """
 
         if "Bénédiction Dash" in self.benedictions:# Utilise le dash si le joueur est à plus de 500px de distance
             if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) > 500:
@@ -303,7 +325,9 @@ class IA_ennemis_stage_2(Navire):
             self.use_benediction_2()
 
     def choix_slot_benediction(self):
-        """ Gère le choix de positionnement de la bénédiction """
+        """ 
+        Gère le choix de positionnement de la bénédiction 
+        """
         if self.recompense[0] in res.liste_benedictions:
             if self.benedictions[0] == None:
                 return 0
@@ -315,15 +339,21 @@ class IA_ennemis_stage_2(Navire):
                 return 1
 
     def tirer(self, inutilex, inutiley, liste_joueur):
-        """ Gère les tirs
-        Prend en argument deux arguments non utilisés et la liste_joueur """
+        """ 
+        Gère les tirs
+        Prend en argument deux arguments non utilisés et la liste_joueur 
+        """
         if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) < 80 :
             return super().shoot()
 
     def position_x(self):
-        """ Renvoie la position x """
+        """ 
+        Renvoie la position x 
+        """
         return self.x
     
     def position_y(self):
-        """ Renvoie la position y """
+        """ 
+        Renvoie la position y 
+        """
         return self.y

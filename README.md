@@ -336,30 +336,48 @@ Voici la liste de tous ces bénédicitons triées par rareté, avec leur probabi
 - __**Rare**__
 
     - __Bénédiction Dash__ (12,5%) (Cooldown - 15 sec)
+
+        ![Bénédiction Dash](/data/images/README/beneDash.png)
+
         - Emplacement Principal - Permet au joueur de se propulser vers l'avant de manière considérable
         - Emplacement Secondaire - Permet au joueur de se propulser vers l'avant de manière plutôt efficace
       
-    - __Bénédiction Santé__ (12,5%) (Cooldown - 40 sec) 
+    - __Bénédiction Santé__ (12,5%) (Cooldown - 40 sec)
+
+        ![Bénédiction Santé](/data/images/README/beneSante.png)
+
         - Emplacement Principal - Permet au joueur de restaurer 50% de ses points de vie max
         - Emplacement Secondaire - Permet au joueur de restaurer 25% de ses points de vie max
 
 - __**Mythique**__
 
-    - __Bénédiction d'Aura__ (20%) (Cooldown - 30sec) 
+    - __Bénédiction d'Aura__ (20%) (Cooldown - 30sec)
+
+        ![Bénédiction d'Aura](/data/images/README/beneAura.png)
+
         - Emplacement Principal - Crée une zone autour du joueur qui infligera entre 2 et 10 dégats aux ennemis en fonction de leur proximité
         - Emplacement Secondaire - Crée une zone autour du joueur qui infligera entre 1 et 5 dégats aux ennemis en fonction de leur proximité
     
-    - __Bénédiction de Rage__ (20%) (Cooldown - 30sec) 
+    - __Bénédiction de Rage__ (20%) (Cooldown - 30sec)
+
+        ![Bénédiction de Rage](/data/images/README/beneRage.png)
+
         - Emplacement Principal - Augmente les dégats et la vitesse du joueur (+50%) pendant 10 sec, mais le limite temporairement à 30 pts de vie
         - Emplacement Secondaire - Augmente les dégats et la vitesse du joueur (+50%) pendant 5 sec, mais le limite temporairement à 20 pts de vie
 
 - __**Légendaire**__
 
-    - __Bénédiction Godmode__ (25%) (Cooldown - 40sec) 
+    - __Bénédiction Godmode__ (25%) (Cooldown - 40sec)
+
+        ![Bénédiction GodMode](/data/images/README/beneGodMode.png)
+
         - Emplacement Principal - Permet au joueur de ne pas prendre de dégats pendant 10 sec
         - Emplacement Secondaire - Permet au joueur de ne pas prendre de dégats pendant 5 sec
       
-    - __Bénédiction Projectile__ (25%) (Cooldown - 50sec) 
+    - __Bénédiction Projectiles__ (25%) (Cooldown - 50sec)
+
+        ![Bénédiction Projectiles](/data/images/README/beneProjectiles.png)
+
         - Emplacement Principal - Permet au joueur d'envoyer une horde de projectile autour de lui quand il tire pendant 10 sec (tir double)
         - Emplacement Secondaire - Permet au joueur d'envoyer une horde de projectile autour de lui quand il tire pendant 10 sec (tir simple)
 
