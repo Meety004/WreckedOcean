@@ -23,7 +23,8 @@ class IA_ennemis_basiques(Navire):
         self.verif_ile = (False, 0) # infos sur une île à portée
 
     def ennemi_in_range(self, liste_adversaire):
-        """ vérifie si la cible de cette IA est à portée de cette IA """
+        """ vérifie si la cible de cette IA est à portée de cette IA
+        Argument : liste des adversaires(liste_navire)"""
         for ennemi in liste_adversaire:
             if ennemi.get_ID() != self.ID:
                 if res.calc_distance(self.x, self.y, ennemi.position_x(), ennemi.position_y()) <= 120:
@@ -31,7 +32,8 @@ class IA_ennemis_basiques(Navire):
         return False
     
     def ile_in_range(self, liste_iles):
-        """ vérifie si une île est à portée """
+        """ vérifie si une île est à portée
+        Argument : liste des îles"""
         for ile in range(len(liste_iles)):
             if res.calc_distance(self.x, self.y, liste_iles[ile].position_x(), liste_iles[ile].position_y()) <= 300:
                 return (True, ile)
@@ -93,7 +95,8 @@ class IA_ennemis_basiques(Navire):
         super().avancer()
 
     def tirer(self, cible_x, cible_y, inutile):
-        """ Gère les tirs de l'IA """
+        """ Gère les tirs de l'IA
+        Prend en argument la position x et y de la cible et un argument non utilisé """
         # si l'ennemi est à distance même s'il n'est pas bien incliné ça tire
         if res.calc_distance(self.x, self.y, cible_x, cible_y) <= 140:
             return super().shoot()
@@ -115,7 +118,8 @@ class IA_ennemis_chasseurs(Navire):
         super().__init__(v_max, acceleration, maniabilite, image, screen_width, screen_height, dt, 2)
     
     def joueur_in_range(self, liste_joueur):
-        """ vérifie si le joueur est à portée de cette IA """
+        """ vérifie si le joueur est à portée de cette IA
+        Argument : liste_joueur"""
         if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 120:
             return True
         return False
@@ -147,8 +151,9 @@ class IA_ennemis_chasseurs(Navire):
         super().avancer()
     
     def tirer(self, inutilex, inutiley, liste_joueur):
-        """ Gère les tirs de l'IA """
-        # si l'ennemi est à distance même s'il n'est pas bien incliné ça tire
+        """ Gère les tirs de l'IA 
+        Prend deux arguments non utiilisés et la liiste_joueur """
+        # si le joueur est à distance ça tire
         if self.joueur_in_range(liste_joueur):
             return super().shoot()
 
@@ -170,7 +175,8 @@ class IA_ennemis_stage_2(Navire):
         self.action = random.randint(0, 2)
 
     def joueur_in_range(self, liste_joueur):
-        """ vérifie si le joueur est à portée de cette IA """
+        """ vérifie si le joueur est à portée de cette IA
+        Argument : liste_joueur"""
         if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 250:
             return (True, True)
         elif res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 120:
@@ -179,7 +185,8 @@ class IA_ennemis_stage_2(Navire):
             return (False, False)
         
     def ile_in_range(self, liste_iles):
-        """ vérifie si une île est à portée """
+        """ vérifie si une île est à portée
+        Argument : liste des îles"""
         for ile in range(len(liste_iles)):
             if res.calc_distance(self.x, self.y, liste_iles[ile].position_x(), liste_iles[ile].position_y()) <= 300:
                 return (True, ile)
@@ -238,7 +245,7 @@ class IA_ennemis_stage_2(Navire):
                     elif angle_ile < -5:
                         super().tourne_gauche()
 
-        else:
+        else:# Se déplace aléatoirement
             change = random.randint(0, 20)
             if change == 0:
                 self.action = random.randint(0, 3)
@@ -252,47 +259,51 @@ class IA_ennemis_stage_2(Navire):
         super().avancer()
 
     def utilisation_benediction(self, liste_joueur):
-        if "Bénédiction Dash" in self.benedictions:
+        """ Gère l'utilisation des bénédictions 
+        Argument : liste_joueur"""
+
+        if "Bénédiction Dash" in self.benedictions:# Utilise le dash si le joueur est à plus de 500px de distance
             if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) > 500:
                 if self.benedictions[0] == "Bénédiction Dash":
                     self.use_benediction_1()
                 else:
                     self.use_benediction_2()
         
-        if "Bénédiction Santé" in self.benedictions:
+        if "Bénédiction Santé" in self.benedictions:# Utilise le soin si sa vie est à moitié ou moins
             if self.vie <= (self.maxVie/2):
                 if self.benedictions[0] == "Bénédiction Santé":
                     self.use_benediction_1()
                 else:
                     self.use_benediction_2()
         
-        if "Bénédiction d'aura" in self.benedictions:
+        if "Bénédiction d'aura" in self.benedictions:# Utilise l'aura si le joueur est assès proche
             if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 120:
                 if self.benedictions[0] == "Bénédiction d'aura":
                     self.use_benediction_1()
                 else:
                     self.use_benediction_2()
 
-        if "Bénédiction Projectiles" in self.benedictions:
+        if "Bénédiction Projectiles" in self.benedictions:# Utilise le méga tir si le joueur est assès proche
             if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 100:
                 if self.benedictions[0] == "Bénédiction Projectiles":
                     self.use_benediction_1()
                 else:
                     self.use_benediction_2()
 
-        if "Bénédiction GodMode" in self.benedictions:
+        if "Bénédiction GodMode" in self.benedictions:# Utilise le godmode si le joueur est proche et l'IA a peu de vie
             if self.vie <= 30 and res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) <= 400:
                 if self.benedictions[0] == "Bénédiction GodMode":
                     self.use_benediction_1()
                 else:
                     self.use_benediction_2()
 
-        if self.benedictions[0] == "Bénédiction de rage":
+        if self.benedictions[0] == "Bénédiction de rage":# Utilise la rage dès qu'elle est disponible
             self.use_benediction_1()
         elif self.benedictions[1] == "Bénédiction de rage":
             self.use_benediction_2()
 
     def choix_slot_benediction(self):
+        """ Gère le choix de positionnement de la bénédiction """
         if self.recompense[0] in res.liste_benedictions:
             if self.benedictions[0] == None:
                 return 0
@@ -304,12 +315,15 @@ class IA_ennemis_stage_2(Navire):
                 return 1
 
     def tirer(self, inutilex, inutiley, liste_joueur):
-        # si l'ennemi est à distance même s'il n'est pas bien incliné ça tire
+        """ Gère les tirs
+        Prend en argument deux arguments non utilisés et la liste_joueur """
         if res.calc_distance(self.x, self.y, liste_joueur[0].position_x(), liste_joueur[0].position_y()) < 80 :
             return super().shoot()
 
     def position_x(self):
+        """ Renvoie la position x """
         return self.x
     
     def position_y(self):
+        """ Renvoie la position y """
         return self.y
