@@ -144,11 +144,12 @@ def comparaison_valeur_equipement_ile(ile, equipement, benedictions):
     else:
         val_ile = 4
     
-    if val_equip<val_ile:#renvoie True si 
+    if val_equip<val_ile:
         return True
     else:
         return False
 
+# Liste des bénédictions
 liste_benedictions = [
     "Bénédiction Dash", 
     "Bénédiction Santé",
@@ -158,12 +159,14 @@ liste_benedictions = [
     "Bénédiction Projectiles"
 ]
 
+# Liste des malus
 liste_malus = [
     "Canons Rouillés",
     "Voile Trouée",
     "Coque Trouée"
 ]
 
+# Liste des canons
 listeCanons = [
     "Canon de base",
     "+1 Canon",
@@ -178,6 +181,7 @@ listeCanons = [
     "Canon légendaire"
 ]
 
+# Liste des coques
 listeCoques = [
     "Coque de base",
     "Coque épicéa",
@@ -188,6 +192,7 @@ listeCoques = [
     "Coque légendaire"
 ]
 
+# Liste des voiles
 listeVoiles = [
     "Voile de base",
     "Voile en toile de jute",
@@ -196,12 +201,14 @@ listeVoiles = [
     "Voile légendaire"
 ]
 
+# Equipement au début d'une partie
 listeEquipementStart = [
     "Canons de base",
     "Voile de base",
     "Coque de base"
 ]
 
+# On load les images des différents équipements
 CoqueCommun = os.path.join("data",'images', 'icons', 'Coques', 'coque_commun.png')
 CoqueRare = os.path.join("data",'images', 'icons', 'Coques', 'coque_rare.png') 
 CoqueMythique = os.path.join("data",'images', 'icons', 'Coques', 'coque_mythique.png')
@@ -228,18 +235,21 @@ BeneProjectiles = os.path.join("data",'images', 'icons', 'Benedictions', 'bene_p
 BeneRage = os.path.join("data",'images', 'icons', 'Benedictions', 'bene_rage.png')
 BeneSante = os.path.join("data",'images', 'icons', 'Benedictions', 'bene_sante.png')
 
+# Liste des touches de déplacement
 keyBindList =  [
     pygame.K_UP,
     pygame.K_LEFT,
     pygame.K_RIGHT
 ]
 
+# Liste des touches de déplacement inversées si on a la coque trouée
 keyBindCursedList =  [
     pygame.K_DOWN,
     pygame.K_RIGHT,
     pygame.K_LEFT
 ]
 
+# Effets des équipements
 dictItemsBuff = {
     'Canons Rouillés': "Vitesse projectiles -25%",
     'Voile Trouée': "Vitesse Max -25%",
@@ -269,6 +279,7 @@ dictItemsBuff = {
     'Voile légendaire': "Vitesse Max +30% | Maniabilité +5%"
 }
 
+# Effet des bénédictions
 dictBenedictionsBuff = {
     "Bénédiction Dash": "Vous permet de faire une forte accélération",
     "Bénédiction Santé": "Ajoute 50% de votre PV max",
@@ -278,4 +289,5 @@ dictBenedictionsBuff = {
     "Bénédiction Projectiles": "Envoie une multitude de projectiles autour de vous"
 }
 
+# Load de la casse
 fontPixel = os.path.join("data", 'Fonts', 'pixel-font.otf')
