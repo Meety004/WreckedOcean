@@ -37,8 +37,6 @@ class Iles:
             self.typeList = choices(self.ile_rarete, weights=[0.38, 0.30, 0.22, 0.10], k=1)
         elif self.vague >= 7:
             self.typeList = choices(self.ile_rarete, weights=[0.22, 0.33, 0.30, 0.15], k=1)
-        else:
-            print("au secours", self.vague)
         
         self.type = self.typeList[0]
 

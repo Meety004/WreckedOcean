@@ -10,8 +10,6 @@ from IA_ennemis import *
 from iles import *
 from class_menu import *
 
-test = 1
-
 # Initialisation de Pygame
 pygame.init()
 
