@@ -449,7 +449,7 @@ while running:
 
 
     # Appelle de la fonction de compte à rebours pour l'apparition des îles
-    nbrIles, maxIles, timer = apparitionIles(nbrIles, maxIles, timer, niveau)
+    nbrIles, maxIles, timer = apparitionIles(nbrIles, maxIles, timer, niveau-1)
 
 
 
