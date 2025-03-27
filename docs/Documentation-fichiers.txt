@@ -40,5 +40,8 @@ data:
         Textures:
             Contient les différentes textures du jeu (bateaux, îles)
 
+        README:
+            Contient les icones à afficher dans le README
+
 docs:
     Contient différents fichiers de documentation (arborescence, licence, présentation)
