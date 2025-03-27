@@ -140,10 +140,10 @@ def start_game():
         return timer
 
     # Apparition des îles sous certaines conditions (timer à 0, 5 îles au total maximum)
-    def apparitionIles(nbrIles, maxIles, timer):
+    def apparitionIles(nbrIles, maxIles, timer, vague):
         """
         Gère l'apparition et la disparition des îles
-        Prend en argument le nombre d'îles actuel, le nombre maximum d'île et le temps jusqu'à la prochaine apparition d'île
+        Prend en argument le nombre d'îles actuel, le nombre maximum d'île, le temps jusqu'à la prochaine apparition d'île et la vague actuelle
         Renvoie le nombre d'îles actuel, le nombre maximum d'île et le temps jusqu'à la prochaine apparition d'île
         """
         timer -= 1
@@ -152,13 +152,13 @@ def start_game():
         if timer <= 0:
             timer = setTimer()
             if nbrIles < maxIles:
-                liste_iles.append(Iles(screen_width, playHeight, os.path.join("data", "images", "Textures", "Iles", "ile_commune.png"), os.path.join("data", "images", "Textures", "Iles", "ile_rare.png"), os.path.join("data", "images", "Textures", "Iles", "ile_mythique.png"), os.path.join("data", "images", "Textures", "Iles", "ile_legendaire.png"),liste_navire, liste_iles, niveau))
+                liste_iles.append(Iles(screen_width, playHeight, os.path.join("data", "images", "Textures", "Iles", "ile_commune.png"), os.path.join("data", "images", "Textures", "Iles", "ile_rare.png"), os.path.join("data", "images", "Textures", "Iles", "ile_mythique.png"), os.path.join("data", "images", "Textures", "Iles", "ile_legendaire.png"),liste_navire, liste_iles, vague))
                 nbrIles += 1
         if nbrIles > maxIles:
             nbrIles = maxIles
             
         if nbrIles == 0:
-            liste_iles.append(Iles(screen_width, playHeight,os.path.join("data", "images", "Textures", "Iles", "ile_commune.png"), os.path.join("data", "images", "Textures", "Iles", "ile_rare.png"), os.path.join("data", "images", "Textures", "Iles", "ile_mythique.png"), os.path.join("data", "images", "Textures", "Iles", "ile_legendaire.png"),liste_navire, liste_iles, niveau))
+            liste_iles.append(Iles(screen_width, playHeight,os.path.join("data", "images", "Textures", "Iles", "ile_commune.png"), os.path.join("data", "images", "Textures", "Iles", "ile_rare.png"), os.path.join("data", "images", "Textures", "Iles", "ile_mythique.png"), os.path.join("data", "images", "Textures", "Iles", "ile_legendaire.png"),liste_navire, liste_iles, vague))
             timer = setTimer()
             nbrIles += 1
         return nbrIles, maxIles, timer
@@ -449,7 +449,7 @@ while running:
 
 
     # Appelle de la fonction de compte à rebours pour l'apparition des îles
-    nbrIles, maxIles, timer = apparitionIles(nbrIles, maxIles, timer)
+    nbrIles, maxIles, timer = apparitionIles(nbrIles, maxIles, timer, niveau)
 
 
 
