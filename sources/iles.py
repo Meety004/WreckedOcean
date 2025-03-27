@@ -19,7 +19,7 @@ class Iles:
         self.width = 5.20/100*screen_width
         self.height = 11.56/100*screen_height
 
-        self.vague = niveau + 1
+        self.vague = niveau
 
         # Choix du type d'île
 
