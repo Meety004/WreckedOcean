@@ -9,7 +9,7 @@ Pour installer **Wrecked Ocean**, il existe deux méthodes:
 Pour ce faire, il vous sufit d'éxécuter la commande suivante dans un terminal:
 - ```git clone https://github.com/Meety004/WreckedOcean.git ```
 
-Ensuite, télécharger les librairies nécessaires au fonctionnement du programme grâce à la commande suivante:
+Ensuite, téléchargez les librairies nécessaires au fonctionnement du programme grâce à la commande suivante:
 - ```pip install -r WreckedOcean/requirements.txt ```
 
 Pour lancer le programme, naviguez jusqu'au dossier de jeu:

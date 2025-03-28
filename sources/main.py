@@ -221,9 +221,6 @@ while running:
                 liste_ennemis.append(IA_ennemis_chasseurs(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
             for i in range(var_intermediaire//2):
                 liste_ennemis.append(IA_ennemis_basiques(4, 0.1, 4, pathBateau, screen_width, playHeight, dt))
-        else:
-            if niveau > 10:
-                niveau = 10
             
             # Sinon, on fait apparaitre des Enemis Basiques
             for i in range(niveau):
