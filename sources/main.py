@@ -38,6 +38,10 @@ for i in range(28):
 current_frame = 1
 spriteVY = 3
 
+# Chargement de la musique de fond
+pygame.mixer.music.load(os.path.join("data", "music", "menu_theme.mp3"))
+pygame.mixer.music.play(loops=-1)
+
 # Création du chemin du fichier du bateau du joueur
 pathBateau = os.path.join("data", "images", "Textures", "Bateaux", "bateau.png")
 
