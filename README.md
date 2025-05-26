@@ -413,7 +413,7 @@ Voici la liste des différents rôles et des élèves ayant participé au projet
     - KELEMEN Thomas (Navires ennemis)
     - GABRIEL Tom (UI et Animations)
 
-- README:
+- Textures:
     - BELLEC-ESCALERA Elliot (Indicateurs de bénédictions et Icones)
     - CADEAU--FLAUJAT Gabriel (Interfaces, Icones de bénédictions, Bateaux et Iles)
     - GABRIEL Tom (Icones des équipements)
