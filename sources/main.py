@@ -42,8 +42,11 @@ spriteVY = 3
 pygame.mixer.music.load(os.path.join("data", "music", "menu_theme.mp3"))
 pygame.mixer.music.play(loops=-1)
 
-# Création du chemin du fichier du bateau du joueur
+# Création du chemin du fichier des bateaux des ennemis
 pathBateau = os.path.join("data", "images", "Textures", "Bateaux", "bateau.png")
+pathBateauChasseur = os.path.join("data", "images", "Textures", "Bateaux", "bateau.png")
+pathBateauIle = os.path.join("data", "images", "Textures", "Bateaux", "bateau.png")
+
 
 # Chargement des images d'indication des bénédictions
 giga_tir_image = pygame.transform.scale(pygame.image.load(os.path.join("data", "images", "icons", "BenedictionsPlay", "giga_tir.png")), (70, 70)).convert_alpha() 
